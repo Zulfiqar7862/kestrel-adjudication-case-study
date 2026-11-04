@@ -49,7 +49,7 @@
     },
     "recommendation": "ESCALATED_TO_SENIOR_QA",
     "rationale": [
-      "Applied TT-CB-114: firmware TT-2.14.3 under-reports \u22641.8\u00b0C; corrected max 4.1\u21925.8999999999999995\u00b0C",
+      "Applied TT-CB-114: firmware TT-2.14.3 under-reports \u22641.8\u00b0C; corrected max 4.1\u21925.9\u00b0C",
       "master permitted_excursion_text differs from study: master='Refer QA'",
       "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-08-19",
       "Escalate: permitted allowance is 'Refer QA'"
