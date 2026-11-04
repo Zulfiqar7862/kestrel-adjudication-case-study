@@ -81,3 +81,29 @@ Low agreement with historical finals is expected and acceptable for this submiss
 ## 2026-11-04 ~10:47 — Docs committed
 
 Where-you-land, design, diagrams, prototype README, top README. Pushing incrementally to `main`.
+
+## 2026-11-04 ~10:57–11:05 — Production hardening pass
+
+Asked to take the submission to production level without touching `data/`. Prioritised per brief: evidence (3) → bitemporal store (2) → tests (7) → lifecycle (4) → shadow (5) → package (1) → docs (8) → API/Docker/CI (6).
+
+### What I kept from the prototype
+Engine decision logic, golden EXC-107133 behaviour, bulletin correction, presentation-mismatch handling. Ported into `src/kestrel_sentinel/` rather than rewriting — prototype tests still pass (15/15).
+
+### What I added
+- SQLite bitemporal store; workbook load creates snapshot `ref_snapshot_id`.
+- Evidence bundles: content hash + per-tenant hash chain; tamper test flips disposition to DESTROY and `verify_chain` fails.
+- Tenant isolation test: T-PINNACLE/T-MERIDIAN cannot read T-KAVERI bundle.
+- Lifecycle with reopen-months-later creating a linked case revision.
+- Shadow bulletin CLI: 91 TT-2.14.3 candidates, 91 diffs when bias removed (sampled 15 in `examples/`).
+- FastAPI smoke tests via TestClient.
+
+### Measured
+EXC-107133 full-basis retrieval **0.72 ms** locally (`examples/retrieval_latency.txt`). Retention stamped to 2033 (7 years).
+
+### Discarded during this pass
+- Postgres / separate object store — SQLite + filesystem is enough to prove the audit properties under the time box; swap-out is a boundary (`EvidenceStore` / `BitemporalStore`).
+- Re-implementing the engine in Pydantic models end-to-end — would burn the window; kept dataclass engine, added Pydantic at API/domain edges.
+- Committing `.data/` evidence for all 420 events — too large/noisy; committed EXC-107133 sample + 25-row CSV instead. Full run: `kestrel adjudicate`.
+
+### Still incomplete
+Live ingest, OCR annexures, batch cumulative ledger, LLM drafter (still deliberately out of decision path). API authn/z beyond tenant_code query param — production would use mTLS + tenant claims; called out as follow-on.

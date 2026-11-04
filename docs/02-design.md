@@ -227,3 +227,24 @@ Deterministic engine on auto-close path: ~0 model tokens. Drafter only on human-
 ## 7. Prototype scope vs production
 
 The prototype implements the **as-of adjudication engine** + pack loaders + identity/SOP/stability/regulatory slices + CLI replay. Stubs: live ingest, workbench, WORM store, LLM drafter, batch ledger, full alias governance UI. That split is intentional — see `docs/01-where-you-land.md` and `prototype/README.md`.
+
+---
+
+## 8. What was actually built (production pass, 2026-11-04)
+
+This section updates the design to match the code in `src/kestrel_sentinel/`.
+
+| Design element | Code |
+|---|---|
+| Bitemporal reference store | `store/bitemporal.py` (SQLite; `valid_*` + `tx_*`) |
+| Workbook ingest adapter | `ingest/workbook.py` → products, SOPs, stability, contracts, aliases, tenants, 420 alerts |
+| As-of engine | `adjudication/engine.py` (ported from prototype) + `resolution/*` |
+| Evidence WORM + hash chain | `evidence/store.py` — content-addressed JSON under `.data/evidence/<tenant>/`, indexed in SQLite |
+| Tenant isolation | `EvidenceStore.get(..., tenant_code=)` raises `PermissionError` on cross-tenant (Meridian Cl.22) |
+| Case lifecycle | `lifecycle/machine.py` — states incl. REOPENED; `storm_safe_queue` by `reg_deadline_utc` |
+| Shadow / Rao gate | `shadow/replay.py` + `kestrel shadow-bulletin` |
+| HTTP API | `api/app.py` (FastAPI): `/adjudicate`, `/evidence/*`, `/replay`, `/shadow/bulletin`, `/queue`, `/as-of/sop` |
+| CLI | `kestrel` entry point (`cli.py`) |
+| Packaging / CI | `pyproject.toml`, `Dockerfile`, `Makefile`, `.github/workflows/ci.yml` |
+
+**Deferred (documented, not blocking the evidence/audit story):** live vendor ingest adapters, OCR of handwritten annexure notes, full lane/batch exposure ledger UI, LLM justification drafter, multi-region deployment topology. The engine still consumes `prior_excursions_lane_90d` from the alert row as a stub for the lane panel.
