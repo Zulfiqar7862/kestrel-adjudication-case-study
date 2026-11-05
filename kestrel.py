@@ -72,6 +72,7 @@ class Settings:
     code_version: str = "0.3.0"
 
     def __post_init__(self) -> None:
+        """Normalize Path fields and apply optional KESTREL_* environment overrides."""
         self.data_pack = Path(self.data_pack)
         self.db_path = Path(self.db_path)
         self.evidence_dir = Path(self.evidence_dir)
@@ -104,7 +105,9 @@ from datetime import datetime, timezone
 
 
 class JsonFormatter(logging.Formatter):
+    """JSON log formatter for structured stdout logging."""
     def format(self, record: logging.LogRecord) -> str:
+        """Format a LogRecord as a single-line JSON object."""
         payload = {
             "ts": datetime.now(timezone.utc).isoformat(),
             "level": record.levelname,
@@ -119,6 +122,7 @@ class JsonFormatter(logging.Formatter):
 
 
 def setup_logging(level: str = "INFO") -> None:
+    """Configure the root logger with a JSON formatter at the given level."""
     root = logging.getLogger()
     root.handlers.clear()
     handler = logging.StreamHandler(sys.stdout)
@@ -132,6 +136,7 @@ from enum import Enum
 
 
 class Disposition(str, Enum):
+    """Allowed disposition / recommendation values for an excursion case."""
     AUTO_CLOSE = "AUTO_CLOSE"
     RELEASE = "RELEASE"
     RELEASE_WITH_NOTE = "RELEASE_WITH_NOTE"
@@ -154,6 +159,7 @@ ACTIONABLE = {
 
 
 class CaseState(str, Enum):
+    """Case lifecycle states from NEW through CLOSED_* and REOPENED."""
     NEW = "NEW"
     TRIAGED_NON_ACTIONABLE = "TRIAGED_NON_ACTIONABLE"
     PENDING_EVIDENCE = "PENDING_EVIDENCE"
@@ -168,6 +174,7 @@ class CaseState(str, Enum):
 
 
 class TransitionError(ValueError):
+    """Raised when a case state transition is not in the ALLOWED map."""
     pass
 
 
@@ -295,6 +302,7 @@ from openpyxl import load_workbook
 
 
 def _parse_dt(value: Any) -> Optional[datetime]:
+    """Parse a datetime-like value into a naive datetime, or None if unparseable."""
     if value is None or value == "":
         return None
     if isinstance(value, datetime):
@@ -316,11 +324,13 @@ def _parse_dt(value: Any) -> Optional[datetime]:
 
 
 def _parse_date(value: Any) -> Optional[date]:
+    """Parse a date-like value into a date, or None if unparseable."""
     dt = _parse_dt(value)
     return dt.date() if dt else None
 
 
-def _rows(ws) -> list[dict[str, Any]]:
+def _rows(ws: Any) -> list[dict[str, Any]]:
+    """Read an openpyxl worksheet into a list of header-keyed dict rows."""
     headers = [c.value for c in ws[1]]
     out = []
     for row in ws.iter_rows(min_row=2, values_only=True):
@@ -332,6 +342,7 @@ def _rows(ws) -> list[dict[str, Any]]:
 
 @dataclass
 class DataPack:
+    """In-memory view of the case-study workbook sheets used by the engine."""
     path: Path
     events: list[dict[str, Any]] = field(default_factory=list)
     products: list[dict[str, Any]] = field(default_factory=list)
@@ -346,6 +357,7 @@ class DataPack:
 
     @classmethod
     def load(cls, path: Path | str) -> "DataPack":
+        """Load all relevant sheets from the Excel pack into a DataPack."""
         path = Path(path)
         wb = load_workbook(path, data_only=True, read_only=True)
         pack = cls(path=path)
@@ -380,6 +392,7 @@ class DataPack:
         return pack
 
     def event_by_id(self, event_id: str) -> Optional[dict[str, Any]]:
+        """Return the excursion event dict for event_id, or None."""
         for e in self.events:
             if e.get("event_id") == event_id:
                 return e
@@ -403,6 +416,7 @@ log = logging.getLogger(__name__)
 
 
 def _parse_dt(value: Any) -> Optional[datetime]:
+    """Parse a datetime-like value into a naive datetime, or None if unparseable."""
     if value is None or value == "":
         return None
     if isinstance(value, datetime):
@@ -419,11 +433,13 @@ def _parse_dt(value: Any) -> Optional[datetime]:
 
 
 def _parse_date(value: Any) -> Optional[date]:
+    """Parse a date-like value into a date, or None if unparseable."""
     dt = _parse_dt(value)
     return dt.date() if dt else None
 
 
-def _rows(ws) -> list[dict[str, Any]]:
+def _rows(ws: Any) -> list[dict[str, Any]]:
+    """Read an openpyxl worksheet into a list of header-keyed dict rows."""
     headers = [c.value for c in ws[1]]
     out = []
     for row in ws.iter_rows(min_row=2, values_only=True):
@@ -440,6 +456,7 @@ def load_workbook_into_store(
     snapshot_id: Optional[str] = None,
     tx_from: Optional[datetime] = None,
 ) -> str:
+    """Ingest workbook reference data and alerts into the bitemporal store; return snapshot id."""
     pack_path = Path(pack_path)
     snapshot_id = snapshot_id or f"snap-{uuid4().hex[:12]}"
     tx_from = tx_from or datetime(2026, 9, 14)  # extract date from pack README
@@ -647,10 +664,12 @@ CREATE INDEX IF NOT EXISTS idx_ev_tenant_event
 
 
 def _utcnow() -> datetime:
+    """Return the current UTC time as a naive datetime (tzinfo stripped)."""
     return datetime.now(timezone.utc).replace(tzinfo=None)
 
 
 def _iso(d: date | datetime | None) -> Optional[str]:
+    """Serialize a date/datetime to an ISO-ish string, or None."""
     if d is None:
         return None
     if isinstance(d, datetime):
@@ -659,12 +678,14 @@ def _iso(d: date | datetime | None) -> Optional[str]:
 
 
 def _parse_date(s: Optional[str]) -> Optional[date]:
+    """Parse a date-like value into a date, or None if unparseable."""
     if not s:
         return None
     return datetime.strptime(s[:10], "%Y-%m-%d").date()
 
 
 def _parse_dt(s: Optional[str]) -> Optional[datetime]:
+    """Parse a datetime-like value into a naive datetime, or None if unparseable."""
     if not s:
         return None
     for fmt in ("%Y-%m-%d %H:%M:%S", "%Y-%m-%dT%H:%M:%S", "%Y-%m-%d %H:%M", "%Y-%m-%d"):
@@ -679,12 +700,15 @@ def _parse_dt(s: Optional[str]) -> Optional[datetime]:
 
 
 class BitemporalStore:
-    def __init__(self, path: Path | str):
+    """SQLite store with valid-time and transaction-time axes for reference data, cases, and evidence index."""
+    def __init__(self, path: Path | str) -> None:
+        """Open (or create) the SQLite database at path and ensure schema exists."""
         self.path = Path(path)
         self.path.parent.mkdir(parents=True, exist_ok=True)
         self._init()
 
     def _connect(self) -> sqlite3.Connection:
+        """Open a SQLite connection with foreign keys and row factory enabled."""
         conn = sqlite3.connect(self.path)
         conn.row_factory = sqlite3.Row
         conn.execute("PRAGMA foreign_keys=ON")
@@ -692,6 +716,7 @@ class BitemporalStore:
 
     @contextmanager
     def connection(self) -> Iterator[sqlite3.Connection]:
+        """Context manager yielding a connection that commits on success."""
         conn = self._connect()
         try:
             yield conn
@@ -703,10 +728,12 @@ class BitemporalStore:
             conn.close()
 
     def _init(self) -> None:
+        """Create tables and indexes if they do not already exist."""
         with self.connection() as conn:
             conn.executescript(SCHEMA)
 
     def set_meta(self, key: str, value: str) -> None:
+        """Upsert a string metadata key/value on the store."""
         with self.connection() as conn:
             conn.execute(
                 "INSERT INTO meta(key,value) VALUES(?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value",
@@ -714,6 +741,7 @@ class BitemporalStore:
             )
 
     def get_meta(self, key: str) -> Optional[str]:
+        """Return a metadata value by key, or None."""
         with self.connection() as conn:
             row = conn.execute("SELECT value FROM meta WHERE key=?", (key,)).fetchone()
             return row["value"] if row else None
@@ -732,6 +760,7 @@ class BitemporalStore:
         source_system: Optional[str] = None,
         content_hash: Optional[str] = None,
     ) -> str:
+        """Insert a bitemporal reference row; return its record id."""
         import hashlib
 
         tx_from = tx_from or _utcnow()
@@ -821,6 +850,7 @@ class BitemporalStore:
         valid_as_of: date,
         tx_as_of: datetime | None = None,
     ) -> dict[str, Any]:
+        """Return the SOP revision(s) in force for tenant/title at valid_as_of (and tx_as_of)."""
         rows = self.as_of(
             entity_type="sop",
             tenant_code=tenant_code,
@@ -859,6 +889,7 @@ class BitemporalStore:
         return {"record": rows[0], "overlap_conflict": overlap, "competing": competing}
 
     def upsert_alert(self, event_id: str, tenant_code: str, payload: dict[str, Any], snapshot_id: str) -> None:
+        """Insert or replace a packed alert payload keyed by event_id."""
         with self.connection() as conn:
             conn.execute(
                 """INSERT INTO alert(event_id, tenant_code, payload_json, alert_ts_utc, snapshot_id)
@@ -878,6 +909,7 @@ class BitemporalStore:
             )
 
     def get_alert(self, event_id: str) -> Optional[dict[str, Any]]:
+        """Fetch one alert payload by event_id."""
         with self.connection() as conn:
             row = conn.execute("SELECT * FROM alert WHERE event_id=?", (event_id,)).fetchone()
         if not row:
@@ -885,6 +917,7 @@ class BitemporalStore:
         return json.loads(row["payload_json"])
 
     def list_alerts(self, tenant_code: Optional[str] = None) -> list[dict[str, Any]]:
+        """List alert payloads, optionally filtered by tenant_code."""
         with self.connection() as conn:
             if tenant_code:
                 rows = conn.execute(
@@ -896,6 +929,7 @@ class BitemporalStore:
         return [json.loads(r["payload_json"]) for r in rows]
 
     def save_case(self, case: dict[str, Any]) -> None:
+        """Insert or update a case lifecycle record."""
         with self.connection() as conn:
             conn.execute(
                 """INSERT INTO case_row(case_id, event_id, tenant_code, state, payload_json, reg_deadline_utc, priority_score, updated_at)
@@ -919,6 +953,7 @@ class BitemporalStore:
             )
 
     def get_case(self, case_id: str) -> Optional[dict[str, Any]]:
+        """Fetch a case dict by case_id."""
         with self.connection() as conn:
             row = conn.execute("SELECT payload_json FROM case_row WHERE case_id=?", (case_id,)).fetchone()
         return json.loads(row["payload_json"]) if row else None
@@ -955,6 +990,7 @@ class BitemporalStore:
         return [json.loads(r["payload_json"]) for r in rows]
 
     def index_evidence(self, meta: dict[str, Any]) -> None:
+        """Index evidence-bundle metadata for hash-chain and retrieval queries."""
         with self.connection() as conn:
             conn.execute(
                 """INSERT INTO evidence_index(
@@ -978,6 +1014,7 @@ class BitemporalStore:
             )
 
     def get_evidence_meta(self, bundle_id: str, tenant_code: Optional[str] = None) -> Optional[dict[str, Any]]:
+        """Fetch evidence metadata by bundle_id (optional tenant filter)."""
         with self.connection() as conn:
             if tenant_code:
                 row = conn.execute(
@@ -991,6 +1028,7 @@ class BitemporalStore:
         return dict(row) if row else None
 
     def evidence_for_event(self, event_id: str, tenant_code: str) -> list[dict[str, Any]]:
+        """List evidence metadata rows for an event within a tenant."""
         with self.connection() as conn:
             rows = conn.execute(
                 "SELECT * FROM evidence_index WHERE event_id=? AND tenant_code=? ORDER BY created_at",
@@ -999,6 +1037,7 @@ class BitemporalStore:
         return [dict(r) for r in rows]
 
     def chain_for_tenant(self, tenant_code: str) -> list[dict[str, Any]]:
+        """Return evidence chain rows for a tenant in append order."""
         with self.connection() as conn:
             rows = conn.execute(
                 "SELECT * FROM evidence_index WHERE tenant_code=? ORDER BY created_at, bundle_id",
@@ -1023,6 +1062,7 @@ from typing import Any, Optional
 
 @dataclass
 class AsOfHit:
+    """Result of an as-of SOP lookup: selected record, overlap flag, and competitors."""
     record: dict[str, Any]
     overlap_conflict: bool
     competing: list[dict[str, Any]]
@@ -1034,6 +1074,7 @@ def sop_in_force(
     title_contains: str,
     as_of: date,
 ) -> AsOfHit | None:
+    """Select the SOP revision in force from an in-memory SOP list at as_of (highest rev on overlap)."""
     title_l = title_contains.lower()
     candidates = []
     for s in sops:
@@ -1126,6 +1167,7 @@ from typing import Any, Optional
 
 @dataclass
 class ResolvedProduct:
+    """Product identity resolution result with match method, confidence, and stability study ref."""
     tenant_code: str
     match_method: str
     confidence: float
@@ -1143,12 +1185,14 @@ class ResolvedProduct:
 
 
 def _norm(s: Any) -> str:
+    """Normalize free text for fuzzy matching (lowercase, collapse whitespace)."""
     if s is None:
         return ""
     return " ".join(str(s).strip().lower().replace("_", " ").split())
 
 
 def _presentation_from_text(text: str) -> Optional[str]:
+    """Infer presentation (pen/vial/etc.) from brand or study text, if possible."""
     t = _norm(text)
     if "pre-filled" in t or "pfs" in t or "syringe" in t:
         return "pfs"
@@ -1168,7 +1212,8 @@ class IdentityResolver:
     PRODUCT kind, then fuzzy brand containment. Never invents a product.
     """
 
-    def __init__(self, pack: DataPack):
+    def __init__(self, pack: DataPack) -> None:
+        """Bind the resolver to a loaded DataPack."""
         self.pack = pack
         self._alias_pairs: dict[str, set[str]] = {}
         for a in pack.aliases:
@@ -1183,6 +1228,7 @@ class IdentityResolver:
             self._alias_pairs.setdefault(sb, set()).add(sa)
 
     def _product_strings(self, p: dict[str, Any]) -> set[str]:
+        """Collect normalized identity strings from a product-master row."""
         keys = []
         for k in ("brand_as_labelled", "generic_inn", "internal_sku", "gtin", "legacy_code"):
             v = p.get(k)
@@ -1191,6 +1237,7 @@ class IdentityResolver:
         return set(keys)
 
     def resolve_product(self, tenant_code: str, product_ref: Any) -> ResolvedProduct:
+        """Resolve a product_ref string to a canonical product for the tenant."""
         ref = (product_ref or "").strip() if product_ref else ""
         if not ref:
             return ResolvedProduct(
@@ -1275,6 +1322,7 @@ class IdentityResolver:
         )
 
     def _from_row(self, p: dict[str, Any], method: str, confidence: float) -> ResolvedProduct:
+        """Build a ResolvedProduct from a product-master row and match metadata."""
         brand = p.get("brand_as_labelled")
         return ResolvedProduct(
             tenant_code=p.get("tenant_code") or "",
@@ -1312,7 +1360,8 @@ class IdentityResolver:
                 return str(a.get("string_a"))
         return str(ref)
 
-    def resolve_carrier_contract(self, carrier_ref: Any, as_of: Optional[date] = None):
+    def resolve_carrier_contract(self, carrier_ref: Any, as_of: Optional[date] = None) -> tuple[Optional[dict[str, Any]], Optional[str]]:
+        """Resolve a carrier alias to the contract row in force on as_of."""
         from datetime import date as date_cls
 
         as_of = as_of or date_cls.today()
@@ -1355,6 +1404,7 @@ from typing import Any, Optional
 
 @dataclass
 class StabilityPosition:
+    """Parsed stability allowance for a resolved product (readable text, caps, flags)."""
     study_ref: Optional[str]
     permitted_text: Optional[str]
     readable: bool
@@ -1369,12 +1419,14 @@ class StabilityPosition:
     cumulative_above_label: bool = False  # "72h above 8°C" — 8 is threshold, not cap
     notes: list[str] = None
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
+        """Derive structured fields from permitted_excursion_text after init."""
         if self.notes is None:
             self.notes = []
 
 
 def _parse_allowance(text: str) -> dict[str, Any]:
+    """Parse free-text permitted-excursion language into structured allowance fields."""
     t = (text or "").strip()
     out: dict[str, Any] = {
         "no_excursion": False,
@@ -1436,11 +1488,14 @@ def _parse_allowance(text: str) -> dict[str, Any]:
 
 
 class StabilityResolver:
-    def __init__(self, pack: DataPack):
+    """Resolves stability study / master permitted-excursion text for a product."""
+    def __init__(self, pack: DataPack) -> None:
+        """Bind the resolver to a loaded DataPack."""
         self.pack = pack
         self.by_ref = {str(s.get("study_ref")): s for s in pack.stability if s.get("study_ref")}
 
     def resolve(self, product: ResolvedProduct) -> StabilityPosition:
+        """Return the stability position for a resolved product (master preferred on mismatch)."""
         notes: list[str] = []
         study_ref = product.stability_study_ref
         master_text = product.permitted_excursion_text
@@ -1584,6 +1639,7 @@ REGION_DEFAULTS = {
 
 @dataclass
 class RegulatoryClock:
+    """Regulatory notification window and deadline derived from alert time and tenant rules."""
     reportable: bool
     window_hours: Optional[float]
     deadline_utc: Optional[datetime]
@@ -1692,6 +1748,7 @@ ACTIONABLE_DISPOSITIONS = {
 
 @dataclass
 class AdjudicationResult:
+    """Structured adjudication output: disposition, confidence, rationale, and evidence outline."""
     event_id: str
     tenant_code: str
     recommendation: str
@@ -1720,6 +1777,7 @@ class AdjudicationResult:
     agrees_with_historical_engine: Optional[bool] = None
 
     def to_row(self) -> dict[str, Any]:
+        """Flatten the result into a CSV/JSON-friendly dict row."""
         d = asdict(self)
         d["rationale"] = " | ".join(self.rationale)
         d["evidence"] = str(self.evidence)
@@ -1727,13 +1785,16 @@ class AdjudicationResult:
 
 
 class AdjudicationEngine:
-    def __init__(self, pack: DataPack):
+    """Deterministic as-of adjudication engine over a DataPack."""
+    def __init__(self, pack: DataPack) -> None:
+        """Bind identity/stability resolvers to the pack."""
         self.pack = pack
         self.identity = IdentityResolver(pack)
         self.stability = StabilityResolver(pack)
         self.tenants = {t["tenant_code"]: t for t in pack.tenants}
 
     def adjudicate(self, event: dict[str, Any]) -> AdjudicationResult:
+        """Adjudicate one excursion event dict into an AdjudicationResult."""
         event_id = str(event.get("event_id"))
         tenant = str(event.get("tenant_code") or "")
         rationale: list[str] = []
@@ -1938,6 +1999,7 @@ class AdjudicationEngine:
         sop_overlap: bool,
         has_cold_chain_clause: Optional[bool],
     ) -> tuple[str, str, float, list[str]]:
+        """Apply disposition rules given resolved product, stability, temps, and SOP overlap."""
         notes: list[str] = []
         duration_h = duration_min / 60.0
         gap = _f(event.get("gateway_gap_min")) or 0.0
@@ -2113,6 +2175,7 @@ class AdjudicationEngine:
 
 
 def _f(v: Any) -> Optional[float]:
+    """Coerce a value to float, or None if missing/invalid."""
     if v is None or v == "":
         return None
     try:
@@ -2127,6 +2190,7 @@ def _out_of_range(
     low: Optional[float],
     high: Optional[float],
 ) -> bool:
+    """True if min/max temps fall outside the labelled [low, high] storage range."""
     if high is not None and max_t is not None and max_t > high + 1e-9:
         return True
     if low is not None and min_t is not None and min_t < low - 1e-9:
@@ -2154,33 +2218,39 @@ from uuid import uuid4
 
 
 def _utcnow() -> datetime:
+    """Return the current UTC time as a naive datetime (tzinfo stripped)."""
     return datetime.now(timezone.utc).replace(tzinfo=None)
 
 
 def canonical_hash(payload: dict[str, Any]) -> str:
+    """SHA-256 of a canonical JSON serialization of payload."""
     body = json.dumps(payload, sort_keys=True, separators=(",", ":"), default=str)
     return hashlib.sha256(body.encode("utf-8")).hexdigest()
 
 
 class EvidenceStore:
+    """Append-only, hash-chained, per-tenant evidence bundle store with Cl.22 isolation."""
     def __init__(
         self,
         root: Path | str,
         db: BitemporalStore,
         *,
         retention_years: int = 7,
-    ):
+    ) -> None:
+        """Bind filesystem root and bitemporal DB index; create root directory."""
         self.root = Path(root)
         self.root.mkdir(parents=True, exist_ok=True)
         self.db = db
         self.retention_years = retention_years
 
     def _tenant_dir(self, tenant_code: str) -> Path:
+        """Return (and create) the per-tenant evidence directory."""
         d = self.root / tenant_code
         d.mkdir(parents=True, exist_ok=True)
         return d
 
     def _last_hash(self, tenant_code: str) -> Optional[str]:
+        """Return the latest content hash in the tenant chain, or None if empty."""
         chain = self.db.chain_for_tenant(tenant_code)
         return chain[-1]["content_hash"] if chain else None
 
@@ -2198,6 +2268,7 @@ class EvidenceStore:
         case_id: Optional[str] = None,
         reviewer_signoff: Optional[dict[str, Any]] = None,
     ) -> dict[str, Any]:
+        """Write a new evidence bundle, link prev_hash, and index metadata."""
         created = _utcnow()
         retention_until = created + timedelta(days=365 * self.retention_years + 2)  # leap cushion
         prev = self._last_hash(tenant_code)
@@ -2275,6 +2346,7 @@ class EvidenceStore:
         return doc
 
     def verify_document(self, doc: dict[str, Any]) -> bool:
+        """Recompute content hash and verify it matches the document metadata."""
         core = {
             k: doc[k]
             for k in (
@@ -2297,6 +2369,7 @@ class EvidenceStore:
         return canonical_hash(core) == doc.get("content_hash")
 
     def verify_chain(self, tenant_code: str) -> dict[str, Any]:
+        """Walk the tenant hash chain and report tamper/length errors."""
         chain = self.db.chain_for_tenant(tenant_code)
         errors: list[str] = []
         prev: Optional[str] = None
@@ -2385,11 +2458,14 @@ ALLOWED: dict[CaseState, set[CaseState]] = {
 
 
 def _utcnow() -> datetime:
+    """Return the current UTC time as a naive datetime (tzinfo stripped)."""
     return datetime.now(timezone.utc).replace(tzinfo=None)
 
 
 class CaseLifecycle:
-    def __init__(self, store: BitemporalStore):
+    """Case state machine with sign, reopen, and regulatory-deadline priority queue."""
+    def __init__(self, store: BitemporalStore) -> None:
+        """Bind lifecycle operations to a BitemporalStore."""
         self.store = store
 
     def create(
@@ -2403,7 +2479,8 @@ class CaseLifecycle:
         evidence_bundle_id: Optional[str] = None,
         reopened_from: Optional[str] = None,
         reopen_reason: Optional[str] = None,
-    ) -> dict:
+    ) -> dict[str, Any]:
+        """Create a case from an adjudication recommendation and persist it."""
         now = _utcnow()
         # Priority: reportable with nearer deadline sorts first via store queue
         priority = 100.0 if regulator_reportable else 10.0
@@ -2436,7 +2513,8 @@ class CaseLifecycle:
         self.store.save_case(case)
         return case
 
-    def transition(self, case_id: str, new_state: CaseState, **patch) -> dict:
+    def transition(self, case_id: str, new_state: CaseState, **patch) -> dict[str, Any]:
+        """Apply an ALLOWED state transition (optional field patches)."""
         case = self.store.get_case(case_id)
         if not case:
             raise KeyError(case_id)
@@ -2449,7 +2527,8 @@ class CaseLifecycle:
         self.store.save_case(case)
         return case
 
-    def sign(self, case_id: str, signed_by: str, disposition: Disposition) -> dict:
+    def sign(self, case_id: str, signed_by: str, disposition: Disposition) -> dict[str, Any]:
+        """Human-sign a disposition and move the case to CLOSED_SIGNED."""
         case = self.transition(
             case_id,
             CaseState.CLOSED_SIGNED,
@@ -2459,7 +2538,7 @@ class CaseLifecycle:
         )
         return case
 
-    def reopen(self, case_id: str, reason: str) -> dict:
+    def reopen(self, case_id: str, reason: str) -> dict[str, Any]:
         """Reopen months later — new case revision linked to prior."""
         prior = self.store.get_case(case_id)
         if not prior:
@@ -2475,7 +2554,7 @@ class CaseLifecycle:
             reopen_reason=reason,
         )
 
-    def storm_safe_queue(self, tenant_code: Optional[str] = None, limit: int = 100) -> list[dict]:
+    def storm_safe_queue(self, tenant_code: Optional[str] = None, limit: int = 100) -> list[dict[str, Any]]:
         """INC-2502: order by regulatory deadline so genuine cases aren't starved."""
         return self.store.queue(tenant_code=tenant_code, open_only=True, limit=limit)
 
@@ -2560,6 +2639,7 @@ log = logging.getLogger(__name__)
 
 
 def _parse_dt(value: Any) -> Optional[datetime]:
+    """Parse a datetime-like value into a naive datetime, or None if unparseable."""
     if value is None or value == "":
         return None
     if isinstance(value, datetime):
@@ -2574,7 +2654,9 @@ def _parse_dt(value: Any) -> Optional[datetime]:
 
 
 class AdjudicationService:
-    def __init__(self, settings: Optional[Settings] = None):
+    """Application façade: ingest → adjudicate → evidence → lifecycle → shadow."""
+    def __init__(self, settings: Optional[Settings] = None) -> None:
+        """Construct store, evidence, and lifecycle from Settings."""
         self.settings = settings or get_settings()
         self.settings.db_path.parent.mkdir(parents=True, exist_ok=True)
         self.settings.evidence_dir.mkdir(parents=True, exist_ok=True)
@@ -2590,6 +2672,7 @@ class AdjudicationService:
         self.snapshot_id: Optional[str] = self.store.get_meta("ref_snapshot_id")
 
     def bootstrap(self, pack_path: Optional[Path] = None, *, reload: bool = False) -> str:
+        """Load workbook into store (optional reload) and build the engine."""
         pack_path = Path(pack_path or self.settings.data_pack)
         if reload or not self.snapshot_id:
             # fresh DB if reload
@@ -2614,6 +2697,7 @@ class AdjudicationService:
         persist: bool = True,
         create_case: bool = True,
     ) -> dict[str, Any]:
+        """Adjudicate one event; optionally persist evidence and open a case."""
         assert self.engine and self.pack and self.snapshot_id
         event = self.pack.event_by_id(event_id)
         if not event:
@@ -2639,6 +2723,7 @@ class AdjudicationService:
         }
 
     def adjudicate_all(self, *, limit: Optional[int] = None, persist: bool = True) -> dict[str, Any]:
+        """Adjudicate all (or limit) pack events; return rows and snapshot id."""
         assert self.engine and self.pack
         events = self.pack.events[: limit or len(self.pack.events)]
         rows = []
@@ -2658,6 +2743,7 @@ class AdjudicationService:
         return {"count": len(rows), "rows": rows, "snapshot_id": self.snapshot_id}
 
     def _persist(self, result: AdjudicationResult, event: dict[str, Any]) -> dict[str, Any]:
+        """Write an evidence bundle for a result and return bundle metadata."""
         assert self.snapshot_id
         inputs = {
             "alert": {
@@ -2705,9 +2791,11 @@ class AdjudicationService:
         )
 
     def full_basis(self, event_id: str, tenant_code: str) -> dict[str, Any]:
+        """Produce the full reconstructable evidence basis for an event/tenant."""
         return self.evidence.produce_full_basis(event_id, tenant_code)
 
     def verify_tenant_chain(self, tenant_code: str) -> dict[str, Any]:
+        """Verify the append-only evidence hash chain for a tenant."""
         return self.evidence.verify_chain(tenant_code)
 
     def replay_from_bundle(self, bundle_id: str, tenant_code: str) -> dict[str, Any]:
@@ -2734,10 +2822,12 @@ class AdjudicationService:
         }
 
     def shadow_bulletin(self) -> dict[str, Any]:
+        """Run TT-CB-114 shadow replay and return the diff report."""
         assert self.engine and self.pack
         return shadow_replay_bulletin(self.pack, self.engine)
 
-    def as_of_sop(self, tenant_code: str, as_of_date: str, title: str = "Temperature Excursion Management"):
+    def as_of_sop(self, tenant_code: str, as_of_date: str, title: str = "Temperature Excursion Management") -> dict[str, Any]:
+        """Look up SOP-in-force for tenant/title on an ISO date string."""
         from datetime import date as date_cls
 
         d = datetime.strptime(as_of_date, "%Y-%m-%d").date()
@@ -2757,6 +2847,7 @@ class _KestrelHTTPServer(ThreadingHTTPServer):
     allow_reuse_address = True
 
     def __init__(self, addr: tuple[str, int], svc: AdjudicationService) -> None:
+        """Bind address and shared AdjudicationService, then init the threading server."""
         self.svc = svc
         super().__init__(addr, _KestrelRequestHandler)
 
@@ -2767,9 +2858,11 @@ class _KestrelRequestHandler(BaseHTTPRequestHandler):
     server: _KestrelHTTPServer  # type: ignore[assignment]
 
     def log_message(self, fmt: str, *args: Any) -> None:  # noqa: A003
+        """Route HTTP access logs through the kestrel.http logger."""
         logging.getLogger("kestrel.http").info("%s - %s", self.address_string(), fmt % args)
 
     def _read_json(self) -> dict[str, Any]:
+        """Read and parse the request body as JSON (empty object if none)."""
         length = int(self.headers.get("Content-Length") or 0)
         raw = self.rfile.read(length) if length else b"{}"
         if not raw:
@@ -2777,6 +2870,7 @@ class _KestrelRequestHandler(BaseHTTPRequestHandler):
         return json.loads(raw.decode("utf-8"))
 
     def _send(self, code: int, payload: Any) -> None:
+        """Send an HTTP JSON response with the given status code."""
         body = json.dumps(payload, default=str).encode("utf-8")
         self.send_response(code)
         self.send_header("Content-Type", "application/json")
@@ -2785,9 +2879,11 @@ class _KestrelRequestHandler(BaseHTTPRequestHandler):
         self.wfile.write(body)
 
     def _error(self, code: int, message: str) -> None:
+        """Send a JSON error payload with the given status code."""
         self._send(code, {"error": message})
 
     def do_GET(self) -> None:  # noqa: N802
+        """Dispatch GET routes: health, evidence, shadow, queue, as-of SOP."""
         svc = self.server.svc
         parsed = urlparse(self.path)
         path = parsed.path
@@ -2854,6 +2950,7 @@ class _KestrelRequestHandler(BaseHTTPRequestHandler):
             self._error(500, str(e))
 
     def do_POST(self) -> None:  # noqa: N802
+        """Dispatch POST routes: adjudicate, basis, verify, replay."""
         svc = self.server.svc
         path = urlparse(self.path).path
         try:
@@ -3026,12 +3123,14 @@ def _http_request(
 
 
 def _default_work_dir() -> Path:
+    """Return the temp working directory for DB/evidence/CSV outputs (created if needed)."""
     d = Path(tempfile.gettempdir()) / "kestrel-adjudication"
     d.mkdir(parents=True, exist_ok=True)
     return d
 
 
 def _svc_from_args(args: argparse.Namespace) -> AdjudicationService:
+    """Build an AdjudicationService from argparse namespace overrides."""
     settings = get_settings()
     if getattr(args, "db", None):
         settings.db_path = Path(args.db)
@@ -3302,6 +3401,7 @@ def main(argv: Optional[list[str]] = None) -> int:
 
 
 def _make_tmp_svc(tmpdir: Path) -> AdjudicationService:
+    """Create a bootstrapped service rooted at tmpdir for unit tests."""
     settings = Settings(
         data_pack=_DEFAULT_PACK,
         db_path=tmpdir / "t.sqlite",
@@ -3324,22 +3424,27 @@ class _KestrelTestCase(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
+        """Create a temporary DB/evidence dir and bootstrap a shared service."""
         cls._tmpdir = tempfile.TemporaryDirectory(prefix="kestrel-test-")
         cls.svc = _make_tmp_svc(Path(cls._tmpdir.name))
 
     @classmethod
     def tearDownClass(cls) -> None:
+        """Remove the temporary test directory."""
         cls._tmpdir.cleanup()
 
 
 class TestGoldenExc107133(_KestrelTestCase):
+    """Golden tests for hero case EXC-107133 (RELEASE_WITH_NOTE)."""
     def test_exc_107133_release_with_note(self) -> None:
+        """Persist EXC-107133 and assert RELEASE_WITH_NOTE plus GTIN evidence."""
         out = self.svc.adjudicate_event("EXC-107133", persist=True)
         self.assertEqual(out["result"].recommendation, RELEASE_WITH_NOTE)
         self.assertTrue(out["bundle"]["bundle_id"].startswith("EVB-"))
         self.assertEqual(out["bundle"]["inputs"]["resolution"]["product"]["gtin"], "08901234500035")
 
     def test_exc_107133_brief_narrative(self) -> None:
+        """Assert brief narrative fields: signature required, no bulletin, 11.2 °C."""
         ev = self.svc.pack.event_by_id("EXC-107133")  # type: ignore[union-attr]
         assert ev is not None
         r = self.svc.engine.adjudicate(ev)  # type: ignore[union-attr]
@@ -3352,7 +3457,9 @@ class TestGoldenExc107133(_KestrelTestCase):
 
 
 class TestAPISmoke(_KestrelTestCase):
+    """In-process HTTP API smoke tests (health, adjudicate, basis, isolation, replay)."""
     def test_api_health_adjudicate_basis(self) -> None:
+        """Exercise /health, /adjudicate, /evidence/basis, cross-tenant 403, /replay."""
         code, health = _http_request("GET", "/health", self.svc)
         self.assertEqual(code, 200)
         self.assertTrue(health["ok"])
@@ -3385,7 +3492,9 @@ class TestAPISmoke(_KestrelTestCase):
 
 
 class TestBitemporalAsOf(_KestrelTestCase):
+    """Bitemporal SOP as-at lookups (Aura AUD-2603 date, Kaveri overlap)."""
     def test_aura_sop_as_of_audit_date(self) -> None:
+        """SOP in force for T-AURA on 2025-08-14 must be answerable."""
         hit = self.svc.store.sop_in_force(
             "T-AURA", "Temperature Excursion Management", date(2025, 8, 14)
         )
@@ -3395,6 +3504,7 @@ class TestBitemporalAsOf(_KestrelTestCase):
         self.assertLessEqual(vf, "2025-08-14")
 
     def test_kaveri_sop_overlap(self) -> None:
+        """T-KAVERI Temperature Excursion Management overlaps on 2026-07-28."""
         hit = self.svc.store.sop_in_force(
             "T-KAVERI", "Temperature Excursion Management", date(2026, 7, 28)
         )
@@ -3403,7 +3513,9 @@ class TestBitemporalAsOf(_KestrelTestCase):
 
 
 class TestEvidenceChain(_KestrelTestCase):
+    """Evidence hash-chain, tamper detection, Cl.22 isolation, latency, replay."""
     def test_hash_chain_and_tamper_detection(self) -> None:
+        """Chain verifies; flipping disposition to DESTROY fails verify_chain."""
         a = self.svc.adjudicate_event("EXC-107133", persist=True)
         tenant = a["result"].tenant_code
         b = self.svc.adjudicate_event("EXC-110287", persist=True)
@@ -3425,6 +3537,7 @@ class TestEvidenceChain(_KestrelTestCase):
         self.assertTrue(any("tamper" in e or "hash" in e for e in broken["errors"]))
 
     def test_tenant_isolation_meridian_clause(self) -> None:
+        """Foreign tenant cannot read T-KAVERI evidence (PermissionError)."""
         out = self.svc.adjudicate_event("EXC-107133", persist=True)
         bundle_id = out["bundle"]["bundle_id"]
         with self.assertRaises(PermissionError) as ctx:
@@ -3433,6 +3546,7 @@ class TestEvidenceChain(_KestrelTestCase):
         self.assertTrue("tenant isolation" in msg or "cl.22" in msg or "belongs" in msg)
 
     def test_retrieval_latency_under_hour(self) -> None:
+        """Full basis retrieval is far under the one-hour board commitment."""
         self.svc.adjudicate_event("EXC-107133", persist=True)
         basis = self.svc.full_basis("EXC-107133", "T-KAVERI")
         self.assertTrue(basis["within_one_hour"])
@@ -3440,13 +3554,16 @@ class TestEvidenceChain(_KestrelTestCase):
         self.assertTrue(basis["retention_until"])
 
     def test_replay_determinism(self) -> None:
+        """Replaying from bundle yields an identical disposition."""
         out = self.svc.adjudicate_event("EXC-107133", persist=True)
         replay = self.svc.replay_from_bundle(out["bundle"]["bundle_id"], "T-KAVERI")
         self.assertTrue(replay["identical"])
 
 
 class TestLifecycle(_KestrelTestCase):
+    """Case lifecycle sign/reopen and regulatory-deadline queue ordering."""
     def test_lifecycle_sign_and_reopen_months_later(self) -> None:
+        """Sign RELEASE_WITH_NOTE then reopen for bulletin; prior case marked REOPENED."""
         out = self.svc.adjudicate_event("EXC-107133", persist=True)
         case = out["case"]
         self.assertIn(
@@ -3476,6 +3593,7 @@ class TestLifecycle(_KestrelTestCase):
         self.assertEqual(prior["state"], CaseState.REOPENED.value)
 
     def test_queue_orders_by_reg_deadline(self) -> None:
+        """Storm-safe queue sorts reportable cases by reg_deadline_utc ascending."""
         for eid in ["EXC-107133", "EXC-110637", "EXC-110651"]:
             if self.svc.pack.event_by_id(eid):  # type: ignore[union-attr]
                 self.svc.adjudicate_event(eid, persist=True)
@@ -3485,7 +3603,9 @@ class TestLifecycle(_KestrelTestCase):
 
 
 class TestShadow(_KestrelTestCase):
+    """Dr Rao TT-CB-114 shadow bulletin replay."""
     def test_shadow_bulletin_produces_diffs(self) -> None:
+        """Shadow replay finds TT-2.14.3 candidates and emits diff rows."""
         report = self.svc.shadow_bulletin()
         self.assertGreater(report["candidates"], 0)
         self.assertTrue("TT-CB-114" in report["change"] or "bulletin" in report["change"].lower())
@@ -3493,7 +3613,9 @@ class TestShadow(_KestrelTestCase):
 
 
 class TestAsOfPack(_KestrelTestCase):
+    """In-memory pack as-of SOP helpers and storage-range parsing."""
     def test_kaveri_sop_overlap_on_excursion_date(self) -> None:
+        """Pack-level sop_in_force reports overlap and selects highest revision."""
         hit = sop_in_force(
             self.svc.pack.sops,  # type: ignore[union-attr]
             "T-KAVERI",
@@ -3507,6 +3629,7 @@ class TestAsOfPack(_KestrelTestCase):
         self.assertTrue("03" in str(hit.record.get("revision")) or "3" in str(hit.record.get("revision")))
 
     def test_parse_2_8_variants(self) -> None:
+        """parse_storage_range accepts common 2–8 °C and CRT spellings."""
         self.assertEqual(parse_storage_range("2-8 °C"), (2.0, 8.0))
         self.assertEqual(parse_storage_range("+2/+8 C"), (2.0, 8.0))
         self.assertEqual(parse_storage_range("Store at 2–8°C. Do not freeze."), (2.0, 8.0))
@@ -3515,6 +3638,7 @@ class TestAsOfPack(_KestrelTestCase):
         self.assertEqual(high, 25.0)
 
     def test_aura_sop_single_rev_on_date(self) -> None:
+        """Aura SOP lookup on AUD-2603 date returns a concrete doc_id."""
         hit = sop_in_force(
             self.svc.pack.sops,  # type: ignore[union-attr]
             "T-AURA",
@@ -3527,7 +3651,9 @@ class TestAsOfPack(_KestrelTestCase):
 
 
 class TestEngineGolden(_KestrelTestCase):
+    """Engine golden / narrative cases beyond EXC-107133."""
     def test_exc_110448_bulletin_underread(self) -> None:
+        """TT-2.14.3 under-read applies +1.8 °C bulletin correction."""
         ev = self.svc.pack.event_by_id("EXC-110448")  # type: ignore[union-attr]
         if ev is None:
             self.skipTest("EXC-110448 not in pack")
@@ -3537,6 +3663,7 @@ class TestEngineGolden(_KestrelTestCase):
         self.assertEqual(r.corrected_max_temp_c, float(ev["max_temp_c"]) + 1.8)
 
     def test_override_freeze_vaccine_pattern(self) -> None:
+        """Below-0 °C adjuvanted vaccine does not RELEASE_WITH_NOTE."""
         ev = self.svc.pack.event_by_id("EXC-110483")  # type: ignore[union-attr]
         if ev is None:
             self.skipTest("EXC-110483 not in pack")
@@ -3544,6 +3671,7 @@ class TestEngineGolden(_KestrelTestCase):
         self.assertIn(r.recommendation, {DESTROY, ESCALATE, QUARANTINE_PENDING_LAB})
 
     def test_facility_storm_auto_close(self) -> None:
+        """INC-2502 facility-equipment Whitefield rows AUTO_CLOSE."""
         candidates = [
             e
             for e in self.svc.pack.events  # type: ignore[union-attr]
@@ -3556,6 +3684,7 @@ class TestEngineGolden(_KestrelTestCase):
         self.assertEqual(r.recommendation, AUTO_CLOSE)
 
     def test_every_event_produces_structured_result(self) -> None:
+        """Every pack event yields a structured recommendation and evidence."""
         for ev in self.svc.pack.events:  # type: ignore[union-attr]
             r = self.svc.engine.adjudicate(ev)  # type: ignore[union-attr]
             self.assertEqual(r.event_id, ev["event_id"])
@@ -3567,7 +3696,9 @@ class TestEngineGolden(_KestrelTestCase):
 
 
 class TestIdentity(_KestrelTestCase):
+    """Product / carrier identity resolution edge cases."""
     def test_gtin_resolves_glucodyne_for_kaveri_or_virent(self) -> None:
+        """GTIN 08901234500035 resolves to Glucodyne SoloJet with high confidence."""
         r = IdentityResolver(self.svc.pack)  # type: ignore[arg-type]
         hit = None
         for tenant in ("T-VIRENT", "T-KAVERI", "T-AURA", "T-NORDIA"):
@@ -3583,11 +3714,13 @@ class TestIdentity(_KestrelTestCase):
         )
 
     def test_blank_product_unresolved(self) -> None:
+        """Blank product_ref resolves as unresolved with confidence 0."""
         p = IdentityResolver(self.svc.pack).resolve_product("T-VIRENT", "")  # type: ignore[arg-type]
         self.assertEqual(p.confidence, 0.0)
         self.assertEqual(p.match_method, "unresolved")
 
     def test_tapti_contract_has_no_cold_chain_clause(self) -> None:
+        """Tapti Exp Cargo contract has no cold-chain schedule clause."""
         r = IdentityResolver(self.svc.pack)  # type: ignore[arg-type]
         c, err = r.resolve_carrier_contract("Tapti Exp Cargo", date(2026, 7, 28))
         self.assertIsNone(err)
@@ -3598,7 +3731,9 @@ class TestIdentity(_KestrelTestCase):
 
 
 class TestInvariants(_KestrelTestCase):
+    """Cross-pack invariants that must hold for every (or many) events."""
     def test_auto_close_never_requires_human(self) -> None:
+        """AUTO_CLOSE never requires human signature; actionable always does."""
         for ev in self.svc.pack.events:  # type: ignore[union-attr]
             r = self.svc.engine.adjudicate(ev)  # type: ignore[union-attr]
             if r.recommendation == AUTO_CLOSE:
@@ -3607,6 +3742,7 @@ class TestInvariants(_KestrelTestCase):
                 self.assertTrue(r.requires_human_signature)
 
     def test_regulatory_deadline_after_alert_when_reportable(self) -> None:
+        """Reportable events get a reg deadline on/after alert_ts."""
         for ev in self.svc.pack.events:  # type: ignore[union-attr]
             if str(ev.get("regulator_reportable") or "").upper() != "Y":
                 continue
@@ -3619,6 +3755,7 @@ class TestInvariants(_KestrelTestCase):
             )
 
     def test_bulletin_correction_monotonic(self) -> None:
+        """All TT-2.14.3 events apply +1.8 °C corrected max."""
         for ev in self.svc.pack.events:  # type: ignore[union-attr]
             if str(ev.get("logger_fw")) != "TT-2.14.3":
                 continue
@@ -3628,6 +3765,7 @@ class TestInvariants(_KestrelTestCase):
                 self.assertEqual(r.corrected_max_temp_c, float(ev["max_temp_c"]) + 1.8)
 
     def test_sop_as_of_never_returns_future_revision(self) -> None:
+        """Selected SOP effective_from is never after the excursion date."""
         checked = 0
         for ev in self.svc.pack.events[:80]:  # type: ignore[union-attr]
             r = self.svc.engine.adjudicate(ev)  # type: ignore[union-attr]
