@@ -1,5 +1,0 @@
-event_id=EXC-107133
-retrieval_latency_ms=0.7204290013760328
-within_one_hour=True
-retention_until=2033-11-04 10:04:59.567090
-bundle_id=EVB-3c815df18d6be157
