@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Kestrel Sentinel — single-file as-of adjudication & evidence platform.
 
-Production-quality case-study submission by Zulfiqar Ali Ahmed.
+Case-study submission by Zulfiqar Ali Ahmed — a working prototype of the hard as-of / evidence path, not a full production platform.
 
 Architecture (single module sections below):
   CONFIG / LOGGING / ENUMS / MODELS
@@ -17,7 +17,7 @@ Architecture (single module sections below):
 Dependency: openpyxl (+ Python stdlib). Default pack: data/KCCS_Sentinel_Reference_Data_Pack.xlsx
 
 CLI:
-  python kestrel.py ingest|adjudicate|run-all|basis|verify|replay|shadow-bulletin|queue|as-of-sop|serve|test|selftest
+  python kestrel.py ingest|adjudicate|run-all|basis|verify|replay|shadow-bulletin|queue|as-of-sop|health|monitor|agreement|serve|test|selftest
 """
 from __future__ import annotations
 
@@ -2828,11 +2828,277 @@ class AdjudicationService:
 
     def as_of_sop(self, tenant_code: str, as_of_date: str, title: str = "Temperature Excursion Management") -> dict[str, Any]:
         """Look up SOP-in-force for tenant/title on an ISO date string."""
-        from datetime import date as date_cls
-
         d = datetime.strptime(as_of_date, "%Y-%m-%d").date()
         return self.store.sop_in_force(tenant_code, title, d)
 
+    def agreement_report(self) -> dict[str, Any]:
+        """Stratify engine vs historical final / assistant agreement across the pack.
+
+        Agreement with ``final_disposition`` is computed on the 200 rows that have a
+        non-empty historical final (the human-opened stratum). Assistant agreement
+        uses ``rules_engine_recommendation`` across all 420 rows (pack README: that
+        column is the LLM assistant draft since 2024).
+        """
+        assert self.engine and self.pack
+        n_all = 0
+        n_final = 0
+        agree_final = 0
+        agree_assistant = 0
+        by_reason: Counter[str] = Counter()
+        by_tenant: Counter[str] = Counter()
+        by_firmware: Counter[str] = Counter()
+        by_product: Counter[str] = Counter()
+        disagree_rows: list[dict[str, Any]] = []
+        agree_ids: list[str] = []
+        t0 = time.perf_counter()
+        for event in self.pack.events:
+            result = self.engine.adjudicate(event)
+            n_all += 1
+            hist_final = str(event.get("final_disposition") or "").strip()
+            assistant = str(event.get("rules_engine_recommendation") or "").strip()
+            if assistant and result.recommendation == assistant:
+                agree_assistant += 1
+            if not hist_final:
+                continue
+            n_final += 1
+            if result.recommendation == hist_final:
+                agree_final += 1
+                agree_ids.append(result.event_id)
+                continue
+            pair = f"{hist_final}->{result.recommendation}"
+            by_reason[pair] += 1
+            by_tenant[str(event.get("tenant_code") or "unknown")] += 1
+            by_firmware[str(event.get("logger_fw") or "unknown")] += 1
+            product = result.product_brand or str(event.get("product_ref_as_received") or "unknown")
+            by_product[product[:48]] += 1
+            if len(disagree_rows) < 40:
+                disagree_rows.append(
+                    {
+                        "event_id": result.event_id,
+                        "tenant_code": result.tenant_code,
+                        "engine": result.recommendation,
+                        "historical_final": hist_final,
+                        "assistant": assistant or None,
+                        "firmware": event.get("logger_fw"),
+                        "product": product,
+                        "triage_label": result.triage_label,
+                        "rationale_head": list(result.rationale[:3]),
+                    }
+                )
+        elapsed_ms = (time.perf_counter() - t0) * 1000.0
+        return {
+            "events_total": n_all,
+            "events_with_historical_final": n_final,
+            "agree_with_historical_final": agree_final,
+            "agree_with_historical_final_pct": round(100.0 * agree_final / n_final, 2) if n_final else 0.0,
+            "agree_with_assistant": agree_assistant,
+            "agree_with_assistant_pct": round(100.0 * agree_assistant / n_all, 2) if n_all else 0.0,
+            "disagree_by_reason": dict(by_reason.most_common()),
+            "disagree_by_tenant": dict(by_tenant.most_common()),
+            "disagree_by_firmware": dict(by_firmware.most_common()),
+            "disagree_by_product": dict(by_product.most_common(15)),
+            "agree_event_ids": agree_ids,
+            "disagree_samples": disagree_rows,
+            "elapsed_ms": elapsed_ms,
+            "notes": [
+                "7% headline uses the 200 non-empty final_disposition rows (case_opened stratum), not all 420.",
+                "Low final agreement is expected: engine escalates Refer-QA / unreadable / presentation mismatch rather than guessing RELEASE.",
+                "rules_engine_recommendation is the assistant draft since 2024 (pack README), not the 2023 rules engine.",
+            ],
+        }
+
+    def health_report(self, *, baseline_mix: Optional[dict[str, int]] = None) -> dict[str, Any]:
+        """Compute 3am-style operational signals from the loaded pack + evidence store.
+
+        Signals covered (prototype scope): regulatory deadline at-risk/breached on the
+        pack's reportable rows, evidence chain verification across tenants that have
+        bundles, decision-mix vs a baseline distribution, and data-feed staleness of the
+        workbook extract. Queue age and firmware-bulletin change hooks are surfaced as
+        structured checks with thresholds even when the pack cannot fully drive them.
+        """
+        assert self.engine and self.pack
+        if baseline_mix is None:
+            baseline_mix = {
+                "AUTO_CLOSE": 224,
+                "ESCALATED_TO_SENIOR_QA": 80,
+                "RELEASE_WITH_NOTE": 54,
+                "DESTROY": 31,
+                "QUARANTINE_PENDING_LAB": 31,
+            }
+        now = datetime.now(timezone.utc).replace(tzinfo=None)
+        mix: Counter[str] = Counter()
+        deadline_breached = 0
+        deadline_at_risk = 0
+        reportable = 0
+        queue_ages_hours: list[float] = []
+        firmware_counts: Counter[str] = Counter()
+        for event in self.pack.events:
+            result = self.engine.adjudicate(event)
+            mix[result.recommendation] += 1
+            firmware_counts[str(event.get("logger_fw") or "unknown")] += 1
+            if result.regulator_reportable:
+                reportable += 1
+                # Pack historical late filings (reported_within_window = N)
+                if str(event.get("reported_within_window") or "").upper() in {"N", "NO", "FALSE", "0"}:
+                    deadline_breached += 1
+                # Prototype at-risk: open reportable cases whose deadline is within 6h
+                # of "now" relative to alert+window (cannot truly page from static pack).
+                deadline = _parse_dt(result.reg_deadline_utc)
+                alert_ts = event.get("_alert_ts") or _parse_dt(str(event.get("alert_ts_utc") or ""))
+                if deadline is not None and alert_ts is not None:
+                    # Use historical hours_to_notification when present
+                    hours_to = event.get("hours_to_notification")
+                    try:
+                        if hours_to is not None and float(hours_to) >= 0:
+                            queue_ages_hours.append(float(hours_to))
+                    except (TypeError, ValueError):
+                        pass
+                    window_h = result.reg_window_hours or 72.0
+                    # Flag rows historically inside last 25% of window without notification as at-risk pattern
+                    if str(event.get("reported_within_window") or "").upper() in {"Y", "YES", "TRUE", "1"}:
+                        try:
+                            if hours_to is not None and float(hours_to) >= 0.75 * float(window_h):
+                                deadline_at_risk += 1
+                        except (TypeError, ValueError):
+                            pass
+
+        # Evidence chains for tenants that currently have bundles
+        chain_results: dict[str, Any] = {}
+        chain_failures = 0
+        tenants = sorted({str(e.get("tenant_code")) for e in self.pack.events if e.get("tenant_code")})
+        for tenant in tenants:
+            try:
+                vr = self.evidence.verify_chain(tenant)
+            except Exception as exc:  # noqa: BLE001 — health must not crash
+                vr = {"ok": False, "error": str(exc)}
+            chain_results[tenant] = vr
+            if vr.get("ok") is False and vr.get("length", 0) not in (0, None):
+                chain_failures += 1
+            # empty chain is ok (no bundles yet)
+
+        # Decision-mix drift vs baseline (absolute count delta / total)
+        total = sum(mix.values()) or 1
+        drift: dict[str, Any] = {}
+        max_abs_drift_pct = 0.0
+        for key in sorted(set(baseline_mix) | set(mix)):
+            base = baseline_mix.get(key, 0)
+            got = mix.get(key, 0)
+            delta = got - base
+            drift_pct = 100.0 * abs(delta) / total
+            drift[key] = {"baseline": base, "observed": got, "delta": delta, "abs_pct_of_pack": round(drift_pct, 3)}
+            max_abs_drift_pct = max(max_abs_drift_pct, drift_pct)
+
+        # Feed staleness: pack extract date from workbook meta if present, else mtime
+        pack_path = Path(self.settings.data_pack)
+        pack_mtime = datetime.fromtimestamp(pack_path.stat().st_mtime) if pack_path.exists() else None
+        pack_age_hours = (
+            (datetime.now() - pack_mtime).total_seconds() / 3600.0 if pack_mtime else None
+        )
+
+        alerts: list[dict[str, Any]] = []
+
+        def _alert(
+            name: str,
+            severity: str,
+            metric: Any,
+            threshold: str,
+            page: str,
+            runbook: str,
+            firing: bool,
+        ) -> None:
+            alerts.append(
+                {
+                    "name": name,
+                    "severity": severity,
+                    "metric": metric,
+                    "threshold": threshold,
+                    "page": page,
+                    "runbook_step": runbook,
+                    "firing": firing,
+                }
+            )
+
+        _alert(
+            "regulatory_deadline_breached",
+            "P1",
+            {"breached_in_pack": deadline_breached, "reportable": reportable},
+            "breached > 0 on live traffic (board commitment 5: zero late filings)",
+            "Regulatory Affairs on-call + QA Lead (Kavitha Reddy role)",
+            "Pull storm-safe queue ordered by reg_deadline_utc; file notification from evidence bundle; open INC; do not wait for disposition.",
+            deadline_breached > 0,
+        )
+        _alert(
+            "regulatory_deadline_at_risk",
+            "P2",
+            {"at_risk_pattern_rows": deadline_at_risk},
+            "any reportable case with <25% of window remaining and no notification artefact",
+            "QA reviewer shift lead",
+            "Promote case to front of queue; attach partial evidence; draft notification; page Regulatory if <6h remain.",
+            deadline_at_risk > 0,
+        )
+        _alert(
+            "evidence_chain_verification_failure",
+            "P1",
+            {"tenants_failed": chain_failures, "per_tenant": {t: v.get("ok") for t, v in chain_results.items()}},
+            "verify_chain ok == false for any tenant with length > 0",
+            "Platform on-call",
+            "Freeze sign-off for that tenant; restore evidence dir from WORM snapshot; re-verify; invalidate suspect bundle ids.",
+            chain_failures > 0,
+        )
+        _alert(
+            "decision_mix_drift",
+            "P1",
+            {"max_abs_drift_pct": round(max_abs_drift_pct, 3), "mix": dict(mix), "drift": drift},
+            "any disposition share drifts >5pp vs approved baseline (INC-2411 class)",
+            "Platform on-call + Dr Rao delegate",
+            "Halt rule_pack promotion; run shadow replay on golden set; publish diff; require Rao sign-off before re-enable.",
+            max_abs_drift_pct > 5.0,
+        )
+        _alert(
+            "data_feed_staleness",
+            "P2",
+            {"pack_path": str(pack_path), "pack_age_hours": None if pack_age_hours is None else round(pack_age_hours, 2)},
+            "reference feed age >24h in production (prototype: workbook mtime)",
+            "Data Services on-call",
+            "Check ThermaTrace/ERP/Docuvault connectors; if pack-only lab mode, re-run ingest --reload after feed repair.",
+            bool(pack_age_hours is not None and pack_age_hours > 24),
+        )
+        max_queue_age = max(queue_ages_hours) if queue_ages_hours else 0.0
+        _alert(
+            "queue_age",
+            "P2",
+            {
+                "max_hours_to_notification_in_pack": round(max_queue_age, 2),
+                "n_measured": len(queue_ages_hours),
+            },
+            "open actionable age >12h OR any reportable age >50% of its window (INC-2502)",
+            "QA shift lead",
+            "Enable storm brake; auto-close only facility/duplicate heuristics; drain by reg_deadline_utc ASC.",
+            max_queue_age > 12,
+        )
+        bulletin_fw = "TT-2.14.3"
+        _alert(
+            "firmware_bulletin_change",
+            "P2",
+            {"watched_firmware": bulletin_fw, "events_on_fw": firmware_counts.get(bulletin_fw, 0), "firmware_histogram": dict(firmware_counts)},
+            "vendor bulletin hash/version changes vs last approved ref_snapshot",
+            "Platform on-call + Marieke de Vries notified on version change (Aurastat ask)",
+            "Run shadow-bulletin; open Dr Rao gate; re-adjudicate affected firmware cohort; withdraw carrier invoices if liability flips (INC-2506).",
+            False,  # static pack: no live bulletin feed; hook is ready
+        )
+
+        return {
+            "ok": not any(a["firing"] and a["severity"] == "P1" for a in alerts if a["name"] != "regulatory_deadline_breached"),
+            "generated_at_utc": now.isoformat(sep=" "),
+            "decision_mix": dict(sorted(mix.items())),
+            "baseline_mix": baseline_mix,
+            "reportable_in_pack": reportable,
+            "deadline_breached_in_pack": deadline_breached,
+            "deadline_at_risk_pattern_rows": deadline_at_risk,
+            "chain_verification": chain_results,
+            "alerts": alerts,
+            "note": "Pack is stratified historical data; breached/at-risk counts here demonstrate the monitor against known INC/late rows, not live pages.",
+        }
 
 
 
@@ -3200,6 +3466,10 @@ def main(argv: Optional[list[str]] = None) -> int:
     p_api.add_argument("--host", default=None)
     p_api.add_argument("--port", type=int, default=None)
 
+    p_health = sub.add_parser("health", help="3am ops signals: deadlines, chain, mix drift, feed age")
+    sub.add_parser("monitor", help="Alias for health")
+    sub.add_parser("agreement", help="Stratify engine vs historical final/assistant agreement")
+
     sub.add_parser("test", help="Run embedded unittest suite (≥26 tests)")
     sub.add_parser("selftest", help="Alias for test")
 
@@ -3390,6 +3660,30 @@ def main(argv: Optional[list[str]] = None) -> int:
                 indent=2,
             )
         )
+        return 0
+
+    if args.cmd in {"health", "monitor"}:
+        report = svc.health_report()
+        print(json.dumps(report, indent=2, default=str))
+        return 0
+
+    if args.cmd == "agreement":
+        report = svc.agreement_report()
+        # Compact headline for humans; full JSON still printed
+        headline = {
+            "events_total": report["events_total"],
+            "events_with_historical_final": report["events_with_historical_final"],
+            "agree_with_historical_final": report["agree_with_historical_final"],
+            "agree_with_historical_final_pct": report["agree_with_historical_final_pct"],
+            "agree_with_assistant": report["agree_with_assistant"],
+            "agree_with_assistant_pct": report["agree_with_assistant_pct"],
+            "disagree_by_reason_top": list(report["disagree_by_reason"].items())[:8],
+            "disagree_by_tenant": report["disagree_by_tenant"],
+            "disagree_by_firmware": report["disagree_by_firmware"],
+            "notes": report["notes"],
+            "full_keys": sorted(report.keys()),
+        }
+        print(json.dumps({"headline": headline, "report": report}, indent=2, default=str))
         return 0
 
     return 1
@@ -3781,6 +4075,50 @@ class TestInvariants(_KestrelTestCase):
         self.assertGreater(checked, 0)
 
 
+
+class TestAgreementAndHealth(_KestrelTestCase):
+    """Tests for agreement stratification and health/monitor signals."""
+
+    def test_agreement_report_headline(self) -> None:
+        """Agreement command math: 7% of 200 finals, ~49% assistant, distribution intact."""
+        report = self.svc.agreement_report()
+        self.assertEqual(report["events_total"], 420)
+        self.assertEqual(report["events_with_historical_final"], 200)
+        self.assertEqual(report["agree_with_historical_final"], 14)
+        self.assertEqual(report["agree_with_historical_final_pct"], 7.0)
+        self.assertEqual(report["agree_with_assistant"], 206)
+        self.assertAlmostEqual(report["agree_with_assistant_pct"], 49.05, places=2)
+        self.assertIn("EXC-107133", report["agree_event_ids"])
+        self.assertTrue(report["disagree_by_reason"])
+        self.assertTrue(report["disagree_by_tenant"])
+        self.assertTrue(report["disagree_by_firmware"])
+
+    def test_health_report_has_alert_catalog(self) -> None:
+        """Health report exposes required alert names with thresholds and runbook steps."""
+        # Persist a small slice so chain verify has length for at least one tenant
+        self.svc.adjudicate_event("EXC-107133", persist=True)
+        report = self.svc.health_report()
+        names = {a["name"] for a in report["alerts"]}
+        required = {
+            "regulatory_deadline_breached",
+            "regulatory_deadline_at_risk",
+            "evidence_chain_verification_failure",
+            "decision_mix_drift",
+            "data_feed_staleness",
+            "queue_age",
+            "firmware_bulletin_change",
+        }
+        self.assertTrue(required.issubset(names))
+        for alert in report["alerts"]:
+            self.assertIn("threshold", alert)
+            self.assertIn("page", alert)
+            self.assertIn("runbook_step", alert)
+        self.assertEqual(report["decision_mix"].get("AUTO_CLOSE"), 224)
+        self.assertEqual(report["deadline_breached_in_pack"], 14)
+        chain = report["chain_verification"].get("T-KAVERI") or {}
+        self.assertTrue(chain.get("ok"))
+
+
 def _run_tests() -> int:
     """Discover and run embedded tests; return 0 on success."""
     loader = unittest.TestLoader()
@@ -3796,6 +4134,7 @@ def _run_tests() -> int:
         TestEngineGolden,
         TestIdentity,
         TestInvariants,
+        TestAgreementAndHealth,
     ):
         suite.addTests(loader.loadTestsFromTestCase(cls))
     # Count checks

@@ -1,12 +1,14 @@
 # Kestrel Cold Chain Solutions — The Adjudication Problem
 
-Production case-study submission by **Zulfiqar Ali Ahmed**.
+Case-study submission by **Zulfiqar Ali Ahmed**.
+
+> **Covering note (brief §10):** Spent about **12 focused hours** inside the five-day window (brief suggests 10–14). Unusual tool: **Grok Bot** as an AI pair-programmer for design critique, consolidation, and README evidence paste — not for inventing dispositions. Stack otherwise: Python 3, `openpyxl`, stdlib `sqlite3` / `http.server` / `unittest`, `git`/`gh`. Code path is deterministic; no LLM on the hot path.
 
 **Repository layout (exactly two files + inputs):**
 
 | Path | Role |
 |---|---|
-| [`kestrel.py`](kestrel.py) | Self-contained platform: ingest, bitemporal store, as-of engine, evidence hash-chain, lifecycle, shadow replay, stdlib HTTP API, CLI, embedded ≥26-test suite |
+| [`kestrel.py`](kestrel.py) | Self-contained prototype: ingest, bitemporal store, as-of engine, evidence hash-chain, lifecycle, shadow replay, stdlib HTTP API, CLI, embedded ≥28-test suite |
 | [`README.md`](README.md) | This document — requirements, design, evidence, working log |
 | [`data/`](data/) | Case-study inputs only (**do not modify**): brief PDF + `KCCS_Sentinel_Reference_Data_Pack.xlsx` |
 
@@ -17,34 +19,40 @@ Production case-study submission by **Zulfiqar Ali Ahmed**.
 1. [Executive summary](#executive-summary)
 2. [Quickstart](#quickstart)
 3. [Where You Land](#where-you-land)
-   - [Requirements → evidence](#requirements--evidence-traceability)
+   - [Requirements → evidence](#requirements-evidence-traceability)
    - [What the system has to do](#what-this-system-has-to-do)
    - [Attributes](#attributes-what-it-has-to-be)
    - [Non-goals](#what-i-am-deliberately-not-building-and-why)
    - [Phased rollout](#phased-rollout)
-   - [Gaps / contradictions](#where-the-briefpack-is-silent-or-contradictory--positions-taken)
+   - [Gaps / contradictions](#where-the-briefpack-is-silent-or-contradictory-positions-taken)
+   - [Board commitments 1 and 5](#board-commitments-1-and-5)
    - [Board pushback](#board-items-i-believe-are-wrong-with-counterarguments)
+   - [Cost ceiling (tab 13) and the quiet Sunday](#cost-ceiling-tab-13-and-the-quiet-sunday)
 4. [Design](#the-design)
-   - [Architecture](#11-shape--component-map)
+   - [Architecture](#11-shape-component-map)
    - [Bitemporal data model](#21-bitemporal-reference-rows)
    - [Case lifecycle](#3-case-lifecycle)
    - [Degradation](#4-degradation-during-outages-and-the-regulatory-clock)
    - [Versioning / deployment](#5-versioning-and-production-pipeline)
    - [Reviewer questions mapping](#6-mapping-to-the-twelve-reviewer-questions-tab-10)
+   - [Thin spots named in the brief](#7-thin-spots-named-in-the-brief)
+   - [Monitoring and operations (3 am, six months later)](#8-monitoring-and-operations-3-am-six-months-later)
 5. [Validation](#validation)
 6. [Evidence](#evidence-sample-outputs)
+   - [Agreement stratification](#agreement-stratification)
 7. [Working log](#working-log)
 8. [Deferred items](#deferred-items)
+9. [Time spent / covering note](#time-spent-covering-note)
 
 ---
 
 ## Executive summary
 
-Kestrel’s failure mode is not “the model is not smart enough.” Reviewers cannot assemble **as-of** product identity, stability allowance, SOP revision, and carrier contract in one place — and cannot reproduce that basis years later (AUD-2603). This submission is an **evidence-centred, bitemporal adjudication platform** in a single Python module:
+Kestrel’s failure mode is not “the model is not smart enough.” Reviewers cannot assemble **as-of** product identity, stability allowance, SOP revision, and carrier contract in one place — and cannot reproduce that basis years later (AUD-2603). This submission is an **evidence-centred, bitemporal adjudication prototype** in a single Python module (hard path real; not a full multi-region production platform):
 
 - Deterministic as-of engine (closures may auto-complete; product-fate dispositions require human sign-off — Dr Rao).
 - SQLite **bitemporal** reference store (valid-time + transaction-time).
-- **Hash-chained, tenant-isolated evidence bundles** with 7-year retention metadata; full basis retrieval measured in **&lt;1 ms** locally for EXC-107133.
+- **Hash-chained, tenant-isolated evidence bundles** with 7-year retention metadata; full basis retrieval for EXC-107133 measured at **median 0.27 ms** locally (30 samples; min 0.21 / p95 0.51 / max 1.48 ms).
 - Case lifecycle + regulatory-deadline priority queue (INC-2502 storm safety).
 - Shadow replay for calibration bulletin TT-CB-114 (Dr Rao gate).
 - Stdlib `http.server` API + argparse CLI; **only dependency: `openpyxl`**.
@@ -72,8 +80,9 @@ Hero case **EXC-107133 → `RELEASE_WITH_NOTE`**.
 python3 -m venv .venv && source .venv/bin/activate
 pip install openpyxl
 
-# Embedded suite (≥26 tests; covers golden, as-at SOP, chain/tamper,
-# tenant isolation, latency, replay, lifecycle, shadow, API smoke, invariants)
+# Embedded suite (≥28 tests; covers golden, as-at SOP, chain/tamper,
+# tenant isolation, latency, replay, lifecycle, shadow, API smoke, invariants,
+# agreement stratification, health/monitor catalog)
 python kestrel.py test
 
 # Load workbook into bitemporal SQLite (DB/evidence land under /tmp by default)
@@ -95,7 +104,13 @@ python kestrel.py shadow-bulletin
 # SOP as-at AUD-2603 date
 python kestrel.py as-of-sop --tenant T-AURA --date 2025-08-14
 
-# HTTP API (stdlib)
+# Agreement vs historical final / assistant (stratified)
+python kestrel.py agreement
+
+# 3am ops signals (deadlines, chain, mix drift, feed age, queue, bulletin hook)
+python kestrel.py health   # alias: monitor
+
+# HTTP API (stdlib http.server — no FastAPI in this deliverable)
 python kestrel.py serve --host 127.0.0.1 --port 8080
 # curl http://127.0.0.1:8080/health
 ```
@@ -103,7 +118,7 @@ python kestrel.py serve --host 127.0.0.1 --port 8080
 **Default workbook:** `data/KCCS_Sentinel_Reference_Data_Pack.xlsx`.  
 **Outputs** (SQLite DB, evidence JSON, CSV) go to a temporary directory (`/tmp/kestrel-adjudication/` on Linux) — not committed. Override with `--db`, `--evidence-dir`, `--out`.
 
-**CLI surface:** `ingest` · `adjudicate` · `run-all` · `basis` · `verify` · `replay` · `shadow-bulletin` · `queue` · `as-of-sop` · `serve` · `test` / `selftest`.
+**CLI surface:** `ingest` · `adjudicate` · `run-all` · `basis` · `verify` · `replay` · `shadow-bulletin` · `queue` · `as-of-sop` · `health`/`monitor` · `agreement` · `serve` · `test` / `selftest`.
 
 ---
 
@@ -203,6 +218,20 @@ Go-live scope: as-of engine drives **auto-close candidates** (human can still op
 | 06_Stability_Index ~60% coverage; some master refs missing; readable=N | Missing/unreadable study → escalate or quarantine, never invent allowance. |
 | Board “70% closed without a person” vs 82% non-actionable base rate | See pushback #1. |
 
+### Board commitments 1 and 5
+
+Exact wording from board paper BP-26-09 (brief §6):
+
+| # | Commitment (verbatim outcome) | Today |
+|---|---|---|
+| **1** | Median time from alert to signed disposition under 24 hours, by the end of the first full quarter after go-live. | 6.2 days |
+| **5** | No notifiable deviation notified to a regulator outside its window. | 14 late in the last two quarters |
+
+**How the design meets them**
+
+- **Commitment 1 (24h median disposition).** The engine does not invent a faster human; it collapses the 96-minute median evidence chase (tab 13) into a single as-of bundle so a reviewer can sign once the evidence is in. AUTO_CLOSE on genuine non-actionable rows (224/420 in this stratified pack; population target is the 82% non-actionable mass on tab 13) removes them from the disposition clock. Lifecycle + `storm_safe_queue` sort by `reg_deadline_utc` then age so real work is not buried (INC-2502). Pack measurement on the 200 `case_opened` rows: historical median `days_to_disposition` ≈ **6.06 days** (mean ≈ 6.60) — still far from 24h. **Pushback:** 24h median across *all* alerts including ones that need lab / dual sign / handwritten Annexure 2 confirmation is unrealistic in Q1 without staffing change. What I would commit to in Q1: (a) median time-to-*recommendation+bundle* under 15 minutes for Aura; (b) median time-to-*signed disposition* under 24h for the AUTO_CLOSE + simple RELEASE_WITH_NOTE cohort only; (c) explicit exclusion of PENDING_LAB / dual-sign / annexure-OCR waits from that KPI until those workflows exist.
+- **Commitment 5 (zero late regulator filings).** Separate regulatory clock from disposition clock (`regulatory_clock`, case `reg_deadline_utc` never cleared on outage). Queue priority is the deadline. `kestrel.py health` fires `regulatory_deadline_breached` / `_at_risk` with a runbook that says **file the notification from the evidence bundle before disposition**. Pack known-late rows: **14** of 28 reportable (`reported_within_window=N`) — the same figure Kavitha cites. **Pushback / honesty:** a prototype on a static workbook cannot *prevent* late filings in production; it can only make the breach visible and pageable. Zero late is achievable only if storm brake + deadline paging are mandatory and reviewers are staffed for the 72h / next-business-day markets on weekends — see quiet Sunday below.
+
 ### Board items I believe are wrong (with counterarguments)
 
 #### 1. Commitment 2 — “≥70% of alerts closed without reaching a person”
@@ -217,7 +246,26 @@ Go-live scope: as-of engine drives **auto-close candidates** (human can still op
 
 #### 3. Soft disagreement with the USD 0.06 / 1.10 ceiling *shape*, not the thrift
 
-Okoro asked for the working. The ceiling funds inference+retrieval only. The thing that actually failed in March is **retention of the evidence bundle** — a capital line the paper already separates. I will not spend the operating ceiling on a larger model to draft prettier justifications. I will spend capital on bitemporal storage and identity resolution. If forced to cut, cut model calls on auto-close paths entirely (deterministic rules are cheaper and versionable).
+Okoro asked for the working — see the full arithmetic in [Cost ceiling (tab 13) and the quiet Sunday](#cost-ceiling-tab-13-and-the-quiet-sunday). Short version: the ceiling funds inference+retrieval only; March failed on **retention**, a capital line. Deterministic engine model spend is **$0.00 / alert**.
+
+### Cost ceiling (tab 13) and the quiet Sunday
+
+Tab 13 figures used as-written (not invented):
+
+| Input (tab 13) | Value |
+|---|---|
+| Consignments / month | 128,000 |
+| Platform fee | **USD 3.10** / consignment → **USD 396,800** / month line |
+| Alerts / month | **11,400** |
+| Human cases / month | **2,050** |
+| Ceiling / alert screened | **USD 0.06** → 11,400 × 0.06 = **USD 684** / month |
+| Ceiling / human case | **USD 1.10** → 2,050 × 1.10 = **USD 2,255** / month |
+| What the ceiling covers | Model inference + retrieval that serves it (ingestion/storage/7y retention = separate capital) |
+| Annual QA salary (current) | USD 1.51M |
+
+**Deterministic engine cost (measured this run):** adjudicating all 420 pack events took **0.0413 s** wall (~**0.098 ms / alert**). Model tokens on the decision path: **0**. Inference spend: **USD 0.00 / alert**, well under the USD 0.06 ceiling. Optional LLM justification drafting (out of decision path) would be the only draw on the USD 684/month inference envelope, and only for the human-reached cohort.
+
+**Quiet Sunday (Daniel Okoro, CFO, brief §4):** *"…be specific about the shape of the bill, not just the size of it: it has to cost that on a quiet Sunday when nothing is going wrong and we are still paying for it."* Meaning: do not size the bill as burst GPU for incident days; the fixed cost must be tolerable when alert volume is low. Implication: prefer always-on cheap deterministic screening (this prototype) + tiny standby reviewer roster, not a large always-warm model fleet. Staffing shape: keep the 23-FTE loaded cost as the human ceiling; use automation to cut the 22% of non-actionable alerts reviewers still open (tab 13, median 17 min) and the 96-minute evidence chase on real cases — not to replace sign-off. On a quiet Sunday the deterministic path still runs for cents of CPU; the bill that remains is people on call for the 72h markets (commitment 5), which is exactly the fixed cost Okoro is asking us to own honestly.
 
 ---
 
@@ -394,6 +442,8 @@ Queue sort key = `reg_deadline_utc ASC NULLS LAST, alert_ts ASC`. Regulatory dea
 
 ### 5. Versioning and production pipeline
 
+**Marieke de Vries (Aurastat QA Director)** asked for two non-negotiables (brief §4): EU data residency, and *“I want to know which version of whatever you are using produced a given recommendation, and to be told when that changes.”* Every evidence bundle therefore records `rule_pack_version`, `ref_snapshot_id`, and `code_version`. Promoting any of them is a Dr Rao gate change; Aurastat is on the notify list for version changes (see also `firmware_bulletin_change` in the health catalog). **Rohan Bhatt (CEO)** framed the commercial stakes: compliance evidence is “the weakest thing we sell” — reconstructability is the product, not a side report.
+
 Three (plus optional prompt) versioned artefacts on every bundle:
 
 1. **Rule pack** (`rule_pack_version`)
@@ -432,7 +482,7 @@ Deterministic engine on auto-close path: ~0 model tokens. Fits Okoro’s cost ce
 | 11 Last time | Precedent store (tenant-scoped) |
 | 12 Reconstruct in 2 years | Evidence bundle WORM + hash chain |
 
-### What was actually built (single-file production pass)
+### What was actually built (single-file prototype pass)
 
 | Design element | In `kestrel.py` |
 |---|---|
@@ -443,17 +493,44 @@ Deterministic engine on auto-close path: ~0 model tokens. Fits Okoro’s cost ce
 | Case lifecycle | `CaseLifecycle` — states incl. REOPENED; `storm_safe_queue` |
 | Shadow / Rao gate | `shadow_replay_bulletin` + CLI |
 | HTTP API | stdlib `ThreadingHTTPServer`: `/health`, `/adjudicate`, `/evidence/*`, `/replay`, `/shadow/bulletin`, `/queue`, `/as-of/sop` |
-| CLI + tests | argparse + embedded `unittest` (≥26) |
+| CLI + tests | argparse + embedded `unittest` (≥28), including `health`/`monitor` + `agreement` |
 
 ---
+
+### 7. Thin spots named in the brief
+
+These are load-bearing and deliberately not papered over:
+
+| Thin spot | What the brief/pack says | Position in this prototype |
+|---|---|---|
+| **Annexure 2 handwritten limit (T-KAVERI)** | For 2 of 6 sites, Annexure 2 is a scan with a handwritten margin note (QA head who left in 2024) that *raises* the acceptance limit (brief §2; tab 12). | Engine surfaces SOP overlap / human-confirm; it does **not** OCR the margin note. Phase 2 labelled extraction workflow. Silent model-read of handwriting is out of scope (failed January pattern). |
+| **Lane + batch history** | Sentinel shows one shipment; Priya used WhatsApp for lane memory; cumulative exposure must be written against the batch (brief §2). | Bundle records `prior_excursions_lane_90d` from the alert row as a stub + `lane_history_ref` note. Full lane/carrier/reefer panel and batch exposure ledger are deferred (tab 10 Q3/Q8). |
+| **Carrier setpoint CSV** | Tapti setpoint arrives as a CSV on email, when it arrives; contract has no cold-chain clause (brief §2). | Contract surfaced (`CNT-2021-0245`, no cold-chain schedule); setpoint CSV ingest not built. Liability/custody ≠ product fate — disposition proceeds; claim package may lag (degradation table). |
+| **Invoice withdrawal (INC-2506)** | After TT-CB-114, 61 re-adjudications; **9 carrier invoices had to be withdrawn**. | `shadow-bulletin` + reopen lifecycle produce the new bundle linked to prior; finance hook to withdraw/reissue invoices is an integration, not in this file. Health alert `firmware_bulletin_change` runbook names the invoice step. |
+
+### 8. Monitoring and operations (3 am, six months later)
+
+Brief §8.C: *how you would know if it stopped working at three in the morning six months from now.* Concrete alert catalog (also implemented as `python kestrel.py health` / `monitor` against the pack):
+
+| Alert | Threshold | Who is paged | Runbook step |
+|---|---|---|---|
+| Regulatory deadline about to be breached | Reportable case with &lt;25% of window remaining and no notification artefact | QA shift lead | Promote to front of `reg_deadline_utc` queue; draft notification from bundle; page Regulatory if &lt;6h remain |
+| Regulatory deadline breached | Any notifiable deviation notified outside its window (board commitment 5: **zero**) | Regulatory Affairs on-call + QA Lead | File from evidence bundle immediately; open INC; do not wait for disposition |
+| Evidence chain verification failure | `verify_chain` → not ok for any tenant with length &gt; 0 | Platform on-call | Freeze tenant sign-off; restore WORM snapshot; re-verify; invalidate suspect bundles |
+| Decision-mix drift | Any disposition share drifts &gt;5pp vs approved baseline (INC-2411 class) | Platform on-call + Dr Rao delegate | Halt `rule_pack` promotion; shadow replay golden set; Rao sign-off before re-enable |
+| Data-feed staleness | Reference feed age &gt;24h (prototype uses workbook mtime) | Data Services on-call | Check ThermaTrace/ERP/Docuvault connectors; `ingest --reload` after repair |
+| Queue age | Open actionable age &gt;12h, or reportable age &gt;50% of its window (INC-2502) | QA shift lead | Storm brake; AUTO_CLOSE only facility/duplicate heuristics; drain by deadline |
+| Firmware bulletin change | Vendor bulletin hash/version ≠ last approved `ref_snapshot` | Platform on-call; **notify Marieke de Vries** on version change | `shadow-bulletin`; Rao gate; re-adjudicate firmware cohort; withdraw carrier invoices if liability flips (INC-2506) |
+
+Measured against this stratified pack just now: decision mix matches baseline (224/80/54/31/31) so mix-drift is quiet; **14** historically late reportable rows fire the breached detector (known Kavitha figure); chain verify is clean after ingest+adjudicate; feed-staleness may fire on workbook mtime in lab mode — expected.
 
 ## Validation
 
 ```text
 $ python kestrel.py test
-Running 26 embedded tests…
+Running 28 embedded tests…
 ...
-Ran 26 tests in ~11s
+Ran 28 tests in ~12s
 OK
 ```
 
@@ -525,12 +602,16 @@ EXC-107133 → RELEASE_WITH_NOTE
 
 ### Retrieval latency
 
+Re-measured on this machine after persisting EXC-107133 (30 samples of `produce_full_basis`):
+
 ```text
 event_id=EXC-107133
-retrieval_latency_ms≈0.45
+retrieval_latency_ms median=0.27  (min=0.21, p95=0.51, max=1.48)
 within_one_hour=True
 retention_until≈2033-11-05 (7 years)
 ```
+
+The same **0.27 ms median** figure is used everywhere in this README. Earlier drafts quoted 0.45 ms / 0.72 ms from other machines/passes — those are stale.
 
 ### Shadow bulletin (TT-CB-114) diff summary
 
@@ -569,12 +650,42 @@ Sample row:
 | Bulletin applied (TT-2.14.3) | 91 |
 | EXC-107133 | RELEASE_WITH_NOTE ✓ |
 
-Low agreement with historical finals is expected: the engine escalates `Refer QA` allowances and presentation mismatches rather than guessing RELEASE. Dr Rao asked for diffs explained, not agreement maximised.
+### Agreement stratification
+
+```text
+$ python kestrel.py agreement
+agree_with_historical_final = 14 / 200 = 7.0%
+agree_with_assistant        = 206 / 420 = 49.05%
+```
+
+Headline (real command output): **7.0%** exact match with `final_disposition` on the 200 human-opened rows; **49.05%** match with `rules_engine_recommendation` (assistant draft) across all 420. Dr Rao asked for diffs explained, not agreement maximised — low final agreement is therefore a feature of a conservative escalator, not a silent failure.
+
+**Disagree-by-reason (top, of 186 disagreements on the 200):**
+
+| Historical → engine | Count | Reading |
+|---|---|---|
+| RELEASE → AUTO_CLOSE | 51 | Mostly facility/duplicate/no-product triage the historical process still labelled RELEASE |
+| RELEASE → ESCALATED_TO_SENIOR_QA | 17 | Missing SOP / Refer-QA / weak identity — engine refuses to invent RELEASE |
+| RELEASE_WITH_NOTE → ESCALATED_TO_SENIOR_QA | 13 | Same conservative escalate |
+| QUARANTINE_PENDING_LAB → ESCALATED_TO_SENIOR_QA | 13 | Unreadable/missing stability → escalate rather than quarantine guess |
+| RELEASE_WITH_NOTE → AUTO_CLOSE | 10 | Sensor-artefact / within-range paths |
+
+**By tenant (disagreements):** T-VIRENT 65 · T-SAHYADRI 36 · T-KAVERI 20 · T-AURA 16 · T-CAMPOS 16 · T-PINNACLE 15 · T-MERIDIAN 9 · T-NORDIA 9.
+
+**By firmware:** TT-2.14.3 **70** (bulletin cohort — expected pressure) · TT-2.15.0 41 · BMS-n/a 21 · others lower.
+
+**Representative diffs (defended):**
+
+1. **EXC-112352** — engine `AUTO_CLOSE` vs historical `RELEASE` (T-PINNACLE, facility equipment, no product loaded). Engine is right to close; historical RELEASE on an empty room is the process smell INC-2502 described.
+2. **EXC-110336** — engine `ESCALATED_TO_SENIOR_QA` vs historical `RELEASE_WITH_NOTE` (T-VIRENT, TT-2.14.3, master text `Refer QA`). Escalating when the master says Refer QA is correct under Dr Rao’s rule; the assistant’s RELEASE_WITH_NOTE is the pattern reviewers already overrule 23% of the time.
+3. **EXC-107133** — **agree** `RELEASE_WITH_NOTE` (hero case). GTIN identity + master cumulative allowance + SOP overlap flagged + Tapti contract noted without blocking.
+4. **EXC-112842** — engine `DESTROY` vs historical `RELEASE` (T-NORDIA ultra-cold, TT-2.14.3). **Possible engine error / over-harsh:** bulletin-corrected ultra-cold breach path may be too aggressive vs a reviewer who knew a hold-time nuance not in the indexed study. Keep in Rao diff list before any auto-recommend promote.
+5. **EXC-110287** — engine `QUARANTINE_PENDING_LAB` vs historical `DESTROY` (T-KAVERI, unreadable stability scan). Prefer quarantine-until-readable over destroy when the study is a scan-of-scan — likely *better* than historical; still human-signed.
 
 ### Test results
 
 ```text
-Ran 26 tests in ~11s — OK
+Ran 28 tests in ~12s — OK
 ```
 
 ---
@@ -619,13 +730,21 @@ First tenant = T-AURA (conditional renewal / AUD-2603), not Virent. Push back on
 
 AUTO_CLOSE 224 · ESCALATE 80 · DESTROY 31 · QUARANTINE 31 · RELEASE_WITH_NOTE 54 · EXC-107133 ✓ · pytest green.
 
-### 2026-11-04 ~10:57–11:05 — Production hardening pass
+### 2026-11-04 ~10:57–11:05 — Hardening pass
 
-Prioritised: evidence → bitemporal store → tests → lifecycle → shadow → package → docs → API. Kept engine logic; added SQLite bitemporal store, hash-chained evidence, Cl.22 isolation, lifecycle reopen, shadow bulletin, FastAPI. EXC-107133 basis retrieval **0.72 ms**. Discarded Postgres/object-store swap for the time box; discarded committing all 420 evidence files.
+Prioritised: evidence → bitemporal store → tests → lifecycle → shadow → package → docs → API. Kept engine logic; added SQLite bitemporal store, hash-chained evidence, Cl.22 isolation, lifecycle reopen, shadow bulletin, and an HTTP layer. First HTTP cut used FastAPI; later consolidated to stdlib `http.server` so the graded surface stays openpyxl-only. Basis latency numbers from that pass are stale — current median is **0.27 ms** (see Evidence).
 
 ### 2026-11-05 ~05:13–05:30 — Two-file consolidation
 
-Candidate request: collapse the public repo to **exactly** `README.md` + `kestrel.py` + untouched `data/`. Flattened the production package into one stdlib+`openpyxl` module; replaced FastAPI/uvicorn with `http.server`; embedded the full 26-test suite as `unittest`; moved DB/CSV/evidence outputs to a temp directory; `git rm`’d `src/`, `tests/`, `prototype/`, `docs/`, `working-log/`, `examples/`, `scripts/`, packaging/CI files. Verified in a fresh venv with only `openpyxl`: `python kestrel.py test` all pass; `run-all` reproduces AUTO_CLOSE 224 / EXC-107133 `RELEASE_WITH_NOTE`; `basis` / `verify` / `shadow-bulletin` / `serve` work. **Nothing substantive from the prior docs was dropped** — sections live in this README. Honest cost of the consolidation: multi-file packaging ergonomics (editable install, separate diagram files, committed example artefacts) traded for a reviewable two-file surface the candidate asked for.
+Collapse the public repo to **exactly** `README.md` + `kestrel.py` + untouched `data/`. Flattened the package into one stdlib+`openpyxl` module; replaced FastAPI/uvicorn with `http.server`; embedded the unittest suite; moved DB/CSV/evidence outputs to a temp directory; `git rm`’d `src/`, `tests/`, `prototype/`, `docs/`, `working-log/`, `examples/`, `scripts/`, packaging/CI files. Verified: tests pass; `run-all` stays AUTO_CLOSE 224 / EXC-107133 `RELEASE_WITH_NOTE`.
+
+### 2026-11-05 — I disagreed with the AI and was wrong
+
+During consolidation the assistant insisted every public function needed a docstring before push, including a few thin wrappers I had labelled “obvious.” I disagreed, cut the pass short, and opened the PR. Review (and a follow-up self-check) showed the gap immediately: several CLI helpers and store methods had type hints but empty or missing docstrings, which broke the “docstrings on every function” bar I had written into my own submission standard. **I was wrong.** I went back, completed the docstring pass (commit `8ce8138`), and kept the rule. Separately, I also argued mid-pass that quoting an older **0.72 ms** basis latency was “close enough”; it was not — the figure had moved with the consolidation, and inventing continuity would have violated “never invent numbers.” Re-measured: **median 0.27 ms**.
+
+### 2026-11-05 — Monitoring, agreement, board 1 & 5, cost working
+
+Added README sections + `health`/`monitor` + `agreement` commands; tests now **28**. Tools this session: **Grok Bot** (AI assistant), Python 3, `openpyxl`, stdlib SQLite / `http.server` / `unittest`, `git`/`gh`, `pdftotext`.
 
 ### Decisions snapshot
 
@@ -636,18 +755,20 @@ Candidate request: collapse the public repo to **exactly** `README.md` + `kestre
 | First tenant = T-AURA | Conditional renewal; board “one and certain” |
 | Push back on 70% no-human and 34-in-9-months | Conflicts with Dr Rao + board minute |
 | Bitemporal evidence store | March inspector request; seven-year / one-hour commitment |
-| Single-file deliverable | Candidate ask: production quality, zero unnecessary files |
+| Single-file deliverable | Candidate ask: reviewable two-file surface, zero unnecessary files |
 
 ---
 
 ## Deferred items
 
-Live vendor ingest adapters · OCR of handwritten annexure notes · full lane/batch exposure ledger UI · LLM justification drafter (still deliberately out of decision path) · multi-region deployment topology · API authn/z beyond tenant_code (production would use mTLS + tenant claims) · Postgres / object-store swap behind `EvidenceStore` / `BitemporalStore` boundaries.
+Live vendor ingest adapters · OCR of handwritten Annexure 2 margin notes (T-KAVERI) · full lane/carrier/reefer panel and batch exposure ledger · carrier setpoint CSV email ingest · finance hook for INC-2506 invoice withdrawal · LLM justification drafter (still deliberately out of decision path) · multi-region deployment topology · API authn/z beyond tenant_code (production would use mTLS + tenant claims) · Postgres / object-store swap behind `EvidenceStore` / `BitemporalStore` boundaries.
 
 The engine still consumes `prior_excursions_lane_90d` from the alert row as a stub for the lane panel.
 
 ---
 
-## Time spent
+## Time spent / covering note
 
-Focused working day on the case study, a production hardening pass (bitemporal store, evidence chain, lifecycle, shadow, API), and a consolidation pass to the two-file layout requested for review.
+About **12 hours** of focused work inside the five-day window (brief §10 suggests 10–14). Breakdown: brief+pack reading and Where-You-Land; as-of engine against the real 420; bitemporal store + evidence chain + lifecycle + shadow; consolidation to the two-file layout; gap pass (monitoring, board 1 & 5, tab 13 cost, agreement stratification, thin spots, working-log honesty).
+
+**Tools:** Grok Bot (AI assistant for critique and mechanical consolidation — dispositions remain deterministic code), Python 3, `openpyxl`, SQLite, stdlib `http.server` / `unittest` / `argparse`, `git` / `gh`, `pdftotext`. Nothing exotic beyond the AI pair-programmer, which the brief explicitly invites.
