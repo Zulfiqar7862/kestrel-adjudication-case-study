@@ -1,20 +1,31 @@
 #!/usr/bin/env python3
 """Kestrel Sentinel — single-file as-of adjudication & evidence platform.
 
-Case-study submission by Zulfiqar Ali Ahmed — a working prototype of the hard as-of / evidence path, not a full production platform.
+Case-study submission by Zulfiqar Ali Ahmed — a working prototype of the hard as-of /
+evidence path, organised as delimited modules inside one file (not a multi-service
+production deploy).
 
-Architecture (single module sections below):
-  CONFIG / LOGGING / ENUMS / MODELS
-  PACK (workbook memory) / WORKBOOK ingest
-  STORE (bitemporal SQLite)
-  RESOLUTION (identity, as-of SOP, stability, regulatory TT-CB-114)
-  ENGINE (adjudication)
-  EVIDENCE (hash-chained append-only per-tenant, Cl.22 isolation)
-  LIFECYCLE (state machine + deadline-ordered queue)
-  SHADOW (Dr Rao bulletin replay/diff)
-  SERVICE / HTTP (stdlib http.server) / CLI / TESTS
+Module layout (search the ====SECTION==== markers):
+  CONFIG          — typed Settings
+  LOGGING         — structured logging helpers
+  EXCEPTIONS      — domain/API exception hierarchy
+  DOMAIN          — enums + dataclasses (engine-safe; no Pydantic required)
+  PACK / INGEST   — workbook memory model + bitemporal load
+  REPOSITORY      — BitemporalStore, EvidenceStore
+  RESOLUTION      — identity, SOP-as-of, stability, regulatory clock
+  ENGINE          — pure deterministic adjudication (no I/O, no LLM, no randomness)
+  LIFECYCLE       — case state machine + deadline-ordered queue
+  SHADOW          — Dr Rao bulletin replay/diff
+  SERVICES        — AdjudicationService façade (agreement, health, persist)
+  API             — FastAPI app factory (lazy import; Pydantic v2 schemas)
+  CLI             — argparse entrypoint
+  TESTS           — embedded unittest suite
 
-Dependency: openpyxl (+ Python stdlib). Default pack: data/KCCS_Sentinel_Reference_Data_Pack.xlsx
+Dependencies:
+  Required for engine/tests: openpyxl (+ Python stdlib).
+  Required for `serve` / API TestClient: fastapi, pydantic>=2, uvicorn
+  (httpx recommended for TestClient). Framework imports are lazy inside the API
+  layer so `python kestrel.py test|run-all|…` still works with only openpyxl.
 
 CLI:
   python kestrel.py ingest|adjudicate|run-all|basis|verify|replay|shadow-bulletin|queue|as-of-sop|health|monitor|agreement|serve|test|selftest
@@ -43,10 +54,8 @@ from contextlib import contextmanager
 from dataclasses import asdict, dataclass, field
 from datetime import date, datetime, timedelta, timezone
 from enum import Enum
-from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any, Iterable, Iterator, Optional, Sequence
-from urllib.parse import parse_qs, urlparse
 
 from openpyxl import load_workbook
 
@@ -131,7 +140,31 @@ def setup_logging(level: str = "INFO") -> None:
     root.setLevel(level.upper())
 
 
-# ====ENUMS====
+
+# ====EXCEPTIONS====
+
+
+class KestrelError(Exception):
+    """Base class for recoverable Kestrel domain/API errors."""
+
+
+class NotFoundError(KestrelError):
+    """Requested entity (event, bundle, SOP) was not found."""
+
+
+class TenantIsolationError(KestrelError, PermissionError):
+    """Cross-tenant access denied (Meridian Cl.22 / evidence isolation)."""
+
+
+class ValidationAppError(KestrelError):
+    """Caller supplied invalid input for an API or service operation."""
+
+
+class DependencyMissingError(KestrelError):
+    """Optional framework dependency (FastAPI/Pydantic/uvicorn) is not installed."""
+
+
+# ====DOMAIN====
 from enum import Enum
 
 
@@ -2653,6 +2686,9 @@ def _parse_dt(value: Any) -> Optional[datetime]:
     return None
 
 
+# ====SERVICES====
+
+
 class AdjudicationService:
     """Application façade: ingest → adjudicate → evidence → lifecycle → shadow."""
     def __init__(self, settings: Optional[Settings] = None) -> None:
@@ -3102,192 +3138,294 @@ class AdjudicationService:
 
 
 
-# =============================================================================
-# HTTP API (stdlib http.server — no FastAPI/uvicorn)
-# =============================================================================
+# ====API====
+# FastAPI + Pydantic v2 are imported lazily so engine/CLI/tests work with openpyxl only.
+# Models are installed into module globals before route registration so that
+# `from __future__ import annotations` string annotations still resolve for FastAPI.
+
+AdjudicateRequest: Any = None
+BasisRequest: Any = None
+VerifyRequest: Any = None
+ReplayRequest: Any = None
+HealthResponse: Any = None
 
 
-class _KestrelHTTPServer(ThreadingHTTPServer):
-    """Threading HTTP server holding a shared AdjudicationService."""
+def _load_api_models() -> None:
+    """Lazily define Pydantic v2 request/response models in module globals."""
+    global AdjudicateRequest, BasisRequest, VerifyRequest, ReplayRequest, HealthResponse
+    if AdjudicateRequest is not None:
+        return
+    try:
+        from pydantic import BaseModel, Field
+    except ImportError as exc:  # pragma: no cover
+        raise DependencyMissingError(
+            "API layer requires: pip install fastapi pydantic uvicorn  "
+            "(engine/CLI/tests still run with only openpyxl)"
+        ) from exc
 
-    allow_reuse_address = True
+    class _AdjudicateRequest(BaseModel):
+        """POST /adjudicate body."""
 
-    def __init__(self, addr: tuple[str, int], svc: AdjudicationService) -> None:
-        """Bind address and shared AdjudicationService, then init the threading server."""
-        self.svc = svc
-        super().__init__(addr, _KestrelRequestHandler)
+        event_id: str = Field(..., min_length=1)
+        persist: bool = True
 
+    class _BasisRequest(BaseModel):
+        """POST /evidence/basis body."""
 
-class _KestrelRequestHandler(BaseHTTPRequestHandler):
-    """Minimal JSON API mirroring the former FastAPI routes."""
+        event_id: str = Field(..., min_length=1)
+        tenant_code: str = Field(..., min_length=1)
 
-    server: _KestrelHTTPServer  # type: ignore[assignment]
+    class _VerifyRequest(BaseModel):
+        """POST /evidence/verify body."""
 
-    def log_message(self, fmt: str, *args: Any) -> None:  # noqa: A003
-        """Route HTTP access logs through the kestrel.http logger."""
-        logging.getLogger("kestrel.http").info("%s - %s", self.address_string(), fmt % args)
+        tenant_code: str = Field(..., min_length=1)
 
-    def _read_json(self) -> dict[str, Any]:
-        """Read and parse the request body as JSON (empty object if none)."""
-        length = int(self.headers.get("Content-Length") or 0)
-        raw = self.rfile.read(length) if length else b"{}"
-        if not raw:
-            return {}
-        return json.loads(raw.decode("utf-8"))
+    class _ReplayRequest(BaseModel):
+        """POST /replay body."""
 
-    def _send(self, code: int, payload: Any) -> None:
-        """Send an HTTP JSON response with the given status code."""
-        body = json.dumps(payload, default=str).encode("utf-8")
-        self.send_response(code)
-        self.send_header("Content-Type", "application/json")
-        self.send_header("Content-Length", str(len(body)))
-        self.end_headers()
-        self.wfile.write(body)
+        bundle_id: str = Field(..., min_length=1)
+        tenant_code: str = Field(..., min_length=1)
 
-    def _error(self, code: int, message: str) -> None:
-        """Send a JSON error payload with the given status code."""
-        self._send(code, {"error": message})
+    class _HealthResponse(BaseModel):
+        """GET /health payload."""
 
-    def do_GET(self) -> None:  # noqa: N802
-        """Dispatch GET routes: health, evidence, shadow, queue, as-of SOP."""
-        svc = self.server.svc
-        parsed = urlparse(self.path)
-        path = parsed.path
-        qs = parse_qs(parsed.query)
-        try:
-            if path == "/health":
-                self._send(
-                    200,
-                    {
-                        "ok": True,
-                        "snapshot_id": svc.snapshot_id,
-                        "rule_pack_version": svc.settings.rule_pack_version,
-                    },
-                )
-                return
-            if path.startswith("/evidence/") and path != "/evidence/basis":
-                bundle_id = path[len("/evidence/") :]
-                tenant = (qs.get("tenant_code") or [None])[0]
-                if not tenant:
-                    self._error(400, "tenant_code required")
-                    return
-                try:
-                    doc = svc.evidence.get(bundle_id, tenant_code=tenant, measure=True)
-                except PermissionError as e:
-                    self._error(403, str(e))
-                    return
-                except FileNotFoundError as e:
-                    self._error(404, str(e))
-                    return
-                self._send(200, doc)
-                return
-            if path == "/shadow/bulletin":
-                report = svc.shadow_bulletin()
-                self._send(
-                    200,
-                    {
-                        "change": report["change"],
-                        "candidates": report["candidates"],
-                        "diffs": report["diffs"],
-                        "sample_diffs": report["diff_rows"][:20],
-                        "rao_gate": report["rao_gate"],
-                    },
-                )
-                return
-            if path == "/queue":
-                tenant = (qs.get("tenant_code") or [None])[0]
-                limit = int((qs.get("limit") or ["20"])[0])
-                self._send(
-                    200,
-                    {"items": svc.lifecycle.storm_safe_queue(tenant_code=tenant, limit=limit)},
-                )
-                return
-            if path == "/as-of/sop":
-                tenant = (qs.get("tenant_code") or [None])[0]
-                d = (qs.get("date") or [None])[0]
-                if not tenant or not d:
-                    self._error(400, "tenant_code and date required")
-                    return
-                self._send(200, svc.as_of_sop(tenant, d))
-                return
-            self._error(404, f"unknown path {path}")
-        except Exception as e:  # noqa: BLE001
-            logging.getLogger("kestrel.http").exception("GET failed")
-            self._error(500, str(e))
+        ok: bool
+        snapshot_id: Optional[str] = None
+        rule_pack_version: str
 
-    def do_POST(self) -> None:  # noqa: N802
-        """Dispatch POST routes: adjudicate, basis, verify, replay."""
-        svc = self.server.svc
-        path = urlparse(self.path).path
-        try:
-            body = self._read_json()
-        except json.JSONDecodeError:
-            self._error(400, "invalid JSON")
-            return
-        try:
-            if path == "/adjudicate":
-                event_id = body.get("event_id")
-                if not event_id:
-                    self._error(400, "event_id required")
-                    return
-                try:
-                    out = svc.adjudicate_event(event_id, persist=bool(body.get("persist", True)))
-                except KeyError:
-                    self._error(404, f"unknown event {event_id}")
-                    return
-                r = out["result"]
-                self._send(
-                    200,
-                    {
-                        "event_id": r.event_id,
-                        "tenant_code": r.tenant_code,
-                        "recommendation": r.recommendation,
-                        "confidence": r.confidence,
-                        "rationale": r.rationale,
-                        "bundle_id": (out["bundle"] or {}).get("bundle_id"),
-                        "case_id": (out["case"] or {}).get("case_id"),
-                        "reg_deadline_utc": r.reg_deadline_utc,
-                    },
-                )
-                return
-            if path == "/evidence/basis":
-                try:
-                    self._send(200, svc.full_basis(body["event_id"], body["tenant_code"]))
-                except PermissionError as e:
-                    self._error(403, str(e))
-                except (FileNotFoundError, KeyError) as e:
-                    self._error(404, str(e))
-                return
-            if path == "/evidence/verify":
-                self._send(200, svc.verify_tenant_chain(body["tenant_code"]))
-                return
-            if path == "/replay":
-                try:
-                    self._send(
-                        200,
-                        svc.replay_from_bundle(body["bundle_id"], body["tenant_code"]),
-                    )
-                except PermissionError as e:
-                    self._error(403, str(e))
-                except (FileNotFoundError, KeyError) as e:
-                    self._error(404, str(e))
-                return
-            self._error(404, f"unknown path {path}")
-        except Exception as e:  # noqa: BLE001
-            logging.getLogger("kestrel.http").exception("POST failed")
-            self._error(500, str(e))
+    AdjudicateRequest = _AdjudicateRequest
+    BasisRequest = _BasisRequest
+    VerifyRequest = _VerifyRequest
+    ReplayRequest = _ReplayRequest
+    HealthResponse = _HealthResponse
 
 
-def create_app(svc: Optional[AdjudicationService] = None) -> _KestrelHTTPServer:
-    """Bootstrap service and return a bound (but not serving) HTTP server factory helper.
+def _require_fastapi() -> tuple[Any, Any, Any]:
+    """Import FastAPI stack or raise a clear DependencyMissingError."""
+    try:
+        from fastapi import Depends, FastAPI, HTTPException, Query, Request
+        from fastapi.responses import JSONResponse
+    except ImportError as exc:  # pragma: no cover - depends on env
+        raise DependencyMissingError(
+            "API layer requires: pip install fastapi pydantic uvicorn  "
+            "(engine/CLI/tests still run with only openpyxl)"
+        ) from exc
+    _load_api_models()
+    return FastAPI, HTTPException, (Depends, Query, Request, JSONResponse)
 
-    For CLI `serve`, prefer `serve_http`. This returns the service-wired handler class pair.
+
+def create_app(svc: Optional[AdjudicationService] = None) -> Any:
+    """Build a FastAPI application with DI-held AdjudicationService and typed routes.
+
+    Lazy-imports FastAPI/Pydantic. Returns the app instance (not a server).
     """
+    FastAPI, HTTPException, extras = _require_fastapi()
+    Depends, Query, Request, JSONResponse = extras
+
     service = svc or AdjudicationService()
     if service.engine is None:
         service.bootstrap()
-    # Return a lightweight holder so tests can call request helpers without binding a port.
-    return service  # type: ignore[return-value]
+
+    app = FastAPI(
+        title="Kestrel Sentinel Adjudication API",
+        version=service.settings.code_version,
+        description="As-of adjudication, evidence basis, shadow replay, queue.",
+    )
+    app.state.svc = service
+
+    def get_svc() -> AdjudicationService:
+        """FastAPI dependency: shared AdjudicationService."""
+        return app.state.svc
+
+    @app.exception_handler(TenantIsolationError)
+    async def _tenant_exc(_request: Request, exc: TenantIsolationError) -> JSONResponse:
+        return JSONResponse(status_code=403, content={"error": str(exc)})
+
+    @app.exception_handler(PermissionError)
+    async def _perm_exc(_request: Request, exc: PermissionError) -> JSONResponse:
+        return JSONResponse(status_code=403, content={"error": str(exc)})
+
+    @app.exception_handler(NotFoundError)
+    async def _nf_exc(_request: Request, exc: NotFoundError) -> JSONResponse:
+        return JSONResponse(status_code=404, content={"error": str(exc)})
+
+    @app.exception_handler(FileNotFoundError)
+    async def _fnf_exc(_request: Request, exc: FileNotFoundError) -> JSONResponse:
+        return JSONResponse(status_code=404, content={"error": str(exc)})
+
+    @app.exception_handler(KeyError)
+    async def _key_exc(_request: Request, exc: KeyError) -> JSONResponse:
+        return JSONResponse(status_code=404, content={"error": f"unknown entity {exc}"})
+
+    @app.exception_handler(ValidationAppError)
+    async def _val_exc(_request: Request, exc: ValidationAppError) -> JSONResponse:
+        return JSONResponse(status_code=400, content={"error": str(exc)})
+
+    @app.get("/health", response_model=HealthResponse)
+    def health(svc_dep: AdjudicationService = Depends(get_svc)) -> dict[str, Any]:
+        """Liveness + rule-pack identity."""
+        return {
+            "ok": True,
+            "snapshot_id": svc_dep.snapshot_id,
+            "rule_pack_version": svc_dep.settings.rule_pack_version,
+        }
+
+    @app.post("/adjudicate")
+    def adjudicate(
+        payload: AdjudicateRequest,  # type: ignore[valid-type]
+        svc_dep: AdjudicationService = Depends(get_svc),
+    ) -> dict[str, Any]:
+        """Adjudicate one event and optionally persist evidence + case."""
+        try:
+            out = svc_dep.adjudicate_event(payload.event_id, persist=payload.persist)
+        except KeyError as exc:
+            raise HTTPException(status_code=404, detail=f"unknown event {payload.event_id}") from exc
+        r = out["result"]
+        case = out.get("case") or {}
+        return {
+            "event_id": r.event_id,
+            "tenant_code": r.tenant_code,
+            "recommendation": r.recommendation,
+            "confidence": r.confidence,
+            "rationale": r.rationale,
+            "requires_human_signature": r.requires_human_signature,
+            "bundle_id": (out["bundle"] or {}).get("bundle_id"),
+            "case_id": case.get("case_id"),
+            "case_state": case.get("state"),
+            "reg_deadline_utc": r.reg_deadline_utc,
+        }
+
+    @app.post("/cases/{case_id}/sign")
+    def sign_case(
+        case_id: str,
+        signed_by: str = Query(..., min_length=1),
+        disposition: str = Query(..., min_length=1),
+        svc_dep: AdjudicationService = Depends(get_svc),
+    ) -> dict[str, Any]:
+        """Lifecycle: human sign-off on a recommended / auto-close case."""
+        try:
+            disp = Disposition(disposition)
+            case = svc_dep.lifecycle.sign(case_id, signed_by=signed_by, disposition=disp)
+        except KeyError as exc:
+            raise HTTPException(status_code=404, detail=f"unknown case {case_id}") from exc
+        except TransitionError as exc:
+            raise HTTPException(status_code=409, detail=str(exc)) from exc
+        except ValueError as exc:
+            raise HTTPException(status_code=400, detail=str(exc)) from exc
+        return case
+
+    @app.post("/cases/{case_id}/reopen")
+    def reopen_case(
+        case_id: str,
+        reason: str = Query("reopened", min_length=1),
+        svc_dep: AdjudicationService = Depends(get_svc),
+    ) -> dict[str, Any]:
+        """Lifecycle: reopen a closed case (bulletin / customer / audit)."""
+        try:
+            case = svc_dep.lifecycle.reopen(case_id, reason=reason)
+        except KeyError as exc:
+            raise HTTPException(status_code=404, detail=f"unknown case {case_id}") from exc
+        except TransitionError as exc:
+            raise HTTPException(status_code=409, detail=str(exc)) from exc
+        return case
+
+    @app.get("/cases/{case_id}")
+    def get_case(case_id: str, svc_dep: AdjudicationService = Depends(get_svc)) -> dict[str, Any]:
+        """Fetch one case record."""
+        case = svc_dep.store.get_case(case_id)
+        if not case:
+            raise HTTPException(status_code=404, detail=f"unknown case {case_id}")
+        return case
+
+    @app.get("/evidence/{bundle_id}")
+    def get_evidence(
+        bundle_id: str,
+        tenant_code: str = Query(...),
+        svc_dep: AdjudicationService = Depends(get_svc),
+    ) -> dict[str, Any]:
+        """Fetch one evidence bundle with tenant isolation."""
+        try:
+            return svc_dep.evidence.get(bundle_id, tenant_code=tenant_code, measure=True)
+        except PermissionError as exc:
+            raise HTTPException(status_code=403, detail=str(exc)) from exc
+        except FileNotFoundError as exc:
+            raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+    @app.post("/evidence/basis")
+    def evidence_basis(
+        payload: BasisRequest,  # type: ignore[valid-type]
+        svc_dep: AdjudicationService = Depends(get_svc),
+    ) -> dict[str, Any]:
+        """Board commitment 3 — full reconstructable basis."""
+        try:
+            return svc_dep.full_basis(payload.event_id, payload.tenant_code)
+        except PermissionError as exc:
+            raise HTTPException(status_code=403, detail=str(exc)) from exc
+        except (FileNotFoundError, KeyError) as exc:
+            raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+    @app.post("/evidence/verify")
+    def evidence_verify(
+        payload: VerifyRequest,  # type: ignore[valid-type]
+        svc_dep: AdjudicationService = Depends(get_svc),
+    ) -> dict[str, Any]:
+        """Verify per-tenant evidence hash chain."""
+        return svc_dep.verify_tenant_chain(payload.tenant_code)
+
+    @app.post("/replay")
+    def replay(
+        payload: ReplayRequest,  # type: ignore[valid-type]
+        svc_dep: AdjudicationService = Depends(get_svc),
+    ) -> dict[str, Any]:
+        """Replay adjudication from a stored bundle."""
+        try:
+            return svc_dep.replay_from_bundle(payload.bundle_id, payload.tenant_code)
+        except PermissionError as exc:
+            raise HTTPException(status_code=403, detail=str(exc)) from exc
+        except (FileNotFoundError, KeyError) as exc:
+            raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+    @app.get("/shadow/bulletin")
+    def shadow_bulletin(svc_dep: AdjudicationService = Depends(get_svc)) -> dict[str, Any]:
+        """Dr Rao gate — TT-CB-114 shadow diff summary."""
+        report = svc_dep.shadow_bulletin()
+        return {
+            "change": report["change"],
+            "candidates": report["candidates"],
+            "diffs": report["diffs"],
+            "sample_diffs": report["diff_rows"][:20],
+            "rao_gate": report["rao_gate"],
+        }
+
+    @app.get("/queue")
+    def queue(
+        tenant_code: Optional[str] = Query(None),
+        limit: int = Query(20, ge=1, le=500),
+        svc_dep: AdjudicationService = Depends(get_svc),
+    ) -> dict[str, Any]:
+        """Storm-safe priority queue ordered by regulatory deadline."""
+        return {"items": svc_dep.lifecycle.storm_safe_queue(tenant_code=tenant_code, limit=limit)}
+
+    @app.get("/as-of/sop")
+    def as_of_sop(
+        tenant_code: str = Query(...),
+        date: str = Query(..., description="YYYY-MM-DD"),
+        svc_dep: AdjudicationService = Depends(get_svc),
+    ) -> dict[str, Any]:
+        """SOP in force as-at a date (AUD-2603 shape)."""
+        return svc_dep.as_of_sop(tenant_code, date)
+
+    @app.get("/ops/health-report")
+    def ops_health_report(svc_dep: AdjudicationService = Depends(get_svc)) -> dict[str, Any]:
+        """Full 3am monitoring catalog (same payload as CLI `health`)."""
+        return svc_dep.health_report()
+
+    @app.get("/ops/agreement")
+    def ops_agreement(svc_dep: AdjudicationService = Depends(get_svc)) -> dict[str, Any]:
+        """Agreement stratification (same payload as CLI `agreement`)."""
+        return svc_dep.agreement_report()
+
+    return app
 
 
 def serve_http(
@@ -3295,17 +3433,18 @@ def serve_http(
     host: str = "127.0.0.1",
     port: int = 8080,
 ) -> None:
-    """Start ThreadingHTTPServer and block."""
+    """Serve the FastAPI app with uvicorn (lazy import)."""
     if svc.engine is None:
         svc.bootstrap()
-    httpd = _KestrelHTTPServer((host, port), svc)
-    logging.getLogger("kestrel.http").info("serving on http://%s:%s", host, port)
     try:
-        httpd.serve_forever()
-    except KeyboardInterrupt:
-        logging.getLogger("kestrel.http").info("shutting down")
-    finally:
-        httpd.server_close()
+        import uvicorn
+    except ImportError as exc:  # pragma: no cover
+        raise DependencyMissingError(
+            "serve requires: pip install fastapi pydantic uvicorn"
+        ) from exc
+    app = create_app(svc)
+    logging.getLogger("kestrel.http").info("serving on http://%s:%s (uvicorn/FastAPI)", host, port)
+    uvicorn.run(app, host=host, port=port, log_level=svc.settings.log_level.lower())
 
 
 def _http_request(
@@ -3315,72 +3454,27 @@ def _http_request(
     body: Optional[dict[str, Any]] = None,
     query: Optional[dict[str, str]] = None,
 ) -> tuple[int, Any]:
-    """In-process HTTP smoke helper (no network) for unit tests."""
-    # Simulate handler dispatch without sockets.
-    class _FakeServer:
-        def __init__(self, s: AdjudicationService) -> None:
-            self.svc = s
-
-    class _Buf:
-        def __init__(self) -> None:
-            self.chunks: list[bytes] = []
-
-        def write(self, b: bytes) -> None:
-            self.chunks.append(b)
-
-        def getvalue(self) -> bytes:
-            return b"".join(self.chunks)
-
-    handler = _KestrelRequestHandler.__new__(_KestrelRequestHandler)
-    handler.server = _FakeServer(svc)  # type: ignore[assignment]
-    handler.headers = {"Content-Length": "0"}  # type: ignore[assignment]
-    raw = json.dumps(body or {}).encode("utf-8")
-    handler.headers = {"Content-Length": str(len(raw))}  # type: ignore[assignment]
-    from io import BytesIO
-
-    handler.rfile = BytesIO(raw)  # type: ignore[assignment]
-    handler.wfile = _Buf()  # type: ignore[assignment]
-    handler.request_version = "HTTP/1.1"
-    handler.requestline = f"{method} {path} HTTP/1.1"
-    handler.command = method
-    handler.path = path
-    if query:
-        q = "&".join(f"{k}={v}" for k, v in query.items())
-        handler.path = f"{path}?{q}"
-    handler.client_address = ("127.0.0.1", 0)
-    handler.request = None  # type: ignore[assignment]
-    # Capture status via monkeypatch send_response
-    status_box: dict[str, int] = {"code": 500}
-    payload_box: dict[str, Any] = {}
-
-    def send_response(code: int, _message: str | None = None) -> None:
-        status_box["code"] = code
-
-    def send_header(_k: str, _v: str) -> None:
-        return None
-
-    def end_headers() -> None:
-        return None
-
-    handler.send_response = send_response  # type: ignore[method-assign]
-    handler.send_header = send_header  # type: ignore[method-assign]
-    handler.end_headers = end_headers  # type: ignore[method-assign]
-
-    out_buf = _Buf()
-
-    def _send(code: int, payload: Any) -> None:
-        status_box["code"] = code
-        payload_box["data"] = payload
-        out_buf.write(json.dumps(payload, default=str).encode("utf-8"))
-
-    handler._send = _send  # type: ignore[method-assign]
-    handler._error = lambda code, msg: _send(code, {"error": msg})  # type: ignore[method-assign]
-
-    if method == "GET":
-        handler.do_GET()
+    """In-process API helper via FastAPI TestClient when httpx is available."""
+    try:
+        from fastapi.testclient import TestClient
+    except ImportError as exc:  # pragma: no cover
+        raise RuntimeError(
+            "FastAPI TestClient unavailable — pip install fastapi pydantic httpx"
+        ) from exc
+    app = create_app(svc)
+    client = TestClient(app)
+    if method.upper() == "GET":
+        resp = client.get(path, params=query or None)
     else:
-        handler.do_POST()
-    return status_box["code"], payload_box.get("data")
+        resp = client.post(path, json=body or {})
+    try:
+        payload = resp.json()
+    except Exception:  # noqa: BLE001
+        payload = {"raw": resp.text}
+    if resp.status_code >= 400 and isinstance(payload, dict) and "detail" in payload and "error" not in payload:
+        detail = payload["detail"]
+        payload = {"error": detail if isinstance(detail, str) else str(detail)}
+    return resp.status_code, payload
 
 
 # =============================================================================
@@ -3462,7 +3556,7 @@ def main(argv: Optional[list[str]] = None) -> int:
     p_asof.add_argument("--tenant", required=True)
     p_asof.add_argument("--date", required=True, help="YYYY-MM-DD")
 
-    p_api = sub.add_parser("serve", help="Run stdlib HTTP API")
+    p_api = sub.add_parser("serve", help="Run FastAPI+uvicorn HTTP API (lazy deps)")
     p_api.add_argument("--host", default=None)
     p_api.add_argument("--port", type=int, default=None)
 
@@ -3470,7 +3564,7 @@ def main(argv: Optional[list[str]] = None) -> int:
     sub.add_parser("monitor", help="Alias for health")
     sub.add_parser("agreement", help="Stratify engine vs historical final/assistant agreement")
 
-    sub.add_parser("test", help="Run embedded unittest suite (≥26 tests)")
+    sub.add_parser("test", help="Run embedded unittest suite (≥28 tests)")
     sub.add_parser("selftest", help="Alias for test")
 
     args = parser.parse_args(argv)
@@ -3690,7 +3784,7 @@ def main(argv: Optional[list[str]] = None) -> int:
 
 
 # =============================================================================
-# Embedded unittest suite (≥26 tests — parity with prior package + prototype)
+# Embedded unittest suite (≥28 tests — parity with prior package + prototype)
 # =============================================================================
 
 
@@ -3751,19 +3845,27 @@ class TestGoldenExc107133(_KestrelTestCase):
 
 
 class TestAPISmoke(_KestrelTestCase):
-    """In-process HTTP API smoke tests (health, adjudicate, basis, isolation, replay)."""
+    """In-process FastAPI TestClient smoke tests (skip if httpx/fastapi missing)."""
+
+    def _req(self, *args: Any, **kwargs: Any) -> tuple[int, Any]:
+        """Wrap _http_request and skip the test when FastAPI/httpx are absent."""
+        try:
+            return _http_request(*args, **kwargs)
+        except (RuntimeError, DependencyMissingError) as exc:
+            raise unittest.SkipTest(str(exc)) from exc
+
     def test_api_health_adjudicate_basis(self) -> None:
         """Exercise /health, /adjudicate, /evidence/basis, cross-tenant 403, /replay."""
-        code, health = _http_request("GET", "/health", self.svc)
+        code, health = self._req("GET", "/health", self.svc)
         self.assertEqual(code, 200)
         self.assertTrue(health["ok"])
-        code, body = _http_request(
+        code, body = self._req(
             "POST", "/adjudicate", self.svc, {"event_id": "EXC-107133", "persist": True}
         )
         self.assertEqual(code, 200)
         self.assertEqual(body["recommendation"], RELEASE_WITH_NOTE)
         bundle_id = body["bundle_id"]
-        code, b = _http_request(
+        code, b = self._req(
             "POST",
             "/evidence/basis",
             self.svc,
@@ -3771,11 +3873,11 @@ class TestAPISmoke(_KestrelTestCase):
         )
         self.assertEqual(code, 200)
         self.assertGreaterEqual(b["retrieval_latency_ms"], 0)
-        code, denied = _http_request(
+        code, denied = self._req(
             "GET", f"/evidence/{bundle_id}", self.svc, query={"tenant_code": "T-MERIDIAN"}
         )
         self.assertEqual(code, 403)
-        code, ok = _http_request(
+        code, ok = self._req(
             "POST",
             "/replay",
             self.svc,
@@ -4076,6 +4178,38 @@ class TestInvariants(_KestrelTestCase):
 
 
 
+
+class TestDeterminism(_KestrelTestCase):
+    """Engine determinism: identical inputs yield byte-identical decision hashes."""
+
+    def test_run_twice_byte_identical_decision_hashes(self) -> None:
+        """Adjudicate the full pack twice; SHA-256 of decision rows must match."""
+        assert self.svc.engine and self.svc.pack
+
+        def _digest() -> str:
+            rows = []
+            for event in self.svc.pack.events:  # type: ignore[union-attr]
+                r = self.svc.engine.adjudicate(event)  # type: ignore[union-attr]
+                rows.append(
+                    {
+                        "event_id": r.event_id,
+                        "recommendation": r.recommendation,
+                        "confidence": r.confidence,
+                        "triage_label": r.triage_label,
+                        "corrected_max_temp_c": r.corrected_max_temp_c,
+                        "bulletin_applied": r.bulletin_applied,
+                        "rationale": list(r.rationale),
+                    }
+                )
+            blob = json.dumps(rows, sort_keys=True, separators=(",", ":"), default=str)
+            return hashlib.sha256(blob.encode("utf-8")).hexdigest()
+
+        h1 = _digest()
+        h2 = _digest()
+        self.assertEqual(h1, h2)
+        self.assertEqual(len(h1), 64)
+
+
 class TestAgreementAndHealth(_KestrelTestCase):
     """Tests for agreement stratification and health/monitor signals."""
 
@@ -4134,6 +4268,7 @@ def _run_tests() -> int:
         TestEngineGolden,
         TestIdentity,
         TestInvariants,
+        TestDeterminism,
         TestAgreementAndHealth,
     ):
         suite.addTests(loader.loadTestsFromTestCase(cls))

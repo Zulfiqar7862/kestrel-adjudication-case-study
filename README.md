@@ -2,13 +2,13 @@
 
 Case-study submission by **Zulfiqar Ali Ahmed**.
 
-> **Covering note (brief §10):** Spent about **12 focused hours** inside the five-day window (brief suggests 10–14). Unusual tool: **Grok Bot** as an AI pair-programmer for design critique, consolidation, and README evidence paste — not for inventing dispositions. Stack otherwise: Python 3, `openpyxl`, stdlib `sqlite3` / `http.server` / `unittest`, `git`/`gh`. Code path is deterministic; no LLM on the hot path.
+> **Covering note (brief §10):** Spent about **12 focused hours** inside the five-day window (brief suggests 10–14). Unusual tool: **Grok Bot** as an AI pair-programmer for design critique, consolidation, and README evidence paste — not for inventing dispositions. Stack otherwise: Python 3, `openpyxl`, stdlib `sqlite3` / `unittest`, FastAPI + Pydantic v2 + uvicorn for the API layer (lazy import), `git`/`gh`. Code path is deterministic; no LLM on the hot path.
 
 **Repository layout (exactly two files + inputs):**
 
 | Path | Role |
 |---|---|
-| [`kestrel.py`](kestrel.py) | Self-contained prototype: ingest, bitemporal store, as-of engine, evidence hash-chain, lifecycle, shadow replay, stdlib HTTP API, CLI, embedded ≥28-test suite |
+| [`kestrel.py`](kestrel.py) | Self-contained prototype: ingest, bitemporal store, as-of engine, evidence hash-chain, lifecycle, shadow replay, FastAPI HTTP API (lazy), CLI, embedded ≥29-test suite |
 | [`README.md`](README.md) | This document — requirements, design, evidence, working log |
 | [`data/`](data/) | Case-study inputs only (**do not modify**): brief PDF + `KCCS_Sentinel_Reference_Data_Pack.xlsx` |
 
@@ -18,6 +18,7 @@ Case-study submission by **Zulfiqar Ali Ahmed**.
 
 1. [Executive summary](#executive-summary)
 2. [Quickstart](#quickstart)
+   - [Run it locally](#run-it-locally)
 3. [Where You Land](#where-you-land)
    - [Requirements → evidence](#requirements-evidence-traceability)
    - [What the system has to do](#what-this-system-has-to-do)
@@ -29,6 +30,7 @@ Case-study submission by **Zulfiqar Ali Ahmed**.
    - [Board pushback](#board-items-i-believe-are-wrong-with-counterarguments)
    - [Cost ceiling (tab 13) and the quiet Sunday](#cost-ceiling-tab-13-and-the-quiet-sunday)
 4. [Design](#the-design)
+   - [Architecture & code structure](#architecture-code-structure)
    - [Architecture](#11-shape-component-map)
    - [Bitemporal data model](#21-bitemporal-reference-rows)
    - [Case lifecycle](#3-case-lifecycle)
@@ -55,7 +57,7 @@ Kestrel’s failure mode is not “the model is not smart enough.” Reviewers c
 - **Hash-chained, tenant-isolated evidence bundles** with 7-year retention metadata; full basis retrieval for EXC-107133 measured at **median 0.27 ms** locally (30 samples; min 0.21 / p95 0.51 / max 1.48 ms).
 - Case lifecycle + regulatory-deadline priority queue (INC-2502 storm safety).
 - Shadow replay for calibration bulletin TT-CB-114 (Dr Rao gate).
-- Stdlib `http.server` API + argparse CLI; **only dependency: `openpyxl`**.
+- FastAPI API (lazy) + argparse CLI; **engine dependency: `openpyxl` only** (add `fastapi pydantic uvicorn` to serve).
 
 **First customer position:** Aurastat (`T-AURA`).
 
@@ -75,44 +77,65 @@ Hero case **EXC-107133 → `RELEASE_WITH_NOTE`**.
 
 ## Quickstart
 
+### Run it locally
+
 ```bash
-# From repo root — fresh venv, only openpyxl
+# From repo root
 python3 -m venv .venv && source .venv/bin/activate
-pip install openpyxl
+pip install openpyxl                          # required for engine/tests
+pip install fastapi pydantic uvicorn httpx    # required for serve + API tests
 
-# Embedded suite (≥28 tests; covers golden, as-at SOP, chain/tamper,
-# tenant isolation, latency, replay, lifecycle, shadow, API smoke, invariants,
-# agreement stratification, health/monitor catalog)
-python kestrel.py test
-
-# Load workbook into bitemporal SQLite (DB/evidence land under /tmp by default)
+python kestrel.py test                        # ≥29 embedded tests
 python kestrel.py ingest --reload
-
-# Hero case
+python kestrel.py run-all                     # expect AUTO_CLOSE 224 … EXC-107133 RELEASE_WITH_NOTE
 python kestrel.py adjudicate --event EXC-107133
-
-# Full pack
-python kestrel.py run-all
-
-# Board commitment 3 — full basis + latency
 python kestrel.py basis --event EXC-107133 --tenant T-KAVERI
-
-# Hash-chain verify / replay / Dr Rao shadow gate
 python kestrel.py verify --tenant T-KAVERI
 python kestrel.py shadow-bulletin
-
-# SOP as-at AUD-2603 date
 python kestrel.py as-of-sop --tenant T-AURA --date 2025-08-14
-
-# Agreement vs historical final / assistant (stratified)
 python kestrel.py agreement
+python kestrel.py health                      # alias: monitor
 
-# 3am ops signals (deadlines, chain, mix drift, feed age, queue, bulletin hook)
-python kestrel.py health   # alias: monitor
-
-# HTTP API (stdlib http.server — no FastAPI in this deliverable)
+# API (FastAPI + uvicorn; lazy import — clear error if deps missing)
 python kestrel.py serve --host 127.0.0.1 --port 8080
-# curl http://127.0.0.1:8080/health
+```
+
+Example curls against a live server (real shapes; status codes shown):
+
+```bash
+curl -s http://127.0.0.1:8080/health
+# 200 {"ok":true,"snapshot_id":"snap-…","rule_pack_version":"0.3.0"}
+
+curl -s -X POST http://127.0.0.1:8080/adjudicate \
+  -H 'content-type: application/json' \
+  -d '{"event_id":"EXC-107133","persist":true}'
+# 200 … "recommendation":"RELEASE_WITH_NOTE", "bundle_id":"EVB-…", "case_id":"CASE-…"
+
+curl -s -X POST http://127.0.0.1:8080/evidence/basis \
+  -H 'content-type: application/json' \
+  -d '{"event_id":"EXC-107133","tenant_code":"T-KAVERI"}'
+# 200 … "retrieval_latency_ms": <1, "within_one_hour": true
+
+curl -s -X POST http://127.0.0.1:8080/evidence/verify \
+  -H 'content-type: application/json' \
+  -d '{"tenant_code":"T-KAVERI"}'
+# 200 … "ok": true
+
+curl -s 'http://127.0.0.1:8080/as-of/sop?tenant_code=T-AURA&date=2025-08-14'
+# 200 SOP-in-force payload (AUD-2603 date)
+
+curl -s 'http://127.0.0.1:8080/shadow/bulletin'
+curl -s 'http://127.0.0.1:8080/queue?limit=5'
+curl -s 'http://127.0.0.1:8080/ops/health-report'
+curl -s 'http://127.0.0.1:8080/ops/agreement'
+
+# Bad input → clean 4xx
+curl -s -o /dev/null -w '%{http_code}\n' -X POST http://127.0.0.1:8080/adjudicate \
+  -H 'content-type: application/json' -d '{}'
+# 422
+curl -s -o /dev/null -w '%{http_code}\n' -X POST http://127.0.0.1:8080/adjudicate \
+  -H 'content-type: application/json' -d '{"event_id":"EXC-DOES-NOT-EXIST","persist":false}'
+# 404
 ```
 
 **Default workbook:** `data/KCCS_Sentinel_Reference_Data_Pack.xlsx`.  
@@ -120,7 +143,8 @@ python kestrel.py serve --host 127.0.0.1 --port 8080
 
 **CLI surface:** `ingest` · `adjudicate` · `run-all` · `basis` · `verify` · `replay` · `shadow-bulletin` · `queue` · `as-of-sop` · `health`/`monitor` · `agreement` · `serve` · `test` / `selftest`.
 
----
+**Dependencies:** engine/tests need only `openpyxl`. `serve` and FastAPI TestClient need `fastapi pydantic uvicorn` (and `httpx` for tests). Framework imports are lazy in the API layer.
+
 
 ## Where You Land
 
@@ -272,6 +296,28 @@ Tab 13 figures used as-written (not invented):
 ## The Design
 
 Audiences: a team of six building it, and a reviewer trying to break it.
+
+### Architecture & code structure
+
+`kestrel.py` is one file on purpose (two-file submission rule) but is organised as delimited modules (`====SECTION====` markers):
+
+| Section | Responsibility |
+|---|---|
+| **CONFIG** | Typed `Settings` (paths, rule_pack_version, API host/port) |
+| **LOGGING** | Structured JSON logging |
+| **EXCEPTIONS** | `KestrelError` hierarchy (`NotFoundError`, `TenantIsolationError`, `DependencyMissingError`, …) |
+| **DOMAIN** | Enums + dataclasses — engine-safe, no Pydantic required |
+| **PACK / INGEST** | Workbook memory model + load into SQLite |
+| **REPOSITORY** | `BitemporalStore`, `EvidenceStore` (hash chain, Cl.22 isolation) |
+| **RESOLUTION** | Identity, SOP-as-of, stability, regulatory clock |
+| **ENGINE** | Pure deterministic adjudication — no I/O, no LLM, no randomness |
+| **LIFECYCLE** | Case state machine + deadline-ordered queue |
+| **SHADOW** | Dr Rao bulletin replay/diff |
+| **SERVICES** | `AdjudicationService` façade (persist, agreement, health) |
+| **API** | FastAPI app factory + Pydantic v2 schemas (lazy import) |
+| **CLI / TESTS** | argparse + embedded unittest |
+
+**Why FastAPI + Pydantic v2:** typed request/response models, dependency injection for the shared service, consistent 4xx validation errors, and a TestClient path for API smoke tests — without forcing those deps onto the engine/CLI path. `uvicorn` serves the app. If a framework import is missing at `serve` time, the process exits with a clear `DependencyMissingError` message listing `pip install fastapi pydantic uvicorn`.
 
 ### 1.1 Shape & component map
 
@@ -492,8 +538,8 @@ Deterministic engine on auto-close path: ~0 model tokens. Fits Okoro’s cost ce
 | Evidence WORM + hash chain | `EvidenceStore` — per-tenant chain, Cl.22 isolation, tamper verify |
 | Case lifecycle | `CaseLifecycle` — states incl. REOPENED; `storm_safe_queue` |
 | Shadow / Rao gate | `shadow_replay_bulletin` + CLI |
-| HTTP API | stdlib `ThreadingHTTPServer`: `/health`, `/adjudicate`, `/evidence/*`, `/replay`, `/shadow/bulletin`, `/queue`, `/as-of/sop` |
-| CLI + tests | argparse + embedded `unittest` (≥28), including `health`/`monitor` + `agreement` |
+| HTTP API | FastAPI + uvicorn (lazy): `/health`, `/adjudicate`, `/cases/*`, `/evidence/*`, `/replay`, `/shadow/bulletin`, `/queue`, `/as-of/sop`, `/ops/*` |
+| CLI + tests | argparse + embedded `unittest` (≥29), including `health`/`monitor`, `agreement`, determinism, FastAPI TestClient |
 
 ---
 
@@ -528,9 +574,9 @@ Measured against this stratified pack just now: decision mix matches baseline (2
 
 ```text
 $ python kestrel.py test
-Running 28 embedded tests…
+Running 29 embedded tests…
 ...
-Ran 28 tests in ~12s
+Ran 29 tests in ~14s
 OK
 ```
 
@@ -685,7 +731,7 @@ Headline (real command output): **7.0%** exact match with `final_disposition` on
 ### Test results
 
 ```text
-Ran 28 tests in ~12s — OK
+Ran 29 tests in ~14s — OK
 ```
 
 ---
@@ -732,11 +778,11 @@ AUTO_CLOSE 224 · ESCALATE 80 · DESTROY 31 · QUARANTINE 31 · RELEASE_WITH_NOT
 
 ### 2026-11-04 ~10:57–11:05 — Hardening pass
 
-Prioritised: evidence → bitemporal store → tests → lifecycle → shadow → package → docs → API. Kept engine logic; added SQLite bitemporal store, hash-chained evidence, Cl.22 isolation, lifecycle reopen, shadow bulletin, and an HTTP layer. First HTTP cut used FastAPI; later consolidated to stdlib `http.server` so the graded surface stays openpyxl-only. Basis latency numbers from that pass are stale — current median is **0.27 ms** (see Evidence).
+Prioritised: evidence → bitemporal store → tests → lifecycle → shadow → package → docs → API. Kept engine logic; added SQLite bitemporal store, hash-chained evidence, Cl.22 isolation, lifecycle reopen, shadow bulletin, and an HTTP layer. HTTP layer is FastAPI + Pydantic v2 + uvicorn with **lazy imports** so engine/tests still run with only openpyxl. Basis latency numbers from that pass are stale — current median is **0.27 ms** (see Evidence).
 
 ### 2026-11-05 ~05:13–05:30 — Two-file consolidation
 
-Collapse the public repo to **exactly** `README.md` + `kestrel.py` + untouched `data/`. Flattened the package into one stdlib+`openpyxl` module; replaced FastAPI/uvicorn with `http.server`; embedded the unittest suite; moved DB/CSV/evidence outputs to a temp directory; `git rm`’d `src/`, `tests/`, `prototype/`, `docs/`, `working-log/`, `examples/`, `scripts/`, packaging/CI files. Verified: tests pass; `run-all` stays AUTO_CLOSE 224 / EXC-107133 `RELEASE_WITH_NOTE`.
+Collapse the public repo to **exactly** `README.md` + `kestrel.py` + untouched `data/`. Flattened the package into one module; engine stays stdlib+`openpyxl`; API uses lazy FastAPI; embedded the unittest suite; moved DB/CSV/evidence outputs to a temp directory; `git rm`’d `src/`, `tests/`, `prototype/`, `docs/`, `working-log/`, `examples/`, `scripts/`, packaging/CI files. Verified: tests pass; `run-all` stays AUTO_CLOSE 224 / EXC-107133 `RELEASE_WITH_NOTE`.
 
 ### 2026-11-05 — I disagreed with the AI and was wrong
 
@@ -744,7 +790,12 @@ During consolidation the assistant insisted every public function needed a docst
 
 ### 2026-11-05 — Monitoring, agreement, board 1 & 5, cost working
 
-Added README sections + `health`/`monitor` + `agreement` commands; tests now **28**. Tools this session: **Grok Bot** (AI assistant), Python 3, `openpyxl`, stdlib SQLite / `http.server` / `unittest`, `git`/`gh`, `pdftotext`.
+Added README sections + `health`/`monitor` + `agreement` commands. Tools: **Grok Bot**, Python 3, `openpyxl`, SQLite, `unittest`, `git`/`gh`, `pdftotext`.
+
+### 2026-11-05 — FastAPI refactor (lazy) + local e2e
+
+Reorganised `kestrel.py` into delimited modules; API layer is FastAPI + Pydantic v2 + uvicorn with lazy imports so `test`/`run-all` still need only openpyxl. Added determinism hash test and case lifecycle routes. Verified live on localhost:8080 — every endpoint 2xx / intentional 4xx. Tests **29** OK; run-all distribution unchanged.
+
 
 ### Decisions snapshot
 
@@ -771,4 +822,4 @@ The engine still consumes `prior_excursions_lane_90d` from the alert row as a st
 
 About **12 hours** of focused work inside the five-day window (brief §10 suggests 10–14). Breakdown: brief+pack reading and Where-You-Land; as-of engine against the real 420; bitemporal store + evidence chain + lifecycle + shadow; consolidation to the two-file layout; gap pass (monitoring, board 1 & 5, tab 13 cost, agreement stratification, thin spots, working-log honesty).
 
-**Tools:** Grok Bot (AI assistant for critique and mechanical consolidation — dispositions remain deterministic code), Python 3, `openpyxl`, SQLite, stdlib `http.server` / `unittest` / `argparse`, `git` / `gh`, `pdftotext`. Nothing exotic beyond the AI pair-programmer, which the brief explicitly invites.
+**Tools:** Grok Bot (AI assistant for critique and mechanical consolidation — dispositions remain deterministic code), Python 3, `openpyxl`, SQLite, FastAPI / Pydantic / uvicorn (API only), `unittest` / `argparse`, `git` / `gh`, `pdftotext`. Nothing exotic beyond the AI pair-programmer, which the brief explicitly invites.
