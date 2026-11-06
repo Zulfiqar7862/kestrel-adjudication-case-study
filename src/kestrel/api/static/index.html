@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kestrel Reviewer Dashboard</title>
+<style>
+  :root {
+    --bg: #F8FAFC; --card: #FFFFFF; --text: #0F172A; --muted: #475569; --border: #E2E8F0;
+    --primary: #1D4ED8; --primary-soft: #DBEAFE; --ok: #15803D; --ok-soft: #DCFCE7;
+    --warn: #B45309; --warn-soft: #FEF3C7; --bad: #B91C1C; --bad-soft: #FEE2E2; --ring: #2563EB;
+    --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-6: 24px;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+         background: var(--bg); color: var(--text); }
+  header { background: var(--card); border-bottom: 1px solid var(--border); padding: var(--space-4) var(--space-6); }
+  header h1 { margin: 0; font-size: 20px; }
+  header p { margin: var(--space-1) 0 0; color: var(--muted); }
+  .steps { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-3); padding: 0; list-style: none; }
+  .steps li { padding: var(--space-1) var(--space-3); border-radius: 999px; background: var(--bg);
+              border: 1px solid var(--border); color: var(--muted); font-size: 13px; white-space: nowrap; }
+  .steps li.active { background: var(--primary-soft); border-color: var(--primary); color: var(--primary); font-weight: 600; }
+  .steps li.done { background: var(--ok-soft); border-color: var(--ok); color: var(--ok); }
+  main { display: grid; grid-template-columns: minmax(300px, 380px) 1fr; gap: var(--space-4); padding: var(--space-4) var(--space-6); }
+  @media (max-width: 900px) { main { grid-template-columns: 1fr; padding: var(--space-3); } }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: var(--space-4); }
+  .card h2 { margin: 0 0 var(--space-1); font-size: 16px; }
+  .hint { color: var(--muted); font-size: 13px; margin: 0 0 var(--space-3); }
+  .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: var(--space-2);
+             padding: var(--space-4) var(--space-6) 0; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: var(--space-3); }
+  .stat b { display: block; font-size: 22px; }
+  .stat span { color: var(--muted); font-size: 12px; }
+  .filters { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2); margin-bottom: var(--space-3); }
+  .filters input { grid-column: 1 / -1; }
+  input, select, textarea { width: 100%; font: inherit; padding: var(--space-2); border: 1px solid #94A3B8;
+                            border-radius: 6px; background: #fff; color: var(--text); }
+  label { display: block; font-size: 13px; font-weight: 600; margin: var(--space-3) 0 var(--space-1); }
+  :focus-visible { outline: 3px solid var(--ring); outline-offset: 2px; }
+  .list { max-height: 65vh; overflow-y: auto; border-top: 1px solid var(--border); }
+  .row { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); width: 100%; text-align: left;
+         padding: var(--space-3) var(--space-2); border: 0; border-bottom: 1px solid var(--border);
+         background: none; font: inherit; color: inherit; cursor: pointer; }
+  .row:hover { background: var(--bg); }
+  .row[aria-current="true"] { background: var(--primary-soft); }
+  .row small { color: var(--muted); display: block; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+  .b-AUTO_CLOSE { background: #E2E8F0; color: #334155; }
+  .b-RELEASE_WITH_NOTE { background: var(--ok-soft); color: var(--ok); }
+  .b-ESCALATED_TO_SENIOR_QA, .b-QUARANTINE_PENDING_LAB, .b-WARN { background: var(--warn-soft); color: var(--warn); }
+  .b-DESTROY { background: var(--bad-soft); color: var(--bad); }
+  .panel { display: grid; gap: var(--space-4); }
+  .step-title { display: flex; align-items: center; gap: var(--space-2); }
+  .num { width: 26px; height: 26px; border-radius: 50%; background: var(--primary); color: #fff;
+         display: inline-grid; place-items: center; font-size: 13px; font-weight: 700; flex: none; }
+  dl { display: grid; grid-template-columns: max-content 1fr; gap: var(--space-1) var(--space-4); margin: 0; }
+  dt { color: var(--muted); } dd { margin: 0; font-weight: 500; overflow-wrap: anywhere; }
+  ol.trace { margin: 0; padding-left: 20px; } ol.trace li { margin-bottom: var(--space-1); }
+  .callout { padding: var(--space-3); border-radius: 8px; border: 1px solid; margin-top: var(--space-3); }
+  .callout.info { background: var(--primary-soft); border-color: #93C5FD; }
+  .callout.ok { background: var(--ok-soft); border-color: #86EFAC; color: #14532D; }
+  .callout.bad { background: var(--bad-soft); border-color: #FCA5A5; color: #7F1D1D; }
+  .callout.warn { background: var(--warn-soft); border-color: #FCD34D; color: #78350F; }
+  button.btn { display: inline-flex; align-items: center; gap: var(--space-2); min-height: 44px; padding: 0 var(--space-4);
+               border-radius: 8px; border: 1px solid var(--primary); background: var(--primary); color: #fff;
+               font: inherit; font-weight: 600; cursor: pointer; }
+  button.btn.secondary { background: #fff; color: var(--primary); }
+  button.btn:disabled { opacity: .5; cursor: not-allowed; }
+  .actions { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-3); }
+  code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 13px; overflow-wrap: anywhere; }
+  .empty { color: var(--muted); text-align: center; padding: 48px var(--space-4); }
+  svg { width: 18px; height: 18px; flex: none; }
+  @media (prefers-reduced-motion: no-preference) { .row, button.btn { transition: background-color .15s ease; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Kestrel Reviewer Dashboard</h1>
+  <p>Review a temperature excursion in four steps. The engine recommends; a named person decides and signs.</p>
+  <ol class="steps" aria-label="Progress">
+    <li id="s1" class="active">1. Pick a case</li>
+    <li id="s2">2. Check the facts</li>
+    <li id="s3">3. Seal and verify evidence</li>
+    <li id="s4">4. Sign the decision</li>
+  </ol>
+</header>
+
+<section class="summary" id="summary" aria-label="Recommendation counts"></section>
+
+<main>
+  <section class="card" aria-labelledby="list-h">
+    <h2 id="list-h">Step 1: Pick a case</h2>
+    <p class="hint">All 420 alerts, the nearest regulatory deadline first.</p>
+    <div class="filters">
+      <input id="q" type="search" placeholder="Search by event id, e.g. EXC-107133" aria-label="Search events">
+      <select id="tenant" aria-label="Filter by customer"><option value="">All customers</option></select>
+      <select id="disp" aria-label="Filter by recommendation"><option value="">All recommendations</option></select>
+    </div>
+    <div class="list" id="list" role="list"></div>
+  </section>
+
+  <section class="panel" id="detail" aria-live="polite">
+    <div class="card empty">Pick a case on the left to start.</div>
+  </section>
+</main>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const esc = (v) => String(v ?? "—").replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const ICON_OK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
+const ICON_LOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>';
+const ICON_PEN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>';
+const DISPOSITIONS = ["AUTO_CLOSE", "RELEASE_WITH_NOTE", "QUARANTINE_PENDING_LAB", "DESTROY", "ESCALATED_TO_SENIOR_QA"];
+const PLAIN = {
+  AUTO_CLOSE: "No action needed", RELEASE_WITH_NOTE: "Release, add a note", QUARANTINE_PENDING_LAB: "Hold for lab test",
+  DESTROY: "Destroy the product", ESCALATED_TO_SENIOR_QA: "Needs a senior reviewer",
+};
+
+let events = [], current = null, opened = null;
+
+async function api(method, path, body) {
+  const res = await fetch(path, { method, headers: body ? {"content-type": "application/json"} : {},
+                                  body: body ? JSON.stringify(body) : undefined });
+  let data = {}; try { data = await res.json(); } catch (_) {}
+  return { status: res.status, data };
+}
+const errText = (d) => esc(d.error || d.detail && (typeof d.detail === "string" ? d.detail : JSON.stringify(d.detail)) || "unknown error");
+
+function setStep(n) {
+  for (let i = 1; i <= 4; i++) $("s" + i).className = i < n ? "done" : i === n ? "active" : "";
+}
+
+async function load() {
+  const { data } = await api("GET", "/events");
+  events = data.items || [];
+  $("summary").innerHTML = DISPOSITIONS.map((d) =>
+    `<div class="stat"><b>${data.counts?.[d] ?? 0}</b><span>${PLAIN[d]}</span></div>`).join("");
+  [...new Set(events.map((e) => e.tenant_code))].sort().forEach((t) => $("tenant").add(new Option(t, t)));
+  DISPOSITIONS.forEach((d) => $("disp").add(new Option(PLAIN[d], d)));
+  renderList();
+}
+
+function renderList() {
+  const q = $("q").value.trim().toUpperCase(), t = $("tenant").value, d = $("disp").value;
+  const rows = events.filter((e) => (!q || e.event_id.includes(q)) && (!t || e.tenant_code === t) && (!d || e.recommendation === d));
+  $("list").innerHTML = rows.length ? rows.map((e) => `
+    <button class="row" role="listitem" data-id="${esc(e.event_id)}" aria-current="${current?.event_id === e.event_id}">
+      <span><b>${esc(e.event_id)}</b><small>${esc(e.tenant_code)} · deadline ${esc((e.reg_deadline_utc || "").slice(0, 16))} UTC</small></span>
+      <span class="badge b-${esc(e.recommendation)}">${esc(PLAIN[e.recommendation] || e.recommendation)}</span>
+    </button>`).join("") : '<p class="empty">No case matches these filters.</p>';
+  $("list").querySelectorAll(".row").forEach((b) => b.onclick = () => openEvent(b.dataset.id));
+}
+
+async function openEvent(id) {
+  const { status, data } = await api("GET", "/events/" + encodeURIComponent(id));
+  if (status !== 200) { $("detail").innerHTML = `<div class="card callout bad">Could not load ${esc(id)}: ${errText(data)}</div>`; return; }
+  current = data; opened = null; renderList(); setStep(2);
+  const a = data.alert, c = data.correction, b = data.basis, r = data.regulatory;
+  const corr = c.applied
+    ? `<div class="callout warn">This logger runs firmware ${esc(c.applies_to_fw)}, which reads up to 1.8 °C too low (bulletin ${esc(c.bulletin)}). The engine judged it at <b>${esc(c.corrected_max_temp_c)} °C</b> instead of the logged ${esc(c.raw_max_temp_c)} °C.</div>`
+    : `<div class="callout info">No firmware correction needed: this logger runs ${esc(a.logger_fw)}, not ${esc(c.applies_to_fw)}.</div>`;
+  $("detail").innerHTML = `
+    <div class="card">
+      <h2 class="step-title"><span class="num">2</span>Check the facts for ${esc(data.event_id)}</h2>
+      <p class="hint">What happened, which rules applied on that date, and why the engine recommends this.</p>
+      <p>Recommendation: <span class="badge b-${esc(data.recommendation)}">${esc(PLAIN[data.recommendation])}</span>
+         <small style="color:var(--muted)">(${esc(data.recommendation)}, confidence ${esc(data.confidence)})</small></p>
+      <dl>
+        <dt>Customer</dt><dd>${esc(data.tenant_code)}</dd>
+        <dt>Excursion started</dt><dd>${esc(a.excursion_start_utc)} UTC</dd>
+        <dt>Alert received</dt><dd>${esc(a.alert_ts_utc)} UTC</dd>
+        <dt>Temperature</dt><dd>${esc(a.min_temp_c)} to ${esc(a.max_temp_c)} °C for ${esc(a.duration_min)} min</dd>
+        <dt>Route</dt><dd>${esc(a.lane_text)}</dd>
+        <dt>Carrier</dt><dd>${esc(a.carrier_ref_as_received)}</dd>
+      </dl>
+      ${corr}
+    </div>
+    <div class="card">
+      <h2>Rules in force on the excursion date</h2>
+      <dl>
+        <dt>Product</dt><dd>${esc(b.product_brand)} (${esc(b.product_sku)}), matched by ${esc(b.product_match_method)}</dd>
+        <dt>Stability study</dt><dd>${esc(b.stability_study_ref)}</dd>
+        <dt>Customer SOP</dt><dd>${esc(b.sop_doc_id)} Rev ${esc(b.sop_revision)}${b.sop_overlap_conflict ? ' <span class="badge b-WARN">two revisions overlap, please confirm</span>' : ""}</dd>
+        <dt>Carrier contract</dt><dd>${esc(b.carrier_contract_id)}${b.carrier_has_cold_chain_clause === false ? " (no cold-chain clause)" : ""}</dd>
+        <dt>Report to regulator</dt><dd>${r.reportable ? "Yes" : "No"}; window ${esc(r.window_hours)} h, deadline ${esc(r.deadline_utc)} UTC</dd>
+      </dl>
+      <h2 style="margin-top:16px">Why this recommendation</h2>
+      <ol class="trace">${data.rationale.map((x) => `<li>${esc(x)}</li>`).join("")}</ol>
+    </div>
+    <div class="card" id="evidence">
+      <h2 class="step-title"><span class="num">3</span>Seal and verify the evidence</h2>
+      <p class="hint">Sealing saves exactly what you see above as a tamper-evident record and opens a case for signing.</p>
+      <div class="actions"><button class="btn" id="seal">${ICON_LOCK} Seal evidence and open case</button></div>
+      <div id="ev-out"></div>
+    </div>
+    <div class="card" id="signcard">
+      <h2 class="step-title"><span class="num">4</span>Sign the decision</h2>
+      <p class="hint">Seal the evidence first. Your signature is tied to that exact record.</p>
+      <div id="sign-out"></div>
+    </div>`;
+  $("seal").onclick = seal;
+}
+
+async function seal() {
+  $("seal").disabled = true;
+  const { status, data } = await api("POST", "/adjudicate", { event_id: current.event_id, persist: true });
+  if (status !== 200) { $("ev-out").innerHTML = `<div class="callout bad">Could not seal: ${errText(data)}</div>`; $("seal").disabled = false; return; }
+  const ev = await api("GET", `/evidence/${encodeURIComponent(data.bundle_id)}?tenant_code=${encodeURIComponent(data.tenant_code)}`);
+  if (ev.status === 403) { $("ev-out").innerHTML = '<div class="callout bad">Access denied: this evidence belongs to another customer.</div>'; return; }
+  opened = { case_id: data.case_id, bundle_id: data.bundle_id, hash: ev.data.content_hash, tenant: data.tenant_code };
+  setStep(3);
+  $("ev-out").innerHTML = `
+    <dl style="margin-top:12px">
+      <dt>Case</dt><dd><code>${esc(data.case_id)}</code> (${esc(data.case_state)})</dd>
+      <dt>Evidence record</dt><dd><code>${esc(data.bundle_id)}</code></dd>
+      <dt>Fingerprint</dt><dd><code>${esc(ev.data.content_hash)}</code></dd>
+      <dt>Links to previous</dt><dd><code>${esc(ev.data.prev_hash)}</code></dd>
+      <dt>Kept until</dt><dd>${esc((ev.data.retention_until || "").slice(0, 10))}</dd>
+    </dl>
+    <div class="actions"><button class="btn secondary" id="verify">${ICON_OK} Check nothing was changed</button></div>
+    <div id="verify-out"></div>`;
+  $("verify").onclick = verify;
+  renderSign();
+}
+
+async function verify() {
+  const { data } = await api("POST", "/evidence/verify", { tenant_code: opened.tenant });
+  $("verify-out").innerHTML = data.ok
+    ? `<div class="callout ok">All ${esc(data.length)} records for ${esc(opened.tenant)} are intact. Nothing has been edited.</div>`
+    : `<div class="callout bad">Tampering detected: ${esc((data.errors || []).join("; "))}</div>`;
+}
+
+function renderSign() {
+  setStep(4);
+  $("sign-out").innerHTML = `
+    <form id="signform" novalidate>
+      <label for="who">Your full name (required)</label>
+      <input id="who" autocomplete="name" required placeholder="e.g. Priya Menon">
+      <label for="dec">Your decision</label>
+      <select id="dec">${DISPOSITIONS.map((d) => `<option value="${d}" ${d === current.recommendation ? "selected" : ""}>${PLAIN[d]}</option>`).join("")}</select>
+      <label for="why">Reason (optional)</label>
+      <textarea id="why" rows="2" placeholder="Why you agree or disagree with the recommendation"></textarea>
+      <p id="who-err" class="callout bad" hidden>Please type your name. A decision cannot be signed anonymously.</p>
+      <div class="actions"><button class="btn" type="submit">${ICON_PEN} Sign decision</button></div>
+    </form><div id="signed"></div>`;
+  $("signform").onsubmit = sign;
+}
+
+async function sign(e) {
+  e.preventDefault();
+  const who = $("who").value.trim();
+  $("who-err").hidden = !!who;
+  if (!who) { $("who").focus(); return; }
+  const qs = new URLSearchParams({ signed_by: who, disposition: $("dec").value, reason: $("why").value, bundle_hash: opened.hash });
+  const { status, data } = await api("POST", `/cases/${encodeURIComponent(opened.case_id)}/sign?${qs}`);
+  if (status === 200) {
+    $("signed").innerHTML = `<div class="callout ok">Signed by <b>${esc(data.signed_by)}</b> at ${esc(data.signed_at)} UTC as ${esc(PLAIN[data.final_disposition])}. The case is closed.</div>`;
+    $("signform").querySelector("button").disabled = true;
+    for (let i = 1; i <= 4; i++) $("s" + i).className = "done";
+  } else if (status === 409) {
+    $("signed").innerHTML = `<div class="callout warn">Not signed: ${errText(data)}</div>`;
+  } else {
+    $("signed").innerHTML = `<div class="callout bad">Not signed: ${errText(data)}</div>`;
+  }
+}
+
+["q", "tenant", "disp"].forEach((id) => $(id).addEventListener("input", renderList));
+load();
+</script>
+</body>
+</html>
