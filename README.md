@@ -8,14 +8,77 @@ Case-study submission by **Zulfiqar Ali Ahmed**.
 
 | Path | Role |
 |---|---|
-| [`kestrel.py`](kestrel.py) | Self-contained prototype: ingest, bitemporal store, as-of engine, evidence hash-chain, lifecycle, shadow replay, FastAPI HTTP API (lazy), CLI, embedded ≥29-test suite |
+| [`kestrel.py`](kestrel.py) | Self-contained prototype: ingest, bitemporal store, as-of engine, evidence hash-chain, lifecycle, shadow replay, FastAPI HTTP API (lazy), CLI, reviewer dashboard at `/ui`, embedded 31-test suite |
 | [`README.md`](README.md) | This document — requirements, design, evidence, working log |
 | [`data/`](data/) | Case-study inputs only (**do not modify**): brief PDF + `KCCS_Sentinel_Reference_Data_Pack.xlsx` |
 
 ---
 
+## Start here (5-minute read)
+
+### 1. The problem in one paragraph
+
+Kestrel's loggers raise about 420 temperature alerts in this pack. For each one, someone has to answer: *was the medicine harmed, what do we do with it, and do we have to tell a regulator by a deadline?* The answer depends on the rules that were in force **on the day of the excursion**: the product's stability study, the customer's SOP revision, the carrier contract, and logger firmware bulletins. Today reviewers spend most of their time digging those facts out of different places. Kestrel asked for AI that decides. My conclusion is that **the hard part is gathering the right evidence, not making the decision**. So I built that first.
+
+### 2. What I built, in four steps
+
+```mermaid
+flowchart LR
+    A[Alert from logger] --> B[1. Look up the rules<br/>in force on that date]
+    B --> C[2. Apply fixed rules<br/>e.g. TT-CB-114 +1.8 °C]
+    C --> D[3. Seal the evidence<br/>hash-chained, per customer]
+    D --> E[4. A named person<br/>reviews and signs]
+    E --> F[(Case closed,<br/>replayable later)]
+```
+
+| Step | What happens | Where in `kestrel.py` |
+|---|---|---|
+| 1. Look up the facts | It finds the product, stability study, SOP revision and carrier contract that applied **on the excursion date** (an "as-of" lookup). | `STORE`, `AS_OF`, `IDENTITY` sections |
+| 2. Recommend | Fixed, written rules give one of five outcomes. Every rule that fired is listed in plain words. There is no AI or LLM. The same input always gives the same output. | `STABILITY`, `REGULATORY`, `ENGINE` |
+| 3. Seal the evidence | Everything used is saved as one record with a SHA-256 fingerprint, linked to the previous record for that customer. Any later edit is detectable. One customer can never read another's records. | `EVIDENCE` |
+| 4. Human signs | A reviewer must type their name. The signature is tied to the exact evidence they saw, so if the evidence changed it is refused. | `LIFECYCLE`, `API` |
+
+The five outcomes are: no action needed, release with a note, hold for a lab test, destroy, and needs a senior reviewer.
+
+### 3. Run it in three commands
+
+```bash
+pip install openpyxl fastapi pydantic uvicorn httpx
+python kestrel.py test      # 31 tests, about 15 seconds
+python kestrel.py serve     # then open http://localhost:8080/ui
+```
+
+### 4. Try one case end to end (EXC-107133, the case in the brief)
+
+1. **Pick a case.** Open the dashboard and type `EXC-107133` in the search box.
+2. **Check the facts.** The page shows the alert (5.4 to 11.2 °C for 15 minutes), the SOP that applied (`SOP-KAV-9392` Rev 03, with a warning that two revisions overlap on that date), the carrier contract (`CNT-2021-0245`, which has no cold-chain clause), and the eight rules behind **Release, add a note**.
+3. **Seal and verify.** Click *Seal evidence and open case*, then *Check nothing was changed*. You will see "All records for T-KAVERI are intact".
+4. **Sign.** Type your name, pick the decision, and sign. A blank name is refused, and so is a stale evidence fingerprint.
+
+### 5. Results on the full pack (420 alerts)
+
+| Outcome | Count |
+|---|---|
+| No action needed (AUTO_CLOSE) | 224 |
+| Needs a senior reviewer (ESCALATED_TO_SENIOR_QA) | 80 |
+| Release, add a note (RELEASE_WITH_NOTE) | 54 |
+| Hold for lab test (QUARANTINE_PENDING_LAB) | 31 |
+| Destroy (DESTROY) | 31 |
+
+### 6. What I would say in the interview, in one line each
+
+- **Wrong target:** "70% with no human" is the wrong goal. The right goals are zero late regulator filings and less good product destroyed.
+- **Start small:** start with one customer (Aurastat) and be certain, as the board minute says, rather than rolling out to all 34 customers in nine months.
+- **No AI on decisions:** decisions use fixed rules, because of Virent's ban on external models, de Vries's version-provenance requirement, Dr Rao's "automate closures, not decisions", and the $3,000 a month cost cap.
+- **Known gaps:** I state them openly in [Deferred items](#deferred-items). For example, "next business day" is approximated as 24 hours, and Brazil's five calendar days are computed in UTC.
+
+Everything below is the detailed version of the same story.
+
+---
+
 ## Table of contents
 
+0. [Start here (5-minute read)](#start-here-5-minute-read)
 1. [Executive summary](#executive-summary)
 2. [Quickstart](#quickstart)
    - [Run it locally](#run-it-locally)
@@ -815,6 +878,10 @@ Reorganised `kestrel.py` into delimited modules; API layer is FastAPI + Pydantic
 Live vendor ingest adapters · OCR of handwritten Annexure 2 margin notes (T-KAVERI) · full lane/carrier/reefer panel and batch exposure ledger · carrier setpoint CSV email ingest · finance hook for INC-2506 invoice withdrawal · LLM justification drafter (still deliberately out of decision path) · multi-region deployment topology · API authn/z beyond tenant_code (production would use mTLS + tenant claims) · Postgres / object-store swap behind `EvidenceStore` / `BitemporalStore` boundaries.
 
 The engine still consumes `prior_excursions_lane_90d` from the alert row as a stub for the lane panel.
+
+**Known simplifications in the regulatory clock:** "next business day" (T-PINNACLE, T-MERIDIAN) is approximated as 24 hours, which is wrong for alerts on a Friday or before a holiday; Brazil's five calendar days (T-CAMPOS) is computed as a flat 120 hours in UTC rather than local calendar days. Both should move to a maintained per-jurisdiction calendar.
+
+**Reviewer dashboard limits:** `/ui` has no login; the reviewer name is typed, not an authenticated identity. Production needs SSO plus Part 11-style e-signature (re-authentication at sign time), and Virent's dual Site QA plus Corporate QA signature.
 
 ---
 
