@@ -80,7 +80,7 @@ flowchart LR
 4. **Human sign-off.** Only non-actionable alerts close automatically. Release, quarantine and destroy wait for
    a reviewer, whose signature is refused if the evidence changed after they looked.
 
-Details: [docs/architecture.md](docs/architecture.md) and [docs/decision-rules.md](docs/decision-rules.md).
+Details: [docs/code-walkthrough.md](docs/code-walkthrough.md), [docs/architecture.md](docs/architecture.md) and [docs/decision-rules.md](docs/decision-rules.md).
 
 ## Results on the data pack
 
@@ -230,10 +230,13 @@ The full reasoning, requirement traceability and board pushback are in
 4. **3 min.** `make serve`, open `/ui`, search `EXC-107133`, seal evidence, verify the chain, and try signing
    with a blank name (refused) and then a real one.
 
+For the full execution path, follow [one alert through the code](docs/code-walkthrough.md).
+
 ## Documentation
 
 | Doc | Contents |
 |---|---|
+| [code-walkthrough.md](docs/code-walkthrough.md) | one real alert followed through every module, with the reasons behind each design choice |
 | [architecture.md](docs/architecture.md) | flow, package layout, data model, case states, `kestrel.py` section map |
 | [decision-rules.md](docs/decision-rules.md) | rule order, thresholds, how to add a rule safely |
 | [api.md](docs/api.md) | every endpoint, body and error code |
