@@ -1,0 +1,28 @@
+[
+  [
+    "/tmp/fixvenv/bin/kestrel",
+    "--log-level",
+    "WARNING",
+    "--db",
+    "/tmp/kestrel-identity-review/final/run.sqlite",
+    "--evidence-dir",
+    "/tmp/kestrel-identity-review/final/evidence",
+    "verify",
+    "--tenant",
+    "T-KAVERI"
+  ],
+  [
+    "/tmp/fixvenv/bin/kestrel",
+    "--log-level",
+    "WARNING",
+    "--db",
+    "/tmp/kestrel-identity-review/final/run.sqlite",
+    "--evidence-dir",
+    "/tmp/kestrel-identity-review/final/evidence",
+    "replay",
+    "--tenant",
+    "T-KAVERI",
+    "--bundle",
+    "EVB-6f2fa2907e030019"
+  ]
+]

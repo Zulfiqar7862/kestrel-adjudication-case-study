@@ -156,6 +156,20 @@ function renderList() {
   $("list").querySelectorAll(".row").forEach((b) => b.onclick = () => openEvent(b.dataset.id));
 }
 
+// BEGIN IDENTITY PANEL
+function identityPanel(assessments) {
+  return `<div class="card" id="identity-evidence"><h2>Identity evidence — source claims, not clinical authority</h2>` +
+    Object.entries(assessments || {}).map(([kind, item]) => `<h3>${esc(kind)}: ${esc(item.status)}</h3>
+      <p>${esc(item.usage)}; identity gate eligible: ${esc(item.release_identity_eligible)}</p>
+      <ul>${(item.reasons || []).map(reason => `<li>${esc(reason)}</li>`).join("")}</ul>
+      <ul>${(item.links || []).map(link => `<li>${esc(link.kind)} — ${esc(link.verification_status)};
+        tenant ${esc(link.tenant_code)}; ${esc(link.source_sheet)} row ${esc(link.source_row)};
+        confirmed by ${esc(link.confirmed_by)} on ${esc(link.confirmed_on)};
+        note: ${esc(link.conflict_note)}</li>`).join("")}</ul>
+      <p>Candidates are reference data, not verified identity. Facility resolver is unused for site/SOP authority.</p>`).join("") + `</div>`;
+}
+// END IDENTITY PANEL
+
 async function openEvent(id) {
   const { status, data } = await api("GET", "/events/" + encodeURIComponent(id));
   if (status !== 200) { $("detail").innerHTML = `<div class="card callout bad">Could not load ${esc(id)}: ${errText(data)}</div>`; return; }
@@ -196,6 +210,7 @@ async function openEvent(id) {
       <h2 style="margin-top:16px">Why this recommendation</h2>
       <ol class="trace">${data.rationale.map((x) => `<li>${esc(x)}</li>`).join("")}</ol>
     </div>
+    ${identityPanel(data.identity_evidence)}
     <div class="card" id="evidence">
       <h2 class="step-title"><span class="num">3</span>Seal and verify the evidence</h2>
       <p class="hint">Sealing saves exactly what you see above as a tamper-evident record and opens a case for signing.</p>

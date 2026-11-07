@@ -1,0 +1,1086 @@
+[
+  {
+    "event_id": "EXC-112198",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "MISSING_PRODUCT_REFERENCE"
+    ]
+  },
+  {
+    "event_id": "EXC-111064",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_facility_equipment_event",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "NEGATIVE_RELATIONSHIP",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE",
+      "UNCONFIRMED_ALIAS"
+    ]
+  },
+  {
+    "event_id": "EXC-111995",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_facility_equipment_event",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-112744",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS"
+    ]
+  },
+  {
+    "event_id": "EXC-111071",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_facility_equipment_event",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "MISSING_PRODUCT_REFERENCE"
+    ]
+  },
+  {
+    "event_id": "EXC-111519",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS"
+    ]
+  },
+  {
+    "event_id": "EXC-111365",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "STRENGTH_OR_UNIT_MISMATCH",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-112163",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS"
+    ]
+  },
+  {
+    "event_id": "EXC-112205",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_facility_equipment_event",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS"
+    ]
+  },
+  {
+    "event_id": "EXC-112758",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-112772",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "NEGATIVE_RELATIONSHIP",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE",
+      "UNCONFIRMED_ALIAS"
+    ]
+  },
+  {
+    "event_id": "EXC-110735",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-111043",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_facility_equipment_event",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "MISSING_PRODUCT_REFERENCE"
+    ]
+  },
+  {
+    "event_id": "EXC-112835",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS"
+    ]
+  },
+  {
+    "event_id": "EXC-111015",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_facility_equipment_event",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-112226",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS"
+    ]
+  },
+  {
+    "event_id": "EXC-111246",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-112212",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS"
+    ]
+  },
+  {
+    "event_id": "EXC-112681",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-112499",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS"
+    ]
+  },
+  {
+    "event_id": "EXC-112800",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS"
+    ]
+  },
+  {
+    "event_id": "EXC-112380",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS"
+    ]
+  },
+  {
+    "event_id": "EXC-111141",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS"
+    ]
+  },
+  {
+    "event_id": "EXC-110945",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_facility_equipment_event",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-111400",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-111148",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "MISSING_PRODUCT_REFERENCE"
+    ]
+  },
+  {
+    "event_id": "EXC-111330",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-112863",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-111876",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-111869",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "MISSING_PRODUCT_REFERENCE"
+    ]
+  },
+  {
+    "event_id": "EXC-110819",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-112121",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "MISSING_PRODUCT_REFERENCE"
+    ]
+  },
+  {
+    "event_id": "EXC-112793",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-112716",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "STRENGTH_OR_UNIT_MISMATCH",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-111736",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-110980",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_facility_equipment_event",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-112555",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-110742",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_facility_equipment_event",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-111883",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS"
+    ]
+  },
+  {
+    "event_id": "EXC-111834",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-111778",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-112891",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-111435",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS"
+    ]
+  },
+  {
+    "event_id": "EXC-111708",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-112814",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-111491",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-111547",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS"
+    ]
+  },
+  {
+    "event_id": "EXC-110966",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-112856",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS"
+    ]
+  },
+  {
+    "event_id": "EXC-111351",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "NEGATIVE_RELATIONSHIP",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE",
+      "UNCONFIRMED_ALIAS"
+    ]
+  },
+  {
+    "event_id": "EXC-112660",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "NEGATIVE_RELATIONSHIP",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE",
+      "UNCONFIRMED_ALIAS"
+    ]
+  },
+  {
+    "event_id": "EXC-111372",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS"
+    ]
+  },
+  {
+    "event_id": "EXC-110784",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_facility_equipment_event",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-111820",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_facility_equipment_event",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS"
+    ]
+  },
+  {
+    "event_id": "EXC-111855",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_facility_equipment_event",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-112639",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "NEGATIVE_RELATIONSHIP",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE",
+      "UNCONFIRMED_ALIAS"
+    ]
+  },
+  {
+    "event_id": "EXC-111218",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-111568",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_facility_equipment_event",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "NEGATIVE_RELATIONSHIP",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE",
+      "UNCONFIRMED_ALIAS"
+    ]
+  },
+  {
+    "event_id": "EXC-111260",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_facility_equipment_event",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-110840",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_facility_equipment_event",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-111344",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "NEGATIVE_RELATIONSHIP",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE",
+      "UNCONFIRMED_ALIAS"
+    ]
+  },
+  {
+    "event_id": "EXC-111743",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_facility_equipment_event",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-110889",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_facility_equipment_event",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-111792",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-112373",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_facility_equipment_event",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-111785",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-111449",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS"
+    ]
+  },
+  {
+    "event_id": "EXC-111001",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_facility_equipment_event",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-112282",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "MISSING_PRODUCT_REFERENCE"
+    ]
+  },
+  {
+    "event_id": "EXC-111897",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS"
+    ]
+  },
+  {
+    "event_id": "EXC-112268",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS"
+    ]
+  },
+  {
+    "event_id": "EXC-110791",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_facility_equipment_event",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-112471",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS"
+    ]
+  },
+  {
+    "event_id": "EXC-110763",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-110721",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_facility_equipment_event",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS"
+    ]
+  },
+  {
+    "event_id": "EXC-110987",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-111904",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS"
+    ]
+  },
+  {
+    "event_id": "EXC-111358",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "MISSING_PRODUCT_REFERENCE"
+    ]
+  },
+  {
+    "event_id": "EXC-112030",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_facility_equipment_event",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "MISSING_PRODUCT_REFERENCE"
+    ]
+  },
+  {
+    "event_id": "EXC-112646",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-110728",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_facility_equipment_event",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "NEGATIVE_RELATIONSHIP",
+      "UNSCOPED_ALIAS",
+      "UNCONFIRMED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-112233",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_facility_equipment_event",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-112443",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-111288",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-111645",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_facility_equipment_event",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS"
+    ]
+  },
+  {
+    "event_id": "EXC-111715",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "MISSING_PRODUCT_REFERENCE"
+    ]
+  },
+  {
+    "event_id": "EXC-112688",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "MISSING_PRODUCT_REFERENCE"
+    ]
+  },
+  {
+    "event_id": "EXC-111470",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-112429",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-110525",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_facility_equipment_event",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "MISSING_PRODUCT_REFERENCE"
+    ]
+  },
+  {
+    "event_id": "EXC-112009",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "STRENGTH_OR_UNIT_MISMATCH",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE"
+    ]
+  },
+  {
+    "event_id": "EXC-112562",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_duplicate_alert",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "CONFLICTING_NOTE",
+      "NEGATIVE_RELATIONSHIP",
+      "UNSCOPED_ALIAS",
+      "CONFIRMATION_NOT_IN_FORCE",
+      "UNCONFIRMED_ALIAS"
+    ]
+  },
+  {
+    "event_id": "EXC-110833",
+    "before": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "old_rule": "rule_facility_equipment_event",
+    "new_rule": "typed_identity_unresolved_gate",
+    "identity_reasons": [
+      "MISSING_PRODUCT_REFERENCE"
+    ]
+  }
+]

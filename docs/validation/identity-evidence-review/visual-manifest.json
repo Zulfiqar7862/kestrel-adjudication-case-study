@@ -1,0 +1,52 @@
+[
+  {
+    "path": "docs/images/case-lifecycle.png",
+    "copy_path": "/workspace/final-visuals/case-lifecycle.png",
+    "sha256": "72df88e589a35ad875acfbbd7bc6f72b7f4037c3b4897c501865e1cfbda01b18"
+  },
+  {
+    "path": "docs/images/data-model.png",
+    "copy_path": "/workspace/final-visuals/data-model.png",
+    "sha256": "09e7ca033219807c4de315b9efd49d74d5109b5036110e633f1f8e2aeb538529"
+  },
+  {
+    "path": "docs/images/decision-pipeline.png",
+    "copy_path": "/workspace/final-visuals/decision-pipeline.png",
+    "sha256": "c45c63b076849f46e2f89421b83820651e21ea74f0fa0d877889040b8dd2bb85"
+  },
+  {
+    "path": "docs/images/evidence-chain.png",
+    "copy_path": "/workspace/final-visuals/evidence-chain.png",
+    "sha256": "e22c712497bc8d441fe41facd9a2f95ba4f0d0da2fe6a8321a4174f020403c4f"
+  },
+  {
+    "path": "docs/images/hld.png",
+    "copy_path": "/workspace/final-visuals/hld.png",
+    "sha256": "b6ece6596b83b9b24b2a4771eb2b306017047c1f8f630c0658e75cfd4b17c5f7"
+  },
+  {
+    "path": "docs/images/lld.png",
+    "copy_path": "/workspace/final-visuals/lld.png",
+    "sha256": "ec9ddbfec42b91a02e21074e7bf7db441ed121cd26ce0322d301082194fc2add"
+  },
+  {
+    "path": "docs/images/notification-lifecycle.png",
+    "copy_path": "/workspace/final-visuals/notification-lifecycle.png",
+    "sha256": "6759ae7c3bc612ff8fc7bd560fe7e7de7cde6c89feee075097acfbbfe1b6985c"
+  },
+  {
+    "path": "docs/images/workflow-decision.png",
+    "copy_path": "/workspace/final-visuals/workflow-decision.png",
+    "sha256": "c27330591343123403c994a5ba97095ed4430989fbc6e20731ea8fa8a4f801e6"
+  },
+  {
+    "path": "docs/images/workflow-run.json",
+    "copy_path": "/workspace/final-visuals/workflow-run.json",
+    "sha256": "5e5c5d25c7f099f636f321e6f4dd90657a1c6e914753bc0d14a33db494d007ec"
+  },
+  {
+    "path": "docs/images/workflow.gif",
+    "copy_path": "/workspace/final-visuals/workflow.gif",
+    "sha256": "fb8c661fe1d510608da1693373176189a9806b9f40d67d27657b782debef5e55"
+  }
+]

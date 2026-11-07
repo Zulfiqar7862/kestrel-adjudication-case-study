@@ -1,0 +1,364 @@
+..F............................................................F........ [ 27%]
+...........................................................F.F.F........ [ 54%]
+....................................................F.......F.F......F.. [ 82%]
+..............F..F.F..FFF......................                          [100%]
+=================================== FAILURES ===================================
+________________ TestReviewerDashboard.test_ui_page_and_events _________________
+
+self = <tests.test_api.TestReviewerDashboard testMethod=test_ui_page_and_events>
+
+    def test_ui_page_and_events(self) -> None:
+        """/ui serves the four-step page; /events lists all 420 alerts."""
+        c = self._client()
+        page = c.get("/ui")
+        self.assertEqual(page.status_code, 200)
+        for marker in ("Kestrel Reviewer Dashboard", "1. Pick a case", "4. Sign the decision"):
+            self.assertIn(marker, page.text)
+        ev = c.get("/events").json()
+        self.assertEqual(ev["count"], 420)
+        self.assertEqual(ev["counts"].get("AUTO_CLOSE", 0), 0)
+>       self.assertEqual(ev["counts"]["HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"], 130)
+E       AssertionError: 131 != 130
+
+tests/test_api.py:74: AssertionError
+__________________ test_unique_carrier_substring_still_works ___________________
+
+pack = DataPack(path=PosixPath('/workspace/kprod/data/KCCS_Sentinel_Reference_Data_Pack.xlsx'), events=[{'event_id': 'EXC-112...ridian's MSA Cl.22 prohibition means a confirmed leak would have been a contractual breach with termination rights."}])
+
+    def test_unique_carrier_substring_still_works(pack):
+        from copy import deepcopy
+
+        from kestrel.rules.identity import IdentityResolver
+
+        copied = deepcopy(pack)
+        copied.carriers = copied.carriers[:1]
+        copied.carriers[0].update(names_seen_on_documents="Unique Shipping Alias", _effective_from=None, _effective_to=None)
+        row, error = IdentityResolver(copied).resolve_carrier_contract("Unique Shipping", date(2026, 7, 28))
+>       assert error is None
+E       AssertionError: assert 'CARRIER_SUBSTRING_NOT_IDENTITY' is None
+
+tests/test_correctness_review.py:344: AssertionError
+_ TestHistoricalCandidateSurfaces.test_cli_outputs_explicit_candidate_fields_and_separate_counts _
+
+self = <tests.test_historical_candidates.TestHistoricalCandidateSurfaces testMethod=test_cli_outputs_explicit_candidate_fields_and_separate_counts>
+
+    def test_cli_outputs_explicit_candidate_fields_and_separate_counts(self):
+        import sys
+
+        root = Path(self._tmpdir.name) / "cli"
+        base = [
+            sys.executable,
+            "-m",
+            "kestrel",
+            "--log-level",
+            "WARNING",
+            "--db",
+            str(root / "test.sqlite"),
+            "--evidence-dir",
+            str(root / "evidence"),
+        ]
+        one = json.loads(
+            subprocess.check_output(base + ["adjudicate", "--event", "EXC-112198", "--no-persist"], text=True)
+        )
+        assert one["recommendation"] == CANDIDATE
+        assert one["requires_human_review"] is True
+        assert one["closure_eligibility"] == "historical_candidate_unverified"
+        batch = json.loads(
+            subprocess.check_output(base + ["run-all", "--no-persist", "--out", str(root / "results.csv")], text=True)
+        )
+        assert batch["closure_counts"]["verified_auto_close"] == 0
+>       assert batch["closure_counts"]["historical_candidates_unverified"] == 130
+E       assert 131 == 130
+
+tests/test_historical_candidates.py:137: AssertionError
+_ TestHistoricalCandidateSurfaces.test_metrics_and_run_all_never_fold_candidates_into_closures _
+
+self = <tests.test_historical_candidates.TestHistoricalCandidateSurfaces testMethod=test_metrics_and_run_all_never_fold_candidates_into_closures>
+
+    def test_metrics_and_run_all_never_fold_candidates_into_closures(self):
+        client = self.client()
+        for route in ["/ops/health-report", "/ops/agreement", "/events"]:
+            body = client.get(route).json()
+            assert body["closure_counts"]["verified_auto_close"] == 0
+>           assert body["closure_counts"]["historical_candidates_unverified"] == 130
+E           assert 131 == 130
+
+tests/test_historical_candidates.py:104: AssertionError
+_ TestHistoricalCandidateSurfaces.test_ui_renders_verified_and_historical_counts_separately _
+
+self = <tests.test_historical_candidates.TestHistoricalCandidateSurfaces testMethod=test_ui_renders_verified_and_historical_counts_separately>
+
+    def test_ui_renders_verified_and_historical_counts_separately(self):
+        html = self.client().get("/ui").text
+        assert 'data-metric="verified-auto-close">0</strong>' in html
+>       assert 'data-metric="historical-candidates">130</strong>' in html
+E       assert 'data-metric="historical-candidates">130</strong>' in '<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width,...tenant", "disp"].forEach((id) => $(id).addEventListener("input", renderList));\nload();\n</script>\n</body>\n</html>\n'
+
+tests/test_historical_candidates.py:83: AssertionError
+_________ TestAgreementAndHealth.test_health_report_has_alert_catalog __________
+
+self = <tests.test_ops.TestAgreementAndHealth testMethod=test_health_report_has_alert_catalog>
+
+    def test_health_report_has_alert_catalog(self) -> None:
+        """Health report exposes required alert names with thresholds and runbook steps."""
+        # Persist a small slice so chain verify has length for at least one tenant
+        self.svc.adjudicate_event("EXC-107133", persist=True)
+        report = self.svc.health_report()
+        names = {a["name"] for a in report["alerts"]}
+        required = {
+            "regulatory_deadline_breached",
+            "regulatory_deadline_at_risk",
+            "evidence_chain_verification_failure",
+            "decision_mix_drift",
+            "data_feed_staleness",
+            "queue_age",
+            "firmware_bulletin_change",
+        }
+        self.assertTrue(required.issubset(names))
+        for alert in report["alerts"]:
+            self.assertIn("threshold", alert)
+            self.assertIn("page", alert)
+            self.assertIn("runbook_step", alert)
+        self.assertEqual(report["decision_mix"].get("AUTO_CLOSE", 0), 0)
+>       self.assertEqual(report["decision_mix"]["HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"], 130)
+E       AssertionError: 131 != 130
+
+tests/test_ops.py:46: AssertionError
+____ TestTemperatureAndIdentity.test_shadow_custom_bound_drives_arithmetic _____
+
+self = <tests.test_review_regressions.TestTemperatureAndIdentity testMethod=test_shadow_custom_bound_drives_arithmetic>
+
+    def test_shadow_custom_bound_drives_arithmetic(self):
+        p, _ = fixture(max_c=7)
+        low = shadow_replay_bulletin(p, AdjudicationEngine(p), bias_c=0.1)
+        high = shadow_replay_bulletin(p, AdjudicationEngine(p), bias_c=1.8)
+        self.assertEqual(low["disposition_flips"], 0)
+>       self.assertEqual(high["disposition_flips"], 1)
+E       AssertionError: 0 != 1
+
+tests/test_review_regressions.py:147: AssertionError
+_______ TestTemperatureAndIdentity.test_unaffected_firmware_has_no_shift _______
+
+self = <tests.test_review_regressions.TestTemperatureAndIdentity testMethod=test_unaffected_firmware_has_no_shift>
+
+    def test_unaffected_firmware_has_no_shift(self):
+        p, event = fixture(firmware="TT-2.15.0")
+        r = AdjudicationEngine(p).adjudicate(event)
+        self.assertEqual(r.reported_max_temp_c, 8)
+        self.assertNotIn("uncertainty", r.evidence["temps"])
+>       self.assertEqual(r.recommendation, "AUTO_CLOSE")
+E       AssertionError: 'ESCALATED_TO_SENIOR_QA' != 'AUTO_CLOSE'
+E       - ESCALATED_TO_SENIOR_QA
+E       + AUTO_CLOSE
+
+tests/test_review_regressions.py:95: AssertionError
+_ TestSignedAndReplayedEvidence.test_sign_artifact_appears_in_basis_without_mutating_original _
+
+self = <tests.test_review_regressions.TestSignedAndReplayedEvidence testMethod=test_sign_artifact_appears_in_basis_without_mutating_original>
+
+    def test_sign_artifact_appears_in_basis_without_mutating_original(self):
+        out = self.svc.adjudicate_event("EXC-107133")
+        original = deepcopy(out["bundle"])
+        signed = self.svc.lifecycle.sign(
+            out["case"]["case_id"], "QA", Disposition.RELEASE_WITH_NOTE, bundle_hash=original["content_hash"]
+        )
+        basis = self.svc.full_basis("EXC-107133", "T-KAVERI")["bundle"]
+        self.assertEqual(basis["reviewer_signoff"]["status"], "SIGNED")
+        self.assertEqual(basis["case_id"], signed["case_id"])
+        self.assertEqual(basis["reviewer_signoff"]["signed_bundle_hash"], original["content_hash"])
+>       self.assertEqual(self.svc.evidence.get(original["bundle_id"], tenant_code="T-KAVERI"), original)
+E       AssertionError: {'ten[89768 chars]om': '2021-08-02', '_effective_to': None}], 'r[4255 chars].v1'} != {'ten[89768 chars]om': datetime.date(2021, 8, 2), '_effective_to[4268 chars].v1'}
+E       Diff is 383965 characters long. Set self.maxDiff to None to see it.
+
+tests/test_review_regressions.py:167: AssertionError
+_____ test_equality_and_strictness_at_each_boundary[2-8 C-2-8-AUTO_CLOSE] ______
+
+text = '2-8 C', minimum = 2, maximum = 8, expected = 'AUTO_CLOSE'
+
+    @pytest.mark.parametrize(
+        "text,minimum,maximum,expected",
+        [
+            ("2-8 C", 2, 8, AUTO_CLOSE),
+            ("2-8 C", 1.999, 8, ESCALATE),
+            ("2-8 C", 2, 8.001, ESCALATE),
+            ("Below 25 C", 20, 24.999, AUTO_CLOSE),
+            ("Below 25 C", 20, 25, ESCALATE),
+            ("≤ −150 °C", -180, -150, AUTO_CLOSE),
+            ("≤ −150 °C", -180, -149.999, ESCALATE),
+            ("Above 2 C", 2, 7, ESCALATE),
+            ("Above 2 C", 2.001, 7, AUTO_CLOSE),
+            ("≥ 2 C", 2, 7, AUTO_CLOSE),
+            ("≤ 25 C", None, 25, AUTO_CLOSE),
+        ],
+    )
+    def test_equality_and_strictness_at_each_boundary(text, minimum, maximum, expected):
+>       assert result_for(text, minimum, maximum).recommendation == expected
+E       AssertionError: assert 'ESCALATED_TO_SENIOR_QA' == 'AUTO_CLOSE'
+E
+E         - AUTO_CLOSE
+E         + ESCALATED_TO_SENIOR_QA
+
+tests/test_storage_limits.py:73: AssertionError
+_ test_equality_and_strictness_at_each_boundary[Below 25 C-20-24.999-AUTO_CLOSE] _
+
+text = 'Below 25 C', minimum = 20, maximum = 24.999, expected = 'AUTO_CLOSE'
+
+    @pytest.mark.parametrize(
+        "text,minimum,maximum,expected",
+        [
+            ("2-8 C", 2, 8, AUTO_CLOSE),
+            ("2-8 C", 1.999, 8, ESCALATE),
+            ("2-8 C", 2, 8.001, ESCALATE),
+            ("Below 25 C", 20, 24.999, AUTO_CLOSE),
+            ("Below 25 C", 20, 25, ESCALATE),
+            ("≤ −150 °C", -180, -150, AUTO_CLOSE),
+            ("≤ −150 °C", -180, -149.999, ESCALATE),
+            ("Above 2 C", 2, 7, ESCALATE),
+            ("Above 2 C", 2.001, 7, AUTO_CLOSE),
+            ("≥ 2 C", 2, 7, AUTO_CLOSE),
+            ("≤ 25 C", None, 25, AUTO_CLOSE),
+        ],
+    )
+    def test_equality_and_strictness_at_each_boundary(text, minimum, maximum, expected):
+>       assert result_for(text, minimum, maximum).recommendation == expected
+E       AssertionError: assert 'ESCALATED_TO_SENIOR_QA' == 'AUTO_CLOSE'
+E
+E         - AUTO_CLOSE
+E         + ESCALATED_TO_SENIOR_QA
+
+tests/test_storage_limits.py:73: AssertionError
+_ test_equality_and_strictness_at_each_boundary[\u2264 \u2212150 \xb0C--180--150-AUTO_CLOSE] _
+
+text = '≤ −150 °C', minimum = -180, maximum = -150, expected = 'AUTO_CLOSE'
+
+    @pytest.mark.parametrize(
+        "text,minimum,maximum,expected",
+        [
+            ("2-8 C", 2, 8, AUTO_CLOSE),
+            ("2-8 C", 1.999, 8, ESCALATE),
+            ("2-8 C", 2, 8.001, ESCALATE),
+            ("Below 25 C", 20, 24.999, AUTO_CLOSE),
+            ("Below 25 C", 20, 25, ESCALATE),
+            ("≤ −150 °C", -180, -150, AUTO_CLOSE),
+            ("≤ −150 °C", -180, -149.999, ESCALATE),
+            ("Above 2 C", 2, 7, ESCALATE),
+            ("Above 2 C", 2.001, 7, AUTO_CLOSE),
+            ("≥ 2 C", 2, 7, AUTO_CLOSE),
+            ("≤ 25 C", None, 25, AUTO_CLOSE),
+        ],
+    )
+    def test_equality_and_strictness_at_each_boundary(text, minimum, maximum, expected):
+>       assert result_for(text, minimum, maximum).recommendation == expected
+E       AssertionError: assert 'ESCALATED_TO_SENIOR_QA' == 'AUTO_CLOSE'
+E
+E         - AUTO_CLOSE
+E         + ESCALATED_TO_SENIOR_QA
+
+tests/test_storage_limits.py:73: AssertionError
+_ test_equality_and_strictness_at_each_boundary[Above 2 C-2.001-7-AUTO_CLOSE] __
+
+text = 'Above 2 C', minimum = 2.001, maximum = 7, expected = 'AUTO_CLOSE'
+
+    @pytest.mark.parametrize(
+        "text,minimum,maximum,expected",
+        [
+            ("2-8 C", 2, 8, AUTO_CLOSE),
+            ("2-8 C", 1.999, 8, ESCALATE),
+            ("2-8 C", 2, 8.001, ESCALATE),
+            ("Below 25 C", 20, 24.999, AUTO_CLOSE),
+            ("Below 25 C", 20, 25, ESCALATE),
+            ("≤ −150 °C", -180, -150, AUTO_CLOSE),
+            ("≤ −150 °C", -180, -149.999, ESCALATE),
+            ("Above 2 C", 2, 7, ESCALATE),
+            ("Above 2 C", 2.001, 7, AUTO_CLOSE),
+            ("≥ 2 C", 2, 7, AUTO_CLOSE),
+            ("≤ 25 C", None, 25, AUTO_CLOSE),
+        ],
+    )
+    def test_equality_and_strictness_at_each_boundary(text, minimum, maximum, expected):
+>       assert result_for(text, minimum, maximum).recommendation == expected
+E       AssertionError: assert 'ESCALATED_TO_SENIOR_QA' == 'AUTO_CLOSE'
+E
+E         - AUTO_CLOSE
+E         + ESCALATED_TO_SENIOR_QA
+
+tests/test_storage_limits.py:73: AssertionError
+___ test_equality_and_strictness_at_each_boundary[\u2265 2 C-2-7-AUTO_CLOSE] ___
+
+text = '≥ 2 C', minimum = 2, maximum = 7, expected = 'AUTO_CLOSE'
+
+    @pytest.mark.parametrize(
+        "text,minimum,maximum,expected",
+        [
+            ("2-8 C", 2, 8, AUTO_CLOSE),
+            ("2-8 C", 1.999, 8, ESCALATE),
+            ("2-8 C", 2, 8.001, ESCALATE),
+            ("Below 25 C", 20, 24.999, AUTO_CLOSE),
+            ("Below 25 C", 20, 25, ESCALATE),
+            ("≤ −150 °C", -180, -150, AUTO_CLOSE),
+            ("≤ −150 °C", -180, -149.999, ESCALATE),
+            ("Above 2 C", 2, 7, ESCALATE),
+            ("Above 2 C", 2.001, 7, AUTO_CLOSE),
+            ("≥ 2 C", 2, 7, AUTO_CLOSE),
+            ("≤ 25 C", None, 25, AUTO_CLOSE),
+        ],
+    )
+    def test_equality_and_strictness_at_each_boundary(text, minimum, maximum, expected):
+>       assert result_for(text, minimum, maximum).recommendation == expected
+E       AssertionError: assert 'ESCALATED_TO_SENIOR_QA' == 'AUTO_CLOSE'
+E
+E         - AUTO_CLOSE
+E         + ESCALATED_TO_SENIOR_QA
+
+tests/test_storage_limits.py:73: AssertionError
+_ test_equality_and_strictness_at_each_boundary[\u2264 25 C-None-25-AUTO_CLOSE] _
+
+text = '≤ 25 C', minimum = None, maximum = 25, expected = 'AUTO_CLOSE'
+
+    @pytest.mark.parametrize(
+        "text,minimum,maximum,expected",
+        [
+            ("2-8 C", 2, 8, AUTO_CLOSE),
+            ("2-8 C", 1.999, 8, ESCALATE),
+            ("2-8 C", 2, 8.001, ESCALATE),
+            ("Below 25 C", 20, 24.999, AUTO_CLOSE),
+            ("Below 25 C", 20, 25, ESCALATE),
+            ("≤ −150 °C", -180, -150, AUTO_CLOSE),
+            ("≤ −150 °C", -180, -149.999, ESCALATE),
+            ("Above 2 C", 2, 7, ESCALATE),
+            ("Above 2 C", 2.001, 7, AUTO_CLOSE),
+            ("≥ 2 C", 2, 7, AUTO_CLOSE),
+            ("≤ 25 C", None, 25, AUTO_CLOSE),
+        ],
+    )
+    def test_equality_and_strictness_at_each_boundary(text, minimum, maximum, expected):
+>       assert result_for(text, minimum, maximum).recommendation == expected
+E       AssertionError: assert 'ESCALATED_TO_SENIOR_QA' == 'AUTO_CLOSE'
+E
+E         - AUTO_CLOSE
+E         + ESCALATED_TO_SENIOR_QA
+
+tests/test_storage_limits.py:73: AssertionError
+=============================== warnings summary ===============================
+../../tmp/fixvenv/lib/python3.13/site-packages/fastapi/testclient.py:1
+  /tmp/fixvenv/lib/python3.13/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_api.py::TestReviewerDashboard::test_ui_page_and_events - As...
+FAILED tests/test_correctness_review.py::test_unique_carrier_substring_still_works
+FAILED tests/test_historical_candidates.py::TestHistoricalCandidateSurfaces::test_cli_outputs_explicit_candidate_fields_and_separate_counts
+FAILED tests/test_historical_candidates.py::TestHistoricalCandidateSurfaces::test_metrics_and_run_all_never_fold_candidates_into_closures
+FAILED tests/test_historical_candidates.py::TestHistoricalCandidateSurfaces::test_ui_renders_verified_and_historical_counts_separately
+FAILED tests/test_ops.py::TestAgreementAndHealth::test_health_report_has_alert_catalog
+FAILED tests/test_review_regressions.py::TestTemperatureAndIdentity::test_shadow_custom_bound_drives_arithmetic
+FAILED tests/test_review_regressions.py::TestTemperatureAndIdentity::test_unaffected_firmware_has_no_shift
+FAILED tests/test_review_regressions.py::TestSignedAndReplayedEvidence::test_sign_artifact_appears_in_basis_without_mutating_original
+FAILED tests/test_storage_limits.py::test_equality_and_strictness_at_each_boundary[2-8 C-2-8-AUTO_CLOSE]
+FAILED tests/test_storage_limits.py::test_equality_and_strictness_at_each_boundary[Below 25 C-20-24.999-AUTO_CLOSE]
+FAILED tests/test_storage_limits.py::test_equality_and_strictness_at_each_boundary[\u2264 \u2212150 \xb0C--180--150-AUTO_CLOSE]
+FAILED tests/test_storage_limits.py::test_equality_and_strictness_at_each_boundary[Above 2 C-2.001-7-AUTO_CLOSE]
+FAILED tests/test_storage_limits.py::test_equality_and_strictness_at_each_boundary[\u2265 2 C-2-7-AUTO_CLOSE]
+FAILED tests/test_storage_limits.py::test_equality_and_strictness_at_each_boundary[\u2264 25 C-None-25-AUTO_CLOSE]
+15 failed, 248 passed, 1 warning in 50.48s

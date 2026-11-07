@@ -25,7 +25,20 @@ reproduces captured inputs, not a complete historical source archive.
 Product matching uses a tenant master pool. Evidence get requires a tenant and
 rejects a differently scoped bundle. Replay snapshots retain tenant-owned
 product/SOP/study/policy rows plus shared source registries and relevant alias
-edges. Alias ownership and negative claims remain unresolved; see [limitations](07-limitations-and-roadmap.md).
+edges, including negative claims and physical sheet/row provenance. Explicit
+foreign-tenant aliases/contracts are excluded. Tenantless alias observations are
+candidate-only, even when their source cells say Y and contain a QA name/date.
+Typed negative/conflicting links block product merges, and unresolved product
+identity routes to QA while preserving historical classification. See the
+[typed contract](03-lld.md#typed-identity-contract) and
+[executed identity review](validation/identity-evidence-review/report.md).
+
+Carrier claims are tied to a contract, not a parent-company graph. Facility
+resolution is explicitly unused by engine/SOP selection: the shared registry
+lacks tenant ownership and cannot establish a governing site annexure. Carrier
+uncertainty is exposed as identity evidence; it is not invented as a clinical
+product-fate rule. Product release signing requires eligible typed product
+identity, not merely a high fuzzy confidence score.
 
 **Not implemented:** complete API authentication/authorisation, enforced residency
 cells, tenant encryption keys, production cross-tenant namespace isolation or an

@@ -6,12 +6,12 @@ These specific defects were addressed; overall safety and production readiness r
 
 | Area | Current gap / inspection finding | Status |
 |---|---|---|
-| Identity | Product master pool is tenant scoped, but aliases marked Y are traversed without honouring comments such as strength/presentation differences; generic INN/fuzzy matches may promote a unique row | Existing correctness concern; not changed by the integrity fix |
+| Identity | Typed scoped claims now retain provenance and reject negative/conflicting/weak product aliases; actual workbook aliases have no tenant ownership, so none are promoted | Source assertions are not authenticated independent verification; full owner curation/ontology remains needed |
 | Study discovery | Only the cited study is resolved; no full candidate/rejection catalogue, strength-controlled discovery or authenticated full-report authority | Unfinished; no study ID hard-coded as a remedy |
 | SOP/site annexures | Effective-date metadata and overlaps are visible, but indexed body/site annexure content is absent | Release authority unresolved; explicit resolution-task workflow not implemented |
 | Batch exposure | No verified batch identity or complete prior-exposure/once-only-use history | Cumulative assessment cannot assume zero |
 | Clinical rules | Numeric freeze/ultra-cold/gap/allowance heuristics still exist; other storage restrictions are not verified | No universal safety/production validation |
-| Signing | Name/hash/state checks do not authenticate authority, prove viewing, enforce all evidence blockers or implement real two-person signing | Existing workflow/security concern; not fixed here |
+| Signing | Release signing now requires typed product identity, but name/hash/state checks do not authenticate authority, prove viewing, enforce all other evidence blockers or implement real two-person signing | Existing workflow/security concern; not fixed here |
 | General HTTP API | Most case/evidence/dashboard routes lack authenticated tenant ownership checks; notification lane alone has scoped grants | Not a production tenant wall |
 | Notification operations | No approved policy/calendar registry, live sender/retry worker, verified filing receipt or pager; references never clear obligations | 28 pending / 392 unknown in this sample are not verified legal-reportability counts |
 | Evidence/storage | Local mutable JSON + SQLite; file/index publication is non-atomic; concurrent chain writers unvalidated; raw source series/PDF archive incomplete | Not WORM, HA or seven-year recovery evidence |
@@ -23,8 +23,10 @@ These specific defects were addressed; overall safety and production readiness r
 | Operations | No validated tenant fairness, incident admission, live bulletin feed, delivery/clock paging or load/restore benchmark | Health dictionaries/queue ordering are not deployed operational guarantees |
 
 The other gaps above are code-inspection findings and known limitations, not new
-executed exploit or clinical outcome claims. The focused integrity fix changes no
-clinical decision rules or source data. Executed sample/replay checks are listed
+executed exploit or clinical outcome claims. The identity fix adds scoped evidence and unresolved-product QA gates, not clinical
+thresholds or new source data. Facility resolution remains explicitly unused for
+site/SOP authority. All 81 former alias-chain promotions now remain unresolved:
+80 conflict and 1 candidate. No source aliases were granted invented tenant ownership. Executed sample/replay checks are listed
 separately in [validation](06-testing-and-validation.md).
 
 ## Evidence integrity: addressed defect and remaining trust limit
@@ -50,8 +52,12 @@ person's authority or establish clinical release eligibility.
 
 ## Roadmap: proposed, not implemented
 
-1. Have qualified owners curate typed tenant identity claims, including negative
-   strength/presentation relationships and ownership/knowledge-time evidence.
+1. Populate and authenticate the implemented typed identity claims through qualified
+   tenant owners. Supplied aliases remain unowned/unverified candidates. Source QA
+   names/dates are claims, not authenticated signatures; current master rows are not
+   a universal no-hindsight archive. Exact tenant GTIN/SKU assertions do not establish
+   source truth. Incompatible explicit descriptors require review, not invented unit
+   conversion or clinical equivalence. Facility ownership/site linkage remains unestablished.
 2. Discover study candidates with explicit product/strength/presentation/type/
    readability reasons; keep discovery separate from clinical release authority.
 3. Obtain controlled site/date SOP bodies and annexures; create open resolution

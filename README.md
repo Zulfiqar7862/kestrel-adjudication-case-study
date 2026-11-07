@@ -67,14 +67,15 @@ Re-executed on the unchanged 420-alert workbook; not production accuracy or clin
 | Recommendation / separate counter | Count |
 |---|---:|
 | AUTO_CLOSE | 0 |
-| ESCALATED_TO_SENIOR_QA | 290 |
-| HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED | 130 |
+| ESCALATED_TO_SENIOR_QA | 383 |
+| HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED | 37 |
 | Release-with-note / quarantine / destroy | 0 / 0 / 0 |
 | Independently verified closures | 0 |
 | Notification PENDING (conservative historical Y) | 28 |
 | Notification UNKNOWN | 392 |
 
-Historical candidates still need human review. PENDING is not verified legal
+93 formerly historical candidates now require identity QA. Historical classifications
+remain reference data. Historical candidates still need human review. PENDING is not verified legal
 reportability; UNKNOWN is not “not reportable”. All sample legal deadlines remain
 null/UNKNOWN without controlled applicability/calendar evidence.
 [Executed checks, unchanged outcomes and historical reports](docs/06-testing-and-validation.md).
@@ -91,8 +92,10 @@ null/UNKNOWN without controlled applicability/calendar evidence.
 
 ## Limitations to read first
 
-Product alias caveats/negative relationships are not properly modelled. Study
-discovery, site-annexure resolution, verified batch history and precedent import
+Typed identity evidence now blocks negative/conflicting alias merges. The supplied
+alias observations lack tenant ownership, so they remain candidates, not release
+identity. [Identity validation and all changed cases](docs/validation/identity-evidence-review/report.md).
+Study discovery, site-annexure resolution, verified batch history and precedent import
 are unfinished. Numeric rules and signing paths are not clinically validated.
 Most API routes lack production authentication. Evidence files/SQLite are not a
 proven WORM archive or highly available deployment. File/index mismatches now

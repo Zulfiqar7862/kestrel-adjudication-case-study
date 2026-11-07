@@ -1,0 +1,396 @@
+FFFFFFFFFFFFFFFFFFFFFFFFFFF                                              [100%]
+=================================== FAILURES ===================================
+_ test_negative_alias_comments_block_merge[Strength differs \u2014 check before merging] _
+
+comment = 'Strength differs — check before merging'
+
+    @pytest.mark.parametrize("comment", ["Strength differs — check before merging", "Same molecule, different presentation"])
+    def test_negative_alias_comments_block_merge(comment):
+        p=IdentityResolver(pack([product()], [alias(comment=comment)])).resolve_product("T-A", "old")
+>       assert p.internal_sku is None
+E       AssertionError: assert 'SKU-A' is None
+E        +  where 'SKU-A' = ResolvedProduct(tenant_code='T-A', match_method='alias_chain', confidence=0.8, brand='Drug 40mg PFS', generic_inn=None...g PFS', 'storage_spec_text': '2-8 C', '_source_sheet': '02_Product_Master', '_source_row': 2}], unresolved_reason=None).internal_sku
+
+tests/test_identity_evidence.py:42: AssertionError
+_ test_negative_alias_comments_block_merge[Same molecule, different presentation] _
+
+comment = 'Same molecule, different presentation'
+
+    @pytest.mark.parametrize("comment", ["Strength differs — check before merging", "Same molecule, different presentation"])
+    def test_negative_alias_comments_block_merge(comment):
+        p=IdentityResolver(pack([product()], [alias(comment=comment)])).resolve_product("T-A", "old")
+>       assert p.internal_sku is None
+E       AssertionError: assert 'SKU-A' is None
+E        +  where 'SKU-A' = ResolvedProduct(tenant_code='T-A', match_method='alias_chain', confidence=0.8, brand='Drug 40mg PFS', generic_inn=None...g PFS', 'storage_spec_text': '2-8 C', '_source_sheet': '02_Product_Master', '_source_row': 2}], unresolved_reason=None).internal_sku
+
+tests/test_identity_evidence.py:42: AssertionError
+______________________ test_real_negative_alias_rows[84] _______________________
+
+real_pack = DataPack(path=PosixPath('/workspace/kprod/data/KCCS_Sentinel_Reference_Data_Pack.xlsx'), events=[{'event_id': 'EXC-112...ridian's MSA Cl.22 prohibition means a confirmed leak would have been a contractual breach with termination rights."}])
+row_number = 84
+
+    @pytest.mark.parametrize("row_number", [84,86])
+    def test_real_negative_alias_rows(real_pack,row_number):
+        raw=real_pack.aliases[row_number-2]
+        resolver=IdentityResolver(real_pack)
+        p=resolver.resolve_product("T-VIRENT",raw["string_a"])
+>       assert not p.release_identity_eligible
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'ResolvedProduct' object has no attribute 'release_identity_eligible'
+
+tests/test_identity_evidence.py:52: AttributeError
+______________________ test_real_negative_alias_rows[86] _______________________
+
+real_pack = DataPack(path=PosixPath('/workspace/kprod/data/KCCS_Sentinel_Reference_Data_Pack.xlsx'), events=[{'event_id': 'EXC-112...ridian's MSA Cl.22 prohibition means a confirmed leak would have been a contractual breach with termination rights."}])
+row_number = 86
+
+    @pytest.mark.parametrize("row_number", [84,86])
+    def test_real_negative_alias_rows(real_pack,row_number):
+        raw=real_pack.aliases[row_number-2]
+        resolver=IdentityResolver(real_pack)
+        p=resolver.resolve_product("T-VIRENT",raw["string_a"])
+>       assert not p.release_identity_eligible
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'ResolvedProduct' object has no attribute 'release_identity_eligible'
+
+tests/test_identity_evidence.py:52: AttributeError
+_____ test_multihop_never_crosses_strength_or_presentation[Drug 20mg PFS] ______
+
+bridge = 'Drug 20mg PFS'
+
+    @pytest.mark.parametrize("bridge", ["Drug 20mg PFS", "Drug 40mg vial"])
+    def test_multihop_never_crosses_strength_or_presentation(bridge):
+        resolver=IdentityResolver(pack([product()], [alias("old",bridge), alias(bridge,"Drug 40mg PFS")]))
+        p=resolver.resolve_product("T-A", "old")
+>       assert p.internal_sku is None
+E       AssertionError: assert 'SKU-A' is None
+E        +  where 'SKU-A' = ResolvedProduct(tenant_code='T-A', match_method='alias_chain', confidence=0.8, brand='Drug 40mg PFS', generic_inn=None...g PFS', 'storage_spec_text': '2-8 C', '_source_sheet': '02_Product_Master', '_source_row': 2}], unresolved_reason=None).internal_sku
+
+tests/test_identity_evidence.py:60: AssertionError
+_____ test_multihop_never_crosses_strength_or_presentation[Drug 40mg vial] _____
+
+bridge = 'Drug 40mg vial'
+
+    @pytest.mark.parametrize("bridge", ["Drug 20mg PFS", "Drug 40mg vial"])
+    def test_multihop_never_crosses_strength_or_presentation(bridge):
+        resolver=IdentityResolver(pack([product()], [alias("old",bridge), alias(bridge,"Drug 40mg PFS")]))
+        p=resolver.resolve_product("T-A", "old")
+>       assert p.internal_sku is None
+E       AssertionError: assert 'SKU-A' is None
+E        +  where 'SKU-A' = ResolvedProduct(tenant_code='T-A', match_method='alias_chain', confidence=0.8, brand='Drug 40mg PFS', generic_inn=None...g PFS', 'storage_spec_text': '2-8 C', '_source_sheet': '02_Product_Master', '_source_row': 2}], unresolved_reason=None).internal_sku
+
+tests/test_identity_evidence.py:60: AssertionError
+_______ test_weak_or_foreign_alias_never_authorizes_release[unconfirmed] _______
+
+change = 'unconfirmed'
+
+    @pytest.mark.parametrize("change", ["unconfirmed", "unowned", "negative", "foreign", "conflicting-alternate"])
+    def test_weak_or_foreign_alias_never_authorizes_release(change):
+        a=alias(); aliases=[a]
+        if change=="unconfirmed":a["confirmed_by"]=None
+        if change=="unowned":a.pop("tenant_code")
+        if change=="negative":a["same_real_world_thing"]="N"
+        if change=="foreign":a["tenant_code"]="T-B"
+        if change=="conflicting-alternate":
+            aliases=[alias("old","middle"),alias("middle","Drug 40mg PFS"),alias("old","Drug 40mg PFS",same_real_world_thing="N")]
+        p=IdentityResolver(pack([product()],aliases)).resolve_product("T-A","old")
+>       assert p.internal_sku is None
+E       AssertionError: assert 'SKU-A' is None
+E        +  where 'SKU-A' = ResolvedProduct(tenant_code='T-A', match_method='alias_chain', confidence=0.8, brand='Drug 40mg PFS', generic_inn=None...g PFS', 'storage_spec_text': '2-8 C', '_source_sheet': '02_Product_Master', '_source_row': 2}], unresolved_reason=None).internal_sku
+
+tests/test_identity_evidence.py:74: AssertionError
+_________ test_weak_or_foreign_alias_never_authorizes_release[unowned] _________
+
+change = 'unowned'
+
+    @pytest.mark.parametrize("change", ["unconfirmed", "unowned", "negative", "foreign", "conflicting-alternate"])
+    def test_weak_or_foreign_alias_never_authorizes_release(change):
+        a=alias(); aliases=[a]
+        if change=="unconfirmed":a["confirmed_by"]=None
+        if change=="unowned":a.pop("tenant_code")
+        if change=="negative":a["same_real_world_thing"]="N"
+        if change=="foreign":a["tenant_code"]="T-B"
+        if change=="conflicting-alternate":
+            aliases=[alias("old","middle"),alias("middle","Drug 40mg PFS"),alias("old","Drug 40mg PFS",same_real_world_thing="N")]
+        p=IdentityResolver(pack([product()],aliases)).resolve_product("T-A","old")
+>       assert p.internal_sku is None
+E       AssertionError: assert 'SKU-A' is None
+E        +  where 'SKU-A' = ResolvedProduct(tenant_code='T-A', match_method='alias_chain', confidence=0.8, brand='Drug 40mg PFS', generic_inn=None...g PFS', 'storage_spec_text': '2-8 C', '_source_sheet': '02_Product_Master', '_source_row': 2}], unresolved_reason=None).internal_sku
+
+tests/test_identity_evidence.py:74: AssertionError
+________ test_weak_or_foreign_alias_never_authorizes_release[negative] _________
+
+change = 'negative'
+
+    @pytest.mark.parametrize("change", ["unconfirmed", "unowned", "negative", "foreign", "conflicting-alternate"])
+    def test_weak_or_foreign_alias_never_authorizes_release(change):
+        a=alias(); aliases=[a]
+        if change=="unconfirmed":a["confirmed_by"]=None
+        if change=="unowned":a.pop("tenant_code")
+        if change=="negative":a["same_real_world_thing"]="N"
+        if change=="foreign":a["tenant_code"]="T-B"
+        if change=="conflicting-alternate":
+            aliases=[alias("old","middle"),alias("middle","Drug 40mg PFS"),alias("old","Drug 40mg PFS",same_real_world_thing="N")]
+        p=IdentityResolver(pack([product()],aliases)).resolve_product("T-A","old")
+        assert p.internal_sku is None
+>       assert not p.release_identity_eligible
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'ResolvedProduct' object has no attribute 'release_identity_eligible'
+
+tests/test_identity_evidence.py:75: AttributeError
+_________ test_weak_or_foreign_alias_never_authorizes_release[foreign] _________
+
+change = 'foreign'
+
+    @pytest.mark.parametrize("change", ["unconfirmed", "unowned", "negative", "foreign", "conflicting-alternate"])
+    def test_weak_or_foreign_alias_never_authorizes_release(change):
+        a=alias(); aliases=[a]
+        if change=="unconfirmed":a["confirmed_by"]=None
+        if change=="unowned":a.pop("tenant_code")
+        if change=="negative":a["same_real_world_thing"]="N"
+        if change=="foreign":a["tenant_code"]="T-B"
+        if change=="conflicting-alternate":
+            aliases=[alias("old","middle"),alias("middle","Drug 40mg PFS"),alias("old","Drug 40mg PFS",same_real_world_thing="N")]
+        p=IdentityResolver(pack([product()],aliases)).resolve_product("T-A","old")
+>       assert p.internal_sku is None
+E       AssertionError: assert 'SKU-A' is None
+E        +  where 'SKU-A' = ResolvedProduct(tenant_code='T-A', match_method='alias_chain', confidence=0.8, brand='Drug 40mg PFS', generic_inn=None...g PFS', 'storage_spec_text': '2-8 C', '_source_sheet': '02_Product_Master', '_source_row': 2}], unresolved_reason=None).internal_sku
+
+tests/test_identity_evidence.py:74: AssertionError
+__ test_weak_or_foreign_alias_never_authorizes_release[conflicting-alternate] __
+
+change = 'conflicting-alternate'
+
+    @pytest.mark.parametrize("change", ["unconfirmed", "unowned", "negative", "foreign", "conflicting-alternate"])
+    def test_weak_or_foreign_alias_never_authorizes_release(change):
+        a=alias(); aliases=[a]
+        if change=="unconfirmed":a["confirmed_by"]=None
+        if change=="unowned":a.pop("tenant_code")
+        if change=="negative":a["same_real_world_thing"]="N"
+        if change=="foreign":a["tenant_code"]="T-B"
+        if change=="conflicting-alternate":
+            aliases=[alias("old","middle"),alias("middle","Drug 40mg PFS"),alias("old","Drug 40mg PFS",same_real_world_thing="N")]
+        p=IdentityResolver(pack([product()],aliases)).resolve_product("T-A","old")
+>       assert p.internal_sku is None
+E       AssertionError: assert 'SKU-A' is None
+E        +  where 'SKU-A' = ResolvedProduct(tenant_code='T-A', match_method='alias_chain', confidence=0.8, brand='Drug 40mg PFS', generic_inn=None...g PFS', 'storage_spec_text': '2-8 C', '_source_sheet': '02_Product_Master', '_source_row': 2}], unresolved_reason=None).internal_sku
+
+tests/test_identity_evidence.py:74: AssertionError
+________________ test_scoped_confirmed_alias_retains_every_hop _________________
+
+    def test_scoped_confirmed_alias_retains_every_hop():
+>       p=IdentityResolver(pack([product()], [alias("old","middle"),alias("middle","Drug 40mg PFS",_source_row=3)])).resolve_product("T-A","old",as_of=date(2026,1,1))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: IdentityResolver.resolve_product() got an unexpected keyword argument 'as_of'
+
+tests/test_identity_evidence.py:81: TypeError
+_______________ test_future_confirmation_is_not_current_identity _______________
+
+    def test_future_confirmation_is_not_current_identity():
+>       p=IdentityResolver(pack([product()], [alias(confirmed_on="2027-01-01")])).resolve_product("T-A","old",as_of=date(2026,1,1))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: IdentityResolver.resolve_product() got an unexpected keyword argument 'as_of'
+
+tests/test_identity_evidence.py:90: TypeError
+_______ test_exact_links_have_tenant_and_real_source[EXACT_GTIN-001234] ________
+
+kind = 'EXACT_GTIN', ref = '001234'
+
+    @pytest.mark.parametrize("kind,ref", [("EXACT_GTIN","001234"),("EXACT_SKU","SKU-A")])
+    def test_exact_links_have_tenant_and_real_source(kind,ref):
+        p=IdentityResolver(pack([product()])).resolve_product("T-A",ref)
+>       assert p.release_identity_eligible
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'ResolvedProduct' object has no attribute 'release_identity_eligible'
+
+tests/test_identity_evidence.py:97: AttributeError
+________ test_exact_links_have_tenant_and_real_source[EXACT_SKU-SKU-A] _________
+
+kind = 'EXACT_SKU', ref = 'SKU-A'
+
+    @pytest.mark.parametrize("kind,ref", [("EXACT_GTIN","001234"),("EXACT_SKU","SKU-A")])
+    def test_exact_links_have_tenant_and_real_source(kind,ref):
+        p=IdentityResolver(pack([product()])).resolve_product("T-A",ref)
+>       assert p.release_identity_eligible
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'ResolvedProduct' object has no attribute 'release_identity_eligible'
+
+tests/test_identity_evidence.py:97: AttributeError
+__________________ test_duplicate_gtin_is_explicit_ambiguity ___________________
+
+    def test_duplicate_gtin_is_explicit_ambiguity():
+        a=product();b={**a,"internal_sku":"SKU-B","_source_row":3}
+        p=IdentityResolver(pack([a,b])).resolve_product("T-A","001234")
+>       assert not p.release_identity_eligible and p.status=="UNRESOLVED_AMBIGUOUS"
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'ResolvedProduct' object has no attribute 'release_identity_eligible'
+
+tests/test_identity_evidence.py:108: AttributeError
+____________________ test_cross_tenant_master_is_never_used ____________________
+
+    def test_cross_tenant_master_is_never_used():
+        p=IdentityResolver(pack([product()])).resolve_product("T-B","001234")
+>       assert p.status=="UNRESOLVED" and not p.candidates and not p.identity_links
+               ^^^^^^^^
+E       AttributeError: 'ResolvedProduct' object has no attribute 'status'
+
+tests/test_identity_evidence.py:114: AttributeError
+________ test_carrier_contract_scoped_provenance[AFX-DE-CNT-2023-0441] _________
+
+real_pack = DataPack(path=PosixPath('/workspace/kprod/data/KCCS_Sentinel_Reference_Data_Pack.xlsx'), events=[{'event_id': 'EXC-112...ridian's MSA Cl.22 prohibition means a confirmed leak would have been a contractual breach with termination rights."}])
+carrier_ref = 'AFX-DE', expected = 'CNT-2023-0441'
+
+    @pytest.mark.parametrize("carrier_ref,expected",[("AFX-DE","CNT-2023-0441"),("Tapti Exp Cargo","CNT-2021-0245")])
+    def test_carrier_contract_scoped_provenance(real_pack,carrier_ref,expected):
+        resolver=IdentityResolver(real_pack)
+        row,err=resolver.resolve_carrier_contract(carrier_ref,date(2026,7,28))
+        assert err is None
+>       result=resolver.resolve_carrier("T-KAVERI",carrier_ref,date(2026,7,28))
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'IdentityResolver' object has no attribute 'resolve_carrier'
+
+tests/test_identity_evidence.py:122: AttributeError
+____ test_carrier_contract_scoped_provenance[Tapti Exp Cargo-CNT-2021-0245] ____
+
+real_pack = DataPack(path=PosixPath('/workspace/kprod/data/KCCS_Sentinel_Reference_Data_Pack.xlsx'), events=[{'event_id': 'EXC-112...ridian's MSA Cl.22 prohibition means a confirmed leak would have been a contractual breach with termination rights."}])
+carrier_ref = 'Tapti Exp Cargo', expected = 'CNT-2021-0245'
+
+    @pytest.mark.parametrize("carrier_ref,expected",[("AFX-DE","CNT-2023-0441"),("Tapti Exp Cargo","CNT-2021-0245")])
+    def test_carrier_contract_scoped_provenance(real_pack,carrier_ref,expected):
+        resolver=IdentityResolver(real_pack)
+        row,err=resolver.resolve_carrier_contract(carrier_ref,date(2026,7,28))
+        assert err is None
+>       result=resolver.resolve_carrier("T-KAVERI",carrier_ref,date(2026,7,28))
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'IdentityResolver' object has no attribute 'resolve_carrier'
+
+tests/test_identity_evidence.py:122: AttributeError
+___________________ test_carrier_ambiguity_and_foreign_scope ___________________
+
+real_pack = DataPack(path=PosixPath('/workspace/kprod/data/KCCS_Sentinel_Reference_Data_Pack.xlsx'), events=[{'event_id': 'EXC-112...ridian's MSA Cl.22 prohibition means a confirmed leak would have been a contractual breach with termination rights."}])
+
+    def test_carrier_ambiguity_and_foreign_scope(real_pack):
+        p=copy.deepcopy(real_pack)
+        for c in p.carriers[:2]:c["names_seen_on_documents"]="SAME"
+>       r=IdentityResolver(p).resolve_carrier("T-KAVERI","SAME",date(2026,7,28))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'IdentityResolver' object has no attribute 'resolve_carrier'
+
+tests/test_identity_evidence.py:132: AttributeError
+________________ test_facility_duplicate_name_is_not_first_hit _________________
+
+    def test_facility_duplicate_name_is_not_first_hit():
+        rows=[dict(tenant_code="T-A",name_in_source="Cold store",code_in_source=c,_source_sheet="03_Facility_Registry",_source_row=i) for i,c in [(2,"A"),(3,"B")]]
+        resolver=IdentityResolver(pack(facilities=rows))
+>       result=resolver.resolve_facility("T-A","Cold store")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'IdentityResolver' object has no attribute 'resolve_facility'
+
+tests/test_identity_evidence.py:142: AttributeError
+__________________ test_unowned_facility_is_explicitly_unused __________________
+
+real_pack = DataPack(path=PosixPath('/workspace/kprod/data/KCCS_Sentinel_Reference_Data_Pack.xlsx'), events=[{'event_id': 'EXC-112...ridian's MSA Cl.22 prohibition means a confirmed leak would have been a contractual breach with termination rights."}])
+
+    def test_unowned_facility_is_explicitly_unused(real_pack):
+        r=AdjudicationEngine(real_pack).adjudicate(real_pack.event_by_id("EXC-107133"))
+>       f=r.identity_evidence["facility"]
+          ^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'AdjudicationResult' object has no attribute 'identity_evidence'
+
+tests/test_identity_evidence.py:150: AttributeError
+___________ test_all_previous_alias_chain_events_are_candidates_only ___________
+
+real_pack = DataPack(path=PosixPath('/workspace/kprod/data/KCCS_Sentinel_Reference_Data_Pack.xlsx'), events=[{'event_id': 'EXC-112...ridian's MSA Cl.22 prohibition means a confirmed leak would have been a contractual breach with termination rights."}])
+
+    def test_all_previous_alias_chain_events_are_candidates_only(real_pack):
+        # Frozen before implementation, not recomputed using the new resolver.
+        ids=json.loads((Path(__file__).parent/"identity_alias_cases.json").read_text())
+        resolver=IdentityResolver(real_pack)
+        assert len(ids)==81 and "EXC-112289" in ids
+        for event_id in ids:
+            e=real_pack.event_by_id(event_id);p=resolver.resolve_product(e["tenant_code"],e["product_ref_as_received"])
+>           assert p.status.startswith("UNRESOLVED"),event_id
+                   ^^^^^^^^
+E           AttributeError: 'ResolvedProduct' object has no attribute 'status'
+
+tests/test_identity_evidence.py:162: AttributeError
+__________________ test_source_row_numbers_survive_blank_rows __________________
+
+    def test_source_row_numbers_survive_blank_rows():
+        from openpyxl import Workbook
+        from kestrel.utils import sheet_rows
+        w=Workbook();s=w.active;s.title="Test";s.append(["id"]);s.append([1]);s.append([None]);s.append([2])
+>       rows=sheet_rows(s,include_source=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: sheet_rows() got an unexpected keyword argument 'include_source'
+
+tests/test_identity_evidence.py:171: TypeError
+____________ test_api_and_sealed_evidence_show_unresolved_identity _____________
+
+service = <kestrel.service.AdjudicationService object at 0x7fcfd4eb7a10>
+
+    def test_api_and_sealed_evidence_show_unresolved_identity(service):
+        client=TestClient(create_app(service))
+        response=client.post("/adjudicate",json={"event_id":"EXC-112289","persist":True})
+        assert response.status_code==200
+>       data=response.json();p=data["identity_evidence"]["product"]
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'identity_evidence'
+
+tests/test_identity_evidence.py:182: KeyError
+_____________ test_release_signing_cannot_promote_unverified_alias _____________
+
+service = <kestrel.service.AdjudicationService object at 0x7fcfd4858b90>
+
+    def test_release_signing_cannot_promote_unverified_alias(service):
+        out=service.adjudicate_event("EXC-112289",persist=True)
+>       with pytest.raises(TransitionError,match="identity unresolved"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE TransitionError
+
+tests/test_identity_evidence.py:193: Failed
+___________ test_ui_renders_identity_status_and_escapes_source_notes ___________
+
+service = <kestrel.service.AdjudicationService object at 0x7fcfd48587d0>
+
+    def test_ui_renders_identity_status_and_escapes_source_notes(service):
+        html=TestClient(create_app(service)).get("/ui").text
+>       assert "function identityPanel" in html and "identityPanel(data.identity_evidence)" in html
+E       assert ('function identityPanel' in '<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width,...tenant", "disp"].forEach((id) => $(id).addEventListener("input", renderList));\nload();\n</script>\n</body>\n</html>\n')
+
+tests/test_identity_evidence.py:199: AssertionError
+=============================== warnings summary ===============================
+../../tmp/fixvenv/lib/python3.13/site-packages/fastapi/testclient.py:1
+  /tmp/fixvenv/lib/python3.13/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_identity_evidence.py::test_negative_alias_comments_block_merge[Strength differs \u2014 check before merging]
+FAILED tests/test_identity_evidence.py::test_negative_alias_comments_block_merge[Same molecule, different presentation]
+FAILED tests/test_identity_evidence.py::test_real_negative_alias_rows[84] - A...
+FAILED tests/test_identity_evidence.py::test_real_negative_alias_rows[86] - A...
+FAILED tests/test_identity_evidence.py::test_multihop_never_crosses_strength_or_presentation[Drug 20mg PFS]
+FAILED tests/test_identity_evidence.py::test_multihop_never_crosses_strength_or_presentation[Drug 40mg vial]
+FAILED tests/test_identity_evidence.py::test_weak_or_foreign_alias_never_authorizes_release[unconfirmed]
+FAILED tests/test_identity_evidence.py::test_weak_or_foreign_alias_never_authorizes_release[unowned]
+FAILED tests/test_identity_evidence.py::test_weak_or_foreign_alias_never_authorizes_release[negative]
+FAILED tests/test_identity_evidence.py::test_weak_or_foreign_alias_never_authorizes_release[foreign]
+FAILED tests/test_identity_evidence.py::test_weak_or_foreign_alias_never_authorizes_release[conflicting-alternate]
+FAILED tests/test_identity_evidence.py::test_scoped_confirmed_alias_retains_every_hop
+FAILED tests/test_identity_evidence.py::test_future_confirmation_is_not_current_identity
+FAILED tests/test_identity_evidence.py::test_exact_links_have_tenant_and_real_source[EXACT_GTIN-001234]
+FAILED tests/test_identity_evidence.py::test_exact_links_have_tenant_and_real_source[EXACT_SKU-SKU-A]
+FAILED tests/test_identity_evidence.py::test_duplicate_gtin_is_explicit_ambiguity
+FAILED tests/test_identity_evidence.py::test_cross_tenant_master_is_never_used
+FAILED tests/test_identity_evidence.py::test_carrier_contract_scoped_provenance[AFX-DE-CNT-2023-0441]
+FAILED tests/test_identity_evidence.py::test_carrier_contract_scoped_provenance[Tapti Exp Cargo-CNT-2021-0245]
+FAILED tests/test_identity_evidence.py::test_carrier_ambiguity_and_foreign_scope
+FAILED tests/test_identity_evidence.py::test_facility_duplicate_name_is_not_first_hit
+FAILED tests/test_identity_evidence.py::test_unowned_facility_is_explicitly_unused
+FAILED tests/test_identity_evidence.py::test_all_previous_alias_chain_events_are_candidates_only
+FAILED tests/test_identity_evidence.py::test_source_row_numbers_survive_blank_rows
+FAILED tests/test_identity_evidence.py::test_api_and_sealed_evidence_show_unresolved_identity
+FAILED tests/test_identity_evidence.py::test_release_signing_cannot_promote_unverified_alias
+FAILED tests/test_identity_evidence.py::test_ui_renders_identity_status_and_escapes_source_notes
+27 failed, 1 warning in 4.77s

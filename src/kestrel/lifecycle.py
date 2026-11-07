@@ -165,6 +165,10 @@ class CaseLifecycle:
             raise StaleEvidenceError("evidence changed since it was viewed; reload before signing")
         if current_bundle_hash is not None and current_bundle_hash != doc["content_hash"]:
             raise StaleEvidenceError("current evidence hash mismatch")
+        if disposition in {Disposition.RELEASE, Disposition.RELEASE_WITH_NOTE}:
+            identity = doc.get("inputs", {}).get("resolution", {}).get("identity", {})
+            if not all(identity.get(kind, {}).get("release_identity_eligible") is True for kind in ("product",)):
+                raise TransitionError("identity unresolved; release cannot use unverified product alias claims")
         signoff = {
             "status": "SIGNED",
             "signed_by": signer,

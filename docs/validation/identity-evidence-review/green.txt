@@ -1,0 +1,50 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.5, pytest-9.2.0, pluggy-1.7.0 -- /tmp/fixvenv/bin/python3
+cachedir: .pytest_cache
+rootdir: /workspace/kprod
+configfile: pyproject.toml
+plugins: cov-7.1.0, anyio-4.16.0
+collecting ... collected 33 items
+
+tests/test_identity_evidence.py::test_negative_alias_comments_block_merge[Strength differs \u2014 check before merging] PASSED [  3%]
+tests/test_identity_evidence.py::test_negative_alias_comments_block_merge[Same molecule, different presentation] PASSED [  6%]
+tests/test_identity_evidence.py::test_real_negative_alias_rows[84] PASSED [  9%]
+tests/test_identity_evidence.py::test_real_negative_alias_rows[86] PASSED [ 12%]
+tests/test_identity_evidence.py::test_multihop_never_crosses_strength_or_presentation[Drug 20mg PFS] PASSED [ 15%]
+tests/test_identity_evidence.py::test_multihop_never_crosses_strength_or_presentation[Drug 40mg vial] PASSED [ 18%]
+tests/test_identity_evidence.py::test_weak_or_foreign_alias_never_authorizes_release[unconfirmed] PASSED [ 21%]
+tests/test_identity_evidence.py::test_weak_or_foreign_alias_never_authorizes_release[unowned] PASSED [ 24%]
+tests/test_identity_evidence.py::test_weak_or_foreign_alias_never_authorizes_release[negative] PASSED [ 27%]
+tests/test_identity_evidence.py::test_weak_or_foreign_alias_never_authorizes_release[foreign] PASSED [ 30%]
+tests/test_identity_evidence.py::test_weak_or_foreign_alias_never_authorizes_release[conflicting-alternate] PASSED [ 33%]
+tests/test_identity_evidence.py::test_scoped_confirmed_alias_retains_every_hop PASSED [ 36%]
+tests/test_identity_evidence.py::test_future_confirmation_is_not_current_identity PASSED [ 39%]
+tests/test_identity_evidence.py::test_exact_links_have_tenant_and_real_source[EXACT_GTIN-001234] PASSED [ 42%]
+tests/test_identity_evidence.py::test_exact_links_have_tenant_and_real_source[EXACT_SKU-SKU-A] PASSED [ 45%]
+tests/test_identity_evidence.py::test_duplicate_gtin_is_explicit_ambiguity PASSED [ 48%]
+tests/test_identity_evidence.py::test_cross_tenant_master_is_never_used PASSED [ 51%]
+tests/test_identity_evidence.py::test_carrier_contract_scoped_provenance[AFX-DE-CNT-2023-0441] PASSED [ 54%]
+tests/test_identity_evidence.py::test_carrier_contract_scoped_provenance[Tapti Exp Cargo-CNT-2021-0245] PASSED [ 57%]
+tests/test_identity_evidence.py::test_carrier_ambiguity_and_foreign_scope PASSED [ 60%]
+tests/test_identity_evidence.py::test_facility_duplicate_name_is_not_first_hit PASSED [ 63%]
+tests/test_identity_evidence.py::test_unowned_facility_is_explicitly_unused PASSED [ 66%]
+tests/test_identity_evidence.py::test_all_previous_alias_chain_events_are_candidates_only PASSED [ 69%]
+tests/test_identity_evidence.py::test_source_row_numbers_survive_blank_rows PASSED [ 72%]
+tests/test_identity_evidence.py::test_api_and_sealed_evidence_show_unresolved_identity PASSED [ 75%]
+tests/test_identity_evidence.py::test_release_signing_cannot_promote_unverified_alias PASSED [ 78%]
+tests/test_identity_evidence.py::test_ui_renders_identity_status_and_escapes_source_notes PASSED [ 81%]
+tests/test_identity_evidence.py::test_unverified_identity_blocks_even_an_earlier_release PASSED [ 84%]
+tests/test_identity_evidence.py::test_incompatible_strength_units_cannot_be_merged[Drug 40mcg PFS] PASSED [ 87%]
+tests/test_identity_evidence.py::test_incompatible_strength_units_cannot_be_merged[Drug 4g PFS] PASSED [ 90%]
+tests/test_identity_evidence.py::test_incompatible_strength_units_cannot_be_merged[Drug 40mg/mL PFS] PASSED [ 93%]
+tests/test_identity_evidence.py::test_historical_text_cannot_hide_unresolved_product_identity PASSED [ 96%]
+tests/test_identity_evidence.py::test_owned_negative_claim_conflicting_with_exact_master_key_blocks_identity PASSED [100%]
+
+=============================== warnings summary ===============================
+../../tmp/fixvenv/lib/python3.13/site-packages/fastapi/testclient.py:1
+  /tmp/fixvenv/lib/python3.13/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+---------- generated xml file: /tmp/kestrel-identity-review/green.xml ----------
+======================== 33 passed, 1 warning in 5.18s =========================

@@ -1,0 +1,27 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+___________ test_unverified_identity_blocks_even_an_earlier_release ____________
+
+real_pack = DataPack(path=PosixPath('/workspace/kprod/data/KCCS_Sentinel_Reference_Data_Pack.xlsx'), events=[{'event_id': 'EXC-112...ridian's MSA Cl.22 prohibition means a confirmed leak would have been a contractual breach with termination rights."}])
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f62cff4a9e0>
+
+    def test_unverified_identity_blocks_even_an_earlier_release(real_pack,monkeypatch):
+        engine=AdjudicationEngine(real_pack)
+        monkeypatch.setattr(engine,"_decide",lambda **kwargs:("RELEASE_WITH_NOTE","synthetic",1.0,["Decision rule: synthetic_release"]))
+        result=engine.adjudicate(real_pack.event_by_id("EXC-112289"))
+>       assert result.recommendation=="ESCALATED_TO_SENIOR_QA"
+E       AssertionError: assert 'RELEASE_WITH_NOTE' == 'ESCALATED_TO_SENIOR_QA'
+E
+E         - ESCALATED_TO_SENIOR_QA
+E         + RELEASE_WITH_NOTE
+
+tests/test_identity_evidence.py:322: AssertionError
+=============================== warnings summary ===============================
+../../tmp/fixvenv/lib/python3.13/site-packages/fastapi/testclient.py:1
+  /tmp/fixvenv/lib/python3.13/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_identity_evidence.py::test_unverified_identity_blocks_even_an_earlier_release
+1 failed, 27 deselected, 1 warning in 0.50s

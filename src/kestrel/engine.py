@@ -68,6 +68,7 @@ class AdjudicationResult:
     requires_human_signature: bool
     confidence: float
     triage_label: str
+    identity_evidence: dict[str, Any] = field(default_factory=dict)
     historical_classification: Optional[str] = None
     closure_eligibility: str = "not_eligible"
     independent_closure_evidence: list[str] = field(default_factory=list)
@@ -151,7 +152,7 @@ class AdjudicationEngine:
         }
 
         # --- identity ---
-        product = self.identity.resolve_product(tenant, event.get("product_ref_as_received"))
+        product = self.identity.resolve_product(tenant, event.get("product_ref_as_received"), as_of=as_of)
         evidence["product"] = {
             "ref_as_received": event.get("product_ref_as_received"),
             "match_method": product.match_method,
@@ -161,6 +162,18 @@ class AdjudicationEngine:
             "gtin": product.gtin,
             "stability_study_ref": product.stability_study_ref,
             "unresolved_reason": product.unresolved_reason,
+        }
+        evidence["product"].update(product.assessment())
+        evidence["identity"] = {"product": product.assessment()}
+        evidence["identity"]["facility"] = {
+            "status": "UNRESOLVED_NOT_EVALUATED",
+            "usage": "UNUSED_NOT_AUTHORITY_INPUT",
+            "reasons": [
+                "Facility resolver unused by engine/SOP selection; tenant ownership and governing site authority not established"
+            ],
+            "links": [],
+            "candidates": [],
+            "release_identity_eligible": False,
         }
         if product.confidence < 0.5:
             rationale.append(f"Product identity weak ({product.match_method}): {product.unresolved_reason}")
@@ -230,7 +243,9 @@ class AdjudicationEngine:
         evidence["sop_authority"] = {"status": "unresolved", "reason": sop_authority_issue}
 
         # --- carrier contract as-at ---
-        carrier, carrier_err = self.identity.resolve_carrier_contract(event.get("carrier_ref_as_received"), as_of)
+        carrier_identity = self.identity.resolve_carrier(tenant, event.get("carrier_ref_as_received"), as_of)
+        carrier, carrier_err = carrier_identity.record, "; ".join(carrier_identity.reasons) or None
+        evidence["identity"]["carrier"] = carrier_identity.assessment()
         has_cold_chain_clause = None
         carrier_id = None
         if carrier:
@@ -351,6 +366,23 @@ class AdjudicationEngine:
                 recommendation, triage, conf = ESCALATE, "temperature_uncertainty", min(conf, upper[2], 0.4)
                 evidence["decision"] = {"rule": "temperature_uncertainty_gate", "limitations": []}
 
+        if recommendation in {RELEASE, RELEASE_WITH_NOTE, AUTO_CLOSE} and (not product.release_identity_eligible):
+            recommendation, triage, conf = ESCALATE, "unresolved_typed_identity", 0.0
+            rationale.append("Identity unresolved: tenant product evidence cannot authorize release or closure")
+            evidence["decision"] = {"rule": "typed_identity_release_gate", "limitations": []}
+
+        if not product.release_identity_eligible and evidence["decision"]["rule"] != "typed_identity_release_gate":
+            prior_rule = evidence["decision"]["rule"]
+            recommendation, triage, conf = ESCALATE, "unresolved_typed_product_identity", 0.0
+            rationale.append(
+                "Product identity unresolved: historical classification remains reference only; QA must resolve identity"
+            )
+            evidence["decision"] = {
+                "rule": "typed_identity_unresolved_gate",
+                "prior_rule": prior_rule,
+                "limitations": [],
+            }
+
         if not any(p.get("tenant_code") == tenant for p in self.pack.products):
             recommendation, triage, conf = ESCALATE, "unresolved_tenant_identity", 0.0
             rationale.append("Unknown tenant has no product reference pool; no cross-tenant fallback")
@@ -394,6 +426,7 @@ class AdjudicationEngine:
             tenant_code=tenant,
             recommendation=recommendation,
             requires_human_signature=requires_human,
+            identity_evidence=evidence["identity"],
             historical_classification=historical_classification,
             closure_eligibility=closure_eligibility,
             independent_closure_evidence=[],

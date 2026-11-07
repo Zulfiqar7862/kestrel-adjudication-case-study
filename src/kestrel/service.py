@@ -321,11 +321,11 @@ class AdjudicationService:
         """
         assert self.engine and self.pack
         if baseline_mix is None:
-            # Reproduced 0.4.3 sample regression baseline, NOT QA-approved clinical policy.
+            # Reproduced typed-identity sample baseline, NOT QA-approved clinical policy.
             baseline_mix = {
                 "AUTO_CLOSE": 0,
-                "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED": 130,
-                "ESCALATED_TO_SENIOR_QA": 290,
+                "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED": 37,
+                "ESCALATED_TO_SENIOR_QA": 383,
                 "RELEASE_WITH_NOTE": 0,
                 "DESTROY": 0,
                 "QUARANTINE_PENDING_LAB": 0,

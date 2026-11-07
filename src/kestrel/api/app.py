@@ -95,12 +95,41 @@ def _load_api_models() -> None:
         snapshot_id: Optional[str] = None
         rule_pack_version: str
 
+    class _IdentityLink(BaseModel):
+        kind: Literal["EXACT_GTIN", "EXACT_SKU", "ALIAS", "LEGAL_ENTITY", "FACILITY"]
+        tenant_code: str
+        source_sheet: Optional[str]
+        source_row: Optional[int]
+        verification_status: str
+        confirmed_by: Optional[str]
+        confirmed_on: Optional[str]
+        conflict_note: Optional[str]
+        source_tenant_code: Optional[str]
+        contract_id: Optional[str]
+        left: str
+        right: str
+        scope_basis: str
+
+    class _IdentityAssessment(BaseModel):
+        model_config = ConfigDict(extra="allow")
+        status: str
+        reasons: list[str]
+        links: list[_IdentityLink]
+        candidates: list[dict[str, Any]]
+        release_identity_eligible: bool = Field(
+            description="Identity gate only; not clinical release authority or authenticated verification"
+        )
+        usage: str
+
+    _IdentityAssessment.model_rebuild(_types_namespace=locals())
+
     class _AdjudicateResponse(BaseModel):
         """Recommendation is not a verification claim; historical candidates need review."""
 
         model_config = ConfigDict(extra="allow")
         event_id: str
         tenant_code: str
+        identity_evidence: dict[str, _IdentityAssessment]
         recommendation: Disposition
         confidence: float
         triage_label: str
@@ -130,6 +159,7 @@ def _load_api_models() -> None:
         counts: dict[str, int]
         items: list[_AdjudicateResponse]
 
+    _AdjudicateResponse.model_rebuild(_types_namespace=locals())
     _MetricsResponse.model_rebuild(_types_namespace=locals())
     _EventsResponse.model_rebuild(_types_namespace=locals())
     AdjudicateResponse = _AdjudicateResponse
@@ -238,6 +268,7 @@ def create_app(svc: Optional[AdjudicationService] = None, *, notification_access
             "tenant_code": result.tenant_code,
             "recommendation": result.recommendation,
             **result.closure_fields(),
+            "identity_evidence": result.identity_evidence,
             "confidence": result.confidence,
             "triage_label": result.triage_label,
             "rationale": result.rationale,
@@ -419,6 +450,7 @@ def create_app(svc: Optional[AdjudicationService] = None, *, notification_access
                     "tenant_code": result.tenant_code,
                     "recommendation": result.recommendation,
                     **result.closure_fields(),
+                    "identity_evidence": result.identity_evidence,
                     "requires_human_signature": result.requires_human_signature,
                     "confidence": result.confidence,
                     "triage_label": result.triage_label,
@@ -464,6 +496,7 @@ def create_app(svc: Optional[AdjudicationService] = None, *, notification_access
             "tenant_code": result.tenant_code,
             "recommendation": result.recommendation,
             **result.closure_fields(),
+            "identity_evidence": result.identity_evidence,
             "requires_human_signature": result.requires_human_signature,
             "confidence": result.confidence,
             "triage_label": result.triage_label,

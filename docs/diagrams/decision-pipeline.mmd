@@ -7,10 +7,14 @@ flowchart TB
     Authority["Post-gate: authority<br/>Release / note or allowance AUTO_CLOSE needs governing study/SOP authority; else QA"]
     Intercept["Post-gate: historical guard<br/>Any remaining AUTO_CLOSE with historical closure text becomes an unverified candidate"]
     Result["Recommendation + trace<br/>Persist deciding rule and limitations; route to human review where required"]
+    Uncertainty["Endpoint uncertainty check<br/>Compare reported and upper-bound scenarios; changed outcome to QA"]
+    Identity["Final typed identity guards<br/>Unresolved product to QA; no alias-based release without owned confirmed identity; preserve history"]
     Facts --> Guard
     Guard --> History
     History --> Resolve
     Resolve --> Arithmetic
     Arithmetic --> Authority
     Authority --> Intercept
-    Intercept --> Result
+    Intercept --> Uncertainty
+    Uncertainty --> Identity
+    Identity --> Result

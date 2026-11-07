@@ -176,6 +176,13 @@
         "body": "NotificationObligations; Principal / Access; scoped grants",
         "col": 2,
         "row": 2
+      },
+      {
+        "id": "Identity",
+        "title": "Typed identity evidence",
+        "body": "IdentityLink, IdentityResolution, ResolvedProduct; scope, provenance, negative claims",
+        "col": 1,
+        "row": 3
       }
     ],
     "edges": [
@@ -218,12 +225,16 @@
       {
         "from": "Notify",
         "to": "Store"
+      },
+      {
+        "from": "Engine",
+        "to": "Identity"
       }
     ]
   },
   "data-model": {
     "title": "Data model and storage",
-    "caption": "Arrows are logical associations unless marked in the LLD. Only delivery events have an SQL foreign key to obligations.",
+    "caption": "SQL tables plus embedded typed identity JSON. Arrows are logical associations; only delivery events have a SQL foreign key to obligations.",
     "nodes": [
       {
         "id": "Ref",
@@ -280,6 +291,13 @@
         "body": "PK sequence; tenant/event FK; ATTEMPT or ACK; append-only JSON",
         "col": 2,
         "row": 2
+      },
+      {
+        "id": "Identity",
+        "title": "Embedded identity payload",
+        "body": "Not a SQL table: tenant, type, source sheet/row, claim status, confirmation, conflicts",
+        "col": 0,
+        "row": 2
       }
     ],
     "edges": [
@@ -310,6 +328,10 @@
       {
         "from": "Obligation",
         "to": "Delivery"
+      },
+      {
+        "from": "Files",
+        "to": "Identity"
       }
     ]
   },
@@ -657,6 +679,20 @@
         "title": "Recommendation + trace",
         "body": "Persist deciding rule and limitations; route to human review where required",
         "col": 1,
+        "row": 4
+      },
+      {
+        "id": "Uncertainty",
+        "title": "Endpoint uncertainty check",
+        "body": "Compare reported and upper-bound scenarios; changed outcome -> QA",
+        "col": 2,
+        "row": 3
+      },
+      {
+        "id": "Identity",
+        "title": "Final typed identity guards",
+        "body": "Unresolved product -> QA; no alias-based release without owned confirmed identity; preserve history",
+        "col": 0,
         "row": 3
       }
     ],
@@ -687,6 +723,14 @@
       },
       {
         "from": "Intercept",
+        "to": "Uncertainty"
+      },
+      {
+        "from": "Uncertainty",
+        "to": "Identity"
+      },
+      {
+        "from": "Identity",
         "to": "Result"
       }
     ]

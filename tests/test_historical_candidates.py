@@ -45,7 +45,7 @@ class TestHistoricalCandidateSurfaces(_KestrelTestCase):
         return TestClient(create_app(self.svc))
 
     def test_api_candidate_is_review_only_and_preserves_history(self):
-        response = self.client().post("/adjudicate", json={"event_id": "EXC-112198"})
+        response = self.client().post("/adjudicate", json={"event_id": "EXC-112394"})
         assert response.status_code == 200
         body = response.json()
         assert body["recommendation"] == CANDIDATE
@@ -53,9 +53,9 @@ class TestHistoricalCandidateSurfaces(_KestrelTestCase):
         assert body["requires_human_review"] is True
         assert body["requires_human_signature"] is True
         assert body["closure_eligibility"] == "historical_candidate_unverified"
-        assert body["historical_classification"] == self.svc.pack.event_by_id("EXC-112198")["triage_outcome"]
+        assert body["historical_classification"] == self.svc.pack.event_by_id("EXC-112394")["triage_outcome"]
         assert body["independent_closure_evidence"] == []
-        detail = self.client().get("/events/EXC-112198").json()
+        detail = self.client().get("/events/EXC-112394").json()
         for key in [
             "historical_classification",
             "closure_eligibility",
@@ -80,14 +80,14 @@ class TestHistoricalCandidateSurfaces(_KestrelTestCase):
     def test_ui_renders_verified_and_historical_counts_separately(self):
         html = self.client().get("/ui").text
         assert 'data-metric="verified-auto-close">0</strong>' in html
-        assert 'data-metric="historical-candidates">130</strong>' in html
+        assert 'data-metric="historical-candidates">37</strong>' in html
         assert "Unverified historical candidate" in html
         assert CANDIDATE in html
         assert "not independently verified" in html
         assert "current.closure_eligibility" in html
 
     def test_evidence_keeps_reference_and_explicit_unresolved_status(self):
-        out = self.svc.adjudicate_event("EXC-112198")
+        out = self.svc.adjudicate_event("EXC-112394")
         doc = self.svc.evidence.get(out["bundle"]["bundle_id"], tenant_code=out["result"].tenant_code)
         assert doc["recommendation"]["disposition"] == CANDIDATE
         assert doc["recommendation"]["closure_eligibility"] == "historical_candidate_unverified"
@@ -101,11 +101,11 @@ class TestHistoricalCandidateSurfaces(_KestrelTestCase):
         for route in ["/ops/health-report", "/ops/agreement", "/events"]:
             body = client.get(route).json()
             assert body["closure_counts"]["verified_auto_close"] == 0
-            assert body["closure_counts"]["historical_candidates_unverified"] == 130
+            assert body["closure_counts"]["historical_candidates_unverified"] == 37
             assert body["closure_counts"]["other_auto_close_unverified"] == 0
         summary = self.svc.adjudicate_all(persist=False)
         assert summary["closure_counts"]["verified_auto_close"] == 0
-        assert summary["closure_counts"]["historical_candidates_unverified"] == 130
+        assert summary["closure_counts"]["historical_candidates_unverified"] == 37
         assert all(r["recommendation"] != AUTO_CLOSE for r in summary["rows"])
         assert all(r["requires_human_review"] for r in summary["rows"])
 
@@ -125,7 +125,7 @@ class TestHistoricalCandidateSurfaces(_KestrelTestCase):
             str(root / "evidence"),
         ]
         one = json.loads(
-            subprocess.check_output(base + ["adjudicate", "--event", "EXC-112198", "--no-persist"], text=True)
+            subprocess.check_output(base + ["adjudicate", "--event", "EXC-112394", "--no-persist"], text=True)
         )
         assert one["recommendation"] == CANDIDATE
         assert one["requires_human_review"] is True
@@ -134,14 +134,14 @@ class TestHistoricalCandidateSurfaces(_KestrelTestCase):
             subprocess.check_output(base + ["run-all", "--no-persist", "--out", str(root / "results.csv")], text=True)
         )
         assert batch["closure_counts"]["verified_auto_close"] == 0
-        assert batch["closure_counts"]["historical_candidates_unverified"] == 130
+        assert batch["closure_counts"]["historical_candidates_unverified"] == 37
         assert batch["counts"].get(AUTO_CLOSE, 0) == 0
-        assert batch["counts"][CANDIDATE] == 130
+        assert batch["counts"][CANDIDATE] == 37
 
     def test_candidate_cannot_be_signed_or_auto_closed_as_if_verified(self):
         from kestrel.domain import CaseState, Disposition, TransitionError
 
-        out = self.svc.adjudicate_event("EXC-112198")
+        out = self.svc.adjudicate_event("EXC-112394")
         with pytest.raises(TransitionError):
             self.svc.lifecycle.transition(out["case"]["case_id"], CaseState.CLOSED_AUTO)
         self.svc.lifecycle.transition(out["case"]["case_id"], CaseState.RECOMMENDED)

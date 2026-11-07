@@ -50,13 +50,17 @@ flowchart TB
     Authority["Post-gate: authority<br/>Release / note or allowance AUTO_CLOSE needs governing study/SOP authority; else QA"]
     Intercept["Post-gate: historical guard<br/>Any remaining AUTO_CLOSE with historical closure text becomes an unverified candidate"]
     Result["Recommendation + trace<br/>Persist deciding rule and limitations; route to human review where required"]
+    Uncertainty["Endpoint uncertainty check<br/>Compare reported and upper-bound scenarios; changed outcome to QA"]
+    Identity["Final typed identity guards<br/>Unresolved product to QA; no alias-based release without owned confirmed identity; preserve history"]
     Facts --> Guard
     Guard --> History
     History --> Resolve
     Resolve --> Arithmetic
     Arithmetic --> Authority
     Authority --> Intercept
-    Intercept --> Result
+    Intercept --> Uncertainty
+    Uncertainty --> Identity
+    Identity --> Result
 ```
 
 </details>
@@ -125,3 +129,14 @@ intent. A receipt reference for a matching SENT attempt remains unverified and
 cannot clear a pending obligation. No sending, scheduled retry worker, verified
 filing completion or legal deadline registry is demonstrated.
 [Notification state model](03-lld.md#notification-state-and-delivery-state-are-different).
+
+
+## Typed identity review gate
+
+The numbered clinical rule order is unchanged. Final identity gates now prevent
+unresolved products from inheriting a provisional historical closure category;
+they route to QA, preserve the previous rule in `prior_rule` and retain the original
+historical classification. Negative/weak aliases do not supply product stability
+or label authority. The UI identity panel shows status, reasons, source row,
+confirmation claims and conflicts; source assertions are not clinical clearance.
+Facility resolution is explicitly unused for governing site/SOP selection.

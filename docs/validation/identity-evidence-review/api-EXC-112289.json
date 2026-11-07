@@ -1,0 +1,286 @@
+{
+  "event_id": "EXC-112289",
+  "tenant_code": "T-CAMPOS",
+  "identity_evidence": {
+    "product": {
+      "status": "UNRESOLVED_CONFLICT",
+      "reasons": [
+        "CONFLICTING_NOTE",
+        "UNSCOPED_ALIAS",
+        "CONFIRMATION_NOT_IN_FORCE"
+      ],
+      "links": [
+        {
+          "kind": "ALIAS",
+          "tenant_code": "T-CAMPOS",
+          "source_sheet": "07_Alias_Observations",
+          "source_row": 83,
+          "verification_status": "UNVERIFIED",
+          "confirmed_by": "QA-IN-11",
+          "confirmed_on": "2026-01-19",
+          "conflict_note": null,
+          "source_tenant_code": null,
+          "contract_id": null,
+          "left": "Rinvatec 40mg/mL PFS",
+          "right": "ravlizumab arx 40",
+          "scope_basis": "unscoped_observation_candidate_only"
+        },
+        {
+          "kind": "ALIAS",
+          "tenant_code": "T-CAMPOS",
+          "source_sheet": "07_Alias_Observations",
+          "source_row": 78,
+          "verification_status": "UNVERIFIED",
+          "confirmed_by": "QA-IN-09",
+          "confirmed_on": "2026-07-23",
+          "conflict_note": null,
+          "source_tenant_code": null,
+          "contract_id": null,
+          "left": "Rinvatec 40mg/mL PFS",
+          "right": "ravlizumab-arx",
+          "scope_basis": "unscoped_observation_candidate_only"
+        },
+        {
+          "kind": "ALIAS",
+          "tenant_code": "T-CAMPOS",
+          "source_sheet": "07_Alias_Observations",
+          "source_row": 79,
+          "verification_status": "UNVERIFIED",
+          "confirmed_by": "QA-US-03",
+          "confirmed_on": "2025-07-17",
+          "conflict_note": null,
+          "source_tenant_code": null,
+          "contract_id": null,
+          "left": "Rinvatec 40mg/mL PFS",
+          "right": "SKU-INS-0442",
+          "scope_basis": "unscoped_observation_candidate_only"
+        },
+        {
+          "kind": "ALIAS",
+          "tenant_code": "T-CAMPOS",
+          "source_sheet": "07_Alias_Observations",
+          "source_row": 80,
+          "verification_status": "UNVERIFIED",
+          "confirmed_by": "QA-IN-01",
+          "confirmed_on": "2025-09-22",
+          "conflict_note": null,
+          "source_tenant_code": null,
+          "contract_id": null,
+          "left": "Rinvatec 40mg/mL PFS",
+          "right": "08901234500127",
+          "scope_basis": "unscoped_observation_candidate_only"
+        },
+        {
+          "kind": "ALIAS",
+          "tenant_code": "T-CAMPOS",
+          "source_sheet": "07_Alias_Observations",
+          "source_row": 81,
+          "verification_status": "CONFLICT",
+          "confirmed_by": "QA-IN-01",
+          "confirmed_on": "2026-01-03",
+          "conflict_note": "Same molecule, different presentation",
+          "source_tenant_code": null,
+          "contract_id": null,
+          "left": "Rinvatec 40mg/mL PFS",
+          "right": "Rinvatec PFS 40",
+          "scope_basis": "unscoped_observation_candidate_only"
+        },
+        {
+          "kind": "ALIAS",
+          "tenant_code": "T-CAMPOS",
+          "source_sheet": "07_Alias_Observations",
+          "source_row": 82,
+          "verification_status": "UNVERIFIED",
+          "confirmed_by": "QA-US-01",
+          "confirmed_on": "2026-08-21",
+          "conflict_note": null,
+          "source_tenant_code": null,
+          "contract_id": null,
+          "left": "Rinvatec 40mg/mL PFS",
+          "right": "RINVATEC 40 MG/ML",
+          "scope_basis": "unscoped_observation_candidate_only"
+        }
+      ],
+      "candidates": [
+        {
+          "erp_source": "Oracle EBS",
+          "tenant_code": "T-CAMPOS",
+          "brand_as_labelled": "Rinvatec 40mg/mL PFS",
+          "generic_inn": null,
+          "internal_sku": "SKU-INS-0442",
+          "gtin": "08901234500127",
+          "legacy_code": "LEG-1254",
+          "storage_spec_text": "Refrigerated (2-8)",
+          "mkt_tolerance_text": "MKT not to exceed 8C",
+          "permitted_excursion_text": "No excursion permitted",
+          "stability_study_ref": "STB-3695",
+          "light_sensitive": "N",
+          "last_updated": "2025-02-19",
+          "_source_sheet": "02_Product_Master",
+          "_source_row": 48
+        }
+      ],
+      "release_identity_eligible": false,
+      "usage": "PRODUCT_IDENTITY",
+      "match_method": "unresolved"
+    },
+    "facility": {
+      "status": "UNRESOLVED_NOT_EVALUATED",
+      "reasons": [
+        "Facility resolver unused by engine/SOP selection; tenant ownership and governing site authority not established"
+      ],
+      "links": [],
+      "candidates": [],
+      "release_identity_eligible": false,
+      "usage": "UNUSED_NOT_AUTHORITY_INPUT"
+    },
+    "carrier": {
+      "status": "RESOLVED_SOURCE_ASSERTED",
+      "reasons": [],
+      "links": [
+        {
+          "kind": "ALIAS",
+          "tenant_code": "T-CAMPOS",
+          "source_sheet": "04_Carrier_Contracts",
+          "source_row": 15,
+          "verification_status": "SOURCE_ASSERTED",
+          "confirmed_by": null,
+          "confirmed_on": null,
+          "conflict_note": null,
+          "source_tenant_code": null,
+          "contract_id": "CNT-2022-0511",
+          "left": "SkyCool Handling",
+          "right": "SkyCool Handling Services",
+          "scope_basis": "contract_registry"
+        },
+        {
+          "kind": "LEGAL_ENTITY",
+          "tenant_code": "T-CAMPOS",
+          "source_sheet": "04_Carrier_Contracts",
+          "source_row": 15,
+          "verification_status": "SOURCE_ASSERTED",
+          "confirmed_by": null,
+          "confirmed_on": null,
+          "conflict_note": null,
+          "source_tenant_code": null,
+          "contract_id": "CNT-2022-0511",
+          "left": "SkyCool Handling Services",
+          "right": "CNT-2022-0511",
+          "scope_basis": "contract_registry"
+        }
+      ],
+      "candidates": [
+        {
+          "contract_id": "CNT-2022-0511",
+          "counterparty_legal_entity": "SkyCool Handling Services",
+          "names_seen_on_documents": "SkyCool Handling | Sky Cool | SCH",
+          "parent_of": null,
+          "effective_from": "2022-10-05",
+          "effective_to": "2026-10-04",
+          "governing_law": "Singapore",
+          "cold_chain_clause": "Schedule 4",
+          "liability_summary": "Ground handling only. No custody of product in transit; liability limited to the handling window at airside.",
+          "liability_cap": "USD 50,000 per event",
+          "claim_window_days": 14,
+          "amendment_docs": "AMD-01 (filed separately)",
+          "_source_sheet": "04_Carrier_Contracts",
+          "_source_row": 15,
+          "_effective_from": "2022-10-05",
+          "_effective_to": "2026-10-04"
+        }
+      ],
+      "release_identity_eligible": true,
+      "usage": "REFERENCE_IDENTITY_ONLY"
+    }
+  },
+  "recommendation": "ESCALATED_TO_SENIOR_QA",
+  "confidence": 0.0,
+  "triage_label": "unresolved_typed_product_identity",
+  "case_state": null,
+  "requires_human_signature": true,
+  "requires_human_review": true,
+  "historical_classification": "ACTIONABLE \u2014 excursion confirmed",
+  "closure_eligibility": "not_eligible",
+  "independent_closure_evidence": [],
+  "rationale": [
+    "Product identity weak (unresolved): CONFLICTING_NOTE; UNSCOPED_ALIAS; CONFIRMATION_NOT_IN_FORCE",
+    "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+    "Escalate: unresolved/ambiguous product identity",
+    "Decision rule: rule_unresolved_identity",
+    "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation",
+    "Product identity unresolved: historical classification remains reference only; QA must resolve identity"
+  ],
+  "alert": {
+    "alert_ts_utc": "2026-01-30 22:08",
+    "excursion_start_utc": "2026-01-30 21:55",
+    "min_temp_c": 3.5,
+    "max_temp_c": 18,
+    "duration_min": 9,
+    "logger_id": "LG-46376",
+    "logger_fw": "TT-2.14.3",
+    "lane_text": "Viracopos Cold Annex to Kundli Pharma Store",
+    "carrier_ref_as_received": "SkyCool Handling",
+    "product_ref_as_received": "ravlizumab arx 40",
+    "prior_excursions_lane_90d": 0
+  },
+  "uncertainty": {
+    "bulletin": "TT-CB-114",
+    "applies_to_fw": "TT-2.14.3",
+    "applied": true,
+    "raw_max_temp_c": 18,
+    "reported_max_temp_c": 18.0,
+    "scenarios": {
+      "source": "TT-CB-114",
+      "firmware": "TT-2.14.3",
+      "offset_interval_c": [
+        0.0,
+        1.8
+      ],
+      "model": "two endpoint scenarios shifting supplied summaries; not a raw-series proof",
+      "reported_scenario": {
+        "min_c": 3.5,
+        "max_c": 18.0,
+        "mean_c": 10.7,
+        "recommendation": "ESCALATED_TO_SENIOR_QA",
+        "reasoning": [
+          "Escalate: unresolved/ambiguous product identity",
+          "Decision rule: rule_unresolved_identity"
+        ]
+      },
+      "upper_bound_scenario": {
+        "min_c": 5.3,
+        "max_c": 19.8,
+        "mean_c": 12.5,
+        "recommendation": "ESCALATED_TO_SENIOR_QA",
+        "reasoning": [
+          "Escalate: unresolved/ambiguous product identity",
+          "Decision rule: rule_unresolved_identity"
+        ]
+      },
+      "outcome_sensitive": false
+    }
+  },
+  "basis": {
+    "product_sku": null,
+    "product_brand": null,
+    "product_match_method": "unresolved",
+    "stability_study_ref": null,
+    "sop_doc_id": "SOP-CAM-2549",
+    "sop_revision": "Rev 04",
+    "sop_overlap_conflict": false,
+    "carrier_contract_id": "CNT-2022-0511",
+    "carrier_has_cold_chain_clause": true
+  },
+  "regulatory": {
+    "reportability_status": "UNKNOWN",
+    "deadline_status": "UNKNOWN",
+    "basis": "Unresolved applicability/calendar authority; historical reportability/window are reference only",
+    "reportable": null,
+    "window_hours": null,
+    "deadline_utc": null
+  },
+  "historical": {
+    "final_disposition": "QUARANTINE_PENDING_LAB",
+    "assistant_recommendation": "QUARANTINE_PENDING_LAB"
+  }
+}

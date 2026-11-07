@@ -37,14 +37,17 @@ def parse_date(value: Optional[str]) -> Optional[date]:
     return datetime.strptime(value[:10], "%Y-%m-%d").date()
 
 
-def sheet_rows(worksheet: Any) -> list[dict[str, Any]]:
+def sheet_rows(worksheet: Any, *, include_source: bool = False) -> list[dict[str, Any]]:
     """Read an openpyxl worksheet into a list of header-keyed dict rows."""
     headers = [cell.value for cell in worksheet[1]]
     out = []
-    for row in worksheet.iter_rows(min_row=2, values_only=True):
+    for row_number, row in enumerate(worksheet.iter_rows(min_row=2, values_only=True), 2):
         if all(cell_value is None for cell_value in row):
             continue
-        out.append({headers[col]: row[col] for col in range(len(headers))})
+        record = {headers[col]: row[col] for col in range(len(headers))}
+        if include_source:
+            record.update(_source_sheet=worksheet.title, _source_row=row_number)
+        out.append(record)
     return out
 
 

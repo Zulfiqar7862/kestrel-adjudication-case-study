@@ -1,0 +1,70 @@
+FFFF                                                                     [100%]
+=================================== FAILURES ===================================
+______ test_incompatible_strength_units_cannot_be_merged[Drug 40mcg PFS] _______
+
+bridge = 'Drug 40mcg PFS'
+
+    @pytest.mark.parametrize("bridge", ["Drug 40mcg PFS", "Drug 4g PFS", "Drug 40mg/mL PFS"])
+    def test_incompatible_strength_units_cannot_be_merged(bridge):
+        p=IdentityResolver(pack([product()], [alias("old",bridge),alias(bridge,"Drug 40mg PFS")])).resolve_product("T-A","old",as_of=date(2026,1,1))
+>       assert p.status=="UNRESOLVED_CONFLICT"
+E       AssertionError: assert 'RESOLVED_SOURCE_ASSERTED' == 'UNRESOLVED_CONFLICT'
+E
+E         - UNRESOLVED_CONFLICT
+E         + RESOLVED_SOURCE_ASSERTED
+
+tests/test_identity_evidence.py:334: AssertionError
+________ test_incompatible_strength_units_cannot_be_merged[Drug 4g PFS] ________
+
+bridge = 'Drug 4g PFS'
+
+    @pytest.mark.parametrize("bridge", ["Drug 40mcg PFS", "Drug 4g PFS", "Drug 40mg/mL PFS"])
+    def test_incompatible_strength_units_cannot_be_merged(bridge):
+        p=IdentityResolver(pack([product()], [alias("old",bridge),alias(bridge,"Drug 40mg PFS")])).resolve_product("T-A","old",as_of=date(2026,1,1))
+>       assert p.status=="UNRESOLVED_CONFLICT"
+E       AssertionError: assert 'RESOLVED_SOURCE_ASSERTED' == 'UNRESOLVED_CONFLICT'
+E
+E         - UNRESOLVED_CONFLICT
+E         + RESOLVED_SOURCE_ASSERTED
+
+tests/test_identity_evidence.py:334: AssertionError
+_____ test_incompatible_strength_units_cannot_be_merged[Drug 40mg/mL PFS] ______
+
+bridge = 'Drug 40mg/mL PFS'
+
+    @pytest.mark.parametrize("bridge", ["Drug 40mcg PFS", "Drug 4g PFS", "Drug 40mg/mL PFS"])
+    def test_incompatible_strength_units_cannot_be_merged(bridge):
+        p=IdentityResolver(pack([product()], [alias("old",bridge),alias(bridge,"Drug 40mg PFS")])).resolve_product("T-A","old",as_of=date(2026,1,1))
+>       assert p.status=="UNRESOLVED_CONFLICT"
+E       AssertionError: assert 'RESOLVED_SOURCE_ASSERTED' == 'UNRESOLVED_CONFLICT'
+E
+E         - UNRESOLVED_CONFLICT
+E         + RESOLVED_SOURCE_ASSERTED
+
+tests/test_identity_evidence.py:334: AssertionError
+_________ test_historical_text_cannot_hide_unresolved_product_identity _________
+
+real_pack = DataPack(path=PosixPath('/workspace/kprod/data/KCCS_Sentinel_Reference_Data_Pack.xlsx'), events=[{'event_id': 'EXC-112...ridian's MSA Cl.22 prohibition means a confirmed leak would have been a contractual breach with termination rights."}])
+
+    def test_historical_text_cannot_hide_unresolved_product_identity(real_pack):
+        event=real_pack.event_by_id("EXC-111988")
+        result=AdjudicationEngine(real_pack).adjudicate(event)
+>       assert result.recommendation=="ESCALATED_TO_SENIOR_QA"
+E       AssertionError: assert 'HISTORICAL_C...TE_UNVERIFIED' == 'ESCALATED_TO_SENIOR_QA'
+E
+E         - ESCALATED_TO_SENIOR_QA
+E         + HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED
+
+tests/test_identity_evidence.py:341: AssertionError
+=============================== warnings summary ===============================
+../../tmp/fixvenv/lib/python3.13/site-packages/fastapi/testclient.py:1
+  /tmp/fixvenv/lib/python3.13/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_identity_evidence.py::test_incompatible_strength_units_cannot_be_merged[Drug 40mcg PFS]
+FAILED tests/test_identity_evidence.py::test_incompatible_strength_units_cannot_be_merged[Drug 4g PFS]
+FAILED tests/test_identity_evidence.py::test_incompatible_strength_units_cannot_be_merged[Drug 40mg/mL PFS]
+FAILED tests/test_identity_evidence.py::test_historical_text_cannot_hide_unresolved_product_identity
+4 failed, 28 deselected, 1 warning in 0.49s

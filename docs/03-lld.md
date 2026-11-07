@@ -9,7 +9,7 @@ Paths below are under `src/kestrel/`; they are code references, not deployed ser
 | `ingest.DataPack` | `load`, `event_by_id`, `replay_snapshot` | In-memory workbook rows and tenant-scoped replay references plus shared registries |
 | `service.AdjudicationService` | `bootstrap`, `adjudicate_event`, `adjudicate_all`, `_persist`, `replay_from_bundle` | Orchestration, cases, evidence and comparisons |
 | `engine.AdjudicationEngine` | `adjudicate`, `_decide`; `AdjudicationResult` | Assemble facts and evaluate reported/uncertainty scenarios |
-| `rules.identity.IdentityResolver` | `resolve_product`, `resolve_carrier_contract` | Tenant master matching; carrier exact-legal/exact-alias/substring priority; ambiguity refusal |
+| `rules.identity.IdentityResolver` | `resolve_product`, `resolve_carrier`, `resolve_facility`; `IdentityLink`, `IdentityResolution`, `ResolvedProduct` | Typed tenant/contract claims, source positions, negative/conflict blocking; substring carrier matches remain candidates |
 | `rules.as_of` | `TemperatureBound`, `StorageLimits`, `parse_storage_limits`, `sop_in_force` | Explicit bound semantics; effective-date SOP metadata and overlaps |
 | `rules.stability.StabilityResolver` | `resolve`; `StabilityPosition` | Validate the cited study's applicability; no master-prose substitution for mismatch |
 | `decision_rules` | `ExcursionFacts`, `Verdict`, `DECISION_RULES`, `decide` | First verdict wins; then release-authority/historical post-gates |
@@ -38,6 +38,7 @@ flowchart TB
     Store["storage/bitemporal.py<br/>BitemporalStore: SQLite tables, as-of queries, case queue"]
     Lifecycle["lifecycle.py<br/>CaseLifecycle.create / transition / sign / reopen"]
     Notify["notifications.py<br/>NotificationObligations; Principal / Access; scoped grants"]
+    Identity["Typed identity evidence<br/>IdentityLink, IdentityResolution, ResolvedProduct; scope, provenance, negative claims"]
     API --> Service
     Service --> Pack
     Service --> Engine
@@ -48,9 +49,50 @@ flowchart TB
     Evidence --> Store
     Service --> Notify
     Notify --> Store
+    Engine --> Identity
 ```
 
 </details>
+
+## Typed identity contract
+
+`IdentityLink` carries `kind` (EXACT_GTIN, EXACT_SKU, ALIAS, LEGAL_ENTITY,
+FACILITY), requesting `tenant_code`, actual `source_tenant_code`, `source_sheet`,
+physical `source_row`, `verification_status`, `confirmed_by/on`, `conflict_note`,
+left/right values and explicit scope basis; legal claims carry `contract_id`.
+Unknown provenance/confirmation is null, not manufactured. `sheet_rows(...,
+include_source=True)` preserves physical worksheet positions across blank rows.
+
+A unique tenant GTIN/SKU row is `RESOLVED_SOURCE_ASSERTED`, not independently
+verified truth. Brand/INN/fuzzy text remains candidate-only. An alias path must be
+explicitly tenant-owned, Y, confirmed by/on no later than the decision date,
+source-positioned, uncaveated and free of conflicting strength/presentation
+claims. Relevant negative edges block alternate positive paths. Incompatible
+explicit units require review; no clinical unit equivalence is invented.
+Tenant-owned negative claims conflicting with an exact master key also block it.
+Unowned observations are never silently assigned ownership or used to merge;
+their notes remain candidate evidence. A direct master-key lookup does not
+traverse unrelated unowned alias observations.
+
+`ResolvedProduct.status/reasons/identity_links` and `IdentityResolution` distinguish
+resolved source assertions from UNRESOLVED, CONFLICT, AMBIGUOUS and CANDIDATE
+states. Unresolved product identity overrides provisional historical classification
+with QA (`typed_identity_unresolved_gate`); history is retained. Release/closure
+recommendations and release signing cannot promote unverified product aliases.
+`release_identity_eligible` is only an identity gate, never clinical release authority.
+Carrier matching is separate contract evidence, not a new clinical disposition rule.
+
+Carrier lookup preserves exact legal entity then exact contract alias priority;
+ambiguity is never broken by row order. Unique substrings are unverified candidates.
+Explicit foreign-tenant contracts/aliases are excluded. Every carrier link names
+its actual contract; parent-group relationships are not legal-entity merges.
+Facility lookup is tenant-scoped and ambiguity-safe, but **UNUSED_NOT_AUTHORITY_INPUT**
+in engine/SOP selection. This avoids manufacturing tenant/site ownership from a
+shared registry. It cannot silently choose a site annexure.
+
+The same assessment is returned by adjudication/event API models, rendered in the
+UI identity panel and sealed at `inputs.resolution.identity`. API OpenAPI models
+include typed link provenance. Candidate rows stay reference data.
 
 ## Data model
 
@@ -69,6 +111,8 @@ tables, not a proposed clinical ontology:
 
 The delivery table's composite foreign key targets the obligation table. There
 are no general SQL foreign keys from cases to alerts or evidence to cases.
+Identity links are embedded derived evidence JSON, not a new authoritative mapping
+table. No SQL schema migration or independent verification registry was added.
 
 ![Data model and logical table relationships](images/data-model.png)
 
@@ -87,6 +131,7 @@ flowchart TB
     Files["Evidence files<br/><root>/<tenant>/EVB-*.json; sealed inputs + expected result"]
     Obligation["notification_obligation<br/>PK (tenant_code, event_id); original alert origin; payload JSON"]
     Delivery["notification_delivery_event<br/>PK sequence; tenant/event FK; ATTEMPT or ACK; append-only JSON"]
+    Identity["Embedded identity payload<br/>Not a SQL table: tenant, type, source sheet/row, claim status, confirmation, conflicts"]
     Meta --> Ref
     Ref --> Alert
     Alert --> Case
@@ -94,6 +139,7 @@ flowchart TB
     Case --> Evidence
     Evidence --> Files
     Obligation --> Delivery
+    Files --> Identity
 ```
 
 </details>
@@ -108,7 +154,8 @@ A linked reopened case starts REOPENED.
 `transition()` checks `ALLOWED`; direct CLOSED_SIGNED transitions are refused.
 Unverified candidates cannot transition to CLOSED_AUTO. `sign()` rejects blank
 names, candidate-as-final disposition, stale/tampered hashes and invalid current
-states. It appends a SIGNED evidence artifact and updates the case. It does not
+states. Release signing also refuses missing/unresolved typed product identity
+(including legacy bundles without that assessment). It appends a SIGNED evidence artifact and updates the case. It does not
 authenticate that name, prove the reviewer actually viewed the artifact, enforce
 clinical/SOP clearance or implement a real two-person authorisation process.
 

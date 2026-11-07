@@ -8,6 +8,7 @@ flowchart TB
     Store["storage/bitemporal.py<br/>BitemporalStore: SQLite tables, as-of queries, case queue"]
     Lifecycle["lifecycle.py<br/>CaseLifecycle.create / transition / sign / reopen"]
     Notify["notifications.py<br/>NotificationObligations; Principal / Access; scoped grants"]
+    Identity["Typed identity evidence<br/>IdentityLink, IdentityResolution, ResolvedProduct; scope, provenance, negative claims"]
     API --> Service
     Service --> Pack
     Service --> Engine
@@ -18,3 +19,4 @@ flowchart TB
     Evidence --> Store
     Service --> Notify
     Notify --> Store
+    Engine --> Identity

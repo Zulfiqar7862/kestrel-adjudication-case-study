@@ -1,0 +1,52 @@
+# /workspace/kprod, branch fix/correctness-review, baseline cf9b590c493d9074bb7eb4869cd861aaf4792cba
+/tmp/fixvenv/bin/python -c 'import kestrel; print(kestrel.__file__)'
+# /workspace/kprod/src/kestrel/__init__.py
+# Before edits: DataPack.load + asdict(engine.adjudicate(event)) captured all 420 results
+# and froze the 81 old alias_chain event ids in tests/identity_alias_cases.json.
+/tmp/fixvenv/bin/pytest -o addopts='' tests/test_identity_evidence.py -q --junitxml=/tmp/kestrel-identity-review/red.xml
+# exit 1: 27 failed, 1 warning in 4.77s; git diff --quiet -- src confirmed no production edits yet.
+/tmp/fixvenv/bin/pytest -o addopts='' tests/test_identity_evidence.py -q -k earlier_release --junitxml=/tmp/kestrel-identity-review/gate-red.xml
+# exit 1: 1 failed, 27 deselected, 1 warning in 0.50s.
+/tmp/fixvenv/bin/pytest -o addopts='' tests/test_identity_evidence.py -q -k 'incompatible_strength or historical_text_cannot_hide' --junitxml=/tmp/kestrel-identity-review/extra-red.xml
+# exit 1: 4 failed, 28 deselected, 1 warning in 0.49s.
+/tmp/fixvenv/bin/pytest -o addopts='' tests/test_identity_evidence.py -q -k owned_negative_claim --junitxml=/tmp/kestrel-identity-review/owned-red.xml
+# exit 1: 1 failed, 32 deselected, 1 warning in 0.32s.
+/tmp/fixvenv/bin/ruff format src/kestrel/rules/identity.py src/kestrel/ingest.py src/kestrel/utils.py tests/test_identity_evidence.py
+/tmp/fixvenv/bin/ruff check --fix
+# Early lint failed before formatting compressed draft statements; formatting/renaming corrected it, no ignores added.
+/tmp/fixvenv/bin/pytest -o addopts='' tests/test_identity_evidence.py -vv --junitxml=/tmp/kestrel-identity-review/green.xml
+# exit 0: 33 passed, 1 warning in 5.18s.
+/tmp/fixvenv/bin/pytest -o addopts='' tests/test_identity_evidence.py tests/test_storage_limits.py tests/test_review_regressions.py -q
+# exit 0: 97 passed, 1 warning in 6.70s (before the last owned-conflict test).
+/tmp/fixvenv/bin/pytest -o addopts='' -q
+# Initial integration: 15 failed, 248 passed, 1 warning in 50.48s; preserved full-initial.txt.
+# Intermediate full: 267 passed, 1 warning in 52.30s.
+# Final full: exit 0; 268 passed, 1 warning in 51.00s.
+mkdir -p /tmp/kestrel-identity-review/final
+/tmp/fixvenv/bin/kestrel --log-level WARNING --db /tmp/kestrel-identity-review/final/run.sqlite --evidence-dir /tmp/kestrel-identity-review/final/evidence run-all --out /tmp/kestrel-identity-review/final/results.csv > /tmp/kestrel-identity-review/final/run-all.json
+# exit 0: 420 rows, 0 AUTO_CLOSE / 383 QA / 37 candidates. No release/quarantine/destroy.
+/tmp/fixvenv/bin/python docs/diagrams/capture_run.py --run-dir /tmp/kestrel-identity-review/final --case-output /tmp/kestrel-identity-review/final/EXC-107133.json
+# exit 0: 420 identical replays; all 8 chains pass; notifications 28 PENDING /392 UNKNOWN.
+# Direct CLI verify/replay: expanded actual commands saved in executed-cli-commands.json, both exit 0.
+# Actual API /events/EXC-112289 and Node identityPanel output retained as JSON/HTML.
+# Python inspection checked all 93 changed events: old candidate, new QA, typed identity gate and nonempty reasons.
+# Sources and actual run generated LLD/ER/pipeline PNGs, inline Mermaid, and workflow GIF.
+/tmp/fixvenv/bin/ruff check
+/tmp/fixvenv/bin/ruff format --check
+/tmp/fixvenv/bin/python docs/diagrams/check_links.py --out docs/validation/identity-evidence-review/links.json
+git diff --check
+git diff --quiet cf9b590 -- data src/kestrel/storage src/kestrel/notifications.py src/kestrel/rules/stability.py src/kestrel/decision_rules.py
+git ls-files '*__pycache__*' '*.pyc'
+# Same author, normal commit/push and gh run watch from /workspace/kprod; final SHA/CI reported separately.
+
+# Fresh final repeats (no engine changes after final sample capture):
+/tmp/fixvenv/bin/pytest -o addopts='' -q > /tmp/kestrel-identity-review/pytest-final-recheck.txt
+# exit 0: 268 passed, 1 warning in 50.67s.
+/tmp/fixvenv/bin/pytest -o addopts='' tests/test_identity_evidence.py -vv --junitxml=/tmp/kestrel-identity-review/green-final.xml > /tmp/kestrel-identity-review/green-final.txt
+# exit 0: 33 passed, 1 warning in 4.86s; weak/foreign fixtures explicitly set as_of.
+# Final lint: All checks passed! Final format: 82 files already formatted.
+# Link checker: 29 Markdown files, local targets and media validated, no failures.
+
+# A protected-ref display helper used bare `python` and exited 127 because no global
+# interpreter exists. Reading protected-before.txt with Read confirmed the same
+# main/production SHAs; all substantive Python commands use /tmp/fixvenv/bin/python.

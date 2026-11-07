@@ -332,7 +332,7 @@ def test_carrier_ambiguous_substring_cannot_use_longest_name(pack):
     assert "substring" in error
 
 
-def test_unique_carrier_substring_still_works(pack):
+def test_unique_carrier_substring_is_candidate_not_verified_identity(pack):
     from copy import deepcopy
 
     from kestrel.rules.identity import IdentityResolver
@@ -341,5 +341,9 @@ def test_unique_carrier_substring_still_works(pack):
     copied.carriers = copied.carriers[:1]
     copied.carriers[0].update(names_seen_on_documents="Unique Shipping Alias", _effective_from=None, _effective_to=None)
     row, error = IdentityResolver(copied).resolve_carrier_contract("Unique Shipping", date(2026, 7, 28))
-    assert error is None
-    assert row["contract_id"] == copied.carriers[0]["contract_id"]
+    assert row is None
+    assert "CARRIER_SUBSTRING_NOT_IDENTITY" in error
+    result = IdentityResolver(copied).resolve_carrier("T-KAVERI", "Unique Shipping", date(2026, 7, 28))
+    assert result.candidates[0]["contract_id"] == copied.carriers[0]["contract_id"]
+    assert result.links[0].verification_status == "UNVERIFIED"
+    assert result.release_identity_eligible is False

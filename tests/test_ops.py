@@ -43,7 +43,7 @@ class TestAgreementAndHealth(_KestrelTestCase):
             self.assertIn("page", alert)
             self.assertIn("runbook_step", alert)
         self.assertEqual(report["decision_mix"].get("AUTO_CLOSE", 0), 0)
-        self.assertEqual(report["decision_mix"]["HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"], 130)
+        self.assertEqual(report["decision_mix"]["HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"], 37)
         self.assertEqual(report["deadline_breached_in_pack"], 14)
         chain = report["chain_verification"].get("T-KAVERI") or {}
         self.assertTrue(chain.get("ok"))

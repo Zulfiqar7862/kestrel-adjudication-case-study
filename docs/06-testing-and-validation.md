@@ -2,31 +2,32 @@
 
 These specific defects were addressed; overall safety and production readiness remain unvalidated.
 
-## Current evidence-chain fix verification
+## Current typed identity evidence verification
 
-The focused integrity change starts from `0bb2337`. It changes evidence
-reconciliation, consumer error handling and CLI verification status, not clinical
-rules, source data or notification policy. [Failing/passing tests and commands](validation/evidence-chain-review/report.md).
+Item 3 starts from `cf9b590`. Typed source/tenant/contract claims now block negative,
+conflicting and unowned product aliases; unresolved products route to QA. This
+changes identity routing, not clinical thresholds or source data.
+[Failing/passing tests, commands and all changed events](validation/identity-evidence-review/report.md).
 
 | Check | Observed result |
 |---|---|
-| Test-first regressions | 25 initial failures; 2 additional field-presence failures before that fix; then all 27 pass |
-| Full pytest suite | 235 passed; one existing test-client dependency deprecation warning |
+| Test-first regressions | 27 initial failures, then 1 release gate, 4 units/history, 1 owned-conflict failure before each fix; all 33 pass |
+| Full pytest suite | 268 passed; one existing test-client dependency deprecation warning |
 | Ruff lint / format | Passing |
-| Fresh temporary `run-all` | 420 sample records persisted |
-| Recommendations | 0 AUTO_CLOSE / 290 QA / 130 unverified historical candidates; note/quarantine/destroy zero |
-| Verified closure counter | 0; no outcome/count changes |
-| Independent obligations | 28 conservative PENDING / 392 UNKNOWN |
-| Full-result sealed-input replay | 420/420 identical |
-| Untouched tenant evidence chains | All 8 OK; direct CLI verify exit 0 |
-| Isolated re-sealed tail | Rejected with INDEX_HASH_MISMATCH; direct CLI exit 1 |
-| API consumers on damaged evidence | Verify returns ok:false; basis/replay/sign return 409 with reason |
-| Existing test fixture repair | Original tamper assertions retained; cleanup restores shared file after test |
+| Fresh temporary run-all | 420 records |
+| Recommendations | 0 AUTO_CLOSE / 383 QA / 37 unverified historical candidates; note/quarantine/destroy zero |
+| Before / changed | 0 / 290 / 130; 93 historical candidates → identity QA; no closure/release increase |
+| Verified closure counter | 0 |
+| Independent obligations | Unchanged 28 conservative PENDING / 392 UNKNOWN |
+| Full-result replay | 420/420 identical |
+| Untouched tenant chains | All 8 OK; direct CLI verify exit 0 |
+| Former alias-chain cases | All 81 unresolved (80 conflict, 1 candidate), all QA |
+| API / UI / sealed evidence | Typed assessments and provenance; actual API and Node render retained |
 
-The [previous documentation review](validation/documentation-review/report.md)
-retains its 208-test baseline, source ZIP/SHA-256 check, visuals and the original
-unfixed integrity probe. Those artifacts describe that earlier revision, not the
-current verifier. Source data remains unchanged.
+The [evidence-chain review](validation/evidence-chain-review/report.md) retains its
+235-test baseline and re-seal regressions. The [documentation review](validation/documentation-review/report.md)
+retains the earlier 208-test run, source ZIP checks and original integrity probe.
+These are versioned artifacts, not current outcome targets. Source data is unchanged.
 
 These are regression/sample observations, not clinical truth, production rates,
 validated legal applicability, throughput benchmarks or long-term durability proof.

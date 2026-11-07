@@ -43,12 +43,12 @@ class DataPack:
         workbook = load_workbook(path, data_only=True, read_only=True)
         pack = cls(path=path)
         pack.events = sheet_rows(workbook["01_Excursion_Events"])
-        pack.products = sheet_rows(workbook["02_Product_Master"])
-        pack.facilities = sheet_rows(workbook["03_Facility_Registry"])
-        pack.carriers = sheet_rows(workbook["04_Carrier_Contracts"])
+        pack.products = sheet_rows(workbook["02_Product_Master"], include_source=True)
+        pack.facilities = sheet_rows(workbook["03_Facility_Registry"], include_source=True)
+        pack.carriers = sheet_rows(workbook["04_Carrier_Contracts"], include_source=True)
         pack.sops = sheet_rows(workbook["05_SOP_Index"])
         pack.stability = sheet_rows(workbook["06_Stability_Index"])
-        pack.aliases = sheet_rows(workbook["07_Alias_Observations"])
+        pack.aliases = sheet_rows(workbook["07_Alias_Observations"], include_source=True)
         pack.overrides = sheet_rows(workbook["09_Override_Reasons"])
         pack.tenants = [
             row
@@ -86,21 +86,26 @@ class DataPack:
             if item.name in {"products", "sops", "stability", "tenants"}:
                 rows = [row for row in rows if row.get("tenant_code") == tenant_code]
             snapshot[item.name] = rows
-        # Alias observations have no tenant provenance: retain only edges reachable
-        # within two hops from this tenant's product identifiers for this resolver.
+        # Preserve relevant positive AND negative claims, with ownership and
+        # source positions. Unowned rows remain unverified candidates on replay.
         from kestrel.rules.identity import IdentityResolver, _norm
 
         resolver = IdentityResolver(self)
+        rows = resolver.scoped_aliases(tenant_code)
         reachable = set().union(*(resolver._product_strings(p) for p in snapshot["products"]))
-        for _ in range(2):
-            reachable |= set().union(*(resolver._alias_pairs.get(k, set()) for k in list(reachable)))
+        changed = True
+        while changed:
+            changed = False
+            for row in rows:
+                ends = {_norm(row.get("string_a")), _norm(row.get("string_b"))} - {""}
+                if ends & reachable and not ends <= reachable:
+                    reachable |= ends
+                    changed = True
         snapshot["aliases"] = [
-            a
-            for a in snapshot["aliases"]
-            if str(a.get("entity_kind")).upper() == "PRODUCT"
-            and _norm(a.get("string_a")) in reachable
-            and _norm(a.get("string_b")) in reachable
+            a for a in rows if _norm(a.get("string_a")) in reachable and _norm(a.get("string_b")) in reachable
         ]
+        for name in ("carriers", "facilities"):
+            snapshot[name] = [r for r in snapshot[name] if r.get("tenant_code") in (None, "", tenant_code)]
         return snapshot
 
     def event_by_id(self, event_id: str) -> Optional[dict[str, Any]]:
@@ -131,7 +136,7 @@ def load_workbook_into_store(
     workbook = load_workbook(pack_path, data_only=True, read_only=True)
 
     # Products
-    for product in sheet_rows(workbook["02_Product_Master"]):
+    for product in sheet_rows(workbook["02_Product_Master"], include_source=True):
         tenant = product.get("tenant_code")
         key = str(product.get("gtin") or product.get("internal_sku") or product.get("brand_as_labelled") or id(product))
         store.insert_ref(
@@ -177,7 +182,7 @@ def load_workbook_into_store(
         )
 
     # Carriers
-    for contract in sheet_rows(workbook["04_Carrier_Contracts"]):
+    for contract in sheet_rows(workbook["04_Carrier_Contracts"], include_source=True):
         effective_from = parse_date(contract.get("effective_from")) or date(2019, 1, 1)
         to_raw = contract.get("effective_to")
         effective_to = None if to_raw is None or str(to_raw).lower() == "evergreen" else parse_date(to_raw)
@@ -194,10 +199,10 @@ def load_workbook_into_store(
         )
 
     # Aliases
-    for alias in sheet_rows(workbook["07_Alias_Observations"]):
+    for alias in sheet_rows(workbook["07_Alias_Observations"], include_source=True):
         store.insert_ref(
             entity_type="alias",
-            tenant_code=None,
+            tenant_code=alias.get("tenant_code"),
             natural_key=f"{alias.get('entity_kind')}:{alias.get('string_a')}:{alias.get('string_b')}",
             payload=alias,
             valid_from=parse_date(alias.get("confirmed_on")) or date(2025, 1, 1),
