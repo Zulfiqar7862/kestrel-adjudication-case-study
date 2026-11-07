@@ -17,8 +17,8 @@ def _make_tmp_svc(tmpdir: Path) -> AdjudicationService:
         db_path=tmpdir / "t.sqlite",
         evidence_dir=tmpdir / "evidence",
         log_level="WARNING",
-        rule_pack_version="0.3.0",
-        code_version="0.3.0",
+        rule_pack_version="0.4.0",
+        code_version="0.4.0",
         retention_years=7,
     )
     svc = AdjudicationService(settings)

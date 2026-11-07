@@ -77,7 +77,7 @@ class AdjudicationResult:
     sop_overlap_conflict: bool = False
     carrier_contract_id: Optional[str] = None
     carrier_has_cold_chain_clause: Optional[bool] = None
-    corrected_max_temp_c: Optional[float] = None
+    reported_max_temp_c: Optional[float] = None
     bulletin_applied: bool = False
     regulator_reportable: bool = False
     reg_window_hours: Optional[float] = None
@@ -98,9 +98,15 @@ class AdjudicationResult:
 class AdjudicationEngine:
     """Deterministic as-of adjudication engine over a DataPack."""
 
-    def __init__(self, pack: DataPack) -> None:
+    def __init__(
+        self, pack: DataPack, *, bulletin_bound_c: float = BULLETIN_BIAS_C, bulletin_firmware: str = BULLETIN_FW
+    ) -> None:
         """Bind identity/stability resolvers to the pack."""
         self.pack = pack
+        if bulletin_bound_c < 0:
+            raise ValueError("bulletin bound must be non-negative")
+        self.bulletin_bound_c = bulletin_bound_c
+        self.bulletin_firmware = bulletin_firmware
         self.identity = IdentityResolver(pack)
         self.stability = StabilityResolver(pack)
         self.tenants = {tenant["tenant_code"]: tenant for tenant in pack.tenants}
@@ -115,22 +121,16 @@ class AdjudicationEngine:
         alert_ts: Optional[datetime] = event.get("_alert_ts")
         as_of = (event.get("_excursion_start") or alert_ts or datetime.utcnow()).date()
 
-        # --- sensor bulletin correction ---
+        # TT-CB-114 supplies an upper bound, not a calibrated measurement.
         max_temp = to_float(event.get("max_temp_c"))
         min_temp = to_float(event.get("min_temp_c"))
         duration_min = to_float(event.get("duration_min")) or 0.0
-        bulletin = str(event.get("logger_fw") or "") == BULLETIN_FW
-        corrected_max = max_temp
-        if bulletin and max_temp is not None:
-            corrected_max = max_temp + BULLETIN_BIAS_C
-            rationale.append(
-                f"Applied TT-CB-114: firmware {BULLETIN_FW} under-reports ≤{BULLETIN_BIAS_C}°C; "
-                f"corrected max {max_temp}→{corrected_max:.1f}°C"
-            )
+        bulletin = str(event.get("logger_fw") or "") == self.bulletin_firmware
+        corrected_max = max_temp  # legacy internal facts name: scenario, never measured correction
         evidence["temps"] = {
-            "min": min_temp,
+            "min_reported": min_temp,
             "max_reported": max_temp,
-            "max_corrected": corrected_max,
+            "mean_reported": to_float(event.get("mean_temp_c")),
             "duration_min": duration_min,
             "bulletin_tt_cb_114": bulletin,
         }
@@ -247,6 +247,60 @@ class AdjudicationEngine:
             sop_overlap=sop_overlap,
         )
         rationale.extend(extra)
+        if bulletin:
+            upper_max = max_temp + self.bulletin_bound_c if max_temp is not None else None
+            upper_min = min_temp + self.bulletin_bound_c if min_temp is not None else None
+            upper_event = dict(event)
+            for key in ("min_temp_c", "max_temp_c", "mean_temp_c"):
+                value = to_float(event.get(key))
+                if value is not None:
+                    upper_event[key] = value + self.bulletin_bound_c
+            upper = self._decide(
+                event=upper_event,
+                product=product,
+                stability_position=stability_position,
+                low=low,
+                high=high,
+                corrected_max=upper_max,
+                min_temp=upper_min,
+                duration_min=duration_min,
+                sop_overlap=sop_overlap,
+            )
+            sensitive = recommendation != upper[0]
+            evidence["temps"]["uncertainty"] = {
+                "source": "TT-CB-114",
+                "firmware": self.bulletin_firmware,
+                "offset_interval_c": [0.0, self.bulletin_bound_c],
+                "model": "two endpoint scenarios shifting supplied summaries; not a raw-series proof",
+                "reported_scenario": {
+                    "min_c": min_temp,
+                    "max_c": max_temp,
+                    "mean_c": to_float(event.get("mean_temp_c")),
+                    "recommendation": recommendation,
+                    "reasoning": extra,
+                },
+                "upper_bound_scenario": {
+                    "min_c": upper_min,
+                    "max_c": upper_max,
+                    "mean_c": upper_event.get("mean_temp_c"),
+                    "recommendation": upper[0],
+                    "reasoning": upper[3],
+                },
+                "outcome_sensitive": sensitive,
+            }
+            rationale.append(
+                f"TT-CB-114: reported and upper-bound (+{self.bulletin_bound_c}°C) scenarios; "
+                "reported observations unchanged; endpoint analysis is not full-series validation"
+            )
+            if sensitive:
+                rationale.append(
+                    f"Temperature uncertainty changes disposition: {recommendation} vs {upper[0]}; QA review required"
+                )
+                recommendation, triage, conf = ESCALATE, "temperature_uncertainty", min(conf, upper[2], 0.4)
+
+        if not any(p.get("tenant_code") == tenant for p in self.pack.products):
+            recommendation, triage, conf = ESCALATE, "unresolved_tenant_identity", 0.0
+            rationale.append("Unknown tenant has no product reference pool; no cross-tenant fallback")
 
         requires_human = recommendation != AUTO_CLOSE
         # Dr Rao: automation on closures only. Even high-confidence RELEASE requires sign-off.
@@ -280,7 +334,7 @@ class AdjudicationEngine:
             sop_overlap_conflict=sop_overlap,
             carrier_contract_id=str(carrier_id) if carrier_id else None,
             carrier_has_cold_chain_clause=has_cold_chain_clause,
-            corrected_max_temp_c=corrected_max,
+            reported_max_temp_c=corrected_max,
             bulletin_applied=bulletin,
             regulator_reportable=clock.reportable,
             reg_window_hours=clock.window_hours,

@@ -156,10 +156,10 @@ async function openEvent(id) {
   const { status, data } = await api("GET", "/events/" + encodeURIComponent(id));
   if (status !== 200) { $("detail").innerHTML = `<div class="card callout bad">Could not load ${esc(id)}: ${errText(data)}</div>`; return; }
   current = data; opened = null; renderList(); setStep(2);
-  const a = data.alert, c = data.correction, b = data.basis, r = data.regulatory;
+  const a = data.alert, c = data.uncertainty, b = data.basis, r = data.regulatory;
   const corr = c.applied
-    ? `<div class="callout warn">This logger runs firmware ${esc(c.applies_to_fw)}, which reads up to 1.8 °C too low (bulletin ${esc(c.bulletin)}). The engine judged it at <b>${esc(c.corrected_max_temp_c)} °C</b> instead of the logged ${esc(c.raw_max_temp_c)} °C.</div>`
-    : `<div class="callout info">No firmware correction needed: this logger runs ${esc(a.logger_fw)}, not ${esc(c.applies_to_fw)}.</div>`;
+    ? `<div class="callout warn">This logger runs firmware ${esc(c.applies_to_fw)}, which reads up to 1.8 °C too low (bulletin ${esc(c.bulletin)}). Reported peak ${esc(c.raw_max_temp_c)} °C is unchanged. The engine evaluates reported and upper-bound scenarios, escalating if outcomes differ.</div>`
+    : `<div class="callout info">No TT-CB-114 bound applies: this logger runs ${esc(a.logger_fw)}, not ${esc(c.applies_to_fw)}.</div>`;
   $("detail").innerHTML = `
     <div class="card">
       <h2 class="step-title"><span class="num">2</span>Check the facts for ${esc(data.event_id)}</h2>

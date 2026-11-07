@@ -1,0 +1,158 @@
+[
+  {
+    "event_id": "EXC-112289",
+    "old": "DESTROY",
+    "new": "ESCALATED_TO_SENIOR_QA",
+    "reason": "qualified_cap_incomplete"
+  },
+  {
+    "event_id": "EXC-112842",
+    "old": "DESTROY",
+    "new": "ESCALATED_TO_SENIOR_QA",
+    "reason": "qualified_cap_incomplete"
+  },
+  {
+    "event_id": "EXC-110021",
+    "old": "DESTROY",
+    "new": "ESCALATED_TO_SENIOR_QA",
+    "reason": "temperature_uncertainty"
+  },
+  {
+    "event_id": "EXC-110042",
+    "old": "DESTROY",
+    "new": "ESCALATED_TO_SENIOR_QA",
+    "reason": "qualified_cap_incomplete"
+  },
+  {
+    "event_id": "EXC-112590",
+    "old": "DESTROY",
+    "new": "ESCALATED_TO_SENIOR_QA",
+    "reason": "qualified_cap_incomplete"
+  },
+  {
+    "event_id": "EXC-112548",
+    "old": "DESTROY",
+    "new": "ESCALATED_TO_SENIOR_QA",
+    "reason": "qualified_cap_incomplete"
+  },
+  {
+    "event_id": "EXC-111624",
+    "old": "DESTROY",
+    "new": "ESCALATED_TO_SENIOR_QA",
+    "reason": "qualified_cap_incomplete"
+  },
+  {
+    "event_id": "EXC-111960",
+    "old": "DESTROY",
+    "new": "ESCALATED_TO_SENIOR_QA",
+    "reason": "qualified_cap_incomplete"
+  },
+  {
+    "event_id": "EXC-110308",
+    "old": "DESTROY",
+    "new": "ESCALATED_TO_SENIOR_QA",
+    "reason": "qualified_cap_incomplete"
+  },
+  {
+    "event_id": "EXC-111316",
+    "old": "DESTROY",
+    "new": "ESCALATED_TO_SENIOR_QA",
+    "reason": "qualified_cap_incomplete"
+  },
+  {
+    "event_id": "EXC-112387",
+    "old": "QUARANTINE_PENDING_LAB",
+    "new": "ESCALATED_TO_SENIOR_QA",
+    "reason": "qualified_cap_incomplete"
+  },
+  {
+    "event_id": "EXC-110063",
+    "old": "DESTROY",
+    "new": "ESCALATED_TO_SENIOR_QA",
+    "reason": "qualified_cap_incomplete"
+  },
+  {
+    "event_id": "EXC-110413",
+    "old": "QUARANTINE_PENDING_LAB",
+    "new": "ESCALATED_TO_SENIOR_QA",
+    "reason": "temperature_uncertainty"
+  },
+  {
+    "event_id": "EXC-111764",
+    "old": "QUARANTINE_PENDING_LAB",
+    "new": "ESCALATED_TO_SENIOR_QA",
+    "reason": "qualified_cap_incomplete"
+  },
+  {
+    "event_id": "EXC-111911",
+    "old": "DESTROY",
+    "new": "ESCALATED_TO_SENIOR_QA",
+    "reason": "qualified_cap_incomplete"
+  },
+  {
+    "event_id": "EXC-112275",
+    "old": "DESTROY",
+    "new": "ESCALATED_TO_SENIOR_QA",
+    "reason": "qualified_cap_incomplete"
+  },
+  {
+    "event_id": "EXC-110301",
+    "old": "DESTROY",
+    "new": "ESCALATED_TO_SENIOR_QA",
+    "reason": "qualified_cap_incomplete"
+  },
+  {
+    "event_id": "EXC-110378",
+    "old": "RELEASE_WITH_NOTE",
+    "new": "ESCALATED_TO_SENIOR_QA",
+    "reason": "temperature_uncertainty"
+  },
+  {
+    "event_id": "EXC-112905",
+    "old": "DESTROY",
+    "new": "ESCALATED_TO_SENIOR_QA",
+    "reason": "qualified_cap_incomplete"
+  },
+  {
+    "event_id": "EXC-110609",
+    "old": "DESTROY",
+    "new": "ESCALATED_TO_SENIOR_QA",
+    "reason": "qualified_cap_incomplete"
+  },
+  {
+    "event_id": "EXC-110399",
+    "old": "QUARANTINE_PENDING_LAB",
+    "new": "ESCALATED_TO_SENIOR_QA",
+    "reason": "temperature_uncertainty"
+  },
+  {
+    "event_id": "EXC-112618",
+    "old": "DESTROY",
+    "new": "ESCALATED_TO_SENIOR_QA",
+    "reason": "qualified_cap_incomplete"
+  },
+  {
+    "event_id": "EXC-110630",
+    "old": "DESTROY",
+    "new": "ESCALATED_TO_SENIOR_QA",
+    "reason": "qualified_cap_incomplete"
+  },
+  {
+    "event_id": "EXC-111694",
+    "old": "DESTROY",
+    "new": "ESCALATED_TO_SENIOR_QA",
+    "reason": "qualified_cap_incomplete"
+  },
+  {
+    "event_id": "EXC-112912",
+    "old": "QUARANTINE_PENDING_LAB",
+    "new": "ESCALATED_TO_SENIOR_QA",
+    "reason": "qualified_cap_incomplete"
+  },
+  {
+    "event_id": "EXC-110427",
+    "old": "DESTROY",
+    "new": "ESCALATED_TO_SENIOR_QA",
+    "reason": "qualified_cap_incomplete"
+  }
+]

@@ -260,6 +260,19 @@ def rule_ultra_cold(f: ExcursionFacts, trace: list[str]) -> Optional[Verdict]:
     return None
 
 
+def rule_qualified_temperature_cap(f: ExcursionFacts, trace: list[str]) -> Optional[Verdict]:
+    """A cap is not permission below it; absent duration needs evidence/QA."""
+    if not f.stability.qualified_cap:
+        return None
+    breached = f.corrected_max_c is not None and f.corrected_max_c > f.stability.max_temp_c
+    trace.append(
+        "Qualified temperature cap "
+        + ("breached" if breached else "not breached")
+        + f" (≤{f.stability.max_temp_c}°C); no duration/disposition authority supplied — QA must resolve"
+    )
+    return Verdict(ESCALATE, "qualified_cap_incomplete", 0.4)
+
+
 def rule_no_excursion_permitted(f: ExcursionFacts, trace: list[str]) -> Optional[Verdict]:
     """The product allows no excursion: a very brief, mild breach goes to the lab, otherwise destroy."""
     if not f.stability.no_excursion:
@@ -346,6 +359,7 @@ DECISION_RULES: tuple[Rule, ...] = (
     rule_within_label_range,
     rule_freeze_damage,
     rule_ultra_cold,
+    rule_qualified_temperature_cap,
     rule_no_excursion_permitted,
     rule_stability_allowance,
 )

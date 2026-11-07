@@ -81,6 +81,8 @@ class TestReviewerDashboard(_KestrelTestCase):
         doc = c.get(f"/evidence/{out['bundle_id']}", params={"tenant_code": "T-KAVERI"}).json()
         blank = c.post(f"/cases/{case_id}/sign", params={"signed_by": "   ", "disposition": RELEASE_WITH_NOTE})
         self.assertEqual(blank.status_code, 422)
+        missing = c.post(f"/cases/{case_id}/sign", params={"signed_by": "QA", "disposition": RELEASE_WITH_NOTE})
+        self.assertEqual(missing.status_code, 422)
         stale = c.post(
             f"/cases/{case_id}/sign",
             params={"signed_by": "Priya Menon", "disposition": RELEASE_WITH_NOTE, "bundle_hash": "0" * 64},

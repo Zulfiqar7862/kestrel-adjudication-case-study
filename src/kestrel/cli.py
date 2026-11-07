@@ -225,6 +225,7 @@ def _cmd_shadow_bulletin(svc: AdjudicationService, args: argparse.Namespace) -> 
             "change": report["change"],
             "candidates": report["candidates"],
             "diffs": report["diffs"],
+            "disposition_flips": report["disposition_flips"],
             "wrote": str(out_path),
             "rao_gate": report["rao_gate"],
         }

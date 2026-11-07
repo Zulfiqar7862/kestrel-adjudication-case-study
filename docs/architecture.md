@@ -19,10 +19,9 @@ flowchart LR
 ```
 
 1. **Identity.** Resolve the product from GTIN, SKU or brand text, with a confidence score.
-2. **As-of lookups.** Find the SOP revision, carrier contract and firmware bulletin that were in force *on the
-   excursion date*, not today.
+2. **As-of lookups.** Find the SOP revision, carrier contract using effective dates. Bulletin applicability is currently firmware-only, without device/date verification. The engine reads DataPack, not the store transaction-time slice.
 3. **Stability.** Parse the permitted-excursion text into numbers (max °C, max hours, cumulative or not).
-4. **Decide.** Apply the TT-CB-114 +1.8 °C correction, build an `ExcursionFacts` record and run the ordered rule
+4. **Decide.** Evaluate reported and upper-bound TT-CB-114 scenarios on min/max/mean summaries; preserve observations and escalate if dispositions differ. Each scenario runs the ordered rule
    chain. The first rule that returns a verdict wins. See [decision-rules.md](decision-rules.md).
 5. **Regulatory clock.** Compute the notification deadline separately from the disposition.
 6. **Seal.** Store every input in a SHA-256 hash-chained bundle, one chain per tenant.
@@ -116,10 +115,9 @@ The bundle body itself is a JSON file on disk (`path`); the index row carries it
 
 * **Bitemporal rows.** `valid_from`/`valid_to` say when a fact was true in the world. `tx_from`/`tx_to` say when we
   learned it. "Which SOP applied on 14 Aug 2025, as we knew it on the day we decided?" is one query.
-* **Hash chain.** Each bundle stores `prev_hash` and its own `content_hash`. Editing any old bundle breaks every
-  hash after it, and `kestrel verify --tenant T` reports where.
+* **Hash chain.** Each bundle stores `prev_hash` and its own `content_hash`. Editing stored content or links can be detected, and `kestrel verify --tenant T` reports where.
 * **Tenant isolation.** Bundles are read by `(bundle_id, tenant_code)`. A mismatch raises
-  `TenantIsolationError` (HTTP 403), as MSA clause 22 requires.
+  `PermissionError` (HTTP 403). This is not complete clause 22 control over aliases, models, indexes or all derived artefacts.
 
 ## Case lifecycle
 
@@ -149,8 +147,7 @@ This shows the main paths; the full allowed-transition table is `ALLOWED` in `li
 move raises an error. Auto-closes land in `TRIAGED_NON_ACTIONABLE`; product-fate verdicts land in
 `AWAITING_REVIEWER` and close only when a named reviewer signs against the matching bundle hash.
 
-A reopen never edits the signed case. It creates a new revision linked to the old one, so the original basis
-stays provable.
+Reopen marks the prior case REOPENED and creates a linked revision, carrying its deadline and reportability. Prior signature fields and append-only evidence remain. It does not assume a notification was filed.
 
 ## From `kestrel.py` sections to modules
 
@@ -170,5 +167,16 @@ stays provable.
 | API | `api/app.py`, `api/static/index.html` |
 | CLI / TESTS | `cli.py`, `tests/` |
 
-The split changed no behaviour. A script dumps the engine output for all 420 alerts before and after the
-refactor, and the two files are byte-identical.
+The original modularisation preserved behaviour; subsequent reviewer fixes intentionally change outcomes. No current equivalence with main is claimed.
+
+## Replay and signing contracts
+
+`_persist` seals a typed event and tenant-filtered DataPack reference snapshot, plus the complete expected result. Replay verifies the bundle, restores date/datetime types, refuses mismatched code/rule versions and compares the complete result including rationale/evidence; the current workbook/engine are not consulted. Old bundles without replay inputs fail explicitly. Version labels are not a historical executable archive.
+
+Signing requires a nonblank name and viewed hash, verifies actual stored evidence (not a caller's asserted hash), and appends a new signed bundle linked to the original hash with case id, signer, time, final disposition and reason. The original stays UNSIGNED as an immutable pre-sign snapshot; latest basis returns the SIGNED artifact. Generic transition cannot close a case as CLOSED_SIGNED. No SSO, role/dual-sign enforcement or atomic file+DB transaction is claimed.
+
+Shared carrier/facility source registries are captured for replay; products, SOPs, stability and tenant constraints are tenant-filtered. Workbook aliases have no tenant ownership: only locally reachable observations are captured, and their trust/provenance remains unresolved.
+
+## Scope limits
+
+The 420 rows are a stratified evidence sample, not ~11,400/month production traffic. Hash chains/retention dates do not prove raw-series/source-document capture or seven-year durability. Queue sorting is not storm admission, collapse, fairness or independent notification. Batch exposure and shortened-expiry workflow are missing; escalation is review routing, not product fate.

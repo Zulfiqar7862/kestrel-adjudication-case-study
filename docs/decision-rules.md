@@ -19,19 +19,19 @@ the reviewer sees exactly why.
 | 8 | `rule_unreadable_stability` | A cited study we can't read means a lab test, not a guess | `QUARANTINE_PENDING_LAB` |
 | 9 | `rule_sensor_artefact` | No gap and peak close to the label | `AUTO_CLOSE` |
 | 10 | `rule_dock_door` | Short dock-door ambient exposure | `AUTO_CLOSE` |
-| 11 | `rule_within_label_range` | After the +1.8 °C correction, still inside the label | `AUTO_CLOSE` |
+| 11 | `rule_within_label_range` | Inside the label in the scenario being evaluated | `AUTO_CLOSE` |
 | 12 | `rule_freeze_damage` | Below 0 °C on a 2–8 °C product | `DESTROY` |
 | 13 | `rule_ultra_cold` | Very short open on ultra-cold is a dry-ice top-up | `RELEASE_WITH_NOTE` / `DESTROY` |
-| 14 | `rule_no_excursion_permitted` | Product allows no excursion | `QUARANTINE_PENDING_LAB` / `DESTROY` |
-| 15 | `rule_stability_allowance` | Compare duration and peak with the allowance | `AUTO_CLOSE` / `RELEASE_WITH_NOTE` / lab / `DESTROY` |
+| 14 | `rule_qualified_temperature_cap` | Qualified cap without duration/disposition authority | `ESCALATED_TO_SENIOR_QA` |
+| 15 | `rule_no_excursion_permitted` | Product allows no excursion | `QUARANTINE_PENDING_LAB` / `DESTROY` |
+| 16 | `rule_stability_allowance` | Compare duration and peak with the allowance | `AUTO_CLOSE` / `RELEASE_WITH_NOTE` / lab / `DESTROY` |
 | – | `rule_no_parseable_allowance` | Fallback: out of range, no usable allowance | `RELEASE_WITH_NOTE` (brief, mild) or `QUARANTINE_PENDING_LAB` |
 
-Order matters. Identity and data-quality checks come before any temperature judgement, because a confident
-temperature answer about the wrong product is worse than an escalation.
+Order matters. Historical facility/duplicate/gateway triage can win before identity; these are supplied historical labels, not independently verified live signals. An unknown tenant is forced to unresolved escalation at engine level. Known-tenant identity/data checks precede later temperature rules.
 
 ## Named thresholds
 
-All magic numbers live at the top of the module with a name and a comment.
+Thresholds are named at the top of the module. They are candidate policy constants, not validated clinical limits or necessarily sourced from the brief. QA must approve them before deployment.
 
 | Constant | Value | Meaning |
 |---|---|---|
@@ -59,3 +59,11 @@ All magic numbers live at the top of the module with a name and a comment.
 3. Add boundary tests to `tests/test_decision_rules.py` (one value on each side of the threshold).
 4. Replay on the full pack and review every changed outcome before release.
    This is Dr Rao's gate: no rule change ships without a before/after diff.
+
+## Temperature and taxonomy boundaries
+
+TT-CB-114 means under-reporting *up to* 1.8°C, not a measured correction. Engine runs reported and upper-bound scenarios (min/max/mean summary offset 0 vs 1.8). Different dispositions force QA escalation; all affected devices are flagged. Endpoint scenarios cannot prove every continuous/per-reading history without raw series.
+
+`No excursion permitted` remains an unconditional ban. `No excursion above 25 °C permitted` supplies a 25°C cap, not a ban outside 2–8°C or permission below 25°C. With missing duration/disposition authority, excursions reaching this rule escalate on either side of the cap. Earlier independent triage/within-label/freeze rules retain their priority.
+
+RELEASE_WITH_NOTE is not shortened expiry. Shortened-expiry/expiry fields are absent; ESCALATED_TO_SENIOR_QA is review routing still encoded as a disposition. RELEASE/RETURN/REWORK exist in the enum but current rules do not emit them. Cumulative arithmetic covers this event only: no prior batch ledger is read or updated.

@@ -31,15 +31,17 @@ class TestInvariants(_KestrelTestCase):
             self.assertIsNotNone(ev.get("_alert_ts"))
             self.assertGreaterEqual(r.reg_deadline_utc, ev["_alert_ts"].isoformat(sep=" ")[:19])
 
-    def test_bulletin_correction_monotonic(self) -> None:
-        """All TT-2.14.3 events apply +1.8 °C corrected max."""
+    def test_bulletin_preserves_reported_and_records_bound(self) -> None:
+        """All TT-2.14.3 events keep measurements and record both endpoint scenarios."""
         for ev in self.svc.pack.events:  # type: ignore[union-attr]
             if str(ev.get("logger_fw")) != "TT-2.14.3":
                 continue
             r = self.svc.engine.adjudicate(ev)  # type: ignore[union-attr]
             self.assertTrue(r.bulletin_applied)
             if ev.get("max_temp_c") is not None:
-                self.assertEqual(r.corrected_max_temp_c, float(ev["max_temp_c"]) + 1.8)
+                self.assertEqual(r.reported_max_temp_c, float(ev["max_temp_c"]))
+                u = r.evidence["temps"]["uncertainty"]
+                self.assertEqual(u["upper_bound_scenario"]["max_c"], float(ev["max_temp_c"]) + 1.8)
 
     def test_sop_as_of_never_returns_future_revision(self) -> None:
         """Selected SOP effective_from is never after the excursion date."""

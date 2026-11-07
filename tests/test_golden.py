@@ -24,7 +24,7 @@ class TestGoldenExc107133(_KestrelTestCase):
         self.assertEqual(r.recommendation, RELEASE_WITH_NOTE)
         self.assertTrue(r.requires_human_signature)
         self.assertFalse(r.bulletin_applied)
-        self.assertEqual(r.corrected_max_temp_c, 11.2)
+        self.assertEqual(r.reported_max_temp_c, 11.2)
         self.assertIsNotNone(r.evidence.get("product"))
         self.assertTrue(r.reg_deadline_utc or r.reg_window_hours)
 
@@ -33,14 +33,14 @@ class TestEngineGolden(_KestrelTestCase):
     """Engine golden / narrative cases beyond EXC-107133."""
 
     def test_exc_110448_bulletin_underread(self) -> None:
-        """TT-2.14.3 under-read applies +1.8 °C bulletin correction."""
+        """TT-2.14.3 is flagged for bounded analysis; reported maximum stays unchanged."""
         ev = self.svc.pack.event_by_id("EXC-110448")  # type: ignore[union-attr]
         if ev is None:
             self.skipTest("EXC-110448 not in pack")
         r = self.svc.engine.adjudicate(ev)  # type: ignore[union-attr]
         self.assertTrue(r.bulletin_applied)
-        self.assertIsNotNone(r.corrected_max_temp_c)
-        self.assertEqual(r.corrected_max_temp_c, float(ev["max_temp_c"]) + 1.8)
+        self.assertIsNotNone(r.reported_max_temp_c)
+        self.assertEqual(r.reported_max_temp_c, float(ev["max_temp_c"]))
 
     def test_override_freeze_vaccine_pattern(self) -> None:
         """Below-0 °C adjuvanted vaccine does not RELEASE_WITH_NOTE."""

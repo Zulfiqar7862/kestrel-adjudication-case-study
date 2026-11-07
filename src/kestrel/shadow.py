@@ -19,12 +19,8 @@ def shadow_replay_bulletin(
     bias_c: float = BULLETIN_BIAS_C,
     event_ids: Optional[list[str]] = None,
 ) -> dict[str, Any]:
-    """Simulate April TT-CB-114 style change: ensure bulletin bias applied and diff outcomes.
-
-    Baseline = engine as configured today (already applies bulletin).
-    Alternate = force-disable bulletin correction to show what would have differed
-    without the calibration notice — or re-run with bias forced on all matching FW.
-    """
+    """Compare bound-aware decisions with as-reported-only decisions (not historical61)."""
+    engine = AdjudicationEngine(pack, bulletin_bound_c=bias_c, bulletin_firmware=firmware)
     events = pack.events
     if event_ids:
         idset = set(event_ids)
@@ -40,7 +36,7 @@ def shadow_replay_bulletin(
         alt_event["logger_fw"] = "TT-DISABLED"
         alternate = engine.adjudicate(alt_event)
         if baseline.recommendation != alternate.recommendation or (
-            baseline.corrected_max_temp_c != alternate.corrected_max_temp_c
+            baseline.evidence["temps"].get("uncertainty") is not None
         ):
             diffs.append(
                 {
@@ -50,19 +46,23 @@ def shadow_replay_bulletin(
                     "max_temp_c": event.get("max_temp_c"),
                     "with_bulletin": {
                         "recommendation": baseline.recommendation,
-                        "corrected_max_temp_c": baseline.corrected_max_temp_c,
+                        "reported_max_temp_c": baseline.reported_max_temp_c,
+                        "scenarios": baseline.evidence["temps"].get("uncertainty"),
                     },
                     "without_bulletin": {
                         "recommendation": alternate.recommendation,
-                        "corrected_max_temp_c": alternate.corrected_max_temp_c,
+                        "reported_max_temp_c": alternate.reported_max_temp_c,
                     },
                     "historical_final": event.get("final_disposition"),
                 }
             )
     return {
-        "change": f"calibration bulletin {firmware} bias +{bias_c}°C (TT-CB-114 / INC-2506)",
+        "change": f"TT-CB-114 {firmware} uncertainty bound [0, {bias_c}]°C",
         "candidates": len(events),
         "diffs": len(diffs),
+        "disposition_flips": sum(
+            row["with_bulletin"]["recommendation"] != row["without_bulletin"]["recommendation"] for row in diffs
+        ),
         "diff_rows": diffs,
         "rao_gate": "Review diffs before promoting rule/reference change",
     }

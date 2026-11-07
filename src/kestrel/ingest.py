@@ -74,6 +74,35 @@ class DataPack:
                 contract["_effective_to"] = parse_date(effective_to)
         return pack
 
+    def replay_snapshot(self, tenant_code: str) -> dict[str, Any]:
+        """Capture tenant-owned references plus shared source registries; no workbook needed."""
+        from dataclasses import fields
+
+        snapshot = {}
+        for item in fields(self):
+            if item.name in {"path", "events", "overrides", "incidents"}:
+                continue
+            rows = getattr(self, item.name)
+            if item.name in {"products", "sops", "stability", "tenants"}:
+                rows = [row for row in rows if row.get("tenant_code") == tenant_code]
+            snapshot[item.name] = rows
+        # Alias observations have no tenant provenance: retain only edges reachable
+        # within two hops from this tenant's product identifiers for this resolver.
+        from kestrel.rules.identity import IdentityResolver, _norm
+
+        resolver = IdentityResolver(self)
+        reachable = set().union(*(resolver._product_strings(p) for p in snapshot["products"]))
+        for _ in range(2):
+            reachable |= set().union(*(resolver._alias_pairs.get(k, set()) for k in list(reachable)))
+        snapshot["aliases"] = [
+            a
+            for a in snapshot["aliases"]
+            if str(a.get("entity_kind")).upper() == "PRODUCT"
+            and _norm(a.get("string_a")) in reachable
+            and _norm(a.get("string_b")) in reachable
+        ]
+        return snapshot
+
     def event_by_id(self, event_id: str) -> Optional[dict[str, Any]]:
         """Return the excursion event dict for event_id, or None."""
         for event in self.events:

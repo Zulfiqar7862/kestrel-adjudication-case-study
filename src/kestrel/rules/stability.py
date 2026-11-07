@@ -24,6 +24,7 @@ class StabilityPosition:
     max_duration_hours: Optional[float] = None
     cumulative: bool = False
     once_only: bool = False
+    qualified_cap: bool = False
     no_excursion: bool = False
     freeze_sensitive: bool = False
     presentation_mismatch_risk: bool = False
@@ -54,6 +55,11 @@ def _parse_allowance(text: str) -> dict[str, Any]:
         return out
     if "refer qa" in text_lower:
         out["refer_qa"] = True
+        return out
+    cap = re.search(r"no excursions? above\s*(-?\d+(?:\.\d+)?)\s*°?\s*c", text_lower)
+    if cap:
+        out["qualified_cap"] = True
+        out["max_temp_c"] = float(cap.group(1))
         return out
     if "no excursion" in text_lower:
         out["no_excursion"] = True
@@ -104,14 +110,18 @@ class StabilityResolver:
     def __init__(self, pack: DataPack) -> None:
         """Bind the resolver to a loaded DataPack."""
         self.pack = pack
-        self.by_ref = {str(study.get("study_ref")): study for study in pack.stability if study.get("study_ref")}
+        self.by_ref = {
+            (study.get("tenant_code"), str(study.get("study_ref"))): study
+            for study in pack.stability
+            if study.get("study_ref")
+        }
 
     def resolve(self, product: ResolvedProduct) -> StabilityPosition:
         """Return the stability position for a resolved product (master preferred on mismatch)."""
         notes: list[str] = []
         study_ref = product.stability_study_ref
         master_text = product.permitted_excursion_text
-        study = self.by_ref.get(str(study_ref)) if study_ref else None
+        study = self.by_ref.get((product.tenant_code, str(study_ref))) if study_ref else None
 
         if study_ref and not study:
             notes.append(
@@ -198,6 +208,7 @@ class StabilityResolver:
             cumulative=bool(parsed.get("cumulative")),
             once_only=bool(parsed.get("once_only")),
             no_excursion=bool(parsed.get("no_excursion")),
+            qualified_cap=bool(parsed.get("qualified_cap")),
             freeze_sensitive=bool(parsed.get("freeze_sensitive")),
             presentation_mismatch_risk=presentation_risk,
             cumulative_above_label=bool(parsed.get("cumulative_above_label")),

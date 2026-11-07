@@ -9,14 +9,14 @@ class TestAgreementAndHealth(_KestrelTestCase):
     """Tests for agreement stratification and health/monitor signals."""
 
     def test_agreement_report_headline(self) -> None:
-        """Agreement command math: 7% of 200 finals, ~49% assistant, distribution intact."""
+        """Agreement command math: 5.5% of 200 finals, 48.33% assistant on the stratified sample."""
         report = self.svc.agreement_report()
         self.assertEqual(report["events_total"], 420)
         self.assertEqual(report["events_with_historical_final"], 200)
-        self.assertEqual(report["agree_with_historical_final"], 14)
-        self.assertEqual(report["agree_with_historical_final_pct"], 7.0)
-        self.assertEqual(report["agree_with_assistant"], 206)
-        self.assertAlmostEqual(report["agree_with_assistant_pct"], 49.05, places=2)
+        self.assertEqual(report["agree_with_historical_final"], 11)
+        self.assertEqual(report["agree_with_historical_final_pct"], 5.5)
+        self.assertEqual(report["agree_with_assistant"], 203)
+        self.assertAlmostEqual(report["agree_with_assistant_pct"], 48.33, places=2)
         self.assertIn("EXC-107133", report["agree_event_ids"])
         self.assertTrue(report["disagree_by_reason"])
         self.assertTrue(report["disagree_by_tenant"])

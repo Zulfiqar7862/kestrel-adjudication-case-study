@@ -10,9 +10,9 @@ regulator deadline and a sealed, tamper-evident evidence bundle that a named rev
 Case-study submission for Kestrel Cold Chain Solutions, "The Adjudication Problem", by **Zulfiqar Ali Ahmed**.
 
 > **Two branches.** [`main`](https://github.com/Zulfiqar7862/kestrel-adjudication-case-study/tree/main) is the
-> submission exactly as the brief asks: `README.md` + one-file `kestrel.py` + `data/`.
-> **`production`** (this branch) is the same behaviour packaged the way a team would ship it: modules, tests,
-> CI, Docker and docs. The engine's output for all 420 alerts is byte-identical across both.
+> earlier compact submission: `README.md` + one-file `kestrel.py` + `data/`. This was a packaging choice, not a requirement in the brief.
+> **`production`** (this branch) is a modular prototype with reviewer-driven safety fixes, tests, CI, Docker and docs.
+> Outcomes now differ from `main`; this is not a validated production deployment.
 
 ---
 
@@ -35,7 +35,8 @@ Case-study submission for Kestrel Cold Chain Solutions, "The Adjudication Proble
 
 ## The problem
 
-For each of 420 alerts someone must answer: was the medicine harmed, what do we do with it, and do we owe a
+The workbook is a deliberately stratified sample of 420 alerts, not production volume (~11,400 alerts/month).
+For each alert someone must answer: was the medicine harmed, what do we do with it, and do we owe a
 regulator a notification by a deadline? The answer depends on facts that were true **on the excursion date**:
 the product's stability study, the customer's SOP revision, the carrier contract, and logger firmware bulletins.
 Reviewers spend most of their time finding those facts, not deciding.
@@ -52,7 +53,7 @@ git clone -b production https://github.com/Zulfiqar7862/kestrel-adjudication-cas
 cd kestrel-adjudication-case-study
 python -m venv .venv && source .venv/bin/activate
 make install            # pip install -e ".[api,dev]"
-make test               # 48 tests
+make test               # 67 tests
 kestrel run-all         # adjudicate all 420 alerts
 make serve              # open http://127.0.0.1:8080/ui
 ```
@@ -65,36 +66,37 @@ No `make`? Use `pip install -e ".[api,dev]"`, `pytest` and `kestrel serve`.
 flowchart LR
     A[Alert] --> B[Resolve product<br/>and tenant]
     B --> C[Look up rules in force<br/>on the excursion date]
-    C --> D[Apply TT-CB-114 +1.8 °C<br/>and ordered decision rules]
+    C --> D[Evaluate reported and bounded-temperature scenarios<br/>escalate outcome-sensitive cases]
     D --> E[Regulatory clock]
     E --> F[Seal evidence<br/>SHA-256 chain per tenant]
     F --> G[Named reviewer signs<br/>against the bundle hash]
 ```
 
-1. **As-of lookups.** A bitemporal SQLite store answers "which SOP applied on that date, as we knew it when we
-   decided?"
-2. **Rules, not a model.** `decision_rules.py` is an ordered list of 16 small named rules. The first one that
+1. **As-of lookups.** SQLite supports valid/transaction-time queries. The live engine uses dated in-memory
+   workbook rows, not a transaction-time store slice; replay uses the references sealed in its bundle.
+2. **Rules, not a model.** `decision_rules.py` is an ordered list of 16 named rules plus a fallback. The first one that
    gives a verdict wins, and each adds a plain-English line to the rationale. Same input, same output.
 3. **Evidence.** Every input is written into one JSON bundle with a content hash linked to the previous bundle
-   for that tenant. Editing any old bundle is detectable, and one tenant can never read another's.
-4. **Human sign-off.** Only non-actionable alerts close automatically. Release, quarantine and destroy wait for
-   a reviewer, whose signature is refused if the evidence changed after they looked.
+   for that tenant. Stored content/link edits can be detected. Evidence reads require the matching tenant; this alone does not enforce clause 22 over every derived artefact.
+4. **Human sign-off.** Only AUTO_CLOSE is marked as not requiring a signature; fate recommendations wait for a named reviewer and a mandatory viewed hash. Signing verifies the actual bundle, rejects stale/tampered evidence, and appends a signature bundle. Authentication and mandated dual signature remain unfinished.
 
 Details: [docs/code-walkthrough.md](docs/code-walkthrough.md), [docs/architecture.md](docs/architecture.md) and [docs/decision-rules.md](docs/decision-rules.md).
 
 ## Results on the data pack
 
-`kestrel run-all` on the 420 alerts:
+`kestrel run-all` on the 420-alert stratified evidence sample (not a platform auto-close KPI), rerun 7 Nov 2026 (CET):
 
 | Outcome | Meaning | Count |
 |---|---|---|
-| `AUTO_CLOSE` | Non-actionable, closed with an auditable basis | 224 |
-| `ESCALATED_TO_SENIOR_QA` | Identity or data unclear, needs a senior reviewer | 80 |
-| `RELEASE_WITH_NOTE` | Within allowance, release with a note | 54 |
-| `QUARANTINE_PENDING_LAB` | Hold for a lab test | 31 |
-| `DESTROY` | Breach beyond any allowance | 31 |
+| `AUTO_CLOSE` | Non-actionable candidate; case remains TRIAGED_NON_ACTIONABLE | 224 |
+| `ESCALATED_TO_SENIOR_QA` | Identity, data or uncertainty needs senior review | 106 |
+| `RELEASE_WITH_NOTE` | Prototype recommendation; human review required | 53 |
+| `QUARANTINE_PENDING_LAB` | Hold for a lab test | 26 |
+| `DESTROY` | Prototype severe-breach recommendation | 11 |
 
-The brief's hero case `EXC-107133` comes out as `RELEASE_WITH_NOTE`, with the SOP overlap flagged.
+EXC-107133 returns RELEASE_WITH_NOTE, but uses a conflicting master allowance rather than the brief's pen study; SOP and presentation conflicts are flagged, and batch-exposure recording is not implemented.
+
+Shadow: 91 firmware candidates, 91 scenario/evidence diffs, **4 disposition flips** (bound-aware versus as-reported-only, not the historical 61). Historical-final agreement: 11/200 (5.5%); assistant-draft agreement: 203/420 (48.33%). These require case-level QA review, not claims of improved safety. [Recorded validation and all 26 outcome changes](docs/validation/README.md).
 
 ## Project structure
 
@@ -115,7 +117,7 @@ The brief's hero case `EXC-107133` comes out as `RELEASE_WITH_NOTE`, with the SO
 │   ├── service.py           facade used by CLI and API
 │   ├── api/                 FastAPI app + reviewer dashboard (static/index.html)
 │   └── cli.py               `kestrel` command
-├── tests/                   48 tests (unit, golden cases, API, invariants)
+├── tests/                   67 tests (unit, golden cases, API, invariants)
 ├── docs/                    architecture, rules, API, operations, case-study write-up
 ├── data/                    case-study inputs (unchanged)
 ├── Dockerfile · Makefile · pyproject.toml · .github/workflows/ci.yml
@@ -157,14 +159,14 @@ Full endpoint list and error codes: [docs/api.md](docs/api.md).
 ## Testing and quality
 
 ```bash
-make test     # pytest, 48 tests
+make test     # pytest, 67 tests
 make lint     # ruff check + ruff format --check
 make cov      # coverage report
 ```
 
 | Suite | What it proves |
 |---|---|
-| `test_decision_rules.py` | each rule, with values on both sides of every threshold |
+| `test_decision_rules.py` | selected rule-order and threshold boundary cases; not exhaustive clinical or interaction coverage |
 | `test_golden.py` | known cases such as EXC-107133 give the expected outcome |
 | `test_as_of.py` | the SOP in force on an audit date |
 | `test_evidence.py` | hash chain, tamper detection, tenant isolation |
@@ -203,22 +205,27 @@ All optional. Copy `.env.example` or export:
 |---|---|
 | No LLM on the decision path | Virent bans external model APIs; the January pilot cited studies that don't exist; decisions must be versioned and replayable; cost ceiling of USD 0.06 per screened alert |
 | Bitemporal store | The inspector asks what was true *then*, and what we knew when we decided |
-| Hash-chained evidence per tenant | Seven-year reproducibility (AUD-2603) and MSA clause 22 tenant isolation |
+| Hash-chained evidence per tenant | Detect edits to stored bundles; seven-year archival completeness and clause 22 controls over all derived data remain production requirements |
 | Auto-close closures only | Dr Rao: "automate closures, not decisions" |
 | Separate regulatory clock | 14 late filings sat behind alert storms; the deadline drives queue order |
 | Ordered named rules | Each rule is testable on its own, and a reviewer can read why |
-| Start with one tenant (Aurastat) | The board minute asks for "one and certain" |
+| Propose Aurastat first | Candidate risk-based choice; board asks for "one and certain", not a named tenant |
 
 The full reasoning, requirement traceability and board pushback are in
 [docs/case-study.md](docs/case-study.md).
 
 ## Known limits
 
-- "Next business day" deadlines are approximated as 24 hours, and Brazil's five calendar days are counted in UTC.
-  A per-market holiday calendar is the next step.
+- Regulatory deadlines are prototype approximations, not verified legal cut-offs: US next-business-day is mapped to 24 hours and Brazil calendar days to 120 hours in UTC. A maintained jurisdiction calendar and programme applicability rules are required. India 15 days is sourced from tab 13 for notifiable products only.
 - SQLite and local JSON files are the prototype store. Production would use Postgres and object storage with
   object lock.
 - The dashboard has no login; sign-off takes a typed name. Production needs SSO and e-signature (21 CFR Part 11).
+
+- TT-CB-114 compares endpoint scenarios on supplied summaries (min/max/mean), not every possible raw series. Firmware-only applicability lacks device/date calibration.
+- Shortened expiry is missing; RELEASE_WITH_NOTE is not equivalent. ESCALATED_TO_SENIOR_QA is a queue/review state still represented in the disposition enum; RELEASE/RETURN/REWORK have no emitting rule.
+- No raw series/source-document archive, batch-exposure ledger, live storm admission/collapse/fairness, independent pager, or seven-year object-lock/restore guarantee. Aliases lack tenant provenance; matches are tenant-filtered candidates, not verified identity authority.
+- Signing appends a hash-linked artifact but local file/SQLite writes are not a cross-resource atomic transaction or authenticated e-signature.
+- No model API calls does not prove total retrieval/retention/residency/staffing cost.
 
 ## Reviewer's 10-minute tour
 

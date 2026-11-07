@@ -22,11 +22,15 @@ class TestLifecycle(_KestrelTestCase):
             },
         )
         try:
-            signed = self.svc.lifecycle.sign(case["case_id"], "QA-IN-04", Disposition.RELEASE_WITH_NOTE)
+            signed = self.svc.lifecycle.sign(
+                case["case_id"], "QA-IN-04", Disposition.RELEASE_WITH_NOTE, bundle_hash=out["bundle"]["content_hash"]
+            )
         except TransitionError:
             self.svc.lifecycle.transition(case["case_id"], CaseState.RECOMMENDED)
             self.svc.lifecycle.transition(case["case_id"], CaseState.AWAITING_REVIEWER)
-            signed = self.svc.lifecycle.sign(case["case_id"], "QA-IN-04", Disposition.RELEASE_WITH_NOTE)
+            signed = self.svc.lifecycle.sign(
+                case["case_id"], "QA-IN-04", Disposition.RELEASE_WITH_NOTE, bundle_hash=out["bundle"]["content_hash"]
+            )
         self.assertEqual(signed["state"], CaseState.CLOSED_SIGNED.value)
         self.assertEqual(signed["signed_by"], "QA-IN-04")
         revision = self.svc.lifecycle.reopen(signed["case_id"], "BULLETIN_TT_CB_114")

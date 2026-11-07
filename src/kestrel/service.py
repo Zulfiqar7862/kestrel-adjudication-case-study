@@ -5,7 +5,8 @@ from __future__ import annotations
 import logging
 import time
 from collections import Counter
-from datetime import datetime, timezone
+from dataclasses import asdict
+from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Any, Optional
 
@@ -39,7 +40,7 @@ class AdjudicationService:
             self.store,
             retention_years=self.settings.retention_years,
         )
-        self.lifecycle = CaseLifecycle(self.store)
+        self.lifecycle = CaseLifecycle(self.store, self.evidence)
         self.pack: Optional[DataPack] = None
         self.engine: Optional[AdjudicationEngine] = None
         self.snapshot_id: Optional[str] = self.store.get_meta("ref_snapshot_id")
@@ -57,7 +58,7 @@ class AdjudicationService:
                     self.store,
                     retention_years=self.settings.retention_years,
                 )
-                self.lifecycle = CaseLifecycle(self.store)
+                self.lifecycle = CaseLifecycle(self.store, self.evidence)
             self.snapshot_id = load_workbook_into_store(pack_path, self.store)
         self.pack = DataPack.load(pack_path)
         self.engine = AdjudicationEngine(self.pack)
@@ -118,7 +119,10 @@ class AdjudicationService:
     def _persist(self, result: AdjudicationResult, event: dict[str, Any]) -> dict[str, Any]:
         """Write an evidence bundle for a result and return bundle metadata."""
         assert self.snapshot_id
+        assert self.pack
         inputs = {
+            "replay": encode_replay({"event": event, "references": self.pack.replay_snapshot(result.tenant_code)}),
+            "expected_result": encode_replay(asdict(result)),
             "alert": {
                 "event_id": event.get("event_id"),
                 "alert_ts_utc": str(event.get("alert_ts_utc")),
@@ -146,7 +150,7 @@ class AdjudicationService:
             "requires_human_signature": result.requires_human_signature,
             "confidence": result.confidence,
             "triage_label": result.triage_label,
-            "corrected_max_temp_c": result.corrected_max_temp_c,
+            "reported_max_temp_c": result.reported_max_temp_c,
             "bulletin_applied": result.bulletin_applied,
             "regulator_reportable": result.regulator_reportable,
             "reg_window_hours": result.reg_window_hours,
@@ -172,19 +176,26 @@ class AdjudicationService:
         return self.evidence.verify_chain(tenant_code)
 
     def replay_from_bundle(self, bundle_id: str, tenant_code: str) -> dict[str, Any]:
-        """Re-run adjudication from bundle inputs; require identical disposition."""
-        assert self.engine and self.pack
+        """Replay verified bundled inputs with matching versions; compare the full result."""
         doc = self.evidence.get(bundle_id, tenant_code=tenant_code)
-        event_id = doc["event_id"]
-        event = self.pack.event_by_id(event_id)
-        assert event
-        again = self.engine.adjudicate(event)
+        if not self.evidence.verify_document(doc):
+            raise ValueError("bundle content hash verification failed")
+        if (
+            doc.get("rule_pack_version") != self.settings.rule_pack_version
+            or doc.get("code_version") != self.settings.code_version
+        ):
+            raise ValueError("replay requires matching pinned code and rule versions")
+        if "replay" not in doc["inputs"]:
+            raise ValueError("legacy bundle has no immutable replay inputs")
+        saved = decode_replay(doc["inputs"]["replay"])
+        replay_pack = DataPack(path=Path("bundled-inputs"), **saved["references"])
+        again = AdjudicationEngine(replay_pack).adjudicate(saved["event"])
         original = doc["recommendation"]["disposition"]
         return {
             "bundle_id": bundle_id,
             "original_disposition": original,
             "replay_disposition": again.recommendation,
-            "identical": original == again.recommendation,
+            "identical": doc["inputs"].get("expected_result") == encode_replay(asdict(again)),
             "original_reasoning": doc.get("reasoning_steps"),
             "replay_reasoning": again.rationale,
             "versions": {
@@ -293,12 +304,13 @@ class AdjudicationService:
         """
         assert self.engine and self.pack
         if baseline_mix is None:
+            # Reproduced 0.4.0 sample regression baseline, NOT QA-approved clinical policy.
             baseline_mix = {
                 "AUTO_CLOSE": 224,
-                "ESCALATED_TO_SENIOR_QA": 80,
-                "RELEASE_WITH_NOTE": 54,
-                "DESTROY": 31,
-                "QUARANTINE_PENDING_LAB": 31,
+                "ESCALATED_TO_SENIOR_QA": 106,
+                "RELEASE_WITH_NOTE": 53,
+                "DESTROY": 11,
+                "QUARANTINE_PENDING_LAB": 26,
             }
         now = datetime.now(timezone.utc).replace(tzinfo=None)
         mix: Counter[str] = Counter()
@@ -483,3 +495,29 @@ class AdjudicationService:
             "alerts": alerts,
             "note": "Pack is stratified historical data; breached/at-risk counts here demonstrate the monitor against known INC/late rows, not live pages.",
         }
+
+
+def encode_replay(value: Any) -> Any:
+    """JSON-safe tagged serialization; do not guess dates from ordinary strings."""
+    if isinstance(value, datetime):
+        return {"__kestrel_datetime__": value.isoformat()}
+    if isinstance(value, date):
+        return {"__kestrel_date__": value.isoformat()}
+    if isinstance(value, dict):
+        return {k: encode_replay(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [encode_replay(v) for v in value]
+    return value
+
+
+def decode_replay(value: Any) -> Any:
+    """Restore tagged reference/event values from a verified bundle."""
+    if isinstance(value, dict):
+        if set(value) == {"__kestrel_datetime__"}:
+            return datetime.fromisoformat(value["__kestrel_datetime__"])
+        if set(value) == {"__kestrel_date__"}:
+            return date.fromisoformat(value["__kestrel_date__"])
+        return {k: decode_replay(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [decode_replay(v) for v in value]
+    return value

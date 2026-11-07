@@ -1,218 +1,69 @@
-# Case study write-up: The Adjudication Problem
+# Case study: The Adjudication Problem
 
-> This is the full case-study write-up that was submitted on the `main` branch, kept here unchanged in substance.
-> On `main` the code is one file, `kestrel.py`, split into `====SECTION====` blocks. On this `production` branch
-> each section is its own module under `src/kestrel/`, and `python kestrel.py <cmd>` becomes `kestrel <cmd>`.
-> See [architecture.md](architecture.md#from-kestrelpy-sections-to-modules) for the section-to-module map.
+Case-study submission by **Zulfiqar Ali Ahmed**. Revised after reviewer fact-check, 7 Nov 2026 (CET).
 
-Case-study submission by **Zulfiqar Ali Ahmed**.
+> `production` is a deterministic modular prototype, not a certified/production-ready system. `main` keeps the earlier single-file version; packaging was a choice, not a one-/two-file rule in the brief. Reviewer fixes intentionally change outcomes.
 
-> **Covering note (brief §10):** Spent about **12 focused hours** inside the five-day window (brief suggests 10–14). Unusual tool: **Grok Bot** as an AI pair-programmer for design critique, consolidation, and README evidence paste — not for inventing dispositions. Stack otherwise: Python 3, `openpyxl`, stdlib `sqlite3` / `unittest`, FastAPI + Pydantic v2 + uvicorn for the API layer (lazy import), `git`/`gh`. Code path is deterministic; no LLM on the hot path.
+<!-- TODO: candidate must confirm actual focused effort before submission; do not infer from bot wall time. -->
+**Covering note:** Actual focused effort must be confirmed by the candidate before submission. Grok Bot assisted design critique, implementation and verification; no LLM runs in adjudication. Stack: Python, openpyxl, SQLite, unittest/pytest, FastAPI, Pydantic, uvicorn, ruff and GitHub CI.
 
-**Repository layout (exactly two files + inputs):**
+## Start here
 
-| Path | Role |
-|---|---|
-| [`kestrel.py`](https://github.com/Zulfiqar7862/kestrel-adjudication-case-study/blob/main/kestrel.py) | Self-contained prototype: ingest, bitemporal store, as-of engine, evidence hash-chain, lifecycle, shadow replay, FastAPI HTTP API (lazy), CLI, reviewer dashboard at `/ui`, embedded 31-test suite |
-| [`README.md`](../README.md) | This document — requirements, design, evidence, working log |
-| [`data/`](../data/) | Case-study inputs only (**do not modify**): brief PDF + `KCCS_Sentinel_Reference_Data_Pack.xlsx` |
+The workbook contains a deliberately stratified evidence sample of 420 alerts; Kestrel raised about 11,400 alerts last month. For each alert: was the medicine harmed, what should happen to it, and is a regulator notification due? Reviewers must assemble dated identity, stability, SOP, carrier and temperature evidence. The brief invites a justified design position and asks for heavy AI use in the working process; it does not require an AI decision engine.
 
----
-
-## Start here (5-minute read)
-
-### 1. The problem in one paragraph
-
-Kestrel's loggers raise about 420 temperature alerts in this pack. For each one, someone has to answer: *was the medicine harmed, what do we do with it, and do we have to tell a regulator by a deadline?* The answer depends on the rules that were in force **on the day of the excursion**: the product's stability study, the customer's SOP revision, the carrier contract, and logger firmware bulletins. Today reviewers spend most of their time digging those facts out of different places. Kestrel asked for AI that decides. My conclusion is that **the hard part is gathering the right evidence, not making the decision**. So I built that first.
-
-### 2. What I built, in four steps
+The prototype resolves tenant-filtered products/studies and effective-date references, runs explicit deterministic rules, seals inputs/results and requires named hash-bound sign-off for fate recommendations. It does **not** prove the full March-audit basis or clinical correctness.
 
 ```mermaid
 flowchart LR
-    A[Alert from logger] --> B[1. Look up the rules<br/>in force on that date]
-    B --> C[2. Apply fixed rules<br/>e.g. TT-CB-114 +1.8 °C]
-    C --> D[3. Seal the evidence<br/>hash-chained, per customer]
-    D --> E[4. A named person<br/>reviews and signs]
-    E --> F[(Case closed,<br/>replayable later)]
+    A[Alert] --> B[Identity and dated references]
+    B --> C[Reported and bounded-temperature scenarios]
+    C --> D[Escalate uncertainty-sensitive dispositions]
+    D --> E[Seal inputs and full result]
+    E --> F[Named reviewer with mandatory viewed hash]
+    F --> G[Append signature artifact]
 ```
 
-| Step | What happens | Where in `kestrel.py` |
-|---|---|---|
-| 1. Look up the facts | It finds the product, stability study, SOP revision and carrier contract that applied **on the excursion date** (an "as-of" lookup). | `STORE`, `AS_OF`, `IDENTITY` sections |
-| 2. Recommend | Fixed, written rules give one of five outcomes. Every rule that fired is listed in plain words. There is no AI or LLM. The same input always gives the same output. | `STABILITY`, `REGULATORY`, `ENGINE` |
-| 3. Seal the evidence | Everything used is saved as one record with a SHA-256 fingerprint, linked to the previous record for that customer. Any later edit is detectable. One customer can never read another's records. | `EVIDENCE` |
-| 4. Human signs | A reviewer must type their name. The signature is tied to the exact evidence they saw, so if the evidence changed it is refused. | `LIFECYCLE`, `API` |
-
-The five outcomes are: no action needed, release with a note, hold for a lab test, destroy, and needs a senior reviewer.
-
-### 3. Run it in three commands
+## Reproduce the current sample
 
 ```bash
-pip install openpyxl fastapi pydantic uvicorn httpx
-kestrel test      # 31 tests, about 15 seconds
-kestrel serve     # then open http://localhost:8080/ui
-```
-
-### 4. Try one case end to end (EXC-107133, the case in the brief)
-
-1. **Pick a case.** Open the dashboard and type `EXC-107133` in the search box.
-2. **Check the facts.** The page shows the alert (5.4 to 11.2 °C for 15 minutes), the SOP that applied (`SOP-KAV-9392` Rev 03, with a warning that two revisions overlap on that date), the carrier contract (`CNT-2021-0245`, which has no cold-chain clause), and the eight rules behind **Release, add a note**.
-3. **Seal and verify.** Click *Seal evidence and open case*, then *Check nothing was changed*. You will see "All records for T-KAVERI are intact".
-4. **Sign.** Type your name, pick the decision, and sign. A blank name is refused, and so is a stale evidence fingerprint.
-
-### 5. Results on the full pack (420 alerts)
-
-| Outcome | Count |
-|---|---|
-| No action needed (AUTO_CLOSE) | 224 |
-| Needs a senior reviewer (ESCALATED_TO_SENIOR_QA) | 80 |
-| Release, add a note (RELEASE_WITH_NOTE) | 54 |
-| Hold for lab test (QUARANTINE_PENDING_LAB) | 31 |
-| Destroy (DESTROY) | 31 |
-
-### 6. What I would say in the interview, in one line each
-
-- **Wrong target:** "70% with no human" is the wrong goal. The right goals are zero late regulator filings and less good product destroyed.
-- **Start small:** start with one customer (Aurastat) and be certain, as the board minute says, rather than rolling out to all 34 customers in nine months.
-- **No AI on decisions:** decisions use fixed rules, because of Virent's ban on external models, de Vries's version-provenance requirement, Dr Rao's "automate closures, not decisions", and the $3,000 a month cost cap.
-- **Known gaps:** I state them openly in [Deferred items](#deferred-items). For example, "next business day" is approximated as 24 hours, and Brazil's five calendar days are computed in UTC.
-
-Everything below is the detailed version of the same story.
-
----
-
-## Table of contents
-
-0. [Start here (5-minute read)](#start-here-5-minute-read)
-1. [Executive summary](#executive-summary)
-2. [Quickstart](#quickstart)
-   - [Run it locally](#run-it-locally)
-3. [Where You Land](#where-you-land)
-   - [Requirements → evidence](#requirements-evidence-traceability)
-   - [What the system has to do](#what-this-system-has-to-do)
-   - [Attributes](#attributes-what-it-has-to-be)
-   - [Non-goals](#what-i-am-deliberately-not-building-and-why)
-   - [Phased rollout](#phased-rollout)
-   - [Gaps / contradictions](#where-the-briefpack-is-silent-or-contradictory-positions-taken)
-   - [Board commitments 1 and 5](#board-commitments-1-and-5)
-   - [Board pushback](#board-items-i-believe-are-wrong-with-counterarguments)
-   - [Cost ceiling (tab 13) and the quiet Sunday](#cost-ceiling-tab-13-and-the-quiet-sunday)
-4. [Design](#the-design)
-   - [Architecture & code structure](#architecture-code-structure)
-   - [Architecture](#11-shape-component-map)
-   - [Bitemporal data model](#21-bitemporal-reference-rows)
-   - [Case lifecycle](#3-case-lifecycle)
-   - [Degradation](#4-degradation-during-outages-and-the-regulatory-clock)
-   - [Versioning / deployment](#5-versioning-and-production-pipeline)
-   - [Reviewer questions mapping](#6-mapping-to-the-twelve-reviewer-questions-tab-10)
-   - [Thin spots named in the brief](#7-thin-spots-named-in-the-brief)
-   - [Monitoring and operations (3 am, six months later)](#8-monitoring-and-operations-3-am-six-months-later)
-5. [Validation](#validation)
-6. [Evidence](#evidence-sample-outputs)
-   - [Agreement stratification](#agreement-stratification)
-7. [Working log](#working-log)
-8. [Deferred items](#deferred-items)
-9. [Time spent / covering note](#time-spent-covering-note)
-
----
-
-## Executive summary
-
-Kestrel’s failure mode is not “the model is not smart enough.” Reviewers cannot assemble **as-of** product identity, stability allowance, SOP revision, and carrier contract in one place — and cannot reproduce that basis years later (AUD-2603). This submission is an **evidence-centred, bitemporal adjudication prototype** in a single Python module (hard path real; not a full multi-region production platform):
-
-- Deterministic as-of engine (closures may auto-complete; product-fate dispositions require human sign-off — Dr Rao).
-- SQLite **bitemporal** reference store (valid-time + transaction-time).
-- **Hash-chained, tenant-isolated evidence bundles** with 7-year retention metadata; full basis retrieval for EXC-107133 measured at **median 0.27 ms** locally (30 samples; min 0.21 / p95 0.51 / max 1.48 ms).
-- Case lifecycle + regulatory-deadline priority queue (INC-2502 storm safety).
-- Shadow replay for calibration bulletin TT-CB-114 (Dr Rao gate).
-- FastAPI API (lazy) + argparse CLI; **engine dependency: `openpyxl` only** (add `fastapi pydantic uvicorn` to serve).
-
-**First customer position:** Aurastat (`T-AURA`).
-
-**Run-all on the stratified pack (420 events):**
-
-| Disposition | Count |
-|---|---|
-| AUTO_CLOSE | **224** |
-| ESCALATED_TO_SENIOR_QA | **80** |
-| RELEASE_WITH_NOTE | **54** |
-| DESTROY | **31** |
-| QUARANTINE_PENDING_LAB | **31** |
-
-Hero case **EXC-107133 → `RELEASE_WITH_NOTE`**.
-
----
-
-## Quickstart
-
-### Run it locally
-
-```bash
-# From repo root
-python3 -m venv .venv && source .venv/bin/activate
-pip install openpyxl                          # required for engine/tests
-pip install fastapi pydantic uvicorn httpx    # required for serve + API tests
-
-kestrel test                        # ≥29 embedded tests
-kestrel ingest --reload
-kestrel run-all                     # expect AUTO_CLOSE 224 … EXC-107133 RELEASE_WITH_NOTE
+python -m venv .venv && source .venv/bin/activate
+pip install -e ".[api,dev]"
+make test                  # 67 tests; runtime varies
+make lint
+kestrel run-all --out results.csv
 kestrel adjudicate --event EXC-107133
-kestrel basis --event EXC-107133 --tenant T-KAVERI
-kestrel verify --tenant T-KAVERI
-kestrel shadow-bulletin
-kestrel as-of-sop --tenant T-AURA --date 2025-08-14
+kestrel adjudicate --event EXC-112289
+kestrel shadow-bulletin --out shadow.json
 kestrel agreement
-kestrel health                      # alias: monitor
-
-# API (FastAPI + uvicorn; lazy import — clear error if deps missing)
-kestrel serve --host 127.0.0.1 --port 8080
+kestrel serve              # /ui and /docs
 ```
 
-Example curls against a live server (real shapes; status codes shown):
+## Current results (not platform KPIs)
 
-```bash
-curl -s http://127.0.0.1:8080/health
-# 200 {"ok":true,"snapshot_id":"snap-…","rule_pack_version":"0.3.0"}
+Persisted run-all, 7 Nov 2026 (CET), rule/code version 0.4.0:
 
-curl -s -X POST http://127.0.0.1:8080/adjudicate \
-  -H 'content-type: application/json' \
-  -d '{"event_id":"EXC-107133","persist":true}'
-# 200 … "recommendation":"RELEASE_WITH_NOTE", "bundle_id":"EVB-…", "case_id":"CASE-…"
+| Output | Count |
+|---|---:|
+| AUTO_CLOSE | 224 |
+| ESCALATED_TO_SENIOR_QA | 106 |
+| RELEASE_WITH_NOTE | 53 |
+| QUARANTINE_PENDING_LAB | 26 |
+| DESTROY | 11 |
+| Total | 420 |
 
-curl -s -X POST http://127.0.0.1:8080/evidence/basis \
-  -H 'content-type: application/json' \
-  -d '{"event_id":"EXC-107133","tenant_code":"T-KAVERI"}'
-# 200 … "retrieval_latency_ms": <1, "within_one_hour": true
+Exclusive strata are 61 bulletin re-adjudications + 24 written overrides + 13 further late-window cases + 57 further storm records + 1 narrative case + 264 random-rest records. Do not double-count the overlaps or treat sample ratios as population ratios. The 78% non-actionable closure, ~64% all-alert closure, 82% non-actionable and 23% assistant-overrule values are **source baselines**, not improvements achieved here.
 
-curl -s -X POST http://127.0.0.1:8080/evidence/verify \
-  -H 'content-type: application/json' \
-  -d '{"tenant_code":"T-KAVERI"}'
-# 200 … "ok": true
+**Shadow:** 91 affected-firmware candidates, 91 scenario/evidence diffs, **4 disposition flips** when adding bound-aware analysis to as-reported-only decisions. This is not the historical 61/214 re-adjudication incident. Shadow does not reopen cases or handle invoices automatically.
 
-curl -s 'http://127.0.0.1:8080/as-of/sop?tenant_code=T-AURA&date=2025-08-14'
-# 200 SOP-in-force payload (AUD-2603 date)
+**Agreement:** historical finals 11/200 = 5.5%; assistant drafts 203/420 = 48.33%. There are 189 historical-final disagreements. Dr Rao asked for explained differences, not maximised agreement; low agreement does not itself prove safety or failure. Case-level QA review is mandatory before promotion.
 
-curl -s 'http://127.0.0.1:8080/shadow/bulletin'
-curl -s 'http://127.0.0.1:8080/queue?limit=5'
-curl -s 'http://127.0.0.1:8080/ops/health-report'
-curl -s 'http://127.0.0.1:8080/ops/agreement'
+## EXC examples: outcome is not the same as evidence correctness
 
-# Bad input → clean 4xx
-curl -s -o /dev/null -w '%{http_code}\n' -X POST http://127.0.0.1:8080/adjudicate \
-  -H 'content-type: application/json' -d '{}'
-# 422
-curl -s -o /dev/null -w '%{http_code}\n' -X POST http://127.0.0.1:8080/adjudicate \
-  -H 'content-type: application/json' -d '{"event_id":"EXC-DOES-NOT-EXIST","persist":false}'
-# 404
-```
+- **EXC-107133 → RELEASE_WITH_NOTE**, confidence 0.8, human required. Reported 5.4–11.2°C, 15min, firmware TT-2.15.0; gtin_exact; SOP-KAV-9392 Rev03 with overlap. The prototype uses the conflicting master cumulative 72h-above-8°C allowance, not the brief's pen study (single excursion ≤6h below15°C). STB-3584 is vial-indexed/blank excursion text. Highest-revision selection is a flagged candidate tie-break, not resolution of Annexure2. No prior-batch exposure is subtracted or recorded. This is an outcome match/conflict demo only.
+- **EXC-112289 → ESCALATED_TO_SENIOR_QA**, previously DESTROY. Reported peak18.0°C remains unchanged; upper scenario19.8°C. Selected study says “No excursion above25°C permitted”; fixed parsing no longer invents an unconditional ban. Missing duration/disposition authority routes both scenarios to QA. Historical final QUARANTINE_PENDING_LAB remains a disagreement.
+- **EXC-112198 → AUTO_CLOSE** based on historical duplicate triage before identity; no independently implemented live deduplication proof.
 
-**Default workbook:** `data/KCCS_Sentinel_Reference_Data_Pack.xlsx`.  
-**Outputs** (SQLite DB, evidence JSON, CSV) go to a temporary directory (`/tmp/kestrel-adjudication/` on Linux) — not committed. Override with `--db`, `--evidence-dir`, `--out`.
-
-**CLI surface:** `ingest` · `adjudicate` · `run-all` · `basis` · `verify` · `replay` · `shadow-bulletin` · `queue` · `as-of-sop` · `health`/`monitor` · `agreement` · `serve` · `test` / `selftest`.
-
-**Dependencies:** engine/tests need only `openpyxl`. `serve` and FastAPI TestClient need `fastapi pydantic uvicorn` (and `httpx` for tests). Framework imports are lazy in the API layer.
-
+Detailed execution: [code-walkthrough.md](code-walkthrough.md). Rule ordering/thresholds: [decision-rules.md](decision-rules.md). Architecture: [architecture.md](architecture.md).
 
 ## Where You Land
 
@@ -222,18 +73,18 @@ Every requirement cites the brief or pack. Where I push the board, I say so.
 
 ### Requirements → evidence traceability
 
-| Where-You-Land req | Implementation in `kestrel.py` | Test |
+| Where-You-Land req | Prototype implementation / boundary | Test |
 |---|---|---|
 | R1 Evidence assembly | Identity / stability / as-of SOP / contract / regulatory resolution + evidence `inputs` | `test_exc_107133_*` |
 | R2 Auto-close non-actionable only | Engine `AUTO_CLOSE` path; lifecycle `TRIAGED_NON_ACTIONABLE` | `test_auto_close_never_requires_human` |
 | R3 No auto-sign product fate | `requires_human_signature`; lifecycle `sign()` | `test_lifecycle_sign_and_reopen_months_later` |
-| R4 Full basis ≤1h / 7y | `EvidenceStore.produce_full_basis`, retention metadata | `test_retrieval_latency_under_hour` |
+| R4 Full basis ≤1h / 7y | Local captured-basis retrieval + retention metadata only; archival completeness/durability not established | `test_retrieval_latency_under_hour` |
 | R5 Bitemporal as-at | `BitemporalStore.as_of` / `sop_in_force` | `test_aura_sop_as_of_audit_date` |
 | R6 Regulatory clock ≠ disposition | `regulatory_clock`; case `reg_deadline_utc` | `test_queue_orders_by_reg_deadline` |
-| R7 Tenant isolation (Cl.22) | Evidence get requires matching tenant | `test_tenant_isolation_meridian_clause` |
+| R7 Tenant isolation (Cl.22) | Evidence get and product/study lookup tenant-filtered; full derived-data controls remain unfinished | `test_tenant_isolation_meridian_clause` |
 | R8 Deterministic versioned logic | `rule_pack_version` + `ref_snapshot_id` on every bundle | `test_replay_determinism` |
 | R9 Cost ceiling | Deterministic path; no LLM on hot path | Design note |
-| R10 First tenant 90d + Rao gate | Aura-first rollout; `shadow-bulletin` | `test_shadow_bulletin_produces_diffs` |
+| R10 First tenant 90d + Rao gate | Proposed Aura-first rollout; shadow diff demo, not enforced approval | `test_shadow_bulletin_produces_diffs` |
 
 ### What this system has to do
 
@@ -267,7 +118,7 @@ Every requirement cites the brief or pack. Where I push the board, I say so.
 5. **Carrier claim automation as a go-live gate.** Carrier clause affects who pays, not product disposition (brief §2). Surface the contract; do not block release on claim packages.
 6. **Multi-tenant “similar case” semantic search across the book.** INC-2512. Precedents are per-tenant or explicitly dual-controlled.
 
-### Phased rollout
+### Phased rollout (proposed, not implemented/achieved)
 
 #### Phase 0 — Design sign-off → day 30 (shadow only)
 
@@ -277,7 +128,7 @@ Every requirement cites the brief or pack. Where I push the board, I say so.
 
 #### Phase 1 — First customer live by day 90: **Aurastat Biologics (T-AURA)**
 
-**Why Aura, not Virent (largest) or Kaveri (hero case):**
+**Candidate risk-based choice, not a board-mandated tenant. Why Aura, not Virent (largest) or Kaveri (hero case):**
 
 - Board minute: one and certain.
 - AUD-2603 major observation and conditional renewal are Aura’s (tab 14, Marieke §4).
@@ -304,10 +155,10 @@ Go-live scope: as-of engine drives **auto-close candidates** (human can still op
 | No per-tenant regulatory window table; tab 13 lists market windows; tab 12 notes Campos = 5 calendar days | Explicit defaults in `regulatory_clock`: Aura/Nordia 72h; Campos 5d; US tenants 24h operational SLA for the “next business day” programme; India 15d for notifiable products. Historical `reg_window_hours` on a row wins when present. |
 | `rules_engine_recommendation` name vs README (it’s the LLM assistant since 2024) | Treat column as “historical assistant draft.” Do not optimise agreement with it. |
 | T-KAVERI Glucodyne SoloJet cites STB-3584 indexed as **vial**; brand is SoloJet (**pen**); master text says cumulative 72h above 8°C; brief narrative says ≤6h to 15°C once | Prefer master permitted text when study presentation conflicts; flag mismatch; require human. Brief’s 6h/15°C figure is not on the Kaveri master row — I do not invent it. |
-| SOP overlapping effective dates (Kaveri Rev 01/02/03; README admits minority overlap) | Select highest revision, set `overlap_conflict`, require human confirm; do not hard-stop if stability is decisive (matches EXC-107133 story). |
+| SOP overlapping effective dates (Kaveri Rev 01/02/03; README admits minority overlap) | Select highest revision, set `overlap_conflict`, require human confirm; do not hard-stop if stability is decisive (outcome match only, not proof the governing Annexure 2 limit is resolved). |
 | Tab 01 stratified ≠ population | Never quote tab 01 percentages as platform rates; use tab 13. |
-| Facility timezone wrong for two sites (README) | Store all case clocks in UTC; render in reviewer local offset from queue log. |
-| 06_Stability_Index ~60% coverage; some master refs missing; readable=N | Missing/unreadable study → escalate or quarantine, never invent allowance. |
+| Facility timezone wrong for two sites (README) | Store clocks in UTC; facility-timezone verification and market-local cut-offs remain unfinished. |
+| 06_Stability_Index ~60% coverage; some master refs missing; readable=N | Unreadable study reaching its guard quarantines; missing study can fall back to master and mild no-allowance fallback can recommend release-with-note. This is not a universal missing-evidence guard. |
 | Board “70% closed without a person” vs 82% non-actionable base rate | See pushback #1. |
 
 ### Board commitments 1 and 5
@@ -319,18 +170,17 @@ Exact wording from board paper BP-26-09 (brief §6):
 | **1** | Median time from alert to signed disposition under 24 hours, by the end of the first full quarter after go-live. | 6.2 days |
 | **5** | No notifiable deviation notified to a regulator outside its window. | 14 late in the last two quarters |
 
-**How the design meets them**
+**Proposed approach and what the prototype cannot guarantee**
 
-- **Commitment 1 (24h median disposition).** The engine does not invent a faster human; it collapses the 96-minute median evidence chase (tab 13) into a single as-of bundle so a reviewer can sign once the evidence is in. AUTO_CLOSE on genuine non-actionable rows (224/420 in this stratified pack; population target is the 82% non-actionable mass on tab 13) removes them from the disposition clock. Lifecycle + `storm_safe_queue` sort by `reg_deadline_utc` then age so real work is not buried (INC-2502). Pack measurement on the 200 `case_opened` rows: historical median `days_to_disposition` ≈ **6.06 days** (mean ≈ 6.60) — still far from 24h. **Pushback:** 24h median across *all* alerts including ones that need lab / dual sign / handwritten Annexure 2 confirmation is unrealistic in Q1 without staffing change. What I would commit to in Q1: (a) median time-to-*recommendation+bundle* under 15 minutes for Aura; (b) median time-to-*signed disposition* under 24h for the AUTO_CLOSE + simple RELEASE_WITH_NOTE cohort only; (c) explicit exclusion of PENDING_LAB / dual-sign / annexure-OCR waits from that KPI until those workflows exist.
-- **Commitment 5 (zero late regulator filings).** Separate regulatory clock from disposition clock (`regulatory_clock`, case `reg_deadline_utc` never cleared on outage). Queue priority is the deadline. `kestrel health` fires `regulatory_deadline_breached` / `_at_risk` with a runbook that says **file the notification from the evidence bundle before disposition**. Pack known-late rows: **14** of 28 reportable (`reported_within_window=N`) — the same figure Kavitha cites. **Pushback / honesty:** a prototype on a static workbook cannot *prevent* late filings in production; it can only make the breach visible and pageable. Zero late is achievable only if storm brake + deadline paging are mandatory and reviewers are staffed for the 72h / next-business-day markets on weekends — see quiet Sunday below.
+- **Commitment 1 (24h median disposition).** The source population median active human review is 96 minutes (tab 13), not a measured saving here. Historical disposition median is 6.2 days in the population; the 200 opened sample cases have median about 6.06 days (mean 6.60). Evidence assembly may help, but lab/dual-sign/Annexure waits and weekend staffing must be measured. Propose a time-to-bundle metric separately from alert-to-signed disposition; do not claim engine runtime proves either SLA. AUTO_CLOSE candidates remain TRIAGED_NON_ACTIONABLE rather than terminal CLOSED_AUTO.
 
 ### Board items I believe are wrong (with counterarguments)
 
 #### 1. Commitment 2 — “≥70% of alerts closed without reaching a person”
 
-**Counterargument.** About 82% of alerts are non-actionable (brief §2, tab 13). Closing 70% of *all* alerts without a person is almost the entire non-actionable mass plus a slice of real decisions. Dr Rao’s condition, minuted with the same paper, refuses automation on decisions. Pushing the 70% target encourages exactly the November failure mode: softer destroy/release recommendations to clear queue.
+**Counterargument.** With 82% non-actionable alerts, closing 70% of all alerts would require about 85.4% of the non-actionable population, versus today's 78%. That is an improvement target, not a mathematical requirement to automate product fate. Validate safe closure coverage separately from evidence quality, and never auto-sign product-fate decisions.
 
-**What I would commit to instead:** (a) ≥78% of alerts that are *genuinely non-actionable* auto-closed with an evidence hash a reviewer can spot-check; (b) 0% of destroy/quarantine/release-with-note auto-signed; (c) override rate on recommendations trending down from 23% because evidence is complete, not because the model is smoother.
+**What I would commit to instead:** preserve the current 78% non-actionable closure baseline while measuring safe improvement; never auto-sign product fate; measure whether complete evidence reduces the 23% assistant-overrule baseline on an audited, representative cohort. The stratified pack is not a production KPI.
 
 #### 2. Commitment 6 — “All 34 within nine months”
 
@@ -355,9 +205,9 @@ Tab 13 figures used as-written (not invented):
 | What the ceiling covers | Model inference + retrieval that serves it (ingestion/storage/7y retention = separate capital) |
 | Annual QA salary (current) | USD 1.51M |
 
-**Deterministic engine cost (measured this run):** adjudicating all 420 pack events took **0.0413 s** wall (~**0.098 ms / alert**). Model tokens on the decision path: **0**. Inference spend: **USD 0.00 / alert**, well under the USD 0.06 ceiling. Optional LLM justification drafting (out of decision path) would be the only draw on the USD 684/month inference envelope, and only for the human-reached cohort.
+**Decision-path cost boundary:** the deterministic engine makes no model API calls. This does not establish total inference-plus-retrieval cost, capital retention cost, residency cost or weekend staffing cost. Benchmark loaded-engine runtime separately from ingest, persistence and archive retrieval, with a dated reproducible script rather than a fixed historical timing.
 
-**Quiet Sunday (Daniel Okoro, CFO, brief §4):** *"…be specific about the shape of the bill, not just the size of it: it has to cost that on a quiet Sunday when nothing is going wrong and we are still paying for it."* Meaning: do not size the bill as burst GPU for incident days; the fixed cost must be tolerable when alert volume is low. Implication: prefer always-on cheap deterministic screening (this prototype) + tiny standby reviewer roster, not a large always-warm model fleet. Staffing shape: keep the 23-FTE loaded cost as the human ceiling; use automation to cut the 22% of non-actionable alerts reviewers still open (tab 13, median 17 min) and the 96-minute evidence chase on real cases — not to replace sign-off. On a quiet Sunday the deterministic path still runs for cents of CPU; the bill that remains is people on call for the 72h markets (commitment 5), which is exactly the fixed cost Okoro is asking us to own honestly.
+**Quiet Sunday (Daniel Okoro, CFO, brief §4):** the fixed bill matters even without an incident. Size always-on compute, ingestion/indexing, residency, replicas, archive restores, on-call and QA coverage separately from model API spend. No standby-roster capacity or CPU price is established here. At constant 11,400 alerts/month, seven years implies 957,600 base alert bundles before versions, documents, raw series, replicas and legal holds. Measure bytes and price those assumptions before quoting a total. The per-alert and per-human ceilings are source envelopes, not necessarily additive billing tiers.
 
 ---
 
@@ -367,7 +217,7 @@ Audiences: a team of six building it, and a reviewer trying to break it.
 
 ### Architecture & code structure
 
-`kestrel.py` is one file on purpose (two-file submission rule) but is organised as delimited modules (`====SECTION====` markers):
+The earlier main-branch prototype used one file as a packaging choice, not a rule in the brief. Production separates these responsibilities into modules; section 8 requires explicit data, interface, state, ordering, failure and recovery contracts.
 
 | Section | Responsibility |
 |---|---|
@@ -387,7 +237,7 @@ Audiences: a team of six building it, and a reviewer trying to break it.
 
 **Why FastAPI + Pydantic v2:** typed request/response models, dependency injection for the shared service, consistent 4xx validation errors, and a TestClient path for API smoke tests — without forcing those deps onto the engine/CLI path. `uvicorn` serves the app. If a framework import is missing at `serve` time, the process exits with a clear `DependencyMissingError` message listing `pip install fastapi pydantic uvicorn`.
 
-### 1.1 Shape & component map
+### 1.1 Target shape & component map (production design, not current wiring)
 
 Sentinel already raises alerts. The gap is not detection. The gap is: given alert *A* at time *T_alert*, produce (1) a **closure or recommendation**, (2) an **immutable evidence bundle** sufficient for an inspector years later, (3) a **regulatory deadline**, without crossing tenant boundaries or inventing citations.
 
@@ -405,7 +255,7 @@ flowchart TB
     S9[Carriers]
   end
 
-  subgraph core [Sentinel Adjudication — kestrel.py]
+  subgraph core [Target Sentinel Adjudication]
     A[Alert bus / dedupe / storm brake]
     I[Identity and alias service]
     R[(Bitemporal reference store)]
@@ -435,10 +285,9 @@ flowchart LR
   Pack[Workbook pack] --> Ingest[ingest]
   Ingest --> BT[(Bitemporal SQLite)]
   Pack --> Eng[adjudication engine]
-  BT --> Eng
   Eng --> Ev[evidence hash chain]
   Eng --> Life[case lifecycle]
-  Ev --> API[stdlib HTTP / CLI]
+  Ev --> API[FastAPI / CLI]
   Life --> API
   Eng --> Shadow[shadow bulletin replay]
 ```
@@ -456,7 +305,7 @@ flowchart LR
 | **Justification drafter** | Optional; prompts bound to evidence bundle IDs | INC-2411; tenant model-API matrix |
 | **Reviewer workbench** | Queue ordered by regulatory urgency then age | Tab 10; median 7 systems today |
 
-**Boundary rule:** the engine never calls SharePoint/Docuvault/Box directly — only the reference store snapshot as-of the relevant dates.
+**Boundary rule:** the engine never calls SharePoint/Docuvault/Box. Current live decisions use DataPack effective-date rows, not a transaction-time SQLite slice. Replay uses the typed tenant-filtered inputs/references sealed in the bundle. The target architecture must wire valid+transaction-time reconstruction end to end.
 
 ### 2.1 Bitemporal reference rows
 
@@ -495,14 +344,14 @@ sequenceDiagram
   Eng->>Ev: Write bundle(rule_pack, ref_snapshot, input_hash, cites)
 ```
 
-Re-adjudication after TT-CB-114: same `valid_as_of`, new `tx_as_of`, corrected temps (+1.8 °C for firmware `TT-2.14.3`), **new** bundle linked to prior.
+TT-CB-114 is under-reporting **up to** 1.8°C, not a calibrated correction. Affected firmware is evaluated at reported and upper-bound min/max/mean summary scenarios, recorded separately; disposition-sensitive cases escalate. Observations never become reported+1.8 truth. Two endpoints/common-offset summaries do not prove all possible raw series; per-device/date applicability and automatic linked re-adjudication workflows remain unfinished.
 
 ### 2.2 Core entities (logical)
 
 - `CanonicalProduct`, `ProductAlias`, `StabilityAllowance`, `SopRevision`, `CarrierContract`
 - `Alert`, `Case`, `EvidenceBundle`, `DecisionEvent`
 
-Temperature series are **referenced** from the bundle (copied at alert time) — ThermaTrace raw is retained only 30d vendor-side.
+The bundle currently retains alert summaries and a workbook-row pointer, **not a copied raw series** or complete source SOP/Annexure bytes. Raw series/source documents must be captured with hashes and qualified restores before the March-audit/7-year requirement is met.
 
 ### 3. Case lifecycle
 
@@ -537,9 +386,9 @@ stateDiagram-v2
 | `CLOSED_SIGNED` / `CLOSED_AUTO` | Terminal unless reopen |
 | `REOPENED` | Bulletin, customer query, inspector — new case version + **new** bundle |
 
-Queue sort key = `reg_deadline_utc ASC NULLS LAST, alert_ts ASC`. Regulatory deadline is attached at NEW and never cleared.
+Actual queue order is null deadlines last, earliest deadline, priority_score descending, updated_at ascending. Deadlines also exist on nonreportable rows. Reopen carries the deadline/reportability forward; ordering is not proof of storm safety.
 
-### 4. Degradation during outages (and the regulatory clock)
+### 4. Required degradation contracts (target, not tested live integrations)
 
 | Dependency down | Behaviour | Clock impact |
 |---|---|---|
@@ -554,9 +403,9 @@ Queue sort key = `reg_deadline_utc ASC NULLS LAST, alert_ts ASC`. Regulatory dea
 
 **Invariant:** an outage may increase human load or delay disposition; it must not reset or hide `reg_deadline_utc`.
 
-### 5. Versioning and production pipeline
+### 5. Versioning and proposed production pipeline
 
-**Marieke de Vries (Aurastat QA Director)** asked for two non-negotiables (brief §4): EU data residency, and *“I want to know which version of whatever you are using produced a given recommendation, and to be told when that changes.”* Every evidence bundle therefore records `rule_pack_version`, `ref_snapshot_id`, and `code_version`. Promoting any of them is a Dr Rao gate change; Aurastat is on the notify list for version changes (see also `firmware_bulletin_change` in the health catalog). **Rohan Bhatt (CEO)** framed the commercial stakes: compliance evidence is “the weakest thing we sell” — reconstructability is the product, not a side report.
+**Marieke de Vries (Aurastat QA Director)** asked for two non-negotiables (brief §4): EU data residency, and *“I want to know which version of whatever you are using produced a given recommendation, and to be told when that changes.”* Every evidence bundle therefore records `rule_pack_version`, `ref_snapshot_id`, and `code_version`. Promoting any should require a Dr Rao diff approval; Aurastat belongs on the proposed notify list for version changes (see also `firmware_bulletin_change` in the health catalog). **Rohan Bhatt (CEO)** framed the commercial stakes: compliance evidence is “the weakest thing we sell” — reconstructability is the product, not a side report.
 
 Three (plus optional prompt) versioned artefacts on every bundle:
 
@@ -596,18 +445,18 @@ Deterministic engine on auto-close path: ~0 model tokens. Fits Okoro’s cost ce
 | 11 Last time | Precedent store (tenant-scoped) |
 | 12 Reconstruct in 2 years | Evidence bundle WORM + hash chain |
 
-### What was actually built (single-file prototype pass)
+### What is actually built (modular prototype)
 
-| Design element | In `kestrel.py` |
+| Design element | In `src/kestrel/` |
 |---|---|
 | Bitemporal reference store | `BitemporalStore` (SQLite; `valid_*` + `tx_*`) |
 | Workbook ingest | `load_workbook_into_store` / `DataPack` — 420 alerts |
 | As-of engine | `AdjudicationEngine` + identity / stability / regulatory / as-of SOP |
-| Evidence WORM + hash chain | `EvidenceStore` — per-tenant chain, Cl.22 isolation, tamper verify |
+| Evidence hash chain (not WORM) | `EvidenceStore` — tenant-guarded local JSON, tamper verification, signature artifact |
 | Case lifecycle | `CaseLifecycle` — states incl. REOPENED; `storm_safe_queue` |
 | Shadow / Rao gate | `shadow_replay_bulletin` + CLI |
 | HTTP API | FastAPI + uvicorn (lazy): `/health`, `/adjudicate`, `/cases/*`, `/evidence/*`, `/replay`, `/shadow/bulletin`, `/queue`, `/as-of/sop`, `/ops/*` |
-| CLI + tests | argparse + embedded `unittest` (≥29), including `health`/`monitor`, `agreement`, determinism, FastAPI TestClient |
+| CLI + tests | argparse + 67 discovered tests, including `health`/`monitor`, `agreement`, determinism, FastAPI TestClient |
 
 ---
 
@@ -620,11 +469,11 @@ These are load-bearing and deliberately not papered over:
 | **Annexure 2 handwritten limit (T-KAVERI)** | For 2 of 6 sites, Annexure 2 is a scan with a handwritten margin note (QA head who left in 2024) that *raises* the acceptance limit (brief §2; tab 12). | Engine surfaces SOP overlap / human-confirm; it does **not** OCR the margin note. Phase 2 labelled extraction workflow. Silent model-read of handwriting is out of scope (failed January pattern). |
 | **Lane + batch history** | Sentinel shows one shipment; Priya used WhatsApp for lane memory; cumulative exposure must be written against the batch (brief §2). | Bundle records `prior_excursions_lane_90d` from the alert row as a stub + `lane_history_ref` note. Full lane/carrier/reefer panel and batch exposure ledger are deferred (tab 10 Q3/Q8). |
 | **Carrier setpoint CSV** | Tapti setpoint arrives as a CSV on email, when it arrives; contract has no cold-chain clause (brief §2). | Contract surfaced (`CNT-2021-0245`, no cold-chain schedule); setpoint CSV ingest not built. Liability/custody ≠ product fate — disposition proceeds; claim package may lag (degradation table). |
-| **Invoice withdrawal (INC-2506)** | After TT-CB-114, 61 re-adjudications; **9 carrier invoices had to be withdrawn**. | `shadow-bulletin` + reopen lifecycle produce the new bundle linked to prior; finance hook to withdraw/reissue invoices is an integration, not in this file. Health alert `firmware_bulletin_change` runbook names the invoice step. |
+| **Invoice withdrawal (INC-2506)** | After TT-CB-114, 61 re-adjudications; **9 carrier invoices had to be withdrawn**. | Shadow computes a sensitivity diff only; reopen is a separate operation preserving clock/signature history. It does not automatically re-adjudicate, create a linked replacement bundle or withdraw invoices. Finance hooks and idempotent invoice follow-up are unimplemented. |
 
 ### 8. Monitoring and operations (3 am, six months later)
 
-Brief §8.C: *how you would know if it stopped working at three in the morning six months from now.* Concrete alert catalog (also implemented as `kestrel health` / `monitor` against the pack):
+Brief §8.C asks how failure is detected at three in the morning. The following is a target paging/runbook catalogue. `kestrel health` / `monitor` implements on-demand historical checks and alert dictionaries, not live independent pages.
 
 | Alert | Threshold | Who is paged | Runbook step |
 |---|---|---|---|
@@ -636,262 +485,46 @@ Brief §8.C: *how you would know if it stopped working at three in the morning s
 | Queue age | Open actionable age &gt;12h, or reportable age &gt;50% of its window (INC-2502) | QA shift lead | Storm brake; AUTO_CLOSE only facility/duplicate heuristics; drain by deadline |
 | Firmware bulletin change | Vendor bulletin hash/version ≠ last approved `ref_snapshot` | Platform on-call; **notify Marieke de Vries** on version change | `shadow-bulletin`; Rao gate; re-adjudicate firmware cohort; withdraw carrier invoices if liability flips (INC-2506) |
 
-Measured against this stratified pack just now: decision mix matches baseline (224/80/54/31/31) so mix-drift is quiet; **14** historically late reportable rows fire the breached detector (known Kavitha figure); chain verify is clean after ingest+adjudicate; feed-staleness may fire on workbook mtime in lab mode — expected.
+Rerun 7 Nov 2026 (CET): sample regression mix is 224 AUTO_CLOSE / 106 escalation / 53 release-with-note / 26 quarantine / 11 destroy. This is not a QA-approved production baseline. The health helper still reports 14 historically late rows and workbook-mtime staleness; its firmware-change hook is not live bulletin detection, and its alert dictionaries do not send pages.
 
-## Validation
 
-```text
-$ kestrel test
-Running 29 embedded tests…
-...
-Ran 29 tests in ~14s
-OK
-```
+## Validation and review-driven changes
 
-Coverage parity with the prior multi-package suite:
+67 tests pass, including 19 focused regressions in `tests/test_review_regressions.py`; ruff check and format are clean. These tests establish software contracts on fixtures/sample data, not clinical validation.
 
-- Golden EXC-107133 → `RELEASE_WITH_NOTE`
-- As-at SOP (Aura AUD-2603 date; Kaveri overlap)
-- Hash chain + tamper detection
-- Tenant isolation (Cl.22)
-- Retrieval latency ≪ 1 hour
-- Replay determinism
-- Lifecycle sign + reopen months later; deadline-ordered queue
-- Shadow bulletin diffs
-- API smoke (health / adjudicate / basis / cross-tenant 403 / replay)
-- Identity (GTIN Glucodyne, blank product, Tapti no cold-chain clause)
-- Engine goldens (bulletin under-read, freeze-vaccine, facility storm AUTO_CLOSE, every-event structured)
-- Invariants (AUTO_CLOSE never requires human; reg deadline; bulletin +1.8 °C; SOP never future)
-
-```text
-$ kestrel run-all
-count=420
-AUTO_CLOSE=224  ESCALATED_TO_SENIOR_QA=80  RELEASE_WITH_NOTE=54
-DESTROY=31  QUARANTINE_PENDING_LAB=31
-EXC-107133 → RELEASE_WITH_NOTE
-```
-
----
-
-## Evidence (sample outputs)
-
-### EXC-107133 evidence bundle (excerpt)
-
-```json
-{
-  "bundle_id": "EVB-fab94fa9340546f3",
-  "tenant_code": "T-KAVERI",
-  "event_id": "EXC-107133",
-  "recommendation": {
-    "disposition": "RELEASE_WITH_NOTE",
-    "requires_human_signature": true,
-    "confidence": 0.8,
-    "triage_label": "ACTIONABLE — within allowance, cumulative note required",
-    "corrected_max_temp_c": 11.2,
-    "bulletin_applied": false,
-    "reg_deadline_utc": "2026-08-12 06:31:00"
-  },
-  "rule_pack_version": "0.3.0",
-  "ref_snapshot_id": "snap-d7a34b1a212d",
-  "retention_until": "2033-11-05 04:17:12.625096",
-  "product": {
-    "match_method": "gtin_exact",
-    "brand": "Glucodyne SoloJet 100U",
-    "gtin": "08901234500035",
-    "stability_study_ref": "STB-3584"
-  },
-  "temps": {
-    "min": 5.4,
-    "max_reported": 11.2,
-    "max_corrected": 11.2,
-    "duration_min": 15.0
-  },
-  "reasoning_head": [
-    "cited study presentation conflicts with brand; preferring product-master permitted_excursion_text",
-    "SOP overlap: 2 revisions of SOP-KAV-9392; selected Rev 03; human must confirm",
-    "Carrier contract CNT-2021-0245 has no cold-chain schedule — liability weak; does not alone change disposition"
-  ]
-}
-```
-
-### Retrieval latency
-
-Re-measured on this machine after persisting EXC-107133 (30 samples of `produce_full_basis`):
-
-```text
-event_id=EXC-107133
-retrieval_latency_ms median=0.27  (min=0.21, p95=0.51, max=1.48)
-within_one_hour=True
-retention_until≈2033-11-05 (7 years)
-```
-
-The same **0.27 ms median** figure is used everywhere in this README. Earlier drafts quoted 0.45 ms / 0.72 ms from other machines/passes — those are stale.
-
-### Shadow bulletin (TT-CB-114) diff summary
-
-```text
-change: calibration bulletin TT-2.14.3 bias +1.8°C (TT-CB-114 / INC-2506)
-candidates: 91
-diffs: 91
-disposition flips when bias removed: QUARANTINE_PENDING_LAB→DESTROY ×2
-rao_gate: Review diffs before promoting rule/reference change
-```
-
-Sample row:
-
-```json
-{
-  "event_id": "EXC-110336",
-  "tenant_code": "T-VIRENT",
-  "firmware": "TT-2.14.3",
-  "max_temp_c": 8.4,
-  "with_bulletin": { "recommendation": "ESCALATED_TO_SENIOR_QA", "corrected_max_temp_c": 10.2 },
-  "without_bulletin": { "recommendation": "ESCALATED_TO_SENIOR_QA", "corrected_max_temp_c": 8.4 },
-  "historical_final": "RELEASE_WITH_NOTE"
-}
-```
-
-### Run summary stats
-
-| Metric | Value |
+| Finding | Fix / regression evidence |
 |---|---|
-| Events processed | 420 |
-| AUTO_CLOSE | 224 (53.3%) |
-| ESCALATED_TO_SENIOR_QA | 80 |
-| RELEASE_WITH_NOTE | 54 |
-| DESTROY | 31 |
-| QUARANTINE_PENDING_LAB | 31 |
-| Bulletin applied (TT-2.14.3) | 91 |
-| EXC-107133 | RELEASE_WITH_NOTE ✓ |
+| Fixed +1.8 as truth | Reported and upper-bound min/max/mean scenarios retained separately; sensitive dispositions escalate; tests for crossing, freezing, same-outcome flag, unaffected firmware |
+| Qualified prohibition discarded | Cap parsed separately; missing duration/authority escalates; exact-text/unqualified/boundary regressions |
+| Unknown tenant cross-fallback | Tenant-only product pool; multiple exact/alias candidates ambiguous; study key tenant+ref; unknown/duplicate/shared-GTIN/study-scope tests |
+| Optional viewed hash/stale UNSIGNED basis | Required hash, actual content verification, append SIGNED artifact with exact prior hash and case id; missing/stale/tampered hash and generic-transition bypass tests |
+| Replay from current workbook | Typed immutable event/reference snapshot and full expected result; verify and reject mismatched versions; replay with live pack removed, twice without persistence |
+| Reopen lost deadline | Carry deadline/reportability/evidence reference; original signature artifact remains; reopen regression |
 
-### Agreement stratification
+The old blanket-bias/parser baseline is superseded; no byte-identical-to-main claim remains. All sample outcome changes require QA explanation/approval before a production rollout. Current labels are rule/code0.4.0, not a retained archive of historical executable builds.
 
-```text
-$ kestrel agreement
-agree_with_historical_final = 14 / 200 = 7.0%
-agree_with_assistant        = 206 / 420 = 49.05%
-```
+## Evidence retrieval versus the March audit
 
-Headline (real command output): **7.0%** exact match with `final_disposition` on the 200 human-opened rows; **49.05%** match with `rules_engine_recommendation` (assistant draft) across all 420. Dr Rao asked for diffs explained, not agreement maximised — low final agreement is therefore a feature of a conservative escalator, not a silent failure.
+Per-tenant hash chains detect stored edits; local JSON/SQLite retrieval with retention metadata is not proof of seven-year archival completeness/durability. The bundle now includes typed replay inputs and references, full expected output, reasoning and version labels. A signature appends a new bundle with signer, time, final decision, reason and exact original viewed hash; the immutable pre-sign snapshot remains UNSIGNED. `basis` returns the latest signed artifact.
 
-**Disagree-by-reason (top, of 186 disagreements on the 200):**
+Replay verifies the bundle, refuses unavailable code/rule versions or legacy bundles lacking inputs, restores event/reference types and compares the complete result. It does not consult the current workbook. Pinned executable storage, raw temperature series, original source PDFs/Annexure bytes, content provenance, independent chain anchoring and qualified remote restores remain missing. A fast local lookup is not the March audit. No fixed historical engine/retrieval timing is claimed.
 
-| Historical → engine | Count | Reading |
-|---|---|---|
-| RELEASE → AUTO_CLOSE | 51 | Mostly facility/duplicate/no-product triage the historical process still labelled RELEASE |
-| RELEASE → ESCALATED_TO_SENIOR_QA | 17 | Missing SOP / Refer-QA / weak identity — engine refuses to invent RELEASE |
-| RELEASE_WITH_NOTE → ESCALATED_TO_SENIOR_QA | 13 | Same conservative escalate |
-| QUARANTINE_PENDING_LAB → ESCALATED_TO_SENIOR_QA | 13 | Unreadable/missing stability → escalate rather than quarantine guess |
-| RELEASE_WITH_NOTE → AUTO_CLOSE | 10 | Sensor-artefact / within-range paths |
+## Deferred items and honest limits
 
-**By tenant (disagreements):** T-VIRENT 65 · T-SAHYADRI 36 · T-KAVERI 20 · T-AURA 16 · T-CAMPOS 16 · T-PINNACLE 15 · T-MERIDIAN 9 · T-NORDIA 9.
+- **Taxonomy:** shortened-expiry disposition/expiry fields are missing; RELEASE_WITH_NOTE is not equivalent. ESCALATED_TO_SENIOR_QA is review routing still in the fate enum. RELEASE/RETURN/REWORK have no current emitting rule. AUTO_CLOSE proposes TRIAGED_NON_ACTIONABLE, not a terminal closed state.
+- **Evidence gating:** master fallback/presentation/SOP conflicts are visible but not universally blocked until resolution; signing does not enforce Annexure2 clearance. Aliases lack tenant ownership, negative/conflicting-edge adjudication and validated trust. Tenant-filtered matches are not complete clause22 governance over every model/index/derived artefact.
+- **Temperature scope:** endpoints/common-offset min/max/mean summaries do not prove all possible per-reading histories. Bulletin applicability is firmware-only, without calibrated device/date mapping or automatic historical-signature/invoice follow-up.
+- **Human approval:** typed name is not authentication, role validation, dual-signature or a qualified electronic signature. File+SQLite operations are not cross-resource atomic; parallel writers require transaction/concurrency hardening.
+- **Batch/lane:** no tenant+presentation+batch exposure ledger, atomic accumulation/idempotency or full lane history panel; unknown prior exposure is not proven zero.
+- **Clocks:** US next-business-day approximated24h; Brazil five calendar days approximated120h UTC. These are not verified legal cut-offs; Friday+24h can be early, not necessarily late. India15 days is sourced from tab13 for notifiable products only. Maintain jurisdiction calendars, applicability and notification state explicitly.
+- **Storm/outage:** no live incident collapse, bounded durable admission, tenant fairness or independent regulatory pager. The1,912-alert/38min incident is source history, not a reproduced load test. Queue sorting alone cannot guarantee no starvation.
+- **Archive/cost:** SQLite/local files are writable and often temporary. Need tenant/region object-lock, legal holds, independent anchoring and restore qualification. No model API calls is not a zero total platform bill; bytes/replicas/retrieval/residency/on-call costs remain to be measured.
 
-**By firmware:** TT-2.14.3 **70** (bulletin cohort — expected pressure) · TT-2.15.0 41 · BMS-n/a 21 · others lower.
+## Working log (verified review pass, 7 Nov 2026 CET)
 
-**Representative diffs (defended):**
-
-1. **EXC-112352** — engine `AUTO_CLOSE` vs historical `RELEASE` (T-PINNACLE, facility equipment, no product loaded). Engine is right to close; historical RELEASE on an empty room is the process smell INC-2502 described.
-2. **EXC-110336** — engine `ESCALATED_TO_SENIOR_QA` vs historical `RELEASE_WITH_NOTE` (T-VIRENT, TT-2.14.3, master text `Refer QA`). Escalating when the master says Refer QA is correct under Dr Rao’s rule; the assistant’s RELEASE_WITH_NOTE is the pattern reviewers already overrule 23% of the time.
-3. **EXC-107133** — **agree** `RELEASE_WITH_NOTE` (hero case). GTIN identity + master cumulative allowance + SOP overlap flagged + Tapti contract noted without blocking.
-4. **EXC-112842** — engine `DESTROY` vs historical `RELEASE` (T-NORDIA ultra-cold, TT-2.14.3). **Possible engine error / over-harsh:** bulletin-corrected ultra-cold breach path may be too aggressive vs a reviewer who knew a hold-time nuance not in the indexed study. Keep in Rao diff list before any auto-recommend promote.
-5. **EXC-110287** — engine `QUARANTINE_PENDING_LAB` vs historical `DESTROY` (T-KAVERI, unreadable stability scan). Prefer quarantine-until-readable over destroy when the study is a scan-of-scan — likely *better* than historical; still human-signed.
-
-### Test results
-
-```text
-Ran 29 tests in ~14s — OK
-```
-
----
-
-## Working log
-
-Timestamps are Europe/Berlin (box clock). Honest discard log — not a reconstructed narrative.
-
-### 2026-11-04 ~10:36 — Opened the brief and pack
-
-Read the brief end-to-end and dumped all 15 tabs of the pack.
-
-First reaction discarded: treat this as “build a better LLM recommendation assistant.” Section 5 already burned the January full-LLM pilot and INC-2411. Marieke’s versioning demand and Dr Rao’s “automation on closures, not decisions” make a model-first design the wrong centre of gravity.
-
-Second reaction discarded: prototype the reviewer UI. Visual, not the hard correctness problem. EXC-107133 is an as-of rules / reference-data problem.
-
-**Kept:** as-of adjudication engine (identity → stability → SOP-as-at → contract → regulatory clock → disposition + evidence basis).
-
-### 2026-11-04 ~10:40 — Pack README surprises
-
-- `rules_engine_recommendation` is the **LLM assistant draft** since 2024, not the 2023 rules engine.
-- Tab 01 is **stratified**, not a statistical sample. Population ratios live on tab 13.
-- Regulatory clock runs from `alert_ts_utc`, not `excursion_start_utc`.
-
-### 2026-11-04 ~10:50 — EXC-107133 vs the product master
-
-T-KAVERI master cites STB-3584 indexed as **vial** while brand is SoloJet (**pen**). Master text: cumulative 72 h above 8 °C. Position: prefer master permitted text, flag mismatch, require human. First parser treated 8 as a hard cap and wrongly quarantined — fixed after golden test failed.
-
-### 2026-11-04 ~11:00 — SOP overlap
-
-Hard-escalate-on-overlap disagreed with the brief (Priya still released once stability was clear). Position: record conflict, continue stability arithmetic, hard-escalate only when the contested limit is decisive and stability is absent.
-
-### 2026-11-04 ~11:05 — Facility storm vs blank product_ref
-
-Reordered: facility-equipment / duplicate triage before identity escalate (INC-2502).
-
-### 2026-11-04 ~11:10 — Docs and rollout
-
-First tenant = T-AURA (conditional renewal / AUD-2603), not Virent. Push back on board 70% no-human KPI and 34-in-9-months.
-
-### 2026-11-04 ~10:43 — Full pack run (420)
-
-AUTO_CLOSE 224 · ESCALATE 80 · DESTROY 31 · QUARANTINE 31 · RELEASE_WITH_NOTE 54 · EXC-107133 ✓ · pytest green.
-
-### 2026-11-04 ~10:57–11:05 — Hardening pass
-
-Prioritised: evidence → bitemporal store → tests → lifecycle → shadow → package → docs → API. Kept engine logic; added SQLite bitemporal store, hash-chained evidence, Cl.22 isolation, lifecycle reopen, shadow bulletin, and an HTTP layer. HTTP layer is FastAPI + Pydantic v2 + uvicorn with **lazy imports** so engine/tests still run with only openpyxl. Basis latency numbers from that pass are stale — current median is **0.27 ms** (see Evidence).
-
-### 2026-11-05 ~05:13–05:30 — Two-file consolidation
-
-Collapse the public repo to **exactly** `README.md` + `kestrel.py` + untouched `data/`. Flattened the package into one module; engine stays stdlib+`openpyxl`; API uses lazy FastAPI; embedded the unittest suite; moved DB/CSV/evidence outputs to a temp directory; `git rm`’d `src/`, `tests/`, `prototype/`, `docs/`, `working-log/`, `examples/`, `scripts/`, packaging/CI files. Verified: tests pass; `run-all` stays AUTO_CLOSE 224 / EXC-107133 `RELEASE_WITH_NOTE`.
-
-### 2026-11-05 — I disagreed with the AI and was wrong
-
-During consolidation the assistant insisted every public function needed a docstring before push, including a few thin wrappers I had labelled “obvious.” I disagreed, cut the pass short, and opened the PR. Review (and a follow-up self-check) showed the gap immediately: several CLI helpers and store methods had type hints but empty or missing docstrings, which broke the “docstrings on every function” bar I had written into my own submission standard. **I was wrong.** I went back, completed the docstring pass (commit `8ce8138`), and kept the rule. Separately, I also argued mid-pass that quoting an older **0.72 ms** basis latency was “close enough”; it was not — the figure had moved with the consolidation, and inventing continuity would have violated “never invent numbers.” Re-measured: **median 0.27 ms**.
-
-### 2026-11-05 — Monitoring, agreement, board 1 & 5, cost working
-
-Added README sections + `health`/`monitor` + `agreement` commands. Tools: **Grok Bot**, Python 3, `openpyxl`, SQLite, `unittest`, `git`/`gh`, `pdftotext`.
-
-### 2026-11-05 — FastAPI refactor (lazy) + local e2e
-
-Reorganised `kestrel.py` into delimited modules; API layer is FastAPI + Pydantic v2 + uvicorn with lazy imports so `test`/`run-all` still need only openpyxl. Added determinism hash test and case lifecycle routes. Verified live on localhost:8080 — every endpoint 2xx / intentional 4xx. Tests **29** OK; run-all distribution unchanged.
-
-
-### Decisions snapshot
-
-| Decision | Why |
-|---|---|
-| Centre = as-of adjudication engine | Hardest correctness surface; maps to Q1–Q2, Q10, AUD-2603 |
-| No LLM on the decision path | January pilot + INC-2411 |
-| First tenant = T-AURA | Conditional renewal; board “one and certain” |
-| Push back on 70% no-human and 34-in-9-months | Conflicts with Dr Rao + board minute |
-| Bitemporal evidence store | March inspector request; seven-year / one-hour commitment |
-| Single-file deliverable | Candidate ask: reviewable two-file surface, zero unnecessary files |
-
----
-
-## Deferred items
-
-Live vendor ingest adapters · OCR of handwritten Annexure 2 margin notes (T-KAVERI) · full lane/carrier/reefer panel and batch exposure ledger · carrier setpoint CSV email ingest · finance hook for INC-2506 invoice withdrawal · LLM justification drafter (still deliberately out of decision path) · multi-region deployment topology · API authn/z beyond tenant_code (production would use mTLS + tenant claims) · Postgres / object-store swap behind `EvidenceStore` / `BitemporalStore` boundaries.
-
-The engine still consumes `prior_excursions_lane_90d` from the alert row as a stub for the lane panel.
-
-**Known simplifications in the regulatory clock:** "next business day" (T-PINNACLE, T-MERIDIAN) is approximated as 24 hours, which is wrong for alerts on a Friday or before a holiday; Brazil's five calendar days (T-CAMPOS) is computed as a flat 120 hours in UTC rather than local calendar days. Both should move to a maintained per-jurisdiction calendar.
-
-**Reviewer dashboard limits:** `/ui` has no login; the reviewer name is typed, not an authenticated identity. Production needs SSO plus Part 11-style e-signature (re-authentication at sign time), and Virent's dual Site QA plus Corporate QA signature.
-
----
+Reviewer fact-check identified unsupported wording and safety bugs. This pass separated uncertainty from measurement, fixed qualified parsing and tenant fallback/ambiguity, required verified hash-bound signing with a visible append artifact, sealed replay inputs and preserved reopened clocks. New regression tests and a persisted420-row rerun replaced stale counts. Historical timing distributions and inferred personal-effort claims were removed rather than recycled as current evidence. Prior single-file packaging was not a brief requirement.
 
 ## Time spent / covering note
 
-About **12 hours** of focused work inside the five-day window (brief §10 suggests 10–14). Breakdown: brief+pack reading and Where-You-Land; as-of engine against the real 420; bitemporal store + evidence chain + lifecycle + shadow; consolidation to the two-file layout; gap pass (monitoring, board 1 & 5, tab 13 cost, agreement stratification, thin spots, working-log honesty).
-
-**Tools:** Grok Bot (AI assistant for critique and mechanical consolidation — dispositions remain deterministic code), Python 3, `openpyxl`, SQLite, FastAPI / Pydantic / uvicorn (API only), `unittest` / `argparse`, `git` / `gh`, `pdftotext`. Nothing exotic beyond the AI pair-programmer, which the brief explicitly invites.
+Actual focused effort must be confirmed by the candidate before submission.
+<!-- TODO: Zulfiqar to supply real focused hours; never infer or invent a duration. -->

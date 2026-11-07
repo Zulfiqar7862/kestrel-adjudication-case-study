@@ -185,10 +185,10 @@ def create_app(svc: Optional[AdjudicationService] = None) -> Any:
         signed_by: str = Query(..., min_length=1),
         disposition: str = Query(..., min_length=1),
         reason: Optional[str] = Query(None),
-        bundle_hash: Optional[str] = Query(None, description="content_hash the reviewer viewed"),
+        bundle_hash: str = Query(..., min_length=1, description="content_hash the reviewer viewed"),
         svc_dep: AdjudicationService = Depends(get_svc),
     ) -> dict[str, Any]:
-        """Lifecycle: named human sign-off, optionally bound to the viewed evidence hash."""
+        """Lifecycle: named human sign-off, bound to the mandatory viewed evidence hash."""
         if not signed_by.strip():
             raise HTTPException(status_code=422, detail="a named human signer is required")
         case = svc_dep.store.get_case(case_id)
@@ -349,7 +349,8 @@ def create_app(svc: Optional[AdjudicationService] = None) -> Any:
                     "confidence": result.confidence,
                     "triage_label": result.triage_label,
                     "raw_max_temp_c": event.get("max_temp_c"),
-                    "corrected_max_temp_c": result.corrected_max_temp_c,
+                    "reported_max_temp_c": result.reported_max_temp_c,
+                    "scenarios": result.evidence.get("temps", {}).get("uncertainty"),
                     "bulletin_applied": result.bulletin_applied,
                     "logger_fw": event.get("logger_fw"),
                     "regulator_reportable": result.regulator_reportable,
@@ -378,7 +379,7 @@ def create_app(svc: Optional[AdjudicationService] = None) -> Any:
 
     @app.get("/events/{event_id}")
     def event_detail(event_id: str, svc_dep: AdjudicationService = Depends(get_svc)) -> dict[str, Any]:
-        """Read-only adjudication of one event: facts, correction, as-of basis and rule trace."""
+        """Read-only adjudication of one event: facts, uncertainty scenarios, as-of basis and rule trace."""
         assert svc_dep.engine and svc_dep.pack
         event = svc_dep.pack.event_by_id(event_id)
         if not event:
@@ -405,12 +406,13 @@ def create_app(svc: Optional[AdjudicationService] = None) -> Any:
                 "product_ref_as_received": event.get("product_ref_as_received"),
                 "prior_excursions_lane_90d": event.get("prior_excursions_lane_90d"),
             },
-            "correction": {
+            "uncertainty": {
                 "bulletin": "TT-CB-114",
                 "applies_to_fw": "TT-2.14.3",
                 "applied": result.bulletin_applied,
                 "raw_max_temp_c": event.get("max_temp_c"),
-                "corrected_max_temp_c": result.corrected_max_temp_c,
+                "reported_max_temp_c": result.reported_max_temp_c,
+                "scenarios": result.evidence.get("temps", {}).get("uncertainty"),
             },
             "basis": {
                 "product_sku": result.product_sku,

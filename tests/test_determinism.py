@@ -25,7 +25,7 @@ class TestDeterminism(_KestrelTestCase):
                         "recommendation": r.recommendation,
                         "confidence": r.confidence,
                         "triage_label": r.triage_label,
-                        "corrected_max_temp_c": r.corrected_max_temp_c,
+                        "reported_max_temp_c": r.reported_max_temp_c,
                         "bulletin_applied": r.bulletin_applied,
                         "rationale": list(r.rationale),
                     }

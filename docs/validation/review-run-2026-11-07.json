@@ -1,0 +1,21 @@
+{
+  "date": "2026-11-07 Europe/Berlin CET",
+  "counts": {
+    "AUTO_CLOSE": 224,
+    "ESCALATED_TO_SENIOR_QA": 106,
+    "QUARANTINE_PENDING_LAB": 26,
+    "RELEASE_WITH_NOTE": 53,
+    "DESTROY": 11
+  },
+  "replay_total": 420,
+  "replay_failures": [],
+  "shadow_candidates": 91,
+  "shadow_diffs": 91,
+  "shadow_flips": 4,
+  "tenant_chains_verified": 8,
+  "all_chains_valid": true,
+  "rule_pack_version": "0.4.0",
+  "code_version": "0.4.0",
+  "tests_passed": 67,
+  "qa_approved": false
+}

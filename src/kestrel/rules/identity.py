@@ -96,32 +96,38 @@ class IdentityResolver:
 
         ref_n = _norm(ref)
         tenant_products = [product for product in self.pack.products if product.get("tenant_code") == tenant_code]
-        pool = tenant_products or list(self.pack.products)
+        pool = tenant_products
 
-        # 1. Exact GTIN
-        for product in pool:
-            if product.get("gtin") and _norm(product.get("gtin")) == ref_n:
-                return self._from_row(product, "gtin_exact", 0.98)
+        # Match each priority as a set: never select the first ambiguous row.
+        def choose(hits, method, confidence):
+            if len(hits) == 1:
+                return self._from_row(hits[0], method, confidence)
+            return ResolvedProduct(
+                tenant_code=tenant_code,
+                match_method="ambiguous",
+                confidence=0.4,
+                candidates=hits,
+                unresolved_reason=f"{method}: {len(hits)} tenant candidates",
+            )
 
-        # 2. Exact SKU
-        for product in pool:
-            if product.get("internal_sku") and _norm(product.get("internal_sku")) == ref_n:
-                return self._from_row(product, "sku_exact", 0.95)
+        for field_name, method, confidence in (
+            ("gtin", "gtin_exact", 0.98),
+            ("internal_sku", "sku_exact", 0.95),
+            ("brand_as_labelled", "brand_as_labelled_exact", 0.9),
+            ("generic_inn", "generic_inn_exact", 0.85),
+        ):
+            hits = [p for p in pool if p.get(field_name) and _norm(p[field_name]) == ref_n]
+            if hits:
+                return choose(hits, method, confidence)
 
-        # 3. Exact brand / INN
-        for product in pool:
-            for field_name, conf in (("brand_as_labelled", 0.9), ("generic_inn", 0.85)):
-                if product.get(field_name) and _norm(product.get(field_name)) == ref_n:
-                    return self._from_row(product, f"{field_name}_exact", conf)
-
-        # 4. Alias expansion then re-match
+        # Observations lack tenant ownership in this extract. They are candidate
+        # links only; final matches must belong to this tenant, never another pool.
         expanded = {ref_n} | self._alias_pairs.get(ref_n, set())
         for alias in list(expanded):
             expanded |= self._alias_pairs.get(alias, set())
-        for product in pool:
-            strings = self._product_strings(product)
-            if strings & expanded:
-                return self._from_row(product, "alias_chain", 0.8)
+        hits = [p for p in pool if self._product_strings(p) & expanded]
+        if hits:
+            return choose(hits, "alias_chain", 0.8)
 
         # 5. Brand containment (e.g. "Glucodyne 100U" vs "Glucodyne SoloJet 100U")
         hits = []
