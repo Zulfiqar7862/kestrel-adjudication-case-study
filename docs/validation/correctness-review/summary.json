@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-07 Europe/Berlin CET",
+  "base_commit": "fbf53227baf8aff2523d91b113065ef626bb7125",
+  "branch": "fix/correctness-review",
+  "rule_pack_version": "0.4.1",
+  "code_version": "0.4.1",
+  "before": {
+    "AUTO_CLOSE": 224,
+    "ESCALATED_TO_SENIOR_QA": 106,
+    "QUARANTINE_PENDING_LAB": 26,
+    "RELEASE_WITH_NOTE": 53,
+    "DESTROY": 11
+  },
+  "after": {
+    "AUTO_CLOSE": 111,
+    "ESCALATED_TO_SENIOR_QA": 309
+  },
+  "changed_events": 203,
+  "changes_by_reason": {
+    "ACTIONABLE \u2014 insufficient temperature evidence": 86,
+    "ACTIONABLE \u2014 stability authority unresolved": 80,
+    "ACTIONABLE \u2014 release authority unresolved": 24,
+    "ACTIONABLE \u2014 cumulative assessment unresolved": 13
+  },
+  "pytest": {
+    "passed": 123,
+    "warnings": 1
+  },
+  "regression_tests_passed": 56,
+  "replay_identical": 420,
+  "tenant_chains_verified": 8
+}

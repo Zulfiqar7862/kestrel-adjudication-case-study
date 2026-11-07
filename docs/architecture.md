@@ -20,7 +20,7 @@ flowchart LR
 
 1. **Identity.** Resolve the product from GTIN, SKU or brand text, with a confidence score.
 2. **As-of lookups.** Find the SOP revision, carrier contract using effective dates. Bulletin applicability is currently firmware-only, without device/date verification. The engine reads DataPack, not the store transaction-time slice.
-3. **Stability.** Parse the permitted-excursion text into numbers (max °C, max hours, cumulative or not).
+3. **Stability.** Require a unique tenant-scoped cited excursion study, product/presentation alignment and readable allowance. No master-text substitution. Missing applicability is unresolved.
 4. **Decide.** Evaluate reported and upper-bound TT-CB-114 scenarios on min/max/mean summaries; preserve observations and escalate if dispositions differ. Each scenario runs the ordered rule
    chain. The first rule that returns a verdict wins. See [decision-rules.md](decision-rules.md).
 5. **Regulatory clock.** Compute the notification deadline separately from the disposition.
@@ -180,3 +180,14 @@ Shared carrier/facility source registries are captured for replay; products, SOP
 ## Scope limits
 
 The 420 rows are a stratified evidence sample, not ~11,400/month production traffic. Hash chains/retention dates do not prove raw-series/source-document capture or seven-year durability. Queue sorting is not storm admission, collapse, fairness or independent notification. Batch exposure and shortened-expiry workflow are missing; escalation is review routing, not product fate.
+
+
+## Correctness-review gates (0.4.1)
+
+`decision_rules.decide` first rejects insufficient/invalid extrema or label bounds, before any historical triage rule. No exception is made for unverified duplicate/no-product triage. A cumulative excursion then routes to QA because verified batch identity and complete lifetime history are absent; arbitrary event fields cannot certify them.
+
+Carrier resolution ranks exact legal entity, exact alias, then unique substring; ambiguity is preserved as an error in the engine evidence. No longest-name tie-break remains.
+
+`StabilityResolver.resolve` no longer substitutes product-master text for a mismatched/absent study. `AdjudicationEngine.adjudicate` records SOP authority as unresolved: the workbook has index pointers, not governing site/body/annexure contents. The final decision gate blocks all release paths (including early gateway and fallback paths) and allowance-based closures when study/SOP authority or revision conflict is unresolved. An as-of highest-revision candidate is not governing authority.
+
+Rule/code version 0.4.1 distinguishes these semantics from 0.4.0; archived old executables are still not supplied. See [executed validation](validation/correctness-review/report.md).

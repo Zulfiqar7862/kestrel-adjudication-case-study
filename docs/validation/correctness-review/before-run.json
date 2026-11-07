@@ -1,0 +1,21 @@
+{"ts": "2026-11-07T09:22:19.031226+00:00", "level": "INFO", "logger": "kestrel.ingest", "msg": "loaded workbook", "snapshot_id": "snap-1263fb567409", "alerts": 420}
+{
+  "count": 420,
+  "counts": {
+    "AUTO_CLOSE": 224,
+    "DESTROY": 11,
+    "ESCALATED_TO_SENIOR_QA": 106,
+    "QUARANTINE_PENDING_LAB": 26,
+    "RELEASE_WITH_NOTE": 53
+  },
+  "EXC-107133": {
+    "event_id": "EXC-107133",
+    "tenant_code": "T-KAVERI",
+    "recommendation": "RELEASE_WITH_NOTE",
+    "bundle_id": "EVB-263d19de24abeb40",
+    "case_id": "CASE-d645f9112596",
+    "reg_deadline_utc": "2026-08-12 06:31:00"
+  },
+  "out": "/tmp/kestrel-correctness/before.csv",
+  "snapshot_id": "snap-1263fb567409"
+}

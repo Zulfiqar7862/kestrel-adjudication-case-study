@@ -1,69 +1,42 @@
-# Decision rules
+# Decision rules (0.4.1)
 
-`src/kestrel/decision_rules.py` holds every disposition rule as a small named function. `decide(facts)` runs them
-in the order below and stops at the first one that returns a verdict. Rules that only add a note (for example the
-SOP overlap) return nothing and let the chain continue. Every rule appends a plain-English line to the trace, so
-the reviewer sees exactly why.
+Fixed rules produce prototype recommendations, not clinically validated product dispositions. `src/kestrel/decision_rules.py::decide` records a trace. The following ordered chain is followed by a conservative fallback and a final release-authority gate.
 
-## Order
-
-| # | Rule | Why it exists | Typical outcome |
-|---|---|---|---|
-| 1 | `rule_facility_equipment_event` | INC-2502 BMS storms: facility alarms with no product loaded | `AUTO_CLOSE` |
-| 2 | `rule_duplicate_alert` | A duplicate adds no new evidence | `AUTO_CLOSE` |
-| 3 | `rule_gateway_gap` | Interpolated readings across a long gateway gap are not evidence | `AUTO_CLOSE` / `RELEASE_WITH_NOTE` |
-| 4 | `rule_unresolved_identity` | Unsure which product it is, so its stability data can't be applied | `ESCALATED_TO_SENIOR_QA` |
-| 5 | `rule_presentation_mismatch` | Study may be for another presentation (vial vs pen) | `ESCALATED_TO_SENIOR_QA` |
-| 6 | `rule_sop_overlap` | Two SOP revisions in force on one date: flag only (EXC-107133) | note |
-| 7 | `rule_allowance_refer_qa` | The study itself says "Refer QA" | `ESCALATED_TO_SENIOR_QA` |
-| 8 | `rule_unreadable_stability` | A cited study we can't read means a lab test, not a guess | `QUARANTINE_PENDING_LAB` |
-| 9 | `rule_sensor_artefact` | No gap and peak close to the label | `AUTO_CLOSE` |
-| 10 | `rule_dock_door` | Short dock-door ambient exposure | `AUTO_CLOSE` |
-| 11 | `rule_within_label_range` | Inside the label in the scenario being evaluated | `AUTO_CLOSE` |
-| 12 | `rule_freeze_damage` | Below 0 °C on a 2–8 °C product | `DESTROY` |
-| 13 | `rule_ultra_cold` | Very short open on ultra-cold is a dry-ice top-up | `RELEASE_WITH_NOTE` / `DESTROY` |
-| 14 | `rule_qualified_temperature_cap` | Qualified cap without duration/disposition authority | `ESCALATED_TO_SENIOR_QA` |
-| 15 | `rule_no_excursion_permitted` | Product allows no excursion | `QUARANTINE_PENDING_LAB` / `DESTROY` |
-| 16 | `rule_stability_allowance` | Compare duration and peak with the allowance | `AUTO_CLOSE` / `RELEASE_WITH_NOTE` / lab / `DESTROY` |
-| – | `rule_no_parseable_allowance` | Fallback: out of range, no usable allowance | `RELEASE_WITH_NOTE` (brief, mild) or `QUARANTINE_PENDING_LAB` |
-
-Order matters. Historical facility/duplicate/gateway triage can win before identity; these are supplied historical labels, not independently verified live signals. An unknown tenant is forced to unresolved escalation at engine level. Known-tenant identity/data checks precede later temperature rules.
-
-## Named thresholds
-
-Thresholds are named at the top of the module. They are candidate policy constants, not validated clinical limits or necessarily sourced from the brief. QA must approve them before deployment.
-
-| Constant | Value | Meaning |
+| Order | Function | Check |
 |---|---|---|
-| `MIN_PRODUCT_CONFIDENCE` | 0.5 | Below this, identity is treated as unresolved |
-| `GAP_MIN_MINUTES` | 30 | A gateway gap this long, with interpolation, is suspect |
-| `GAP_SHARE_OF_EXCURSION` | 0.5 | ...or a gap covering half the excursion |
-| `SENSOR_ARTEFACT_TOLERANCE_C` | 0.5 | Peak within this of the label counts as artefact |
-| `DOCK_DOOR_MAX_MINUTES` | 20 | Longest exposure treated as a dock-door open |
-| `DOCK_DOOR_TOLERANCE_C` | 5 | Max °C above label for a dock-door close |
-| `COLD_CHAIN_MAX_LABEL_C` | 8 | Upper label of a 2–8 °C product |
-| `ULTRA_COLD_TOP_UP_MINUTES` | 5 | Longest open treated as a dry-ice top-up |
-| `BRIEF_BREACH_HOURS` | 0.25 | "Very brief" for no-excursion products |
-| `BRIEF_BREACH_TOLERANCE_C` | 2 | "Mild" for no-excursion products |
-| `CUMULATIVE_ABSOLUTE_CEILING_C` | 30 | Hard ceiling for cumulative allowances |
-| `SEVERE_BREACH_MARGIN_C` | 5 | Beyond allowance by more than this means destroy |
-| `MILD_EXCURSION_HOURS` | 0.5 | Fallback: short excursion |
-| `MILD_EXCURSION_TOLERANCE_C` | 3 | Fallback: small excursion |
-| `REPEAT_LANE_EXCURSIONS` | 3 | Prior excursions on a lane in 90 days that make it a pattern |
+| 1 | `rule_insufficient_temperature` | Historical triage is not independent proof of a duplicate or an empty load. |
+| 2 | `rule_cumulative_history_unresolved` | No verified batch identity/history exists in this pack; never assume zero. |
+| 3 | `rule_facility_equipment_event` | INC-2502 BMS storms: facility alarms with no product loaded close automatically. |
+| 4 | `rule_duplicate_alert` | A duplicate of an earlier alert adds no new evidence. |
+| 5 | `rule_gateway_gap` | Interpolated readings across a long gateway gap are not evidence of an excursion. |
+| 6 | `rule_unresolved_identity` | If we are not sure which product it is, we cannot apply its stability data. |
+| 7 | `rule_stability_authority` | An excursion with unestablished study applicability needs QA, not a guessed fate. |
+| 8 | `rule_presentation_mismatch` | Never substitute unverified master prose for a mismatched study. |
+| 9 | `rule_sop_overlap` | Record overlap; the final authority gate blocks release on any rule path. |
+| 10 | `rule_allowance_refer_qa` | The study itself says 'Refer QA', so a person has to decide. |
+| 11 | `rule_unreadable_stability` | A cited study we cannot read means a lab test, not a guess. |
+| 12 | `rule_sensor_artefact` | Close a sensor artefact only when there is no gap and the peak is near the label. |
+| 13 | `rule_dock_door` | Short dock-door ambient exposure; closes only if triage also says dock door. |
+| 14 | `rule_within_label_range` | After the firmware correction, still inside the labelled range: nothing happened. |
+| 15 | `rule_freeze_damage` | Below 0 °C on a 2–8 °C product risks freeze damage and is never released. |
+| 16 | `rule_ultra_cold` | Ultra-cold / LN2: a very short open is likely a dry-ice top-up; a long one is a breach. |
+| 17 | `rule_qualified_temperature_cap` | A cap is not permission below it; absent duration needs evidence/QA. |
+| 18 | `rule_no_excursion_permitted` | The product allows no excursion: a very brief, mild breach goes to the lab, otherwise destroy. |
+| 19 | `rule_stability_allowance` | Compare the excursion with the permitted allowance (duration and temperature). |
 
-## Adding or changing a rule
+## Guards that cannot be skipped
 
-1. Write the rule as `rule_<name>(facts: ExcursionFacts, trace: list[str]) -> Verdict | None` with a one-line
-   docstring saying *why*.
-2. Insert it into `DECISION_RULES` at the right position.
-3. Add boundary tests to `tests/test_decision_rules.py` (one value on each side of the threshold).
-4. Replay on the full pack and review every changed outcome before release.
-   This is Dr Rao's gate: no rule change ships without a before/after diff.
+- `rule_insufficient_temperature` runs first. Complete finite, ordered min/max and labelled bounds are required; incomplete/unknown is not false/no excursion. `is_out_of_range` returns `None` for unknown, otherwise True/False. Mean is optional for this extrema-based check. Historical duplicate/no-product labels are not independent proof, so there are **no exceptions** for missing extrema/label bounds.
+- `rule_cumulative_history_unresolved` precedes historical triage. When an excursion requires a cumulative allowance, no verified batch identity/complete lifetime history exists: explicitly unresolved → QA. No ledger is invented, and unverified event fields cannot assert zero previous exposure. Proven in-range closure requires no cumulative arithmetic.
+- `rule_stability_authority` escalates excursions whose cited study applicability is not established. `StabilityResolver.resolve` requires a unique tenant citation, product/presentation alignment, excursion study type, fully readable allowance, and never falls back to master text. It does not guess an alternate uncited study.
+- The final gate catches RELEASE/RELEASE_WITH_NOTE from **all** paths and allowance-based AUTO_CLOSE. SOP absence, unresolved indexed site/body/annexure authority, overlap, or unresolved study authority forces QA. The workbook supplies no governing document contents, so engine release is not authorised from those pointers.
 
-## Temperature and taxonomy boundaries
+Noise/in-range AUTO_CLOSEs with complete extrema and label bounds remain prototype triage proposals; historical noise text still lacks live independent deduplication/no-product evidence. Manual signing is not an enforced authority-validation workflow.
 
-TT-CB-114 means under-reporting *up to* 1.8°C, not a measured correction. Engine runs reported and upper-bound scenarios (min/max/mean summary offset 0 vs 1.8). Different dispositions force QA escalation; all affected devices are flagged. Endpoint scenarios cannot prove every continuous/per-reading history without raw series.
+## Remaining arithmetic and firmware limits
 
-`No excursion permitted` remains an unconditional ban. `No excursion above 25 °C permitted` supplies a 25°C cap, not a ban outside 2–8°C or permission below 25°C. With missing duration/disposition authority, excursions reaching this rule escalate on either side of the cap. Earlier independent triage/within-label/freeze rules retain their priority.
+Existing non-cumulative thresholds remain heuristic, not new clinical rules. Cumulative lifetime arithmetic has been removed rather than pretending the full allowance remains. A once-only allowance still lacks a verified previous-use ledger.
 
-RELEASE_WITH_NOTE is not shortened expiry. Shortened-expiry/expiry fields are absent; ESCALATED_TO_SENIOR_QA is review routing still encoded as a disposition. RELEASE/RETURN/REWORK exist in the enum but current rules do not emit them. Cumulative arithmetic covers this event only: no prior batch ledger is read or updated.
+TT-CB-114 compares reported and upper-bound summary scenarios without overwriting measurements. Up to 1.8°C is an uncertainty interval, not a calibrated correction; endpoints/common offset are not raw-series proof.
+
+See [the report](validation/correctness-review/report.md) for actual sample counts, changed tests, test-first logs and limitations. No historical decision is treated as ground truth.

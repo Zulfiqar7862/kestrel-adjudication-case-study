@@ -53,7 +53,7 @@ git clone -b production https://github.com/Zulfiqar7862/kestrel-adjudication-cas
 cd kestrel-adjudication-case-study
 python -m venv .venv && source .venv/bin/activate
 make install            # pip install -e ".[api,dev]"
-make test               # 67 tests
+make test               # 123 tests
 kestrel run-all         # adjudicate all 420 alerts
 make serve              # open http://127.0.0.1:8080/ui
 ```
@@ -88,15 +88,15 @@ Details: [docs/code-walkthrough.md](docs/code-walkthrough.md), [docs/architectur
 
 | Outcome | Meaning | Count |
 |---|---|---|
-| `AUTO_CLOSE` | Non-actionable candidate; case remains TRIAGED_NON_ACTIONABLE | 224 |
-| `ESCALATED_TO_SENIOR_QA` | Identity, data or uncertainty needs senior review | 106 |
-| `RELEASE_WITH_NOTE` | Prototype recommendation; human review required | 53 |
-| `QUARANTINE_PENDING_LAB` | Hold for a lab test | 26 |
-| `DESTROY` | Prototype severe-breach recommendation | 11 |
+| `AUTO_CLOSE` | Non-actionable candidate; case remains TRIAGED_NON_ACTIONABLE | 111 |
+| `ESCALATED_TO_SENIOR_QA` | Identity, data or uncertainty needs senior review | 309 |
+| `RELEASE_WITH_NOTE` | Prototype recommendation; human review required | 0 |
+| `QUARANTINE_PENDING_LAB` | Hold for a lab test | 0 |
+| `DESTROY` | Prototype severe-breach recommendation | 0 |
 
-EXC-107133 returns RELEASE_WITH_NOTE, but uses a conflicting master allowance rather than the brief's pen study; SOP and presentation conflicts are flagged, and batch-exposure recording is not implemented.
+EXC-107133 now returns ESCALATED_TO_SENIOR_QA: the cited study does not establish product/presentation/type applicability, and the governing SOP/site annexure is unresolved. Product-master prose is not a substitute. No batch ledger was invented; cumulative exposure assessment is unresolved without verified history.
 
-Shadow: 91 firmware candidates, 91 scenario/evidence diffs, **4 disposition flips** (bound-aware versus as-reported-only, not the historical 61). Historical-final agreement: 11/200 (5.5%); assistant-draft agreement: 203/420 (48.33%). These require case-level QA review, not claims of improved safety. [Recorded validation and all 26 outcome changes](docs/validation/README.md).
+Shadow: 91 firmware candidates and 91 scenario/evidence diffs, **0 disposition flips** under the fail-closed gates. Historical-final agreement: 4/200 (2%); assistant-draft agreement: 111/420 (26.43%). These are sample comparisons, not safety/production-accuracy claims. [Correctness-review report, test-first logs and all 203 outcome changes](docs/validation/correctness-review/report.md). The prior 0.4.0 baseline was 224/106/53/26/11; current rule/code version is 0.4.1.
 
 ## Project structure
 
@@ -117,7 +117,7 @@ Shadow: 91 firmware candidates, 91 scenario/evidence diffs, **4 disposition flip
 │   ├── service.py           facade used by CLI and API
 │   ├── api/                 FastAPI app + reviewer dashboard (static/index.html)
 │   └── cli.py               `kestrel` command
-├── tests/                   67 tests (unit, golden cases, API, invariants)
+├── tests/                   123 tests (unit, golden cases, API, invariants)
 ├── docs/                    architecture, rules, API, operations, case-study write-up
 ├── data/                    case-study inputs (unchanged)
 ├── Dockerfile · Makefile · pyproject.toml · .github/workflows/ci.yml
@@ -159,7 +159,7 @@ Full endpoint list and error codes: [docs/api.md](docs/api.md).
 ## Testing and quality
 
 ```bash
-make test     # pytest, 67 tests
+make test     # pytest, 123 tests
 make lint     # ruff check + ruff format --check
 make cov      # coverage report
 ```
@@ -219,6 +219,9 @@ The full reasoning, requirement traceability and board pushback are in
 - Regulatory deadlines are prototype approximations, not verified legal cut-offs: US next-business-day is mapped to 24 hours and Brazil calendar days to 120 hours in UTC. A maintained jurisdiction calendar and programme applicability rules are required. India 15 days is sourced from tab 13 for notifiable products only.
 - SQLite and local JSON files are the prototype store. Production would use Postgres and object storage with
   object lock.
+- Missing/invalid extrema or label bounds route to QA before historical noise triage; mean alone cannot establish extrema. Complete min/max do not require a mean for this summary-range check.
+- Carrier resolution prefers unique exact legal entity, then exact alias, then unique substring; ambiguity is recorded, never resolved by name length.
+- SOP bodies/site annexures are absent: no release or allowance-based closure is authorised from index pointers. Cumulative lifetime allowances require verified batch history, unavailable here.
 - The dashboard has no login; sign-off takes a typed name. Production needs SSO and e-signature (21 CFR Part 11).
 
 - TT-CB-114 compares endpoint scenarios on supplied summaries (min/max/mean), not every possible raw series. Firmware-only applicability lacks device/date calibration.

@@ -1,3 +1,5 @@
+> Current implementation note (7 Nov 2026 CET): the focused correctness-review fixes are rule/code 0.4.1 on a separate unmerged branch. Current sample results and limitations are in [the executed report](validation/correctness-review/report.md). Design/phase tables below describe intentions, not additional implemented integrations.
+
 # Case study: The Adjudication Problem
 
 Case-study submission by **Zulfiqar Ali Ahmed**. Revised after reviewer fact-check, 7 Nov 2026 (CET).
@@ -28,7 +30,7 @@ flowchart LR
 ```bash
 python -m venv .venv && source .venv/bin/activate
 pip install -e ".[api,dev]"
-make test                  # 67 tests; runtime varies
+make test                  # 123 tests; runtime varies
 make lint
 kestrel run-all --out results.csv
 kestrel adjudicate --event EXC-107133
@@ -40,27 +42,27 @@ kestrel serve              # /ui and /docs
 
 ## Current results (not platform KPIs)
 
-Persisted run-all, 7 Nov 2026 (CET), rule/code version 0.4.0:
+Persisted run-all, 7 Nov 2026 (CET), rule/code version 0.4.1:
 
 | Output | Count |
 |---|---:|
-| AUTO_CLOSE | 224 |
-| ESCALATED_TO_SENIOR_QA | 106 |
-| RELEASE_WITH_NOTE | 53 |
-| QUARANTINE_PENDING_LAB | 26 |
-| DESTROY | 11 |
+| AUTO_CLOSE | 111 |
+| ESCALATED_TO_SENIOR_QA | 309 |
+| RELEASE_WITH_NOTE | 0 |
+| QUARANTINE_PENDING_LAB | 0 |
+| DESTROY | 0 |
 | Total | 420 |
 
 Exclusive strata are 61 bulletin re-adjudications + 24 written overrides + 13 further late-window cases + 57 further storm records + 1 narrative case + 264 random-rest records. Do not double-count the overlaps or treat sample ratios as population ratios. The 78% non-actionable closure, ~64% all-alert closure, 82% non-actionable and 23% assistant-overrule values are **source baselines**, not improvements achieved here.
 
-**Shadow:** 91 affected-firmware candidates, 91 scenario/evidence diffs, **4 disposition flips** when adding bound-aware analysis to as-reported-only decisions. This is not the historical 61/214 re-adjudication incident. Shadow does not reopen cases or handle invoices automatically.
+**Shadow:** 91 affected-firmware candidates, 91 scenario/evidence diffs, **0 disposition flips** when adding bound-aware analysis to as-reported-only decisions. This is not the historical 61/214 re-adjudication incident. Shadow does not reopen cases or handle invoices automatically.
 
-**Agreement:** historical finals 11/200 = 5.5%; assistant drafts 203/420 = 48.33%. There are 189 historical-final disagreements. Dr Rao asked for explained differences, not maximised agreement; low agreement does not itself prove safety or failure. Case-level QA review is mandatory before promotion.
+**Agreement:** historical finals 4/200 = 2%; assistant drafts 111/420 = 26.43%. There are 196 historical-final disagreements. Dr Rao asked for explained differences, not maximised agreement; low agreement does not itself prove safety or failure. Case-level QA review is mandatory before promotion.
 
 ## EXC examples: outcome is not the same as evidence correctness
 
-- **EXC-107133 → RELEASE_WITH_NOTE**, confidence 0.8, human required. Reported 5.4–11.2°C, 15min, firmware TT-2.15.0; gtin_exact; SOP-KAV-9392 Rev03 with overlap. The prototype uses the conflicting master cumulative 72h-above-8°C allowance, not the brief's pen study (single excursion ≤6h below15°C). STB-3584 is vial-indexed/blank excursion text. Highest-revision selection is a flagged candidate tie-break, not resolution of Annexure2. No prior-batch exposure is subtracted or recorded. This is an outcome match/conflict demo only.
-- **EXC-112289 → ESCALATED_TO_SENIOR_QA**, previously DESTROY. Reported peak18.0°C remains unchanged; upper scenario19.8°C. Selected study says “No excursion above25°C permitted”; fixed parsing no longer invents an unconditional ban. Missing duration/disposition authority routes both scenarios to QA. Historical final QUARANTINE_PENDING_LAB remains a disagreement.
+- **EXC-107133 → ESCALATED_TO_SENIOR_QA**, confidence 0, human required. Reported 5.4–11.2°C over 15 min remains unchanged. STB-3584 does not establish product/presentation/excursion-type applicability; master cumulative text is not used as a substitute. No uncited pen study is assumed correct. SOP-KAV-9392 Rev03 remains an overlapping index candidate, not resolved governing site authority. No prior batch history is available.
+- **EXC-112289 → ESCALATED_TO_SENIOR_QA**. Reported peak 18.0°C remains unchanged; upper scenario 19.8°C. In 0.4.1 unresolved study product/presentation applicability stops both scenarios earlier than the old qualified-cap parser check. Historical final QUARANTINE_PENDING_LAB remains a disagreement, not ground truth.
 - **EXC-112198 → AUTO_CLOSE** based on historical duplicate triage before identity; no independently implemented live deduplication proof.
 
 Detailed execution: [code-walkthrough.md](code-walkthrough.md). Rule ordering/thresholds: [decision-rules.md](decision-rules.md). Architecture: [architecture.md](architecture.md).
@@ -456,7 +458,7 @@ Deterministic engine on auto-close path: ~0 model tokens. Fits Okoro’s cost ce
 | Case lifecycle | `CaseLifecycle` — states incl. REOPENED; `storm_safe_queue` |
 | Shadow / Rao gate | `shadow_replay_bulletin` + CLI |
 | HTTP API | FastAPI + uvicorn (lazy): `/health`, `/adjudicate`, `/cases/*`, `/evidence/*`, `/replay`, `/shadow/bulletin`, `/queue`, `/as-of/sop`, `/ops/*` |
-| CLI + tests | argparse + 67 discovered tests, including `health`/`monitor`, `agreement`, determinism, FastAPI TestClient |
+| CLI + tests | argparse + 123 discovered tests, including `health`/`monitor`, `agreement`, determinism, FastAPI TestClient |
 
 ---
 
@@ -466,8 +468,8 @@ These are load-bearing and deliberately not papered over:
 
 | Thin spot | What the brief/pack says | Position in this prototype |
 |---|---|---|
-| **Annexure 2 handwritten limit (T-KAVERI)** | For 2 of 6 sites, Annexure 2 is a scan with a handwritten margin note (QA head who left in 2024) that *raises* the acceptance limit (brief §2; tab 12). | Engine surfaces SOP overlap / human-confirm; it does **not** OCR the margin note. Phase 2 labelled extraction workflow. Silent model-read of handwriting is out of scope (failed January pattern). |
-| **Lane + batch history** | Sentinel shows one shipment; Priya used WhatsApp for lane memory; cumulative exposure must be written against the batch (brief §2). | Bundle records `prior_excursions_lane_90d` from the alert row as a stub + `lane_history_ref` note. Full lane/carrier/reefer panel and batch exposure ledger are deferred (tab 10 Q3/Q8). |
+| **Annexure 2 handwritten limit (T-KAVERI)** | For 2 of 6 sites, Annexure 2 is a scan with a handwritten margin note (QA head who left in 2024) that *raises* the acceptance limit (brief §2; tab 12). | Engine records unresolved SOP/site authority and blocks release recommendations; it does **not** OCR the margin note. Phase 2 labelled extraction workflow. Silent model-read of handwriting is out of scope (failed January pattern). |
+| **Lane + batch history** | Sentinel shows one shipment; Priya used WhatsApp for lane memory; cumulative exposure must be written against the batch (brief §2). | Bundle records `prior_excursions_lane_90d` from the alert row as a stub + `lane_history_ref` note. Cumulative excursion assessment now routes to QA; full lane/carrier/reefer panel and batch exposure ledger are deferred (tab 10 Q3/Q8). |
 | **Carrier setpoint CSV** | Tapti setpoint arrives as a CSV on email, when it arrives; contract has no cold-chain clause (brief §2). | Contract surfaced (`CNT-2021-0245`, no cold-chain schedule); setpoint CSV ingest not built. Liability/custody ≠ product fate — disposition proceeds; claim package may lag (degradation table). |
 | **Invoice withdrawal (INC-2506)** | After TT-CB-114, 61 re-adjudications; **9 carrier invoices had to be withdrawn**. | Shadow computes a sensitivity diff only; reopen is a separate operation preserving clock/signature history. It does not automatically re-adjudicate, create a linked replacement bundle or withdraw invoices. Finance hooks and idempotent invoice follow-up are unimplemented. |
 
@@ -485,12 +487,12 @@ Brief §8.C asks how failure is detected at three in the morning. The following 
 | Queue age | Open actionable age &gt;12h, or reportable age &gt;50% of its window (INC-2502) | QA shift lead | Storm brake; AUTO_CLOSE only facility/duplicate heuristics; drain by deadline |
 | Firmware bulletin change | Vendor bulletin hash/version ≠ last approved `ref_snapshot` | Platform on-call; **notify Marieke de Vries** on version change | `shadow-bulletin`; Rao gate; re-adjudicate firmware cohort; withdraw carrier invoices if liability flips (INC-2506) |
 
-Rerun 7 Nov 2026 (CET): sample regression mix is 224 AUTO_CLOSE / 106 escalation / 53 release-with-note / 26 quarantine / 11 destroy. This is not a QA-approved production baseline. The health helper still reports 14 historically late rows and workbook-mtime staleness; its firmware-change hook is not live bulletin detection, and its alert dictionaries do not send pages.
+Rerun 7 Nov 2026 (CET): sample regression mix is 111 AUTO_CLOSE / 309 escalation / 0 release-with-note / 0 quarantine / 0 destroy. This is not a QA-approved production baseline. The health helper still reports 14 historically late rows and workbook-mtime staleness; its firmware-change hook is not live bulletin detection, and its alert dictionaries do not send pages.
 
 
 ## Validation and review-driven changes
 
-67 tests pass, including 19 focused regressions in `tests/test_review_regressions.py`; ruff check and format are clean. These tests establish software contracts on fixtures/sample data, not clinical validation.
+123 tests pass, including the original 19 regressions in `tests/test_review_regressions.py` and 56 parametrized correctness-review cases; ruff check and format are clean. These tests establish software contracts on fixtures/sample data, not clinical validation.
 
 | Finding | Fix / regression evidence |
 |---|---|
@@ -501,7 +503,7 @@ Rerun 7 Nov 2026 (CET): sample regression mix is 224 AUTO_CLOSE / 106 escalation
 | Replay from current workbook | Typed immutable event/reference snapshot and full expected result; verify and reject mismatched versions; replay with live pack removed, twice without persistence |
 | Reopen lost deadline | Carry deadline/reportability/evidence reference; original signature artifact remains; reopen regression |
 
-The old blanket-bias/parser baseline is superseded; no byte-identical-to-main claim remains. All sample outcome changes require QA explanation/approval before a production rollout. Current labels are rule/code0.4.0, not a retained archive of historical executable builds.
+The old blanket-bias/parser baseline is superseded; no byte-identical-to-main claim remains. All sample outcome changes require QA explanation/approval before a production rollout. Current labels are rule/code0.4.1, not a retained archive of historical executable builds.
 
 ## Evidence retrieval versus the March audit
 
@@ -512,7 +514,7 @@ Replay verifies the bundle, refuses unavailable code/rule versions or legacy bun
 ## Deferred items and honest limits
 
 - **Taxonomy:** shortened-expiry disposition/expiry fields are missing; RELEASE_WITH_NOTE is not equivalent. ESCALATED_TO_SENIOR_QA is review routing still in the fate enum. RELEASE/RETURN/REWORK have no current emitting rule. AUTO_CLOSE proposes TRIAGED_NON_ACTIONABLE, not a terminal closed state.
-- **Evidence gating:** master fallback/presentation/SOP conflicts are visible but not universally blocked until resolution; signing does not enforce Annexure2 clearance. Aliases lack tenant ownership, negative/conflicting-edge adjudication and validated trust. Tenant-filtered matches are not complete clause22 governance over every model/index/derived artefact.
+- **Evidence gating:** 0.4.1 blocks engine release/allowance closure on missing SOP/site authority, overlap or unresolved study applicability. A human can still manually sign a different disposition; signing does not independently enforce Annexure2 clearance. Aliases lack tenant ownership, negative/conflicting-edge adjudication and validated trust. Tenant-filtered matches are not complete clause22 governance over every model/index/derived artefact.
 - **Temperature scope:** endpoints/common-offset min/max/mean summaries do not prove all possible per-reading histories. Bulletin applicability is firmware-only, without calibrated device/date mapping or automatic historical-signature/invoice follow-up.
 - **Human approval:** typed name is not authentication, role validation, dual-signature or a qualified electronic signature. File+SQLite operations are not cross-resource atomic; parallel writers require transaction/concurrency hardening.
 - **Batch/lane:** no tenant+presentation+batch exposure ledger, atomic accumulation/idempotency or full lane history panel; unknown prior exposure is not proven zero.

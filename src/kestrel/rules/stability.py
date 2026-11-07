@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from typing import Any, Optional
 
 from kestrel.ingest import DataPack
-from kestrel.rules.identity import ResolvedProduct
+from kestrel.rules.identity import ResolvedProduct, _norm, _presentation_from_text
 
 """Resolve stability / permitted excursion allowance for a product as cited."""
 
@@ -19,7 +19,7 @@ class StabilityPosition:
     study_ref: Optional[str]
     permitted_text: Optional[str]
     readable: bool
-    source: str  # product_master | stability_index | both | none
+    source: str  # stability_index | unresolved (legacy values may exist in test fixtures)
     max_temp_c: Optional[float] = None
     max_duration_hours: Optional[float] = None
     cumulative: bool = False
@@ -29,6 +29,7 @@ class StabilityPosition:
     freeze_sensitive: bool = False
     presentation_mismatch_risk: bool = False
     cumulative_above_label: bool = False  # "72h above 8°C" — 8 is threshold, not cap
+    authority_issue: Optional[str] = None
     notes: list[str] = None
 
     def __post_init__(self) -> None:
@@ -105,98 +106,73 @@ def _parse_allowance(text: str) -> dict[str, Any]:
 
 
 class StabilityResolver:
-    """Resolves stability study / master permitted-excursion text for a product."""
+    """Resolves uniquely cited excursion-study applicability without master fallback."""
 
     def __init__(self, pack: DataPack) -> None:
         """Bind the resolver to a loaded DataPack."""
         self.pack = pack
-        self.by_ref = {
-            (study.get("tenant_code"), str(study.get("study_ref"))): study
-            for study in pack.stability
-            if study.get("study_ref")
-        }
+        self.by_ref: dict[tuple[str, str], list[dict[str, Any]]] = {}
+        for study in pack.stability:
+            self.by_ref.setdefault((study.get("tenant_code"), str(study.get("study_ref"))), []).append(study)
 
     def resolve(self, product: ResolvedProduct) -> StabilityPosition:
-        """Return the stability position for a resolved product (master preferred on mismatch)."""
+        """Use only a uniquely cited, product/presentation-aligned excursion study.
+
+        The index supplies no effective dates or verified alternate-study mapping.
+        Do not substitute an uncited study or product-master prose for authority.
+        """
         notes: list[str] = []
         study_ref = product.stability_study_ref
         master_text = product.permitted_excursion_text
-        study = self.by_ref.get((product.tenant_code, str(study_ref))) if study_ref else None
-
-        if study_ref and not study:
-            notes.append(
-                f"product master cites {study_ref} but it is absent from 06_Stability_Index "
-                "(index covers ~60% of repository — pack README)"
-            )
-
-        presentation_risk = False
-        if study and product.brand:
-            study_prod = str(study.get("product_text_as_written") or "").lower()
-            # vial vs pen mismatch — the EXC-110497 failure mode
-            brand_l = product.brand.lower()
-            if ("vial" in study_prod and "pen" in brand_l) or ("pen" in study_prod and "vial" in brand_l):
-                presentation_risk = True
-                notes.append(
-                    f"presentation mismatch risk: master brand {product.brand!r} vs study "
-                    f"{study.get('product_text_as_written')!r}"
-                )
-            if product.presentation_hint == "pen" and "vial" in study_prod:
-                presentation_risk = True
-            if product.presentation_hint == "vial" and "pen" in study_prod:
-                presentation_risk = True
-
-        study_text = None
-        readable = True
-        if study:
-            readable = str(study.get("readable") or "Y").upper().startswith("Y") or str(
-                study.get("readable")
-            ).startswith("Partial")
-            if str(study.get("readable") or "").startswith("N"):
-                readable = False
-                notes.append("stability study marked unreadable (scan of scan)")
-            study_text = study.get("permitted_excursion_text") or ""
-            if not study_text:
-                notes.append(
-                    "stability study has blank permitted_excursion_text "
-                    "(long-term/accelerated studies do not answer excursion question — README)"
-                )
-
-        # Prefer study excursion text when present, readable, and presentation-aligned.
-        # Pack trap (EXC-107133 / T-KAVERI): master brand is SoloJet (pen) but cited
-        # STB-3584 is indexed as vial — use master permitted text instead of the
-        # mismatched study (EXC-110497 failure mode).
-        if presentation_risk and master_text and str(master_text).strip():
-            notes.append(
-                "cited study presentation conflicts with brand; preferring product-master "
-                "permitted_excursion_text over mismatched study row"
-            )
-            parsed = _parse_allowance(str(master_text))
-            source = "product_master_over_mismatched_study"
-            text = master_text
-            if parsed.get("refer_qa"):
-                notes.append("master says 'Refer QA' — not a usable allowance (override EXC-110574)")
-        elif study_text and readable:
-            parsed = _parse_allowance(str(study_text))
-            source = "stability_index"
-            text = study_text
-            if master_text and str(master_text).strip() and str(master_text).strip() != str(study_text).strip():
-                notes.append(f"master permitted_excursion_text differs from study: master={master_text!r}")
-                source = "both"
-        elif master_text:
-            parsed = _parse_allowance(str(master_text))
-            source = "product_master"
-            text = master_text
-            if parsed.get("refer_qa"):
-                notes.append("master says 'Refer QA' — not a usable allowance (override EXC-110574)")
+        matches = self.by_ref.get((product.tenant_code, str(study_ref)), []) if study_ref else []
+        study = matches[0] if len(matches) == 1 else None
+        issues = []
+        if study is None:
+            issues.append("cited study missing or ambiguous in tenant index")
         else:
+            text = _norm(study.get("product_text_as_written"))
+            brand = _norm(product.brand)
+            if not brand or not re.search(r"(?<!\w)" + re.escape(brand) + r"(?!\w)", text):
+                issues.append("study product identity not established")
+            hint = product.presentation_hint
+            if not hint or _presentation_from_text(text) != hint:
+                issues.append("study presentation applicability not established")
+            # A row can contain a labelled brand and a contradictory suffix.
+            if (hint == "pen" and "vial" in text) or (hint == "pfs" and "vial" in text):
+                issues.append("study presentation conflicts with product")
+            if "excursion" not in _norm(study.get("study_type")):
+                issues.append("study type does not establish excursion allowance")
+        if issues:
+            reason = "; ".join(issues)
+            return StabilityPosition(
+                study_ref=study_ref,
+                permitted_text=None,
+                readable=False,
+                source="unresolved",
+                authority_issue=reason,
+                presentation_mismatch_risk=any("presentation" in issue for issue in issues),
+                notes=["Stability authority unresolved: " + reason + "; product-master text not used as substitute"],
+            )
+
+        # "Partial" readability does not establish a usable full allowance.
+        readable = str(study.get("readable") or "").upper() == "Y"
+        study_text = study.get("permitted_excursion_text") or ""
+        if not study_text or not readable or str(study.get("readable") or "").upper() != "Y":
             return StabilityPosition(
                 study_ref=study_ref,
                 permitted_text=None,
                 readable=readable,
-                source="none",
-                presentation_mismatch_risk=presentation_risk,
-                notes=notes + ["no permitted excursion text available"],
+                source="unresolved",
+                authority_issue="applicable study allowance missing or not fully readable",
+                notes=notes + ["Stability authority unresolved; product-master text not used as substitute"],
             )
+        parsed = _parse_allowance(str(study_text))
+        source = "stability_index"
+        text = study_text
+        if master_text and str(master_text).strip() != str(study_text).strip():
+            notes.append(f"Master allowance differs from study; not used: {master_text!r}")
+        if parsed.get("refer_qa"):
+            notes.append("Study says Refer QA")
 
         return StabilityPosition(
             study_ref=str(study_ref) if study_ref else None,
@@ -210,7 +186,6 @@ class StabilityResolver:
             no_excursion=bool(parsed.get("no_excursion")),
             qualified_cap=bool(parsed.get("qualified_cap")),
             freeze_sensitive=bool(parsed.get("freeze_sensitive")),
-            presentation_mismatch_risk=presentation_risk,
             cumulative_above_label=bool(parsed.get("cumulative_above_label")),
             notes=notes,
         )

@@ -1,0 +1,187 @@
+FFFFFFFF.                                                                [100%]
+=================================== FAILURES ===================================
+____ test_cumulative_history_unresolved_before_earlier_rules[-0-True-False] ____
+
+cumulative = True, above = False, triage = '', gap = 0
+
+    @pytest.mark.parametrize('cumulative,above', [(True, False), (False, True)])
+    @pytest.mark.parametrize('triage,gap', [('', 0), ('Duplicate', 0), ('Facility equipment event', 0), ('', 90)])
+    def test_cumulative_history_unresolved_before_earlier_rules(cumulative, above, triage, gap):
+        facts = make_facts(
+            stability=stability(max_duration_hours=72, max_temp_c=25,
+                                cumulative=cumulative, cumulative_above_label=above),
+            event={'triage_outcome': triage, 'gateway_gap_min': gap, 'interpolated': 'Y',
+                   'batch_id': 'UNVERIFIED', 'prior_exposure_hours': 0},
+            duration_min=15,
+        )
+        verdict, trace = decide(facts)
+>       assert verdict.disposition == ESCALATE
+E       AssertionError: assert 'RELEASE_WITH_NOTE' == 'ESCALATED_TO_SENIOR_QA'
+E
+E         - ESCALATED_TO_SENIOR_QA
+E         + RELEASE_WITH_NOTE
+
+tests/test_correctness_review.py:83: AssertionError
+____ test_cumulative_history_unresolved_before_earlier_rules[-0-False-True] ____
+
+cumulative = False, above = True, triage = '', gap = 0
+
+    @pytest.mark.parametrize('cumulative,above', [(True, False), (False, True)])
+    @pytest.mark.parametrize('triage,gap', [('', 0), ('Duplicate', 0), ('Facility equipment event', 0), ('', 90)])
+    def test_cumulative_history_unresolved_before_earlier_rules(cumulative, above, triage, gap):
+        facts = make_facts(
+            stability=stability(max_duration_hours=72, max_temp_c=25,
+                                cumulative=cumulative, cumulative_above_label=above),
+            event={'triage_outcome': triage, 'gateway_gap_min': gap, 'interpolated': 'Y',
+                   'batch_id': 'UNVERIFIED', 'prior_exposure_hours': 0},
+            duration_min=15,
+        )
+        verdict, trace = decide(facts)
+>       assert verdict.disposition == ESCALATE
+E       AssertionError: assert 'RELEASE_WITH_NOTE' == 'ESCALATED_TO_SENIOR_QA'
+E
+E         - ESCALATED_TO_SENIOR_QA
+E         + RELEASE_WITH_NOTE
+
+tests/test_correctness_review.py:83: AssertionError
+_ test_cumulative_history_unresolved_before_earlier_rules[Duplicate-0-True-False] _
+
+cumulative = True, above = False, triage = 'Duplicate', gap = 0
+
+    @pytest.mark.parametrize('cumulative,above', [(True, False), (False, True)])
+    @pytest.mark.parametrize('triage,gap', [('', 0), ('Duplicate', 0), ('Facility equipment event', 0), ('', 90)])
+    def test_cumulative_history_unresolved_before_earlier_rules(cumulative, above, triage, gap):
+        facts = make_facts(
+            stability=stability(max_duration_hours=72, max_temp_c=25,
+                                cumulative=cumulative, cumulative_above_label=above),
+            event={'triage_outcome': triage, 'gateway_gap_min': gap, 'interpolated': 'Y',
+                   'batch_id': 'UNVERIFIED', 'prior_exposure_hours': 0},
+            duration_min=15,
+        )
+        verdict, trace = decide(facts)
+>       assert verdict.disposition == ESCALATE
+E       AssertionError: assert 'AUTO_CLOSE' == 'ESCALATED_TO_SENIOR_QA'
+E
+E         - ESCALATED_TO_SENIOR_QA
+E         + AUTO_CLOSE
+
+tests/test_correctness_review.py:83: AssertionError
+_ test_cumulative_history_unresolved_before_earlier_rules[Duplicate-0-False-True] _
+
+cumulative = False, above = True, triage = 'Duplicate', gap = 0
+
+    @pytest.mark.parametrize('cumulative,above', [(True, False), (False, True)])
+    @pytest.mark.parametrize('triage,gap', [('', 0), ('Duplicate', 0), ('Facility equipment event', 0), ('', 90)])
+    def test_cumulative_history_unresolved_before_earlier_rules(cumulative, above, triage, gap):
+        facts = make_facts(
+            stability=stability(max_duration_hours=72, max_temp_c=25,
+                                cumulative=cumulative, cumulative_above_label=above),
+            event={'triage_outcome': triage, 'gateway_gap_min': gap, 'interpolated': 'Y',
+                   'batch_id': 'UNVERIFIED', 'prior_exposure_hours': 0},
+            duration_min=15,
+        )
+        verdict, trace = decide(facts)
+>       assert verdict.disposition == ESCALATE
+E       AssertionError: assert 'AUTO_CLOSE' == 'ESCALATED_TO_SENIOR_QA'
+E
+E         - ESCALATED_TO_SENIOR_QA
+E         + AUTO_CLOSE
+
+tests/test_correctness_review.py:83: AssertionError
+_ test_cumulative_history_unresolved_before_earlier_rules[Facility equipment event-0-True-False] _
+
+cumulative = True, above = False, triage = 'Facility equipment event', gap = 0
+
+    @pytest.mark.parametrize('cumulative,above', [(True, False), (False, True)])
+    @pytest.mark.parametrize('triage,gap', [('', 0), ('Duplicate', 0), ('Facility equipment event', 0), ('', 90)])
+    def test_cumulative_history_unresolved_before_earlier_rules(cumulative, above, triage, gap):
+        facts = make_facts(
+            stability=stability(max_duration_hours=72, max_temp_c=25,
+                                cumulative=cumulative, cumulative_above_label=above),
+            event={'triage_outcome': triage, 'gateway_gap_min': gap, 'interpolated': 'Y',
+                   'batch_id': 'UNVERIFIED', 'prior_exposure_hours': 0},
+            duration_min=15,
+        )
+        verdict, trace = decide(facts)
+>       assert verdict.disposition == ESCALATE
+E       AssertionError: assert 'AUTO_CLOSE' == 'ESCALATED_TO_SENIOR_QA'
+E
+E         - ESCALATED_TO_SENIOR_QA
+E         + AUTO_CLOSE
+
+tests/test_correctness_review.py:83: AssertionError
+_ test_cumulative_history_unresolved_before_earlier_rules[Facility equipment event-0-False-True] _
+
+cumulative = False, above = True, triage = 'Facility equipment event', gap = 0
+
+    @pytest.mark.parametrize('cumulative,above', [(True, False), (False, True)])
+    @pytest.mark.parametrize('triage,gap', [('', 0), ('Duplicate', 0), ('Facility equipment event', 0), ('', 90)])
+    def test_cumulative_history_unresolved_before_earlier_rules(cumulative, above, triage, gap):
+        facts = make_facts(
+            stability=stability(max_duration_hours=72, max_temp_c=25,
+                                cumulative=cumulative, cumulative_above_label=above),
+            event={'triage_outcome': triage, 'gateway_gap_min': gap, 'interpolated': 'Y',
+                   'batch_id': 'UNVERIFIED', 'prior_exposure_hours': 0},
+            duration_min=15,
+        )
+        verdict, trace = decide(facts)
+>       assert verdict.disposition == ESCALATE
+E       AssertionError: assert 'AUTO_CLOSE' == 'ESCALATED_TO_SENIOR_QA'
+E
+E         - ESCALATED_TO_SENIOR_QA
+E         + AUTO_CLOSE
+
+tests/test_correctness_review.py:83: AssertionError
+___ test_cumulative_history_unresolved_before_earlier_rules[-90-True-False] ____
+
+cumulative = True, above = False, triage = '', gap = 90
+
+    @pytest.mark.parametrize('cumulative,above', [(True, False), (False, True)])
+    @pytest.mark.parametrize('triage,gap', [('', 0), ('Duplicate', 0), ('Facility equipment event', 0), ('', 90)])
+    def test_cumulative_history_unresolved_before_earlier_rules(cumulative, above, triage, gap):
+        facts = make_facts(
+            stability=stability(max_duration_hours=72, max_temp_c=25,
+                                cumulative=cumulative, cumulative_above_label=above),
+            event={'triage_outcome': triage, 'gateway_gap_min': gap, 'interpolated': 'Y',
+                   'batch_id': 'UNVERIFIED', 'prior_exposure_hours': 0},
+            duration_min=15,
+        )
+        verdict, trace = decide(facts)
+>       assert verdict.disposition == ESCALATE
+E       AssertionError: assert 'RELEASE_WITH_NOTE' == 'ESCALATED_TO_SENIOR_QA'
+E
+E         - ESCALATED_TO_SENIOR_QA
+E         + RELEASE_WITH_NOTE
+
+tests/test_correctness_review.py:83: AssertionError
+___ test_cumulative_history_unresolved_before_earlier_rules[-90-False-True] ____
+
+cumulative = False, above = True, triage = '', gap = 90
+
+    @pytest.mark.parametrize('cumulative,above', [(True, False), (False, True)])
+    @pytest.mark.parametrize('triage,gap', [('', 0), ('Duplicate', 0), ('Facility equipment event', 0), ('', 90)])
+    def test_cumulative_history_unresolved_before_earlier_rules(cumulative, above, triage, gap):
+        facts = make_facts(
+            stability=stability(max_duration_hours=72, max_temp_c=25,
+                                cumulative=cumulative, cumulative_above_label=above),
+            event={'triage_outcome': triage, 'gateway_gap_min': gap, 'interpolated': 'Y',
+                   'batch_id': 'UNVERIFIED', 'prior_exposure_hours': 0},
+            duration_min=15,
+        )
+        verdict, trace = decide(facts)
+>       assert verdict.disposition == ESCALATE
+E       AssertionError: assert 'RELEASE_WITH_NOTE' == 'ESCALATED_TO_SENIOR_QA'
+E
+E         - ESCALATED_TO_SENIOR_QA
+E         + RELEASE_WITH_NOTE
+
+tests/test_correctness_review.py:83: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_correctness_review.py::test_cumulative_history_unresolved_before_earlier_rules[-0-True-False]
+FAILED tests/test_correctness_review.py::test_cumulative_history_unresolved_before_earlier_rules[-0-False-True]
+FAILED tests/test_correctness_review.py::test_cumulative_history_unresolved_before_earlier_rules[Duplicate-0-True-False]
+FAILED tests/test_correctness_review.py::test_cumulative_history_unresolved_before_earlier_rules[Duplicate-0-False-True]
+FAILED tests/test_correctness_review.py::test_cumulative_history_unresolved_before_earlier_rules[Facility equipment event-0-True-False]
+FAILED tests/test_correctness_review.py::test_cumulative_history_unresolved_before_earlier_rules[Facility equipment event-0-False-True]
+FAILED tests/test_correctness_review.py::test_cumulative_history_unresolved_before_earlier_rules[-90-True-False]
+FAILED tests/test_correctness_review.py::test_cumulative_history_unresolved_before_earlier_rules[-90-False-True]

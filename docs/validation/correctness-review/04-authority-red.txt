@@ -1,0 +1,330 @@
+FFFFFFFFFFF                                                              [100%]
+=================================== FAILURES ===================================
+______________ test_mismatched_study_never_uses_master_allowance _______________
+
+pack = DataPack(path=PosixPath('/workspace/kprod/data/KCCS_Sentinel_Reference_Data_Pack.xlsx'), events=[{'event_id': 'EXC-112...ridian's MSA Cl.22 prohibition means a confirmed leak would have been a contractual breach with termination rights."}])
+
+    def test_mismatched_study_never_uses_master_allowance(pack):
+        from kestrel.rules.identity import IdentityResolver
+        from kestrel.rules.stability import StabilityResolver
+        product = IdentityResolver(pack).resolve_product('T-KAVERI', '08901234500035')
+        position = StabilityResolver(pack).resolve(product)
+>       assert position.source == 'unresolved'
+E       AssertionError: assert 'product_mast...matched_study' == 'unresolved'
+E
+E         - unresolved
+E         + product_master_over_mismatched_study
+
+tests/test_correctness_review.py:97: AssertionError
+_________ test_study_applicability_must_be_established[missing-study] __________
+
+pack = DataPack(path=PosixPath('/workspace/kprod/data/KCCS_Sentinel_Reference_Data_Pack.xlsx'), events=[{'event_id': 'EXC-112...ridian's MSA Cl.22 prohibition means a confirmed leak would have been a contractual breach with termination rights."}])
+change = 'missing-study'
+
+    @pytest.mark.parametrize('change', ['missing-study', 'wrong-product', 'wrong-type', 'unknown-presentation', 'duplicate-reference'])
+    def test_study_applicability_must_be_established(pack, change):
+        from copy import deepcopy
+        from kestrel.rules.identity import ResolvedProduct
+        from kestrel.rules.stability import StabilityResolver
+        copied = deepcopy(pack)
+        product = ResolvedProduct(tenant_code='T', match_method='sku_exact', confidence=1,
+                                  brand='Medicine 100U pen', presentation_hint='pen',
+                                  stability_study_ref='S', permitted_excursion_text='6 h to 15 C')
+        row = dict(tenant_code='T', study_ref='S', product_text_as_written='Medicine 100U pen',
+                   study_type='Excursion / thermal cycling', readable='Y', permitted_excursion_text='6 h to 15 C')
+        copied.stability = [row]
+        if change == 'missing-study':
+            copied.stability = []
+        elif change == 'wrong-product':
+            row['product_text_as_written'] = 'Other 100U pen'
+        elif change == 'wrong-type':
+            row['study_type'] = 'Accelerated'
+        elif change == 'unknown-presentation':
+            row['product_text_as_written'] = 'Medicine 100U'
+        elif change == 'duplicate-reference':
+            copied.stability.append(dict(row))
+        result = StabilityResolver(copied).resolve(product)
+>       assert result.source == 'unresolved'
+E       AssertionError: assert 'product_master' == 'unresolved'
+E
+E         - unresolved
+E         + product_master
+
+tests/test_correctness_review.py:125: AssertionError
+_________ test_study_applicability_must_be_established[wrong-product] __________
+
+pack = DataPack(path=PosixPath('/workspace/kprod/data/KCCS_Sentinel_Reference_Data_Pack.xlsx'), events=[{'event_id': 'EXC-112...ridian's MSA Cl.22 prohibition means a confirmed leak would have been a contractual breach with termination rights."}])
+change = 'wrong-product'
+
+    @pytest.mark.parametrize('change', ['missing-study', 'wrong-product', 'wrong-type', 'unknown-presentation', 'duplicate-reference'])
+    def test_study_applicability_must_be_established(pack, change):
+        from copy import deepcopy
+        from kestrel.rules.identity import ResolvedProduct
+        from kestrel.rules.stability import StabilityResolver
+        copied = deepcopy(pack)
+        product = ResolvedProduct(tenant_code='T', match_method='sku_exact', confidence=1,
+                                  brand='Medicine 100U pen', presentation_hint='pen',
+                                  stability_study_ref='S', permitted_excursion_text='6 h to 15 C')
+        row = dict(tenant_code='T', study_ref='S', product_text_as_written='Medicine 100U pen',
+                   study_type='Excursion / thermal cycling', readable='Y', permitted_excursion_text='6 h to 15 C')
+        copied.stability = [row]
+        if change == 'missing-study':
+            copied.stability = []
+        elif change == 'wrong-product':
+            row['product_text_as_written'] = 'Other 100U pen'
+        elif change == 'wrong-type':
+            row['study_type'] = 'Accelerated'
+        elif change == 'unknown-presentation':
+            row['product_text_as_written'] = 'Medicine 100U'
+        elif change == 'duplicate-reference':
+            copied.stability.append(dict(row))
+        result = StabilityResolver(copied).resolve(product)
+>       assert result.source == 'unresolved'
+E       AssertionError: assert 'stability_index' == 'unresolved'
+E
+E         - unresolved
+E         + stability_index
+
+tests/test_correctness_review.py:125: AssertionError
+___________ test_study_applicability_must_be_established[wrong-type] ___________
+
+pack = DataPack(path=PosixPath('/workspace/kprod/data/KCCS_Sentinel_Reference_Data_Pack.xlsx'), events=[{'event_id': 'EXC-112...ridian's MSA Cl.22 prohibition means a confirmed leak would have been a contractual breach with termination rights."}])
+change = 'wrong-type'
+
+    @pytest.mark.parametrize('change', ['missing-study', 'wrong-product', 'wrong-type', 'unknown-presentation', 'duplicate-reference'])
+    def test_study_applicability_must_be_established(pack, change):
+        from copy import deepcopy
+        from kestrel.rules.identity import ResolvedProduct
+        from kestrel.rules.stability import StabilityResolver
+        copied = deepcopy(pack)
+        product = ResolvedProduct(tenant_code='T', match_method='sku_exact', confidence=1,
+                                  brand='Medicine 100U pen', presentation_hint='pen',
+                                  stability_study_ref='S', permitted_excursion_text='6 h to 15 C')
+        row = dict(tenant_code='T', study_ref='S', product_text_as_written='Medicine 100U pen',
+                   study_type='Excursion / thermal cycling', readable='Y', permitted_excursion_text='6 h to 15 C')
+        copied.stability = [row]
+        if change == 'missing-study':
+            copied.stability = []
+        elif change == 'wrong-product':
+            row['product_text_as_written'] = 'Other 100U pen'
+        elif change == 'wrong-type':
+            row['study_type'] = 'Accelerated'
+        elif change == 'unknown-presentation':
+            row['product_text_as_written'] = 'Medicine 100U'
+        elif change == 'duplicate-reference':
+            copied.stability.append(dict(row))
+        result = StabilityResolver(copied).resolve(product)
+>       assert result.source == 'unresolved'
+E       AssertionError: assert 'stability_index' == 'unresolved'
+E
+E         - unresolved
+E         + stability_index
+
+tests/test_correctness_review.py:125: AssertionError
+______ test_study_applicability_must_be_established[unknown-presentation] ______
+
+pack = DataPack(path=PosixPath('/workspace/kprod/data/KCCS_Sentinel_Reference_Data_Pack.xlsx'), events=[{'event_id': 'EXC-112...ridian's MSA Cl.22 prohibition means a confirmed leak would have been a contractual breach with termination rights."}])
+change = 'unknown-presentation'
+
+    @pytest.mark.parametrize('change', ['missing-study', 'wrong-product', 'wrong-type', 'unknown-presentation', 'duplicate-reference'])
+    def test_study_applicability_must_be_established(pack, change):
+        from copy import deepcopy
+        from kestrel.rules.identity import ResolvedProduct
+        from kestrel.rules.stability import StabilityResolver
+        copied = deepcopy(pack)
+        product = ResolvedProduct(tenant_code='T', match_method='sku_exact', confidence=1,
+                                  brand='Medicine 100U pen', presentation_hint='pen',
+                                  stability_study_ref='S', permitted_excursion_text='6 h to 15 C')
+        row = dict(tenant_code='T', study_ref='S', product_text_as_written='Medicine 100U pen',
+                   study_type='Excursion / thermal cycling', readable='Y', permitted_excursion_text='6 h to 15 C')
+        copied.stability = [row]
+        if change == 'missing-study':
+            copied.stability = []
+        elif change == 'wrong-product':
+            row['product_text_as_written'] = 'Other 100U pen'
+        elif change == 'wrong-type':
+            row['study_type'] = 'Accelerated'
+        elif change == 'unknown-presentation':
+            row['product_text_as_written'] = 'Medicine 100U'
+        elif change == 'duplicate-reference':
+            copied.stability.append(dict(row))
+        result = StabilityResolver(copied).resolve(product)
+>       assert result.source == 'unresolved'
+E       AssertionError: assert 'stability_index' == 'unresolved'
+E
+E         - unresolved
+E         + stability_index
+
+tests/test_correctness_review.py:125: AssertionError
+______ test_study_applicability_must_be_established[duplicate-reference] _______
+
+pack = DataPack(path=PosixPath('/workspace/kprod/data/KCCS_Sentinel_Reference_Data_Pack.xlsx'), events=[{'event_id': 'EXC-112...ridian's MSA Cl.22 prohibition means a confirmed leak would have been a contractual breach with termination rights."}])
+change = 'duplicate-reference'
+
+    @pytest.mark.parametrize('change', ['missing-study', 'wrong-product', 'wrong-type', 'unknown-presentation', 'duplicate-reference'])
+    def test_study_applicability_must_be_established(pack, change):
+        from copy import deepcopy
+        from kestrel.rules.identity import ResolvedProduct
+        from kestrel.rules.stability import StabilityResolver
+        copied = deepcopy(pack)
+        product = ResolvedProduct(tenant_code='T', match_method='sku_exact', confidence=1,
+                                  brand='Medicine 100U pen', presentation_hint='pen',
+                                  stability_study_ref='S', permitted_excursion_text='6 h to 15 C')
+        row = dict(tenant_code='T', study_ref='S', product_text_as_written='Medicine 100U pen',
+                   study_type='Excursion / thermal cycling', readable='Y', permitted_excursion_text='6 h to 15 C')
+        copied.stability = [row]
+        if change == 'missing-study':
+            copied.stability = []
+        elif change == 'wrong-product':
+            row['product_text_as_written'] = 'Other 100U pen'
+        elif change == 'wrong-type':
+            row['study_type'] = 'Accelerated'
+        elif change == 'unknown-presentation':
+            row['product_text_as_written'] = 'Medicine 100U'
+        elif change == 'duplicate-reference':
+            copied.stability.append(dict(row))
+        result = StabilityResolver(copied).resolve(product)
+>       assert result.source == 'unresolved'
+E       AssertionError: assert 'stability_index' == 'unresolved'
+E
+E         - unresolved
+E         + stability_index
+
+tests/test_correctness_review.py:125: AssertionError
+_____ test_sop_overlap_blocks_release_even_with_otherwise_usable_evidence ______
+
+    def test_sop_overlap_blocks_release_even_with_otherwise_usable_evidence():
+        verdict, trace = decide(make_facts(sop_overlap=True, duration_min=5))
+>       assert verdict.disposition == ESCALATE
+E       AssertionError: assert 'RELEASE_WITH_NOTE' == 'ESCALATED_TO_SENIOR_QA'
+E
+E         - ESCALATED_TO_SENIOR_QA
+E         + RELEASE_WITH_NOTE
+
+tests/test_correctness_review.py:131: AssertionError
+_________ test_engine_sop_authority_blocks_early_gap_release[missing] __________
+
+pack = DataPack(path=PosixPath('/workspace/kprod/data/KCCS_Sentinel_Reference_Data_Pack.xlsx'), events=[{'event_id': 'EXC-112...ridian's MSA Cl.22 prohibition means a confirmed leak would have been a contractual breach with termination rights."}])
+mode = 'missing'
+
+    @pytest.mark.parametrize('mode', ['missing', 'site-annexure', 'overlap'])
+    def test_engine_sop_authority_blocks_early_gap_release(pack, mode):
+        from copy import deepcopy
+        from kestrel.engine import AdjudicationEngine
+        copied = deepcopy(pack)
+        # Isolate SOP authority from cumulative/mismatched study failures.
+        copied.products = [dict(tenant_code='T', internal_sku='P', brand_as_labelled='Medicine pen',
+                                storage_spec_text='2-8 C', stability_study_ref='S')]
+        copied.stability = [dict(tenant_code='T', study_ref='S', product_text_as_written='Medicine pen',
+                                 study_type='Excursion / thermal cycling', readable='Y',
+                                 permitted_excursion_text='6 h to 15 C')]
+        copied.sops = [] if mode == 'missing' else [
+            dict(tenant_code='T', title='Temperature Excursion Management', doc_id='D', revision='Rev 01',
+                 _effective_from=date(2020,1,1), _effective_to=None,
+                 applies_to_facilities_text='Site-specific — see Annexure 2',
+                 acceptance_limits_location='Annexure 2')]
+        if mode == 'overlap':
+            copied.sops.append(dict(copied.sops[0], revision='Rev 02'))
+        event = dict(pack.event_by_id('EXC-107133'), tenant_code='T', product_ref_as_received='P',
+                     gateway_gap_min=90, interpolated='Y')
+        result = AdjudicationEngine(copied).adjudicate(event)
+>       assert result.recommendation == ESCALATE
+E       AssertionError: assert 'RELEASE_WITH_NOTE' == 'ESCALATED_TO_SENIOR_QA'
+E
+E         - ESCALATED_TO_SENIOR_QA
+E         + RELEASE_WITH_NOTE
+
+tests/test_correctness_review.py:156: AssertionError
+______ test_engine_sop_authority_blocks_early_gap_release[site-annexure] _______
+
+pack = DataPack(path=PosixPath('/workspace/kprod/data/KCCS_Sentinel_Reference_Data_Pack.xlsx'), events=[{'event_id': 'EXC-112...ridian's MSA Cl.22 prohibition means a confirmed leak would have been a contractual breach with termination rights."}])
+mode = 'site-annexure'
+
+    @pytest.mark.parametrize('mode', ['missing', 'site-annexure', 'overlap'])
+    def test_engine_sop_authority_blocks_early_gap_release(pack, mode):
+        from copy import deepcopy
+        from kestrel.engine import AdjudicationEngine
+        copied = deepcopy(pack)
+        # Isolate SOP authority from cumulative/mismatched study failures.
+        copied.products = [dict(tenant_code='T', internal_sku='P', brand_as_labelled='Medicine pen',
+                                storage_spec_text='2-8 C', stability_study_ref='S')]
+        copied.stability = [dict(tenant_code='T', study_ref='S', product_text_as_written='Medicine pen',
+                                 study_type='Excursion / thermal cycling', readable='Y',
+                                 permitted_excursion_text='6 h to 15 C')]
+        copied.sops = [] if mode == 'missing' else [
+            dict(tenant_code='T', title='Temperature Excursion Management', doc_id='D', revision='Rev 01',
+                 _effective_from=date(2020,1,1), _effective_to=None,
+                 applies_to_facilities_text='Site-specific — see Annexure 2',
+                 acceptance_limits_location='Annexure 2')]
+        if mode == 'overlap':
+            copied.sops.append(dict(copied.sops[0], revision='Rev 02'))
+        event = dict(pack.event_by_id('EXC-107133'), tenant_code='T', product_ref_as_received='P',
+                     gateway_gap_min=90, interpolated='Y')
+        result = AdjudicationEngine(copied).adjudicate(event)
+>       assert result.recommendation == ESCALATE
+E       AssertionError: assert 'RELEASE_WITH_NOTE' == 'ESCALATED_TO_SENIOR_QA'
+E
+E         - ESCALATED_TO_SENIOR_QA
+E         + RELEASE_WITH_NOTE
+
+tests/test_correctness_review.py:156: AssertionError
+_________ test_engine_sop_authority_blocks_early_gap_release[overlap] __________
+
+pack = DataPack(path=PosixPath('/workspace/kprod/data/KCCS_Sentinel_Reference_Data_Pack.xlsx'), events=[{'event_id': 'EXC-112...ridian's MSA Cl.22 prohibition means a confirmed leak would have been a contractual breach with termination rights."}])
+mode = 'overlap'
+
+    @pytest.mark.parametrize('mode', ['missing', 'site-annexure', 'overlap'])
+    def test_engine_sop_authority_blocks_early_gap_release(pack, mode):
+        from copy import deepcopy
+        from kestrel.engine import AdjudicationEngine
+        copied = deepcopy(pack)
+        # Isolate SOP authority from cumulative/mismatched study failures.
+        copied.products = [dict(tenant_code='T', internal_sku='P', brand_as_labelled='Medicine pen',
+                                storage_spec_text='2-8 C', stability_study_ref='S')]
+        copied.stability = [dict(tenant_code='T', study_ref='S', product_text_as_written='Medicine pen',
+                                 study_type='Excursion / thermal cycling', readable='Y',
+                                 permitted_excursion_text='6 h to 15 C')]
+        copied.sops = [] if mode == 'missing' else [
+            dict(tenant_code='T', title='Temperature Excursion Management', doc_id='D', revision='Rev 01',
+                 _effective_from=date(2020,1,1), _effective_to=None,
+                 applies_to_facilities_text='Site-specific — see Annexure 2',
+                 acceptance_limits_location='Annexure 2')]
+        if mode == 'overlap':
+            copied.sops.append(dict(copied.sops[0], revision='Rev 02'))
+        event = dict(pack.event_by_id('EXC-107133'), tenant_code='T', product_ref_as_received='P',
+                     gateway_gap_min=90, interpolated='Y')
+        result = AdjudicationEngine(copied).adjudicate(event)
+>       assert result.recommendation == ESCALATE
+E       AssertionError: assert 'RELEASE_WITH_NOTE' == 'ESCALATED_TO_SENIOR_QA'
+E
+E         - ESCALATED_TO_SENIOR_QA
+E         + RELEASE_WITH_NOTE
+
+tests/test_correctness_review.py:156: AssertionError
+____________________ test_exc_107133_not_forced_to_history _____________________
+
+pack = DataPack(path=PosixPath('/workspace/kprod/data/KCCS_Sentinel_Reference_Data_Pack.xlsx'), events=[{'event_id': 'EXC-112...ridian's MSA Cl.22 prohibition means a confirmed leak would have been a contractual breach with termination rights."}])
+
+    def test_exc_107133_not_forced_to_history(pack):
+        from kestrel.engine import AdjudicationEngine
+        result = AdjudicationEngine(pack).adjudicate(pack.event_by_id('EXC-107133'))
+        assert result.recommendation == ESCALATE
+>       assert result.evidence['stability']['source'] == 'unresolved'
+E       AssertionError: assert 'product_mast...matched_study' == 'unresolved'
+E
+E         - unresolved
+E         + product_master_over_mismatched_study
+
+tests/test_correctness_review.py:165: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_correctness_review.py::test_mismatched_study_never_uses_master_allowance
+FAILED tests/test_correctness_review.py::test_study_applicability_must_be_established[missing-study]
+FAILED tests/test_correctness_review.py::test_study_applicability_must_be_established[wrong-product]
+FAILED tests/test_correctness_review.py::test_study_applicability_must_be_established[wrong-type]
+FAILED tests/test_correctness_review.py::test_study_applicability_must_be_established[unknown-presentation]
+FAILED tests/test_correctness_review.py::test_study_applicability_must_be_established[duplicate-reference]
+FAILED tests/test_correctness_review.py::test_sop_overlap_blocks_release_even_with_otherwise_usable_evidence
+FAILED tests/test_correctness_review.py::test_engine_sop_authority_blocks_early_gap_release[missing]
+FAILED tests/test_correctness_review.py::test_engine_sop_authority_blocks_early_gap_release[site-annexure]
+FAILED tests/test_correctness_review.py::test_engine_sop_authority_blocks_early_gap_release[overlap]
+FAILED tests/test_correctness_review.py::test_exc_107133_not_forced_to_history

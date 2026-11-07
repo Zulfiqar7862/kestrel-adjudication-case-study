@@ -1,4 +1,12 @@
-# Reviewer-fix validation — 7 Nov 2026 (CET)
+# Current correctness review: rule/code 0.4.1
+
+[Full report, exact commands, test-first evidence and event-level diff](correctness-review/report.md). The new sample counts are **111/309/0/0/0** in AUTO_CLOSE/QA/note/quarantine/destroy order, versus **224/106/53/26/11** at fbf5322. Exactly 203 recommendations change, all to QA. No production accuracy is claimed. The source PDF/workbook are unchanged.
+
+The records below and the existing `review-run-2026-11-07.json` / `outcome-changes-2026-11-07.json` are retained as **historical 0.4.0 validation**, not overwritten as if newly executed.
+
+---
+
+# Validation history — 7 Nov 2026 (CET)
 
 `review-run-2026-11-07.json` records the reproduced software/sample regression baseline, not QA-approved clinical outcomes. The source workbook and PDF are unchanged. The 420 rows are a stratified evidence sample, not production volume.
 
@@ -31,6 +39,6 @@ Existing API regression `test_sign_requires_named_signer_and_current_evidence` n
 
 ## Interpretation
 
-Current counts in AUTO_CLOSE/escalation/note/quarantine/destroy order: **224/106/53/26/11** (old blanket-bias/parser baseline: 224/80/54/31/31). Shadow has 91 candidates and 91 scenario/evidence diffs but only **4 disposition flips** compared with reported-only evaluation. Historical-final agreement is 11/200 (5.5%); assistant-draft agreement203/420 (48.33%). These are not production safety/accuracy improvements. See the case-study limits for unimplemented evidence, workflow and operational requirements.
+Historical 0.4.0 counts in AUTO_CLOSE/escalation/note/quarantine/destroy order: **224/106/53/26/11** (old blanket-bias/parser baseline: 224/80/54/31/31). Shadow has 91 candidates and 91 scenario/evidence diffs but only **4 disposition flips** compared with reported-only evaluation. Historical-final agreement is 11/200 (5.5%); assistant-draft agreement203/420 (48.33%). These are not production safety/accuracy improvements. See the case-study limits for unimplemented evidence, workflow and operational requirements.
 
 Compared with original production `ae2d84a`, exactly26 recommendations change, all to QA escalation:22 qualified-cap/incomplete-authority cases and4 temperature-uncertainty cases. Complete event-level diff is in `outcome-changes-2026-11-07.json`. The four uncertainty-sensitive events are EXC-110021,EXC-110413,EXC-110378 andEXC-110399. EXC-112289 andEXC-112842 both change DESTROY→QA; EXC-107133 andEXC-112198 retain their outcomes.

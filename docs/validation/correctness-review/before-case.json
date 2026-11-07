@@ -1,0 +1,17 @@
+{
+  "event_id": "EXC-107133",
+  "recommendation": "RELEASE_WITH_NOTE",
+  "confidence": 0.8,
+  "bundle_id": "EVB-9e77c54b20cdffa5",
+  "case_id": "CASE-b4c6641b7f00",
+  "rationale": [
+    "stability study has blank permitted_excursion_text (long-term/accelerated studies do not answer excursion question \u2014 README)",
+    "cited study presentation conflicts with brand; preferring product-master permitted_excursion_text over mismatched study row",
+    "SOP overlap: 2 revisions of SOP-KAV-9392 effective on 2026-07-28; selected Rev 03 (highest rev). Human must confirm (override EXC-110490 pattern).",
+    "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+    "Presentation mismatch on cited study \u2014 using master allowance with reduced confidence",
+    "SOP revision overlap on excursion date \u2014 human must confirm which acceptance limit governed; proceeding with stability arithmetic",
+    "Cumulative-above-label check: 0.25h above ~8.0\u00b0C vs budget \u226472.0h; peak 11.2\u00b0C (source=product_master_over_mismatched_study)",
+    "Within single-event allowance but exposure is cumulative across shelf life \u2014 release with batch note"
+  ]
+}

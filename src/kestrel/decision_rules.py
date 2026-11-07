@@ -17,6 +17,7 @@ then temperature and stability arithmetic, then a conservative fallback.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from math import isfinite
 from typing import Any, Callable, NamedTuple, Optional
 
 from kestrel.rules.identity import ResolvedProduct
@@ -45,7 +46,6 @@ ULTRA_COLD_LABEL_C = -60
 ULTRA_COLD_TOP_UP_MINUTES = 5
 BRIEF_BREACH_HOURS = 0.25
 BRIEF_BREACH_TOLERANCE_C = 2
-CUMULATIVE_ABSOLUTE_CEILING_C = 30
 SEVERE_BREACH_MARGIN_C = 5
 MILD_EXCURSION_HOURS = 0.5
 MILD_EXCURSION_TOLERANCE_C = 3
@@ -73,6 +73,7 @@ class ExcursionFacts:
     min_c: Optional[float]
     duration_min: float
     sop_overlap: bool
+    sop_authority_issue: Optional[str] = "governing SOP/site authority not established"
 
     @property
     def duration_h(self) -> float:
@@ -100,7 +101,7 @@ class ExcursionFacts:
         return str(self.event.get("triage_outcome") or "").lower()
 
     @property
-    def out_of_label_range(self) -> bool:
+    def out_of_label_range(self) -> Optional[bool]:
         return is_out_of_range(self.corrected_max_c, self.min_c, self.label_low_c, self.label_high_c)
 
     def max_within(self, limit_c: Optional[float], tolerance_c: float) -> bool:
@@ -114,6 +115,30 @@ Rule = Callable[[ExcursionFacts, list[str]], Optional[Verdict]]
 
 
 # --- 1. Cheap non-actionable triages ------------------------------------------
+
+
+def rule_insufficient_temperature(f: ExcursionFacts, trace: list[str]) -> Optional[Verdict]:
+    """Historical triage is not independent proof of a duplicate or an empty load."""
+    values = (f.min_c, f.corrected_max_c, f.label_low_c, f.label_high_c)
+    if (
+        any(v is None or not isfinite(v) for v in values)
+        or f.min_c > f.corrected_max_c
+        or f.label_low_c > f.label_high_c
+    ):
+        trace.append("Escalate: insufficient temperature evidence — complete valid extrema and label range required")
+        return Verdict(ESCALATE, "ACTIONABLE — insufficient temperature evidence", 0.0)
+    return None
+
+
+def rule_cumulative_history_unresolved(f: ExcursionFacts, trace: list[str]) -> Optional[Verdict]:
+    """No verified batch identity/history exists in this pack; never assume zero."""
+    if (f.stability.cumulative or f.stability.cumulative_above_label) and f.out_of_label_range is not False:
+        trace.append(
+            "Escalate: cumulative assessment unresolved — verified batch identity and complete prior-exposure "
+            "history unavailable; remaining lifetime allowance is unknown"
+        )
+        return Verdict(ESCALATE, "ACTIONABLE — cumulative assessment unresolved", 0.0)
+    return None
 
 
 def rule_facility_equipment_event(f: ExcursionFacts, trace: list[str]) -> Optional[Verdict]:
@@ -153,28 +178,26 @@ def rule_unresolved_identity(f: ExcursionFacts, trace: list[str]) -> Optional[Ve
     return Verdict(ESCALATE, "ACTIONABLE — identity unresolved", 0.35)
 
 
-def rule_presentation_mismatch(f: ExcursionFacts, trace: list[str]) -> Optional[Verdict]:
-    """Cited study may be for another presentation (vial vs pen).
-
-    If the product master's own allowance is available we continue with reduced
-    confidence; otherwise a senior reviewer must decide.
-    """
-    if not f.stability.presentation_mismatch_risk:
-        return None
-    if f.stability.source != "product_master_over_mismatched_study":
-        trace.append("Escalate: stability study may be wrong presentation (vial vs pen)")
-        return Verdict(ESCALATE, "ACTIONABLE — presentation mismatch risk", 0.4)
-    trace.append("Presentation mismatch on cited study — using master allowance with reduced confidence")
+def rule_stability_authority(f: ExcursionFacts, trace: list[str]) -> Optional[Verdict]:
+    """An excursion with unestablished study applicability needs QA, not a guessed fate."""
+    if f.out_of_label_range is True and f.stability.authority_issue:
+        trace.append("Escalate: stability authority unresolved — " + f.stability.authority_issue)
+        return Verdict(ESCALATE, "ACTIONABLE — stability authority unresolved", 0.0)
     return None
 
 
+def rule_presentation_mismatch(f: ExcursionFacts, trace: list[str]) -> Optional[Verdict]:
+    """Never substitute unverified master prose for a mismatched study."""
+    if not f.stability.presentation_mismatch_risk:
+        return None
+    trace.append("Escalate: stability study may be wrong presentation (vial vs pen)")
+    return Verdict(ESCALATE, "ACTIONABLE — presentation mismatch risk", 0.4)
+
+
 def rule_sop_overlap(f: ExcursionFacts, trace: list[str]) -> Optional[Verdict]:
-    """Two SOP revisions in force on the same date: flag it, but let stability decide (EXC-107133)."""
+    """Record overlap; the final authority gate blocks release on any rule path."""
     if f.sop_overlap:
-        trace.append(
-            "SOP revision overlap on excursion date — human must confirm which "
-            "acceptance limit governed; proceeding with stability arithmetic"
-        )
+        trace.append("SOP revision overlap unresolved — no release authority established")
     return None
 
 
@@ -221,7 +244,7 @@ def rule_dock_door(f: ExcursionFacts, trace: list[str]) -> Optional[Verdict]:
 
 def rule_within_label_range(f: ExcursionFacts, trace: list[str]) -> Optional[Verdict]:
     """After the firmware correction, still inside the labelled range: nothing happened."""
-    if f.out_of_label_range:
+    if f.out_of_label_range is not False:
         return None
     trace.append("Corrected temperatures within labelled storage range")
     return Verdict(AUTO_CLOSE, "NON_ACTIONABLE — within labelled range", 0.9)
@@ -285,36 +308,22 @@ def rule_no_excursion_permitted(f: ExcursionFacts, trace: list[str]) -> Optional
 
 def rule_stability_allowance(f: ExcursionFacts, trace: list[str]) -> Optional[Verdict]:
     """Compare the excursion with the permitted allowance (duration and temperature)."""
+    unresolved = rule_cumulative_history_unresolved(f, trace)
+    if unresolved:
+        return unresolved
     stab = f.stability
     has_allowance = stab.max_duration_hours is not None and (stab.max_temp_c is not None or stab.cumulative_above_label)
     if not has_allowance:
         return None
 
     within_duration = f.duration_h <= stab.max_duration_hours + EPSILON
-    if stab.cumulative_above_label:
-        # "72 h above 8 °C": the label edge is the threshold and the hours are the budget.
-        threshold = stab.max_temp_c if stab.max_temp_c is not None else f.label_high_c
-        within_temp = not (f.corrected_max_c is not None and f.corrected_max_c > CUMULATIVE_ABSOLUTE_CEILING_C)
-        trace.append(
-            f"Cumulative-above-label check: {f.duration_h:.2f}h above ~{threshold}°C "
-            f"vs budget ≤{stab.max_duration_hours}h; peak {f.corrected_max_c}°C "
-            f"(source={stab.source})"
-        )
-    else:
-        within_temp = f.corrected_max_c is not None and f.corrected_max_c <= stab.max_temp_c + 1e-6
-        trace.append(
-            f"Allowance check: duration {f.duration_h:.2f}h vs ≤{stab.max_duration_hours}h; "
-            f"max {f.corrected_max_c}°C vs ≤{stab.max_temp_c}°C "
-            f"(source={stab.source})"
-        )
+    within_temp = f.corrected_max_c is not None and f.corrected_max_c <= stab.max_temp_c + 1e-6
+    trace.append(
+        f"Allowance check: duration {f.duration_h:.2f}h vs ≤{stab.max_duration_hours}h; "
+        f"max {f.corrected_max_c}°C vs ≤{stab.max_temp_c}°C (source={stab.source})"
+    )
 
     if within_temp and within_duration:
-        if stab.cumulative or stab.cumulative_above_label:
-            trace.append(
-                "Within single-event allowance but exposure is cumulative across shelf life — release with batch note"
-            )
-            confidence = 0.8 if stab.presentation_mismatch_risk else 0.85
-            return Verdict(RELEASE_WITH_NOTE, "ACTIONABLE — within allowance, cumulative note required", confidence)
         trace.append("Within permitted excursion allowance")
         return Verdict(AUTO_CLOSE, "NON_ACTIONABLE — within permitted excursion allowance", 0.88)
 
@@ -346,10 +355,13 @@ def rule_no_parseable_allowance(f: ExcursionFacts, trace: list[str]) -> Verdict:
 
 
 DECISION_RULES: tuple[Rule, ...] = (
+    rule_insufficient_temperature,
+    rule_cumulative_history_unresolved,
     rule_facility_equipment_event,
     rule_duplicate_alert,
     rule_gateway_gap,
     rule_unresolved_identity,
+    rule_stability_authority,
     rule_presentation_mismatch,
     rule_sop_overlap,
     rule_allowance_refer_qa,
@@ -368,17 +380,41 @@ DECISION_RULES: tuple[Rule, ...] = (
 def decide(facts: ExcursionFacts) -> tuple[Verdict, list[str]]:
     """Run the rules in order and return the first verdict plus the trace of what fired."""
     trace: list[str] = []
+    verdict = None
     for rule in DECISION_RULES:
         verdict = rule(facts, trace)
         if verdict is not None:
-            return verdict, trace
-    return rule_no_parseable_allowance(facts, trace), trace
+            break
+    if verdict is None:
+        verdict = rule_no_parseable_allowance(facts, trace)
+
+    # Cover early gateway/ultra-cold/fallback releases as well as allowance rules.
+    # In-range/noise closures are not product-release recommendations. An
+    # allowance-based closure, however, depends on governing study/SOP authority.
+    needs_authority = verdict.disposition in (RELEASE, RELEASE_WITH_NOTE) or (
+        verdict.disposition == AUTO_CLOSE and "within permitted excursion allowance" in verdict.triage_label
+    )
+    if needs_authority:
+        issues = []
+        if facts.sop_overlap:
+            issues.append("SOP revision overlap unresolved")
+        if facts.sop_authority_issue:
+            issues.append(facts.sop_authority_issue)
+        if facts.stability.authority_issue:
+            issues.append(facts.stability.authority_issue)
+        if issues:
+            trace.append("Escalate: release authority unresolved — " + "; ".join(issues))
+            verdict = Verdict(ESCALATE, "ACTIONABLE — release authority unresolved", 0.0)
+    return verdict, trace
 
 
 def is_out_of_range(
     max_c: Optional[float], min_c: Optional[float], low_c: Optional[float], high_c: Optional[float]
-) -> bool:
-    """True if the readings fall outside the labelled [low, high] storage range."""
+) -> Optional[bool]:
+    """True/False only for complete valid extrema and limits; otherwise unknown."""
+    values = (max_c, min_c, low_c, high_c)
+    if any(v is None or not isfinite(v) for v in values) or min_c > max_c or low_c > high_c:
+        return None
     if high_c is not None and max_c is not None and max_c > high_c + EPSILON:
         return True
     return low_c is not None and min_c is not None and min_c < low_c - EPSILON

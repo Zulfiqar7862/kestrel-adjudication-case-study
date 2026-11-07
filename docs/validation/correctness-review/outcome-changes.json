@@ -1,0 +1,2227 @@
+[
+  {
+    "event_id": "EXC-111008",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Product identity weak (unresolved): blank product_ref_as_received",
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-02-19",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112352",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111274",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-03-24",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111995",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2025-12-27",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110287",
+    "before": "QUARANTINE_PENDING_LAB",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 study presentation applicability not established",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-111463",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 study presentation applicability not established"
+    ]
+  },
+  {
+    "event_id": "EXC-110203",
+    "before": "QUARANTINE_PENDING_LAB",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 study presentation applicability not established",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-112877",
+    "before": "QUARANTINE_PENDING_LAB",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 study presentation applicability not established; study type does not establish excursion allowance"
+    ]
+  },
+  {
+    "event_id": "EXC-110854",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112422",
+    "before": "QUARANTINE_PENDING_LAB",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 study presentation applicability not established; study type does not establish excursion allowance"
+    ]
+  },
+  {
+    "event_id": "EXC-112765",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111113",
+    "before": "QUARANTINE_PENDING_LAB",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; product-master text not used as substitute",
+      "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: stability authority unresolved \u2014 study presentation applicability not established"
+    ]
+  },
+  {
+    "event_id": "EXC-112653",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 study presentation applicability not established"
+    ]
+  },
+  {
+    "event_id": "EXC-112828",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111617",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 release authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-09-08",
+      "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Gateway gap 396.0 min with interpolated readings \u2014 insufficient evidence of excursion",
+      "Escalate: release authority unresolved \u2014 governing SOP missing; study product identity not established; study presentation applicability not established",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-110098",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 release authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Gateway gap 331.0 min with interpolated readings \u2014 insufficient evidence of excursion",
+      "Escalate: release authority unresolved \u2014 SOP/site acceptance authority unresolved: indexed body/annexure content not supplied; cited study missing or ambiguous in tenant index",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-111631",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-02-05",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112359",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110847",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 cumulative assessment unresolved",
+    "rationale": [
+      "Master allowance differs from study; not used: 'Refer QA'",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-02-19",
+      "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: cumulative assessment unresolved \u2014 verified batch identity and complete prior-exposure history unavailable; remaining lifetime allowance is unknown"
+    ]
+  },
+  {
+    "event_id": "EXC-110357",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 study presentation applicability not established",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-111988",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 cumulative assessment unresolved",
+    "rationale": [
+      "Master allowance differs from study; not used: 'Refer QA'",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-06-05",
+      "Escalate: cumulative assessment unresolved \u2014 verified batch identity and complete prior-exposure history unavailable; remaining lifetime allowance is unknown"
+    ]
+  },
+  {
+    "event_id": "EXC-111589",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-01-07",
+      "Escalate: stability authority unresolved \u2014 cited study missing or ambiguous in tenant index"
+    ]
+  },
+  {
+    "event_id": "EXC-112737",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 release authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-05-31",
+      "Gateway gap 83.0 min with interpolated readings \u2014 insufficient evidence of excursion",
+      "Escalate: release authority unresolved \u2014 governing SOP missing; study product identity not established; study presentation applicability not established"
+    ]
+  },
+  {
+    "event_id": "EXC-111687",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 study product identity not established"
+    ]
+  },
+  {
+    "event_id": "EXC-110686",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 release authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Gateway gap 45.0 min with interpolated readings \u2014 insufficient evidence of excursion",
+      "Escalate: release authority unresolved \u2014 SOP/site acceptance authority unresolved: indexed body/annexure content not supplied; cited study missing or ambiguous in tenant index"
+    ]
+  },
+  {
+    "event_id": "EXC-111652",
+    "before": "DESTROY",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 cited study missing or ambiguous in tenant index"
+    ]
+  },
+  {
+    "event_id": "EXC-112135",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 release authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study presentation conflicts with product; product-master text not used as substitute",
+      "Gateway gap 75.0 min with interpolated readings \u2014 insufficient evidence of excursion",
+      "Escalate: release authority unresolved \u2014 SOP/site acceptance authority unresolved: indexed body/annexure content not supplied; study product identity not established; study presentation applicability not established; study presentation conflicts with product"
+    ]
+  },
+  {
+    "event_id": "EXC-112492",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 cumulative assessment unresolved",
+    "rationale": [
+      "Master allowance differs from study; not used: 'Refer QA'",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2025-12-20",
+      "Escalate: cumulative assessment unresolved \u2014 verified batch identity and complete prior-exposure history unavailable; remaining lifetime allowance is unknown"
+    ]
+  },
+  {
+    "event_id": "EXC-110861",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110154",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 cited study missing or ambiguous in tenant index",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-111526",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 cumulative assessment unresolved",
+    "rationale": [
+      "Master allowance differs from study; not used: 'Refer QA'",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-04-11",
+      "Escalate: cumulative assessment unresolved \u2014 verified batch identity and complete prior-exposure history unavailable; remaining lifetime allowance is unknown"
+    ]
+  },
+  {
+    "event_id": "EXC-112191",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 cited study missing or ambiguous in tenant index"
+    ]
+  },
+  {
+    "event_id": "EXC-112506",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-06-21",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-110693",
+    "before": "QUARANTINE_PENDING_LAB",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 study presentation applicability not established"
+    ]
+  },
+  {
+    "event_id": "EXC-112772",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112051",
+    "before": "QUARANTINE_PENDING_LAB",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-01-31",
+      "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established; study type does not establish excursion allowance"
+    ]
+  },
+  {
+    "event_id": "EXC-110735",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-02-19",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110392",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-03-24",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established; study type does not establish excursion allowance",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-110518",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-06-07",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: stability authority unresolved \u2014 cited study missing or ambiguous in tenant index"
+    ]
+  },
+  {
+    "event_id": "EXC-112835",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110434",
+    "before": "QUARANTINE_PENDING_LAB",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-112044",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 release authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Gateway gap 160.0 min with interpolated readings \u2014 insufficient evidence of excursion",
+      "Escalate: release authority unresolved \u2014 SOP/site acceptance authority unresolved: indexed body/annexure content not supplied; cited study missing or ambiguous in tenant index",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-112436",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110280",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-112016",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 release authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation conflicts with product; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Gateway gap 55.0 min with interpolated readings \u2014 insufficient evidence of excursion",
+      "Escalate: release authority unresolved \u2014 SOP/site acceptance authority unresolved: indexed body/annexure content not supplied; study product identity not established; study presentation conflicts with product; study type does not establish excursion allowance"
+    ]
+  },
+  {
+    "event_id": "EXC-111323",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 release authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation conflicts with product; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-06-05",
+      "Gateway gap 72.0 min with interpolated readings \u2014 insufficient evidence of excursion",
+      "Escalate: release authority unresolved \u2014 governing SOP missing; study product identity not established; study presentation conflicts with product",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-110672",
+    "before": "QUARANTINE_PENDING_LAB",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112226",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111477",
+    "before": "DESTROY",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-03-05",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established; study type does not establish excursion allowance"
+    ]
+  },
+  {
+    "event_id": "EXC-111204",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-03-31",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established"
+    ]
+  },
+  {
+    "event_id": "EXC-110147",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-04-05",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established; study type does not establish excursion allowance",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-112079",
+    "before": "DESTROY",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-01-22",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established; study type does not establish excursion allowance"
+    ]
+  },
+  {
+    "event_id": "EXC-112681",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-112499",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-05-09",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112667",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 release authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; product-master text not used as substitute",
+      "Gateway gap 302.0 min with interpolated readings \u2014 insufficient evidence of excursion",
+      "Escalate: release authority unresolved \u2014 SOP/site acceptance authority unresolved: indexed body/annexure content not supplied; study presentation applicability not established"
+    ]
+  },
+  {
+    "event_id": "EXC-112345",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-06-22",
+      "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established; study type does not establish excursion allowance",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-111771",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110112",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-110553",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study presentation conflicts with product; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established; study presentation conflicts with product"
+    ]
+  },
+  {
+    "event_id": "EXC-111197",
+    "before": "QUARANTINE_PENDING_LAB",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-06-19",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established"
+    ]
+  },
+  {
+    "event_id": "EXC-110896",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 release authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; product-master text not used as substitute",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Gateway gap 81.0 min with interpolated readings \u2014 insufficient evidence of excursion",
+      "Escalate: release authority unresolved \u2014 SOP/site acceptance authority unresolved: indexed body/annexure content not supplied; study presentation applicability not established"
+    ]
+  },
+  {
+    "event_id": "EXC-111638",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established; study type does not establish excursion allowance"
+    ]
+  },
+  {
+    "event_id": "EXC-111120",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-01-18",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established; study type does not establish excursion allowance"
+    ]
+  },
+  {
+    "event_id": "EXC-112240",
+    "before": "QUARANTINE_PENDING_LAB",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 study presentation applicability not established"
+    ]
+  },
+  {
+    "event_id": "EXC-110616",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-112296",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110882",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; product-master text not used as substitute",
+      "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: stability authority unresolved \u2014 study presentation applicability not established"
+    ]
+  },
+  {
+    "event_id": "EXC-110350",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-111253",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 release authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-09-07",
+      "Gateway gap 38.0 min with interpolated readings \u2014 insufficient evidence of excursion",
+      "Escalate: release authority unresolved \u2014 governing SOP missing; study product identity not established; study presentation applicability not established; study type does not establish excursion allowance"
+    ]
+  },
+  {
+    "event_id": "EXC-112485",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 release authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; product-master text not used as substitute",
+      "Gateway gap 301.0 min with interpolated readings \u2014 insufficient evidence of excursion",
+      "Escalate: release authority unresolved \u2014 SOP/site acceptance authority unresolved: indexed body/annexure content not supplied; study presentation applicability not established"
+    ]
+  },
+  {
+    "event_id": "EXC-110910",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Product identity weak (unresolved): blank product_ref_as_received",
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-02-19",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112303",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study presentation conflicts with product; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established; study presentation conflicts with product"
+    ]
+  },
+  {
+    "event_id": "EXC-111918",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-05-14",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established; study type does not establish excursion allowance"
+    ]
+  },
+  {
+    "event_id": "EXC-111407",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111827",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 study presentation applicability not established; study type does not establish excursion allowance"
+    ]
+  },
+  {
+    "event_id": "EXC-111701",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 cumulative assessment unresolved",
+    "rationale": [
+      "Master allowance differs from study; not used: 'Refer QA'",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-06-08",
+      "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: cumulative assessment unresolved \u2014 verified batch identity and complete prior-exposure history unavailable; remaining lifetime allowance is unknown"
+    ]
+  },
+  {
+    "event_id": "EXC-110658",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 cited study missing or ambiguous in tenant index"
+    ]
+  },
+  {
+    "event_id": "EXC-110196",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 cumulative assessment unresolved",
+    "rationale": [
+      "Master allowance differs from study; not used: 'Refer QA'",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-04-04",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: cumulative assessment unresolved \u2014 verified batch identity and complete prior-exposure history unavailable; remaining lifetime allowance is unknown",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-111673",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 cumulative assessment unresolved",
+    "rationale": [
+      "Master allowance differs from study; not used: 'Refer QA'",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-04-13",
+      "Escalate: cumulative assessment unresolved \u2014 verified batch identity and complete prior-exposure history unavailable; remaining lifetime allowance is unknown",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-111540",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation conflicts with product; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation conflicts with product; study type does not establish excursion allowance"
+    ]
+  },
+  {
+    "event_id": "EXC-110819",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-02-19",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111099",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study presentation conflicts with product; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established; study presentation conflicts with product"
+    ]
+  },
+  {
+    "event_id": "EXC-110623",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Product identity weak (unresolved): blank product_ref_as_received",
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112058",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110749",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110588",
+    "before": "QUARANTINE_PENDING_LAB",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established; study type does not establish excursion allowance"
+    ]
+  },
+  {
+    "event_id": "EXC-112408",
+    "before": "DESTROY",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-09-02",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established; study type does not establish excursion allowance"
+    ]
+  },
+  {
+    "event_id": "EXC-110581",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 study presentation applicability not established; study type does not establish excursion allowance"
+    ]
+  },
+  {
+    "event_id": "EXC-110980",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111939",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110035",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-110420",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation conflicts with product; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation conflicts with product; study type does not establish excursion allowance",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-110532",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-03-24",
+      "Escalate: stability authority unresolved \u2014 cited study missing or ambiguous in tenant index"
+    ]
+  },
+  {
+    "event_id": "EXC-110371",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 cited study missing or ambiguous in tenant index",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-110644",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 release authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Gateway gap 320.0 min with interpolated readings \u2014 insufficient evidence of excursion",
+      "Escalate: release authority unresolved \u2014 SOP/site acceptance authority unresolved: indexed body/annexure content not supplied; study product identity not established; study presentation applicability not established; study type does not establish excursion allowance"
+    ]
+  },
+  {
+    "event_id": "EXC-110539",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110133",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-03-24",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-111309",
+    "before": "QUARANTINE_PENDING_LAB",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-07-21",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established"
+    ]
+  },
+  {
+    "event_id": "EXC-111561",
+    "before": "QUARANTINE_PENDING_LAB",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-107133",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation conflicts with product; study type does not establish excursion allowance; product-master text not used as substitute",
+      "SOP overlap: 2 revisions of SOP-KAV-9392 effective on 2026-07-28; candidate Rev 03 (highest rev, not governing authority). Human must confirm (override EXC-110490 pattern).",
+      "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation conflicts with product; study type does not establish excursion allowance"
+    ]
+  },
+  {
+    "event_id": "EXC-110245",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 study presentation applicability not established; study type does not establish excursion allowance",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-112723",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established; study type does not establish excursion allowance"
+    ]
+  },
+  {
+    "event_id": "EXC-110077",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-110049",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: stability authority unresolved \u2014 cited study missing or ambiguous in tenant index",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-110665",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 study presentation applicability not established; study type does not establish excursion allowance"
+    ]
+  },
+  {
+    "event_id": "EXC-110679",
+    "before": "DESTROY",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 study presentation applicability not established; study type does not establish excursion allowance"
+    ]
+  },
+  {
+    "event_id": "EXC-112457",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111806",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112898",
+    "before": "QUARANTINE_PENDING_LAB",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-08-07",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established"
+    ]
+  },
+  {
+    "event_id": "EXC-111708",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111421",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-03-05",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established"
+    ]
+  },
+  {
+    "event_id": "EXC-112037",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 release authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Gateway gap 70.0 min with interpolated readings \u2014 insufficient evidence of excursion",
+      "Escalate: release authority unresolved \u2014 SOP/site acceptance authority unresolved: indexed body/annexure content not supplied; cited study missing or ambiguous in tenant index",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-111757",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111659",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2025-12-19",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111127",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 cited study missing or ambiguous in tenant index"
+    ]
+  },
+  {
+    "event_id": "EXC-111491",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2025-12-17",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111953",
+    "before": "DESTROY",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established; study type does not establish excursion allowance"
+    ]
+  },
+  {
+    "event_id": "EXC-112142",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study presentation conflicts with product; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established; study presentation conflicts with product"
+    ]
+  },
+  {
+    "event_id": "EXC-111596",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 cumulative assessment unresolved",
+    "rationale": [
+      "Master allowance differs from study; not used: 'Refer QA'",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-08-17",
+      "Escalate: cumulative assessment unresolved \u2014 verified batch identity and complete prior-exposure history unavailable; remaining lifetime allowance is unknown"
+    ]
+  },
+  {
+    "event_id": "EXC-111211",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 release authority unresolved",
+    "rationale": [
+      "Product identity weak (unresolved): blank product_ref_as_received",
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "SOP overlap: 2 revisions of SOP-KAV-9392 effective on 2026-05-24; candidate Rev 03 (highest rev, not governing authority). Human must confirm (override EXC-110490 pattern).",
+      "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Gateway gap 384.0 min with interpolated readings \u2014 insufficient evidence of excursion",
+      "Escalate: release authority unresolved \u2014 SOP revision overlap unresolved; SOP/site acceptance authority unresolved: indexed body/annexure content not supplied; cited study missing or ambiguous in tenant index"
+    ]
+  },
+  {
+    "event_id": "EXC-111351",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112149",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111050",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111974",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 release authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Gateway gap 335.0 min with interpolated readings \u2014 insufficient evidence of excursion",
+      "Escalate: release authority unresolved \u2014 SOP/site acceptance authority unresolved: indexed body/annexure content not supplied; study presentation applicability not established; study type does not establish excursion allowance"
+    ]
+  },
+  {
+    "event_id": "EXC-111022",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-02-19",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111393",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-01-15",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established; study type does not establish excursion allowance"
+    ]
+  },
+  {
+    "event_id": "EXC-111190",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "SOP overlap: 2 revisions of SOP-KAV-9392 effective on 2026-07-21; candidate Rev 03 (highest rev, not governing authority). Human must confirm (override EXC-110490 pattern).",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established; study type does not establish excursion allowance"
+    ]
+  },
+  {
+    "event_id": "EXC-110483",
+    "before": "DESTROY",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 cited study missing or ambiguous in tenant index"
+    ]
+  },
+  {
+    "event_id": "EXC-110917",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 release authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-02-19",
+      "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Gateway gap 84.0 min with interpolated readings \u2014 insufficient evidence of excursion",
+      "Escalate: release authority unresolved \u2014 governing SOP missing; study product identity not established; study presentation applicability not established; study type does not establish excursion allowance"
+    ]
+  },
+  {
+    "event_id": "EXC-112401",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 release authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation conflicts with product; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-03-30",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Gateway gap 310.0 min with interpolated readings \u2014 insufficient evidence of excursion",
+      "Escalate: release authority unresolved \u2014 governing SOP missing; study product identity not established; study presentation conflicts with product"
+    ]
+  },
+  {
+    "event_id": "EXC-111820",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-07-06",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110329",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-03-31",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-111085",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112324",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study presentation conflicts with product; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established; study presentation conflicts with product"
+    ]
+  },
+  {
+    "event_id": "EXC-110385",
+    "before": "QUARANTINE_PENDING_LAB",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; product-master text not used as substitute",
+      "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: stability authority unresolved \u2014 study presentation applicability not established",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-112639",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112170",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 release authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-07-28",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Gateway gap 40.0 min with interpolated readings \u2014 insufficient evidence of excursion",
+      "Escalate: release authority unresolved \u2014 governing SOP missing; cited study missing or ambiguous in tenant index"
+    ]
+  },
+  {
+    "event_id": "EXC-112114",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 cumulative assessment unresolved",
+    "rationale": [
+      "Master allowance differs from study; not used: 'Refer QA'",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-07-28",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: cumulative assessment unresolved \u2014 verified batch identity and complete prior-exposure history unavailable; remaining lifetime allowance is unknown"
+    ]
+  },
+  {
+    "event_id": "EXC-112597",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 release authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; product-master text not used as substitute",
+      "SOP overlap: 2 revisions of SOP-KAV-9392 effective on 2026-08-05; candidate Rev 03 (highest rev, not governing authority). Human must confirm (override EXC-110490 pattern).",
+      "Gateway gap 32.0 min with interpolated readings \u2014 insufficient evidence of excursion",
+      "Escalate: release authority unresolved \u2014 SOP revision overlap unresolved; SOP/site acceptance authority unresolved: indexed body/annexure content not supplied; study presentation applicability not established"
+    ]
+  },
+  {
+    "event_id": "EXC-111512",
+    "before": "DESTROY",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2025-12-25",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established; study type does not establish excursion allowance"
+    ]
+  },
+  {
+    "event_id": "EXC-110560",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: stability authority unresolved \u2014 cited study missing or ambiguous in tenant index"
+    ]
+  },
+  {
+    "event_id": "EXC-111379",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-05-24",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: stability authority unresolved \u2014 cited study missing or ambiguous in tenant index"
+    ]
+  },
+  {
+    "event_id": "EXC-112128",
+    "before": "QUARANTINE_PENDING_LAB",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-04-26",
+      "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established"
+    ]
+  },
+  {
+    "event_id": "EXC-112527",
+    "before": "QUARANTINE_PENDING_LAB",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 study presentation applicability not established; study type does not establish excursion allowance"
+    ]
+  },
+  {
+    "event_id": "EXC-112331",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 cumulative assessment unresolved",
+    "rationale": [
+      "Master allowance differs from study; not used: 'Refer QA'",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-07-02",
+      "Escalate: cumulative assessment unresolved \u2014 verified batch identity and complete prior-exposure history unavailable; remaining lifetime allowance is unknown"
+    ]
+  },
+  {
+    "event_id": "EXC-111281",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2025-12-17",
+      "Escalate: stability authority unresolved \u2014 cited study missing or ambiguous in tenant index"
+    ]
+  },
+  {
+    "event_id": "EXC-112002",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 cumulative assessment unresolved",
+    "rationale": [
+      "Master allowance differs from study; not used: 'Refer QA'",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-01-22",
+      "Escalate: cumulative assessment unresolved \u2014 verified batch identity and complete prior-exposure history unavailable; remaining lifetime allowance is unknown"
+    ]
+  },
+  {
+    "event_id": "EXC-111232",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 release authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "Gateway gap 273.0 min with interpolated readings \u2014 insufficient evidence of excursion",
+      "Escalate: release authority unresolved \u2014 SOP/site acceptance authority unresolved: indexed body/annexure content not supplied; study product identity not established; study presentation applicability not established"
+    ]
+  },
+  {
+    "event_id": "EXC-110343",
+    "before": "QUARANTINE_PENDING_LAB",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 study presentation applicability not established",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-110938",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-02-19",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110231",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-111743",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2025-12-17",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110266",
+    "before": "QUARANTINE_PENDING_LAB",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-03-22",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-112520",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2025-12-16",
+      "Escalate: stability authority unresolved \u2014 cited study missing or ambiguous in tenant index"
+    ]
+  },
+  {
+    "event_id": "EXC-110567",
+    "before": "DESTROY",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established; study type does not establish excursion allowance"
+    ]
+  },
+  {
+    "event_id": "EXC-110777",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110175",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 study presentation applicability not established; study type does not establish excursion allowance",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-112464",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110161",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-03-24",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-110441",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-07-04",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-111967",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110490",
+    "before": "QUARANTINE_PENDING_LAB",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-08-13",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established"
+    ]
+  },
+  {
+    "event_id": "EXC-112625",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-04-25",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110028",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-03-25",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-111442",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-09-07",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111155",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111134",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112884",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 release authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; product-master text not used as substitute",
+      "Gateway gap 43.0 min with interpolated readings \u2014 insufficient evidence of excursion",
+      "Escalate: release authority unresolved \u2014 SOP/site acceptance authority unresolved: indexed body/annexure content not supplied; study presentation applicability not established"
+    ]
+  },
+  {
+    "event_id": "EXC-110987",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-02-19",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111666",
+    "before": "QUARANTINE_PENDING_LAB",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 cited study missing or ambiguous in tenant index"
+    ]
+  },
+  {
+    "event_id": "EXC-111904",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112100",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 cumulative assessment unresolved",
+    "rationale": [
+      "Master allowance differs from study; not used: 'Refer QA'",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-06-14",
+      "Escalate: cumulative assessment unresolved \u2014 verified batch identity and complete prior-exposure history unavailable; remaining lifetime allowance is unknown"
+    ]
+  },
+  {
+    "event_id": "EXC-112310",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112478",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112926",
+    "before": "QUARANTINE_PENDING_LAB",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110210",
+    "before": "QUARANTINE_PENDING_LAB",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 study presentation applicability not established",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-110322",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-112184",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-07-09",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112751",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-07-21",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: stability authority unresolved \u2014 cited study missing or ambiguous in tenant index"
+    ]
+  },
+  {
+    "event_id": "EXC-110504",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Product identity weak (unresolved): blank product_ref_as_received",
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111946",
+    "before": "DESTROY",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 cited study missing or ambiguous in tenant index"
+    ]
+  },
+  {
+    "event_id": "EXC-111225",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 cumulative assessment unresolved",
+    "rationale": [
+      "Master allowance differs from study; not used: 'Refer QA'",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-05-02",
+      "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: cumulative assessment unresolved \u2014 verified batch identity and complete prior-exposure history unavailable; remaining lifetime allowance is unknown"
+    ]
+  },
+  {
+    "event_id": "EXC-111799",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "SOP overlap: 2 revisions of SOP-KAV-9392 effective on 2026-08-17; candidate Rev 03 (highest rev, not governing authority). Human must confirm (override EXC-110490 pattern).",
+      "Escalate: stability authority unresolved \u2014 cited study missing or ambiguous in tenant index"
+    ]
+  },
+  {
+    "event_id": "EXC-110602",
+    "before": "DESTROY",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established; study type does not establish excursion allowance"
+    ]
+  },
+  {
+    "event_id": "EXC-112107",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110259",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-110959",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 release authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; product-master text not used as substitute",
+      "Gateway gap 129.0 min with interpolated readings \u2014 insufficient evidence of excursion",
+      "Escalate: release authority unresolved \u2014 SOP/site acceptance authority unresolved: indexed body/annexure content not supplied; study presentation applicability not established"
+    ]
+  },
+  {
+    "event_id": "EXC-110462",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112072",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111729",
+    "before": "QUARANTINE_PENDING_LAB",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: stability authority unresolved \u2014 study presentation applicability not established; study type does not establish excursion allowance"
+    ]
+  },
+  {
+    "event_id": "EXC-111981",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112086",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-08-16",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: stability authority unresolved \u2014 cited study missing or ambiguous in tenant index"
+    ]
+  },
+  {
+    "event_id": "EXC-110714",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112023",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110700",
+    "before": "QUARANTINE_PENDING_LAB",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-02-19",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established"
+    ]
+  },
+  {
+    "event_id": "EXC-111484",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110826",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112562",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112541",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110833",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Product identity weak (unresolved): blank product_ref_as_received",
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110805",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 insufficient temperature evidence",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-02-19",
+      "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110469",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 stability authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-06-11",
+      "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established; study type does not establish excursion allowance"
+    ]
+  },
+  {
+    "event_id": "EXC-111498",
+    "before": "RELEASE_WITH_NOTE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "reason": "ACTIONABLE \u2014 release authority unresolved",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; product-master text not used as substitute",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Gateway gap 67.0 min with interpolated readings \u2014 insufficient evidence of excursion",
+      "Escalate: release authority unresolved \u2014 SOP/site acceptance authority unresolved: indexed body/annexure content not supplied; study presentation applicability not established"
+    ]
+  }
+]

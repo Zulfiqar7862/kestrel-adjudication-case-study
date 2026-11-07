@@ -35,6 +35,7 @@ def make_facts(**overrides) -> ExcursionFacts:
         min_c=5.0,
         duration_min=60.0,
         sop_overlap=False,
+        sop_authority_issue=None,  # Isolate temperature rules; engine tests cover unavailable SOP authority.
     )
     return replace(base, **overrides)
 
@@ -46,7 +47,7 @@ def stability(**fields) -> StabilityPosition:
 class TestRuleOrder(unittest.TestCase):
     def test_rule_chain_is_ordered_and_named(self) -> None:
         names = [rule.__name__ for rule in DECISION_RULES]
-        self.assertEqual(names[0], "rule_facility_equipment_event")
+        self.assertEqual(names[0], "rule_insufficient_temperature")
         self.assertLess(names.index("rule_unresolved_identity"), names.index("rule_within_label_range"))
         self.assertLess(names.index("rule_freeze_damage"), names.index("rule_stability_allowance"))
 
@@ -81,11 +82,11 @@ class TestEscalations(unittest.TestCase):
         self.assertEqual(decide(make_facts(product=unsure))[0].disposition, ESCALATE)
         self.assertNotEqual(decide(make_facts(product=sure))[0].disposition, ESCALATE)
 
-    def test_presentation_mismatch_escalates_unless_master_allowance_used(self) -> None:
+    def test_presentation_mismatch_escalates_even_with_master_allowance(self) -> None:
         risky = stability(presentation_mismatch_risk=True)
         self.assertEqual(decide(make_facts(stability=risky))[0].disposition, ESCALATE)
         fallback = replace(risky, source="product_master_over_mismatched_study")
-        self.assertNotEqual(decide(make_facts(stability=fallback))[0].disposition, ESCALATE)
+        self.assertEqual(decide(make_facts(stability=fallback))[0].disposition, ESCALATE)
 
     def test_refer_qa_escalates(self) -> None:
         self.assertEqual(decide(make_facts(stability=stability(notes=["Refer QA"])))[0].disposition, ESCALATE)
@@ -94,7 +95,7 @@ class TestEscalations(unittest.TestCase):
         unreadable = StabilityPosition(study_ref="STB-9", permitted_text=None, readable=False, source="none")
         self.assertEqual(decide(make_facts(stability=unreadable))[0].disposition, QUARANTINE_PENDING_LAB)
 
-    def test_sop_overlap_is_flagged_but_does_not_decide(self) -> None:
+    def test_sop_overlap_is_flagged(self) -> None:
         _, trace = decide(make_facts(sop_overlap=True))
         self.assertTrue(any("SOP revision overlap" in line for line in trace))
 
@@ -113,11 +114,11 @@ class TestTemperatureRules(unittest.TestCase):
         self.assertEqual(decide(brief)[0].disposition, QUARANTINE_PENDING_LAB)
         self.assertEqual(decide(longer)[0].disposition, DESTROY)
 
-    def test_within_cumulative_allowance_releases_with_note(self) -> None:
+    def test_cumulative_allowance_without_batch_history_escalates(self) -> None:
         cumulative = stability(max_duration_hours=72, cumulative_above_label=True)
         verdict, _ = decide(make_facts(stability=cumulative, corrected_max_c=11.2, duration_min=15))
-        self.assertEqual(verdict.disposition, RELEASE_WITH_NOTE)
-        self.assertEqual(verdict.confidence, 0.85)
+        self.assertEqual(verdict.disposition, ESCALATE)
+        self.assertEqual(verdict.confidence, 0.0)
 
     def test_allowance_exceeded_by_more_than_5c_destroys(self) -> None:
         capped = stability(max_duration_hours=2, max_temp_c=25)
@@ -137,7 +138,7 @@ class TestOutOfRange(unittest.TestCase):
         self.assertFalse(is_out_of_range(8.0, 2.0, 2.0, 8.0))
         self.assertTrue(is_out_of_range(8.1, 2.0, 2.0, 8.0))
         self.assertTrue(is_out_of_range(7.0, 1.9, 2.0, 8.0))
-        self.assertFalse(is_out_of_range(None, None, 2.0, 8.0))
+        self.assertIsNone(is_out_of_range(None, None, 2.0, 8.0))
 
 
 if __name__ == "__main__":

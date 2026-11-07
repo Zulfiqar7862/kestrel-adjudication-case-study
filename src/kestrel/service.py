@@ -304,13 +304,13 @@ class AdjudicationService:
         """
         assert self.engine and self.pack
         if baseline_mix is None:
-            # Reproduced 0.4.0 sample regression baseline, NOT QA-approved clinical policy.
+            # Reproduced 0.4.1 sample regression baseline, NOT QA-approved clinical policy.
             baseline_mix = {
-                "AUTO_CLOSE": 224,
-                "ESCALATED_TO_SENIOR_QA": 106,
-                "RELEASE_WITH_NOTE": 53,
-                "DESTROY": 11,
-                "QUARANTINE_PENDING_LAB": 26,
+                "AUTO_CLOSE": 111,
+                "ESCALATED_TO_SENIOR_QA": 309,
+                "RELEASE_WITH_NOTE": 0,
+                "DESTROY": 0,
+                "QUARANTINE_PENDING_LAB": 0,
             }
         now = datetime.now(timezone.utc).replace(tzinfo=None)
         mix: Counter[str] = Counter()

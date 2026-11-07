@@ -1,0 +1,64 @@
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+________________ test_afx_de_exact_alias_beats_indian_substring ________________
+
+pack = DataPack(path=PosixPath('/workspace/kprod/data/KCCS_Sentinel_Reference_Data_Pack.xlsx'), events=[{'event_id': 'EXC-112...ridian's MSA Cl.22 prohibition means a confirmed leak would have been a contractual breach with termination rights."}])
+
+    def test_afx_de_exact_alias_beats_indian_substring(pack):
+        from kestrel.rules.identity import IdentityResolver
+        row, error = IdentityResolver(pack).resolve_carrier_contract('AFX-DE', date(2026, 7, 28))
+        assert error is None
+>       assert row['contract_id'] == 'CNT-2023-0441'
+E       AssertionError: assert 'CNT-2021-0118' == 'CNT-2023-0441'
+E
+E         - CNT-2023-0441
+E         ?        ^  --
+E         + CNT-2021-0118
+E         ?        ^   ++
+
+tests/test_correctness_review.py:43: AssertionError
+__________________ test_carrier_ambiguous_alias_is_unresolved __________________
+
+pack = DataPack(path=PosixPath('/workspace/kprod/data/KCCS_Sentinel_Reference_Data_Pack.xlsx'), events=[{'event_id': 'EXC-112...ridian's MSA Cl.22 prohibition means a confirmed leak would have been a contractual breach with termination rights."}])
+
+    def test_carrier_ambiguous_alias_is_unresolved(pack):
+        from copy import deepcopy
+        from kestrel.rules.identity import IdentityResolver
+        copied = deepcopy(pack)
+        # Deliberate conflict: the same exact alias is claimed by two legal entities.
+        for row in copied.carriers[:2]:
+            row['names_seen_on_documents'] = 'CONFLICT'
+            row['_effective_from'] = row['_effective_to'] = None
+        row, error = IdentityResolver(copied).resolve_carrier_contract('CONFLICT', date(2026, 7, 28))
+>       assert row is None
+E       AssertionError: assert {'contract_id': 'CNT-2021-0118', 'counterparty_legal_entity': 'Aeroflux Logistics Pvt Ltd', 'names_seen_on_documents': 'CONFLICT', 'parent_of': None, ...} is None
+
+tests/test_correctness_review.py:55: AssertionError
+_________________ test_carrier_exact_legal_entity_beats_alias __________________
+
+pack = DataPack(path=PosixPath('/workspace/kprod/data/KCCS_Sentinel_Reference_Data_Pack.xlsx'), events=[{'event_id': 'EXC-112...ridian's MSA Cl.22 prohibition means a confirmed leak would have been a contractual breach with termination rights."}])
+
+    def test_carrier_exact_legal_entity_beats_alias(pack):
+        from copy import deepcopy
+        from kestrel.rules.identity import IdentityResolver
+        copied = deepcopy(pack)
+        first, second = copied.carriers[:2]
+        for row in [first, second]:
+            row['_effective_from'] = row['_effective_to'] = None
+        first['counterparty_legal_entity'] = 'Exact Legal'
+        second['names_seen_on_documents'] = 'Exact Legal'
+        row, error = IdentityResolver(copied).resolve_carrier_contract('Exact Legal', date(2026, 7, 28))
+        assert error is None
+>       assert row['contract_id'] == first['contract_id']
+E       AssertionError: assert 'CNT-2023-0441' == 'CNT-2021-0118'
+E
+E         - CNT-2021-0118
+E         ?        ^   --
+E         + CNT-2023-0441
+E         ?        ^  ++
+
+tests/test_correctness_review.py:70: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_correctness_review.py::test_afx_de_exact_alias_beats_indian_substring
+FAILED tests/test_correctness_review.py::test_carrier_ambiguous_alias_is_unresolved
+FAILED tests/test_correctness_review.py::test_carrier_exact_legal_entity_beats_alias

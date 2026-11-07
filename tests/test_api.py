@@ -6,7 +6,7 @@ import unittest
 from typing import Any
 
 from kestrel.api.app import _http_request, create_app
-from kestrel.engine import RELEASE_WITH_NOTE
+from kestrel.engine import ESCALATE, RELEASE_WITH_NOTE
 from kestrel.exceptions import DependencyMissingError
 from tests._base import _KestrelTestCase
 
@@ -28,7 +28,7 @@ class TestAPISmoke(_KestrelTestCase):
         self.assertTrue(health["ok"])
         code, body = self._req("POST", "/adjudicate", self.svc, {"event_id": "EXC-107133", "persist": True})
         self.assertEqual(code, 200)
-        self.assertEqual(body["recommendation"], RELEASE_WITH_NOTE)
+        self.assertEqual(body["recommendation"], ESCALATE)
         bundle_id = body["bundle_id"]
         code, b = self._req(
             "POST",
@@ -70,8 +70,8 @@ class TestReviewerDashboard(_KestrelTestCase):
             self.assertIn(marker, page.text)
         ev = c.get("/events").json()
         self.assertEqual(ev["count"], 420)
-        self.assertEqual(ev["counts"]["AUTO_CLOSE"], 224)
-        self.assertEqual(c.get("/events/EXC-107133").json()["recommendation"], RELEASE_WITH_NOTE)
+        self.assertEqual(ev["counts"]["AUTO_CLOSE"], 111)
+        self.assertEqual(c.get("/events/EXC-107133").json()["recommendation"], ESCALATE)
 
     def test_sign_requires_named_signer_and_current_evidence(self) -> None:
         """Blank signer is 422, a stale evidence hash is 409, the viewed hash signs."""

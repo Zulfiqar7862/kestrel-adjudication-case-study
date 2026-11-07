@@ -220,25 +220,26 @@ class IdentityResolver:
         if not carrier_ref:
             return None, "blank carrier_ref"
         ref_n = _norm(carrier_ref)
-        matches = []
+        # Restrict to contracts in force before comparing identities. Never break a
+        # legal-entity ambiguity using string length or workbook row order.
+        active = []
         for contract in self.pack.carriers:
-            names = [name.strip() for name in str(contract.get("names_seen_on_documents") or "").split("|")]
-            name_norms = {_norm(name) for name in names if name}
-            legal = _norm(contract.get("counterparty_legal_entity"))
-            if (
-                ref_n == legal
-                or ref_n in name_norms
-                or any(ref_n in name or name in ref_n for name in name_norms if name)
-            ):
-                effective_from, effective_to = contract.get("_effective_from"), contract.get("_effective_to")
-                if effective_from and as_of < effective_from:
-                    continue
-                if effective_to and as_of > effective_to:
-                    continue
-                matches.append(contract)
-        if not matches:
-            return None, f"no contract for carrier {carrier_ref!r} as of {as_of}"
-        if len(matches) > 1:
-            # Prefer longest name overlap / more specific legal entity
-            matches.sort(key=lambda contract: len(str(contract.get("counterparty_legal_entity") or "")), reverse=True)
-        return matches[0], None
+            start, end = contract.get("_effective_from"), contract.get("_effective_to")
+            if (start and as_of < start) or (end and as_of > end):
+                continue
+            names = {_norm(n) for n in str(contract.get("names_seen_on_documents") or "").split("|") if _norm(n)}
+            active.append((contract, _norm(contract.get("counterparty_legal_entity")), names))
+
+        tiers = (
+            ("exact legal entity", lambda legal, names: ref_n == legal),
+            ("exact alias", lambda legal, names: ref_n in names),
+            ("substring", lambda legal, names: any(ref_n in n or n in ref_n for n in names | {legal} if n)),
+        )
+        for method, predicate in tiers:
+            matches = [c for c, legal, names in active if predicate(legal, names)]
+            if len(matches) == 1:
+                return matches[0], None
+            if matches:
+                ids = sorted(str(c.get("contract_id")) for c in matches)
+                return None, f"ambiguous carrier {carrier_ref!r}: {method} matches {ids} as of {as_of}"
+        return None, f"no contract for carrier {carrier_ref!r} as of {as_of}"

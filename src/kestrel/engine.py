@@ -161,9 +161,17 @@ class AdjudicationEngine:
             "study_ref": stability_position.study_ref,
             "permitted_text": stability_position.permitted_text,
             "source": stability_position.source,
+            "authority_issue": stability_position.authority_issue,
             "readable": stability_position.readable,
             "notes": stability_position.notes,
             "presentation_mismatch_risk": stability_position.presentation_mismatch_risk,
+            "cumulative_assessment": (
+                "unresolved: verified batch identity and complete prior-exposure history unavailable"
+                if stability_position.cumulative or stability_position.cumulative_above_label
+                else "unresolved: study applicability not established; cumulative requirement unknown"
+                if stability_position.authority_issue
+                else "not cumulative per selected study"
+            ),
         }
         rationale.extend(stability_position.notes)
 
@@ -187,12 +195,21 @@ class AdjudicationEngine:
             if sop_overlap:
                 rationale.append(
                     f"SOP overlap: {len(sop_hit.competing)} revisions of {sop_doc} "
-                    f"effective on {as_of}; selected {sop_rev} (highest rev). "
+                    f"effective on {as_of}; candidate {sop_rev} (highest rev, not governing authority). "
                     "Human must confirm (override EXC-110490 pattern)."
                 )
         else:
             evidence["sop"] = None
             rationale.append(f"No Temperature Excursion Management SOP in force for {tenant} on {as_of}")
+
+        # The workbook is an index, not the SOP body or its site annexure. A
+        # filename/section pointer cannot establish the governing acceptance limits.
+        sop_authority_issue = (
+            "governing SOP missing"
+            if not sop_hit
+            else "SOP/site acceptance authority unresolved: indexed body/annexure content not supplied"
+        )
+        evidence["sop_authority"] = {"status": "unresolved", "reason": sop_authority_issue}
 
         # --- carrier contract as-at ---
         carrier, carrier_err = self.identity.resolve_carrier_contract(event.get("carrier_ref_as_received"), as_of)
@@ -245,6 +262,7 @@ class AdjudicationEngine:
             min_temp=min_temp,
             duration_min=duration_min,
             sop_overlap=sop_overlap,
+            sop_authority_issue=sop_authority_issue,
         )
         rationale.extend(extra)
         if bulletin:
@@ -265,6 +283,7 @@ class AdjudicationEngine:
                 min_temp=upper_min,
                 duration_min=duration_min,
                 sop_overlap=sop_overlap,
+                sop_authority_issue=sop_authority_issue,
             )
             sensitive = recommendation != upper[0]
             evidence["temps"]["uncertainty"] = {
@@ -356,6 +375,7 @@ class AdjudicationEngine:
         min_temp: Optional[float],
         duration_min: float,
         sop_overlap: bool,
+        sop_authority_issue: Optional[str],
     ) -> tuple[str, str, float, list[str]]:
         """Build the facts for this alert and run the ordered rule chain (see decision_rules)."""
         facts = ExcursionFacts(
@@ -368,6 +388,7 @@ class AdjudicationEngine:
             min_c=min_temp,
             duration_min=duration_min,
             sop_overlap=sop_overlap,
+            sop_authority_issue=sop_authority_issue,
         )
         verdict, trace = decide(facts)
         return verdict.disposition, verdict.triage_label, verdict.confidence, trace

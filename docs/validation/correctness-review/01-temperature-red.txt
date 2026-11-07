@@ -1,0 +1,279 @@
+FFFFFFFFFFFFFFF.                                                         [100%]
+=================================== FAILURES ===================================
+___________ test_incomplete_temperature_range_is_unknown[None-None] ____________
+
+maximum = None, minimum = None
+
+    @pytest.mark.parametrize('maximum,minimum', [(None, None), (None, 5), (7, None)])
+    def test_incomplete_temperature_range_is_unknown(maximum, minimum):
+>       assert is_out_of_range(maximum, minimum, 2, 8) is None
+E       assert False is None
+E        +  where False = is_out_of_range(None, None, 2, 8)
+
+tests/test_correctness_review.py:14: AssertionError
+_____________ test_incomplete_temperature_range_is_unknown[None-5] _____________
+
+maximum = None, minimum = 5
+
+    @pytest.mark.parametrize('maximum,minimum', [(None, None), (None, 5), (7, None)])
+    def test_incomplete_temperature_range_is_unknown(maximum, minimum):
+>       assert is_out_of_range(maximum, minimum, 2, 8) is None
+E       assert False is None
+E        +  where False = is_out_of_range(None, 5, 2, 8)
+
+tests/test_correctness_review.py:14: AssertionError
+_____________ test_incomplete_temperature_range_is_unknown[7-None] _____________
+
+maximum = 7, minimum = None
+
+    @pytest.mark.parametrize('maximum,minimum', [(None, None), (None, 5), (7, None)])
+    def test_incomplete_temperature_range_is_unknown(maximum, minimum):
+>       assert is_out_of_range(maximum, minimum, 2, 8) is None
+E       assert False is None
+E        +  where False = is_out_of_range(7, None, 2, 8)
+
+tests/test_correctness_review.py:14: AssertionError
+______ test_missing_temperatures_cannot_be_bypassed_by_triage[None-None-] ______
+
+triage = '', maximum = None, minimum = None
+
+    @pytest.mark.parametrize('triage', ['', 'Duplicate', 'Facility equipment event', 'Sensor artefact'])
+    @pytest.mark.parametrize('maximum,minimum', [(None, None), (None, 5), (7, None)])
+    def test_missing_temperatures_cannot_be_bypassed_by_triage(triage, maximum, minimum):
+        facts = make_facts(
+            corrected_max_c=maximum, min_c=minimum,
+            event={'triage_outcome': triage, 'gateway_gap_min': 90, 'interpolated': 'Y'},
+        )
+        verdict, trace = decide(facts)
+>       assert verdict.disposition == ESCALATE
+E       AssertionError: assert 'AUTO_CLOSE' == 'ESCALATED_TO_SENIOR_QA'
+E
+E         - ESCALATED_TO_SENIOR_QA
+E         + AUTO_CLOSE
+
+tests/test_correctness_review.py:25: AssertionError
+_ test_missing_temperatures_cannot_be_bypassed_by_triage[None-None-Duplicate] __
+
+triage = 'Duplicate', maximum = None, minimum = None
+
+    @pytest.mark.parametrize('triage', ['', 'Duplicate', 'Facility equipment event', 'Sensor artefact'])
+    @pytest.mark.parametrize('maximum,minimum', [(None, None), (None, 5), (7, None)])
+    def test_missing_temperatures_cannot_be_bypassed_by_triage(triage, maximum, minimum):
+        facts = make_facts(
+            corrected_max_c=maximum, min_c=minimum,
+            event={'triage_outcome': triage, 'gateway_gap_min': 90, 'interpolated': 'Y'},
+        )
+        verdict, trace = decide(facts)
+>       assert verdict.disposition == ESCALATE
+E       AssertionError: assert 'AUTO_CLOSE' == 'ESCALATED_TO_SENIOR_QA'
+E
+E         - ESCALATED_TO_SENIOR_QA
+E         + AUTO_CLOSE
+
+tests/test_correctness_review.py:25: AssertionError
+_ test_missing_temperatures_cannot_be_bypassed_by_triage[None-None-Facility equipment event] _
+
+triage = 'Facility equipment event', maximum = None, minimum = None
+
+    @pytest.mark.parametrize('triage', ['', 'Duplicate', 'Facility equipment event', 'Sensor artefact'])
+    @pytest.mark.parametrize('maximum,minimum', [(None, None), (None, 5), (7, None)])
+    def test_missing_temperatures_cannot_be_bypassed_by_triage(triage, maximum, minimum):
+        facts = make_facts(
+            corrected_max_c=maximum, min_c=minimum,
+            event={'triage_outcome': triage, 'gateway_gap_min': 90, 'interpolated': 'Y'},
+        )
+        verdict, trace = decide(facts)
+>       assert verdict.disposition == ESCALATE
+E       AssertionError: assert 'AUTO_CLOSE' == 'ESCALATED_TO_SENIOR_QA'
+E
+E         - ESCALATED_TO_SENIOR_QA
+E         + AUTO_CLOSE
+
+tests/test_correctness_review.py:25: AssertionError
+_ test_missing_temperatures_cannot_be_bypassed_by_triage[None-None-Sensor artefact] _
+
+triage = 'Sensor artefact', maximum = None, minimum = None
+
+    @pytest.mark.parametrize('triage', ['', 'Duplicate', 'Facility equipment event', 'Sensor artefact'])
+    @pytest.mark.parametrize('maximum,minimum', [(None, None), (None, 5), (7, None)])
+    def test_missing_temperatures_cannot_be_bypassed_by_triage(triage, maximum, minimum):
+        facts = make_facts(
+            corrected_max_c=maximum, min_c=minimum,
+            event={'triage_outcome': triage, 'gateway_gap_min': 90, 'interpolated': 'Y'},
+        )
+        verdict, trace = decide(facts)
+>       assert verdict.disposition == ESCALATE
+E       AssertionError: assert 'AUTO_CLOSE' == 'ESCALATED_TO_SENIOR_QA'
+E
+E         - ESCALATED_TO_SENIOR_QA
+E         + AUTO_CLOSE
+
+tests/test_correctness_review.py:25: AssertionError
+_______ test_missing_temperatures_cannot_be_bypassed_by_triage[None-5-] ________
+
+triage = '', maximum = None, minimum = 5
+
+    @pytest.mark.parametrize('triage', ['', 'Duplicate', 'Facility equipment event', 'Sensor artefact'])
+    @pytest.mark.parametrize('maximum,minimum', [(None, None), (None, 5), (7, None)])
+    def test_missing_temperatures_cannot_be_bypassed_by_triage(triage, maximum, minimum):
+        facts = make_facts(
+            corrected_max_c=maximum, min_c=minimum,
+            event={'triage_outcome': triage, 'gateway_gap_min': 90, 'interpolated': 'Y'},
+        )
+        verdict, trace = decide(facts)
+>       assert verdict.disposition == ESCALATE
+E       AssertionError: assert 'AUTO_CLOSE' == 'ESCALATED_TO_SENIOR_QA'
+E
+E         - ESCALATED_TO_SENIOR_QA
+E         + AUTO_CLOSE
+
+tests/test_correctness_review.py:25: AssertionError
+___ test_missing_temperatures_cannot_be_bypassed_by_triage[None-5-Duplicate] ___
+
+triage = 'Duplicate', maximum = None, minimum = 5
+
+    @pytest.mark.parametrize('triage', ['', 'Duplicate', 'Facility equipment event', 'Sensor artefact'])
+    @pytest.mark.parametrize('maximum,minimum', [(None, None), (None, 5), (7, None)])
+    def test_missing_temperatures_cannot_be_bypassed_by_triage(triage, maximum, minimum):
+        facts = make_facts(
+            corrected_max_c=maximum, min_c=minimum,
+            event={'triage_outcome': triage, 'gateway_gap_min': 90, 'interpolated': 'Y'},
+        )
+        verdict, trace = decide(facts)
+>       assert verdict.disposition == ESCALATE
+E       AssertionError: assert 'AUTO_CLOSE' == 'ESCALATED_TO_SENIOR_QA'
+E
+E         - ESCALATED_TO_SENIOR_QA
+E         + AUTO_CLOSE
+
+tests/test_correctness_review.py:25: AssertionError
+_ test_missing_temperatures_cannot_be_bypassed_by_triage[None-5-Facility equipment event] _
+
+triage = 'Facility equipment event', maximum = None, minimum = 5
+
+    @pytest.mark.parametrize('triage', ['', 'Duplicate', 'Facility equipment event', 'Sensor artefact'])
+    @pytest.mark.parametrize('maximum,minimum', [(None, None), (None, 5), (7, None)])
+    def test_missing_temperatures_cannot_be_bypassed_by_triage(triage, maximum, minimum):
+        facts = make_facts(
+            corrected_max_c=maximum, min_c=minimum,
+            event={'triage_outcome': triage, 'gateway_gap_min': 90, 'interpolated': 'Y'},
+        )
+        verdict, trace = decide(facts)
+>       assert verdict.disposition == ESCALATE
+E       AssertionError: assert 'AUTO_CLOSE' == 'ESCALATED_TO_SENIOR_QA'
+E
+E         - ESCALATED_TO_SENIOR_QA
+E         + AUTO_CLOSE
+
+tests/test_correctness_review.py:25: AssertionError
+_ test_missing_temperatures_cannot_be_bypassed_by_triage[None-5-Sensor artefact] _
+
+triage = 'Sensor artefact', maximum = None, minimum = 5
+
+    @pytest.mark.parametrize('triage', ['', 'Duplicate', 'Facility equipment event', 'Sensor artefact'])
+    @pytest.mark.parametrize('maximum,minimum', [(None, None), (None, 5), (7, None)])
+    def test_missing_temperatures_cannot_be_bypassed_by_triage(triage, maximum, minimum):
+        facts = make_facts(
+            corrected_max_c=maximum, min_c=minimum,
+            event={'triage_outcome': triage, 'gateway_gap_min': 90, 'interpolated': 'Y'},
+        )
+        verdict, trace = decide(facts)
+>       assert verdict.disposition == ESCALATE
+E       AssertionError: assert 'AUTO_CLOSE' == 'ESCALATED_TO_SENIOR_QA'
+E
+E         - ESCALATED_TO_SENIOR_QA
+E         + AUTO_CLOSE
+
+tests/test_correctness_review.py:25: AssertionError
+_______ test_missing_temperatures_cannot_be_bypassed_by_triage[7-None-] ________
+
+triage = '', maximum = 7, minimum = None
+
+    @pytest.mark.parametrize('triage', ['', 'Duplicate', 'Facility equipment event', 'Sensor artefact'])
+    @pytest.mark.parametrize('maximum,minimum', [(None, None), (None, 5), (7, None)])
+    def test_missing_temperatures_cannot_be_bypassed_by_triage(triage, maximum, minimum):
+        facts = make_facts(
+            corrected_max_c=maximum, min_c=minimum,
+            event={'triage_outcome': triage, 'gateway_gap_min': 90, 'interpolated': 'Y'},
+        )
+        verdict, trace = decide(facts)
+>       assert verdict.disposition == ESCALATE
+E       AssertionError: assert 'AUTO_CLOSE' == 'ESCALATED_TO_SENIOR_QA'
+E
+E         - ESCALATED_TO_SENIOR_QA
+E         + AUTO_CLOSE
+
+tests/test_correctness_review.py:25: AssertionError
+___ test_missing_temperatures_cannot_be_bypassed_by_triage[7-None-Duplicate] ___
+
+triage = 'Duplicate', maximum = 7, minimum = None
+
+    @pytest.mark.parametrize('triage', ['', 'Duplicate', 'Facility equipment event', 'Sensor artefact'])
+    @pytest.mark.parametrize('maximum,minimum', [(None, None), (None, 5), (7, None)])
+    def test_missing_temperatures_cannot_be_bypassed_by_triage(triage, maximum, minimum):
+        facts = make_facts(
+            corrected_max_c=maximum, min_c=minimum,
+            event={'triage_outcome': triage, 'gateway_gap_min': 90, 'interpolated': 'Y'},
+        )
+        verdict, trace = decide(facts)
+>       assert verdict.disposition == ESCALATE
+E       AssertionError: assert 'AUTO_CLOSE' == 'ESCALATED_TO_SENIOR_QA'
+E
+E         - ESCALATED_TO_SENIOR_QA
+E         + AUTO_CLOSE
+
+tests/test_correctness_review.py:25: AssertionError
+_ test_missing_temperatures_cannot_be_bypassed_by_triage[7-None-Facility equipment event] _
+
+triage = 'Facility equipment event', maximum = 7, minimum = None
+
+    @pytest.mark.parametrize('triage', ['', 'Duplicate', 'Facility equipment event', 'Sensor artefact'])
+    @pytest.mark.parametrize('maximum,minimum', [(None, None), (None, 5), (7, None)])
+    def test_missing_temperatures_cannot_be_bypassed_by_triage(triage, maximum, minimum):
+        facts = make_facts(
+            corrected_max_c=maximum, min_c=minimum,
+            event={'triage_outcome': triage, 'gateway_gap_min': 90, 'interpolated': 'Y'},
+        )
+        verdict, trace = decide(facts)
+>       assert verdict.disposition == ESCALATE
+E       AssertionError: assert 'AUTO_CLOSE' == 'ESCALATED_TO_SENIOR_QA'
+E
+E         - ESCALATED_TO_SENIOR_QA
+E         + AUTO_CLOSE
+
+tests/test_correctness_review.py:25: AssertionError
+_ test_missing_temperatures_cannot_be_bypassed_by_triage[7-None-Sensor artefact] _
+
+triage = 'Sensor artefact', maximum = 7, minimum = None
+
+    @pytest.mark.parametrize('triage', ['', 'Duplicate', 'Facility equipment event', 'Sensor artefact'])
+    @pytest.mark.parametrize('maximum,minimum', [(None, None), (None, 5), (7, None)])
+    def test_missing_temperatures_cannot_be_bypassed_by_triage(triage, maximum, minimum):
+        facts = make_facts(
+            corrected_max_c=maximum, min_c=minimum,
+            event={'triage_outcome': triage, 'gateway_gap_min': 90, 'interpolated': 'Y'},
+        )
+        verdict, trace = decide(facts)
+>       assert verdict.disposition == ESCALATE
+E       AssertionError: assert 'AUTO_CLOSE' == 'ESCALATED_TO_SENIOR_QA'
+E
+E         - ESCALATED_TO_SENIOR_QA
+E         + AUTO_CLOSE
+
+tests/test_correctness_review.py:25: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_correctness_review.py::test_incomplete_temperature_range_is_unknown[None-None]
+FAILED tests/test_correctness_review.py::test_incomplete_temperature_range_is_unknown[None-5]
+FAILED tests/test_correctness_review.py::test_incomplete_temperature_range_is_unknown[7-None]
+FAILED tests/test_correctness_review.py::test_missing_temperatures_cannot_be_bypassed_by_triage[None-None-]
+FAILED tests/test_correctness_review.py::test_missing_temperatures_cannot_be_bypassed_by_triage[None-None-Duplicate]
+FAILED tests/test_correctness_review.py::test_missing_temperatures_cannot_be_bypassed_by_triage[None-None-Facility equipment event]
+FAILED tests/test_correctness_review.py::test_missing_temperatures_cannot_be_bypassed_by_triage[None-None-Sensor artefact]
+FAILED tests/test_correctness_review.py::test_missing_temperatures_cannot_be_bypassed_by_triage[None-5-]
+FAILED tests/test_correctness_review.py::test_missing_temperatures_cannot_be_bypassed_by_triage[None-5-Duplicate]
+FAILED tests/test_correctness_review.py::test_missing_temperatures_cannot_be_bypassed_by_triage[None-5-Facility equipment event]
+FAILED tests/test_correctness_review.py::test_missing_temperatures_cannot_be_bypassed_by_triage[None-5-Sensor artefact]
+FAILED tests/test_correctness_review.py::test_missing_temperatures_cannot_be_bypassed_by_triage[7-None-]
+FAILED tests/test_correctness_review.py::test_missing_temperatures_cannot_be_bypassed_by_triage[7-None-Duplicate]
+FAILED tests/test_correctness_review.py::test_missing_temperatures_cannot_be_bypassed_by_triage[7-None-Facility equipment event]
+FAILED tests/test_correctness_review.py::test_missing_temperatures_cannot_be_bypassed_by_triage[7-None-Sensor artefact]

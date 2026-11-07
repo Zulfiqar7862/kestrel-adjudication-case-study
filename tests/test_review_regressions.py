@@ -27,6 +27,7 @@ def fixture(min_c=3.0, max_c=8.0, firmware="TT-2.14.3"):
                 "brand_as_labelled": "test vial",
                 "storage_spec_text": "2-8 °C",
                 "permitted_excursion_text": "No excursion permitted",
+                "stability_study_ref": "S",
             }
         ],
     )
@@ -41,6 +42,18 @@ def fixture(min_c=3.0, max_c=8.0, firmware="TT-2.14.3"):
         "logger_fw": firmware,
         "_alert_ts": datetime(2026, 1, 2),
     }
+    # Supply a synthetic applicable study so firmware/parser tests still isolate
+    # their original arithmetic rather than relying on now-forbidden master prose.
+    pack.stability = [
+        {
+            "tenant_code": "T-X",
+            "study_ref": "S",
+            "product_text_as_written": "test vial",
+            "study_type": "Excursion / thermal cycling",
+            "readable": "Y",
+            "permitted_excursion_text": "No excursion permitted",
+        }
+    ]
     pack.events = [event]
     return pack, event
 
@@ -95,6 +108,7 @@ class TestTemperatureAndIdentity(unittest.TestCase):
         for max_c in [10, 25, 25.1]:
             p, e = fixture(max_c=max_c, firmware="other")
             p.products[0]["permitted_excursion_text"] = "No excursion above 25 °C permitted"
+            p.stability[0]["permitted_excursion_text"] = "No excursion above 25 °C permitted"
             r = AdjudicationEngine(p).adjudicate(e)
             self.assertEqual(r.recommendation, "ESCALATED_TO_SENIOR_QA")
             self.assertIn("no duration", " ".join(r.rationale))
@@ -122,7 +136,8 @@ class TestTemperatureAndIdentity(unittest.TestCase):
             {"study_ref": "S", "tenant_code": "T-OTHER", "permitted_excursion_text": "No excursion permitted"}
         ]
         r = StabilityResolver(p).resolve(ResolvedProduct("T-X", "gtin_exact", 0.98, stability_study_ref="S"))
-        self.assertEqual(r.source, "none")
+        self.assertEqual(r.source, "unresolved")
+        self.assertIsNotNone(r.authority_issue)
 
     def test_shadow_custom_bound_drives_arithmetic(self):
         p, _ = fixture(max_c=7)
