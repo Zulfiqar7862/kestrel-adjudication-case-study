@@ -1,4 +1,14 @@
-# Current correctness review: rule/code 0.4.1
+# Current explicit-storage review: rule/code 0.4.2
+
+These specific defects were addressed; overall safety and production readiness remain unvalidated.
+
+[Executed report, full 86-case table, outcome diff and AUTO_CLOSE path inventory](storage-limits-review/report.md). Current sample counts are **130/290/0/0/0** in AUTO_CLOSE/QA/note/quarantine/destroy order, versus **111/309/0/0/0** at 541202b. There are 35 changes: 27 QA→historical AUTO_CLOSE and 8 AUTO_CLOSE→QA for unresolved nominal cryogenic instructions. No production extrapolation or count optimisation.
+
+The records below are retained historical validation, not current results.
+
+---
+
+# Historical correctness review: rule/code 0.4.1
 
 [Full report, exact commands, test-first evidence and event-level diff](correctness-review/report.md). The new sample counts are **111/309/0/0/0** in AUTO_CLOSE/QA/note/quarantine/destroy order, versus **224/106/53/26/11** at fbf5322. Exactly 203 recommendations change, all to QA. No production accuracy is claimed. The source PDF/workbook are unchanged.
 

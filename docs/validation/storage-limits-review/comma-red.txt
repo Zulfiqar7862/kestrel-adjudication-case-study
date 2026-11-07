@@ -1,0 +1,15 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_____________ test_decimal_comma_is_not_silently_a_two_sided_range _____________
+
+    def test_decimal_comma_is_not_silently_a_two_sided_range():
+>       assert as_of.parse_storage_limits('2,8 C').bound_type == 'unresolved'
+E       AssertionError: assert 'two_sided' == 'unresolved'
+E
+E         - unresolved
+E         + two_sided
+
+tests/test_storage_limits.py:136: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_storage_limits.py::test_decimal_comma_is_not_silently_a_two_sided_range
+1 failed in 0.09s

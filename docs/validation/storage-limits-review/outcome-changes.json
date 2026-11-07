@@ -1,0 +1,1093 @@
+[
+  {
+    "event_id": "EXC-112352",
+    "before": "ESCALATED_TO_SENIOR_QA",
+    "after": "AUTO_CLOSE",
+    "storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "parsed_limit": {
+      "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+      "low_c": 15.0,
+      "high_c": 25.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 15.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "excursions to 30\u00b0c permitted, see stability"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "rule": "rule_facility_equipment_event",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Triage indicates facility equipment event with no product loaded",
+      "Decision rule: rule_facility_equipment_event",
+      "Additional storage constraints retained, not independently verified: excursions to 30\u00b0c permitted, see stability",
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111995",
+    "before": "ESCALATED_TO_SENIOR_QA",
+    "after": "AUTO_CLOSE",
+    "storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "parsed_limit": {
+      "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+      "low_c": 15.0,
+      "high_c": 25.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 15.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "excursions to 30\u00b0c permitted, see stability"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "rule": "rule_facility_equipment_event",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2025-12-27",
+      "Triage indicates facility equipment event with no product loaded",
+      "Decision rule: rule_facility_equipment_event",
+      "Additional storage constraints retained, not independently verified: excursions to 30\u00b0c permitted, see stability",
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-110854",
+    "before": "ESCALATED_TO_SENIOR_QA",
+    "after": "AUTO_CLOSE",
+    "storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "parsed_limit": {
+      "text": "2\u00b0C \u2013 8\u00b0C",
+      "low_c": 2.0,
+      "high_c": 8.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 2.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 8.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "rule": "rule_facility_equipment_event",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Triage indicates facility equipment event with no product loaded",
+      "Decision rule: rule_facility_equipment_event",
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-110770",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "storage_text": "Cryogenic, vapour phase only",
+    "parsed_limit": {
+      "text": "Cryogenic, vapour phase only",
+      "low_c": null,
+      "high_c": null,
+      "lower": null,
+      "upper": null,
+      "constraints": [],
+      "unresolved_reason": "explicit governing temperature bounds not established from storage text",
+      "bound_type": "unresolved",
+      "constraints_status": "retained, not independently verified"
+    },
+    "rule": "rule_unresolved_storage",
+    "rationale": [
+      "Product identity weak (unresolved): blank product_ref_as_received",
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-02-19",
+      "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: storage instructions unresolved \u2014 explicit governing temperature bounds not established from storage text",
+      "Decision rule: rule_unresolved_storage"
+    ]
+  },
+  {
+    "event_id": "EXC-112506",
+    "before": "ESCALATED_TO_SENIOR_QA",
+    "after": "AUTO_CLOSE",
+    "storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "parsed_limit": {
+      "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+      "low_c": 15.0,
+      "high_c": 25.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 15.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "excursions to 30\u00b0c permitted, see stability"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "rule": "rule_duplicate_alert",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-06-21",
+      "Triage indicates duplicate of earlier alert",
+      "Decision rule: rule_duplicate_alert",
+      "Additional storage constraints retained, not independently verified: excursions to 30\u00b0c permitted, see stability",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-112772",
+    "before": "ESCALATED_TO_SENIOR_QA",
+    "after": "AUTO_CLOSE",
+    "storage_text": "-80C to -60C (dry ice permitted)",
+    "parsed_limit": {
+      "text": "-80C to -60C (dry ice permitted)",
+      "low_c": -80.0,
+      "high_c": -60.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": -80.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": -60.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "dry ice permitted"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "rule": "rule_duplicate_alert",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Triage indicates duplicate of earlier alert",
+      "Decision rule: rule_duplicate_alert",
+      "Additional storage constraints retained, not independently verified: dry ice permitted",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-110735",
+    "before": "ESCALATED_TO_SENIOR_QA",
+    "after": "AUTO_CLOSE",
+    "storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "parsed_limit": {
+      "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+      "low_c": 15.0,
+      "high_c": 25.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 15.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "excursions to 30\u00b0c permitted, see stability"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "rule": "rule_duplicate_alert",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-02-19",
+      "Triage indicates duplicate of earlier alert",
+      "Decision rule: rule_duplicate_alert",
+      "Additional storage constraints retained, not independently verified: excursions to 30\u00b0c permitted, see stability",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112835",
+    "before": "ESCALATED_TO_SENIOR_QA",
+    "after": "AUTO_CLOSE",
+    "storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "parsed_limit": {
+      "text": "2\u00b0C \u2013 8\u00b0C",
+      "low_c": 2.0,
+      "high_c": 8.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 2.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 8.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "rule": "rule_duplicate_alert",
+    "rationale": [
+      "Stability authority unresolved; product-master text not used as substitute",
+      "Triage indicates duplicate of earlier alert",
+      "Decision rule: rule_duplicate_alert",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112226",
+    "before": "ESCALATED_TO_SENIOR_QA",
+    "after": "AUTO_CLOSE",
+    "storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "parsed_limit": {
+      "text": "2\u00b0C \u2013 8\u00b0C",
+      "low_c": 2.0,
+      "high_c": 8.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 2.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 8.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "rule": "rule_duplicate_alert",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Triage indicates duplicate of earlier alert",
+      "Decision rule: rule_duplicate_alert",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112681",
+    "before": "ESCALATED_TO_SENIOR_QA",
+    "after": "AUTO_CLOSE",
+    "storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "parsed_limit": {
+      "text": "2\u00b0C \u2013 8\u00b0C",
+      "low_c": 2.0,
+      "high_c": 8.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 2.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 8.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "rule": "rule_duplicate_alert",
+    "rationale": [
+      "Stability authority unresolved: study type does not establish excursion allowance; product-master text not used as substitute",
+      "Triage indicates duplicate of earlier alert",
+      "Decision rule: rule_duplicate_alert",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-112499",
+    "before": "ESCALATED_TO_SENIOR_QA",
+    "after": "AUTO_CLOSE",
+    "storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "parsed_limit": {
+      "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+      "low_c": 15.0,
+      "high_c": 25.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 15.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "excursions to 30\u00b0c permitted, see stability"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "rule": "rule_duplicate_alert",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-05-09",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Triage indicates duplicate of earlier alert",
+      "Decision rule: rule_duplicate_alert",
+      "Additional storage constraints retained, not independently verified: excursions to 30\u00b0c permitted, see stability",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111862",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "storage_text": "LN2 vapour phase (-196 nominal)",
+    "parsed_limit": {
+      "text": "LN2 vapour phase (-196 nominal)",
+      "low_c": null,
+      "high_c": null,
+      "lower": null,
+      "upper": null,
+      "constraints": [],
+      "unresolved_reason": "explicit governing temperature bounds not established from storage text",
+      "bound_type": "unresolved",
+      "constraints_status": "retained, not independently verified"
+    },
+    "rule": "rule_unresolved_storage",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-05-26",
+      "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: storage instructions unresolved \u2014 explicit governing temperature bounds not established from storage text",
+      "Decision rule: rule_unresolved_storage",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-111106",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "storage_text": "LN2 vapour phase (-196 nominal)",
+    "parsed_limit": {
+      "text": "LN2 vapour phase (-196 nominal)",
+      "low_c": null,
+      "high_c": null,
+      "lower": null,
+      "upper": null,
+      "constraints": [],
+      "unresolved_reason": "explicit governing temperature bounds not established from storage text",
+      "bound_type": "unresolved",
+      "constraints_status": "retained, not independently verified"
+    },
+    "rule": "rule_unresolved_storage",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; product-master text not used as substitute",
+      "Escalate: storage instructions unresolved \u2014 explicit governing temperature bounds not established from storage text",
+      "Decision rule: rule_unresolved_storage"
+    ]
+  },
+  {
+    "event_id": "EXC-111183",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "storage_text": "LN2 vapour phase (-196 nominal)",
+    "parsed_limit": {
+      "text": "LN2 vapour phase (-196 nominal)",
+      "low_c": null,
+      "high_c": null,
+      "lower": null,
+      "upper": null,
+      "constraints": [],
+      "unresolved_reason": "explicit governing temperature bounds not established from storage text",
+      "bound_type": "unresolved",
+      "constraints_status": "retained, not independently verified"
+    },
+    "rule": "rule_unresolved_storage",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-06-01",
+      "Escalate: storage instructions unresolved \u2014 explicit governing temperature bounds not established from storage text",
+      "Decision rule: rule_unresolved_storage"
+    ]
+  },
+  {
+    "event_id": "EXC-110819",
+    "before": "ESCALATED_TO_SENIOR_QA",
+    "after": "AUTO_CLOSE",
+    "storage_text": "Store below 25 C",
+    "parsed_limit": {
+      "text": "Store below 25 C",
+      "low_c": null,
+      "high_c": 25.0,
+      "lower": null,
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": false
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "upper_only",
+      "constraints_status": "retained, not independently verified"
+    },
+    "rule": "rule_duplicate_alert",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-02-19",
+      "Triage indicates duplicate of earlier alert",
+      "Decision rule: rule_duplicate_alert",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-110980",
+    "before": "ESCALATED_TO_SENIOR_QA",
+    "after": "AUTO_CLOSE",
+    "storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "parsed_limit": {
+      "text": "2\u00b0C \u2013 8\u00b0C",
+      "low_c": 2.0,
+      "high_c": 8.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 2.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 8.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "rule": "rule_facility_equipment_event",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Triage indicates facility equipment event with no product loaded",
+      "Decision rule: rule_facility_equipment_event",
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111456",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "storage_text": "LN2 vapour phase (-196 nominal)",
+    "parsed_limit": {
+      "text": "LN2 vapour phase (-196 nominal)",
+      "low_c": null,
+      "high_c": null,
+      "lower": null,
+      "upper": null,
+      "constraints": [],
+      "unresolved_reason": "explicit governing temperature bounds not established from storage text",
+      "bound_type": "unresolved",
+      "constraints_status": "retained, not independently verified"
+    },
+    "rule": "rule_unresolved_storage",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-06-09",
+      "Escalate: storage instructions unresolved \u2014 explicit governing temperature bounds not established from storage text",
+      "Decision rule: rule_unresolved_storage"
+    ]
+  },
+  {
+    "event_id": "EXC-111708",
+    "before": "ESCALATED_TO_SENIOR_QA",
+    "after": "AUTO_CLOSE",
+    "storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "parsed_limit": {
+      "text": "2\u00b0C \u2013 8\u00b0C",
+      "low_c": 2.0,
+      "high_c": 8.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 2.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 8.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "rule": "rule_duplicate_alert",
+    "rationale": [
+      "Stability authority unresolved: study type does not establish excursion allowance; product-master text not used as substitute",
+      "Triage indicates duplicate of earlier alert",
+      "Decision rule: rule_duplicate_alert",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111491",
+    "before": "ESCALATED_TO_SENIOR_QA",
+    "after": "AUTO_CLOSE",
+    "storage_text": "Store below 25 C",
+    "parsed_limit": {
+      "text": "Store below 25 C",
+      "low_c": null,
+      "high_c": 25.0,
+      "lower": null,
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": false
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "upper_only",
+      "constraints_status": "retained, not independently verified"
+    },
+    "rule": "rule_duplicate_alert",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2025-12-17",
+      "Triage indicates duplicate of earlier alert",
+      "Decision rule: rule_duplicate_alert",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-110812",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "storage_text": "LN2 vapour phase (-196 nominal)",
+    "parsed_limit": {
+      "text": "LN2 vapour phase (-196 nominal)",
+      "low_c": null,
+      "high_c": null,
+      "lower": null,
+      "upper": null,
+      "constraints": [],
+      "unresolved_reason": "explicit governing temperature bounds not established from storage text",
+      "bound_type": "unresolved",
+      "constraints_status": "retained, not independently verified"
+    },
+    "rule": "rule_unresolved_storage",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-02-19",
+      "Escalate: storage instructions unresolved \u2014 explicit governing temperature bounds not established from storage text",
+      "Decision rule: rule_unresolved_storage"
+    ]
+  },
+  {
+    "event_id": "EXC-111351",
+    "before": "ESCALATED_TO_SENIOR_QA",
+    "after": "AUTO_CLOSE",
+    "storage_text": "-80C to -60C (dry ice permitted)",
+    "parsed_limit": {
+      "text": "-80C to -60C (dry ice permitted)",
+      "low_c": -80.0,
+      "high_c": -60.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": -80.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": -60.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "dry ice permitted"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "rule": "rule_duplicate_alert",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Triage indicates duplicate of earlier alert",
+      "Decision rule: rule_duplicate_alert",
+      "Additional storage constraints retained, not independently verified: dry ice permitted",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111820",
+    "before": "ESCALATED_TO_SENIOR_QA",
+    "after": "AUTO_CLOSE",
+    "storage_text": "Store below 25 C",
+    "parsed_limit": {
+      "text": "Store below 25 C",
+      "low_c": null,
+      "high_c": 25.0,
+      "lower": null,
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": false
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "upper_only",
+      "constraints_status": "retained, not independently verified"
+    },
+    "rule": "rule_facility_equipment_event",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-07-06",
+      "Triage indicates facility equipment event with no product loaded",
+      "Decision rule: rule_facility_equipment_event",
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112639",
+    "before": "ESCALATED_TO_SENIOR_QA",
+    "after": "AUTO_CLOSE",
+    "storage_text": "-80 to -60 \u00b0C",
+    "parsed_limit": {
+      "text": "-80 to -60 \u00b0C",
+      "low_c": -80.0,
+      "high_c": -60.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": -80.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": -60.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "rule": "rule_duplicate_alert",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "Triage indicates duplicate of earlier alert",
+      "Decision rule: rule_duplicate_alert",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111743",
+    "before": "ESCALATED_TO_SENIOR_QA",
+    "after": "AUTO_CLOSE",
+    "storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "parsed_limit": {
+      "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+      "low_c": 15.0,
+      "high_c": 25.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 15.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "excursions to 30\u00b0c permitted, see stability"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "rule": "rule_facility_equipment_event",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2025-12-17",
+      "Triage indicates facility equipment event with no product loaded",
+      "Decision rule: rule_facility_equipment_event",
+      "Additional storage constraints retained, not independently verified: excursions to 30\u00b0c permitted, see stability",
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112534",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "storage_text": "LN2 vapour phase (-196 nominal)",
+    "parsed_limit": {
+      "text": "LN2 vapour phase (-196 nominal)",
+      "low_c": null,
+      "high_c": null,
+      "lower": null,
+      "upper": null,
+      "constraints": [],
+      "unresolved_reason": "explicit governing temperature bounds not established from storage text",
+      "bound_type": "unresolved",
+      "constraints_status": "retained, not independently verified"
+    },
+    "rule": "rule_unresolved_storage",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-06-02",
+      "Escalate: storage instructions unresolved \u2014 explicit governing temperature bounds not established from storage text",
+      "Decision rule: rule_unresolved_storage"
+    ]
+  },
+  {
+    "event_id": "EXC-112464",
+    "before": "ESCALATED_TO_SENIOR_QA",
+    "after": "AUTO_CLOSE",
+    "storage_text": "Store below 25 C",
+    "parsed_limit": {
+      "text": "Store below 25 C",
+      "low_c": null,
+      "high_c": 25.0,
+      "lower": null,
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": false
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "upper_only",
+      "constraints_status": "retained, not independently verified"
+    },
+    "rule": "rule_duplicate_alert",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Triage indicates duplicate of earlier alert",
+      "Decision rule: rule_duplicate_alert",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111155",
+    "before": "ESCALATED_TO_SENIOR_QA",
+    "after": "AUTO_CLOSE",
+    "storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "parsed_limit": {
+      "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+      "low_c": 15.0,
+      "high_c": 25.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 15.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "excursions to 30\u00b0c permitted, see stability"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "rule": "rule_duplicate_alert",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Triage indicates duplicate of earlier alert",
+      "Decision rule: rule_duplicate_alert",
+      "Additional storage constraints retained, not independently verified: excursions to 30\u00b0c permitted, see stability",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111134",
+    "before": "ESCALATED_TO_SENIOR_QA",
+    "after": "AUTO_CLOSE",
+    "storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "parsed_limit": {
+      "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+      "low_c": 15.0,
+      "high_c": 25.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 15.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "excursions to 30\u00b0c permitted, see stability"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "rule": "rule_duplicate_alert",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Triage indicates duplicate of earlier alert",
+      "Decision rule: rule_duplicate_alert",
+      "Additional storage constraints retained, not independently verified: excursions to 30\u00b0c permitted, see stability",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-110987",
+    "before": "ESCALATED_TO_SENIOR_QA",
+    "after": "AUTO_CLOSE",
+    "storage_text": "Store below 25 C",
+    "parsed_limit": {
+      "text": "Store below 25 C",
+      "low_c": null,
+      "high_c": 25.0,
+      "lower": null,
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": false
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "upper_only",
+      "constraints_status": "retained, not independently verified"
+    },
+    "rule": "rule_duplicate_alert",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-02-19",
+      "Triage indicates duplicate of earlier alert",
+      "Decision rule: rule_duplicate_alert",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111904",
+    "before": "ESCALATED_TO_SENIOR_QA",
+    "after": "AUTO_CLOSE",
+    "storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "parsed_limit": {
+      "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+      "low_c": 15.0,
+      "high_c": 25.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 15.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "excursions to 30\u00b0c permitted, see stability"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "rule": "rule_duplicate_alert",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Triage indicates duplicate of earlier alert",
+      "Decision rule: rule_duplicate_alert",
+      "Additional storage constraints retained, not independently verified: excursions to 30\u00b0c permitted, see stability",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112779",
+    "before": "AUTO_CLOSE",
+    "after": "ESCALATED_TO_SENIOR_QA",
+    "storage_text": "LN2 vapour phase (-196 nominal)",
+    "parsed_limit": {
+      "text": "LN2 vapour phase (-196 nominal)",
+      "low_c": null,
+      "high_c": null,
+      "lower": null,
+      "upper": null,
+      "constraints": [],
+      "unresolved_reason": "explicit governing temperature bounds not established from storage text",
+      "bound_type": "unresolved",
+      "constraints_status": "retained, not independently verified"
+    },
+    "rule": "rule_unresolved_storage",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-01-19",
+      "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: storage instructions unresolved \u2014 explicit governing temperature bounds not established from storage text",
+      "Decision rule: rule_unresolved_storage"
+    ]
+  },
+  {
+    "event_id": "EXC-112310",
+    "before": "ESCALATED_TO_SENIOR_QA",
+    "after": "AUTO_CLOSE",
+    "storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "parsed_limit": {
+      "text": "2\u00b0C \u2013 8\u00b0C",
+      "low_c": 2.0,
+      "high_c": 8.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 2.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 8.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "rule": "rule_duplicate_alert",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Triage indicates duplicate of earlier alert",
+      "Decision rule: rule_duplicate_alert",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-110826",
+    "before": "ESCALATED_TO_SENIOR_QA",
+    "after": "AUTO_CLOSE",
+    "storage_text": "-80C to -60C (dry ice permitted)",
+    "parsed_limit": {
+      "text": "-80C to -60C (dry ice permitted)",
+      "low_c": -80.0,
+      "high_c": -60.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": -80.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": -60.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "dry ice permitted"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "rule": "rule_duplicate_alert",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Triage indicates duplicate of earlier alert",
+      "Decision rule: rule_duplicate_alert",
+      "Additional storage constraints retained, not independently verified: dry ice permitted",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112562",
+    "before": "ESCALATED_TO_SENIOR_QA",
+    "after": "AUTO_CLOSE",
+    "storage_text": "-80 to -60 \u00b0C",
+    "parsed_limit": {
+      "text": "-80 to -60 \u00b0C",
+      "low_c": -80.0,
+      "high_c": -60.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": -80.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": -60.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "rule": "rule_duplicate_alert",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "Triage indicates duplicate of earlier alert",
+      "Decision rule: rule_duplicate_alert",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-110833",
+    "before": "ESCALATED_TO_SENIOR_QA",
+    "after": "AUTO_CLOSE",
+    "storage_text": "-80 to -60 \u00b0C",
+    "parsed_limit": {
+      "text": "-80 to -60 \u00b0C",
+      "low_c": -80.0,
+      "high_c": -60.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": -80.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": -60.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "rule": "rule_facility_equipment_event",
+    "rationale": [
+      "Product identity weak (unresolved): blank product_ref_as_received",
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Triage indicates facility equipment event with no product loaded",
+      "Decision rule: rule_facility_equipment_event",
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  }
+]

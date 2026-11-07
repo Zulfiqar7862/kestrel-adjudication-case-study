@@ -1,0 +1,752 @@
+{
+  "headline": {
+    "events_total": 420,
+    "events_with_historical_final": 200,
+    "agree_with_historical_final": 4,
+    "agree_with_historical_final_pct": 2.0,
+    "agree_with_assistant": 130,
+    "agree_with_assistant_pct": 30.95,
+    "disagree_by_reason_top": [
+      [
+        "RELEASE->ESCALATED_TO_SENIOR_QA",
+        63
+      ],
+      [
+        "QUARANTINE_PENDING_LAB->ESCALATED_TO_SENIOR_QA",
+        40
+      ],
+      [
+        "RELEASE_WITH_NOTE->ESCALATED_TO_SENIOR_QA",
+        37
+      ],
+      [
+        "RELEASE->AUTO_CLOSE",
+        28
+      ],
+      [
+        "DESTROY->ESCALATED_TO_SENIOR_QA",
+        14
+      ],
+      [
+        "RETURN_TO_ORIGIN->ESCALATED_TO_SENIOR_QA",
+        7
+      ],
+      [
+        "REWORK_RELABEL->ESCALATED_TO_SENIOR_QA",
+        6
+      ],
+      [
+        "RELEASE_WITH_NOTE->AUTO_CLOSE",
+        1
+      ]
+    ],
+    "disagree_by_tenant": {
+      "T-VIRENT": 67,
+      "T-SAHYADRI": 37,
+      "T-KAVERI": 23,
+      "T-AURA": 18,
+      "T-CAMPOS": 16,
+      "T-PINNACLE": 15,
+      "T-NORDIA": 11,
+      "T-MERIDIAN": 9
+    },
+    "disagree_by_firmware": {
+      "TT-2.14.3": 72,
+      "TT-2.15.0": 45,
+      "BMS-n/a": 24,
+      "TT-2.13.8": 21,
+      "CS-4.2": 13,
+      "CS-4.3": 12,
+      "CS-4.1": 9
+    },
+    "notes": [
+      "Historical-final agreement uses the 200 non-empty final_disposition rows (case_opened stratum), not all 420.",
+      "Historical agreement is a comparison, not a safety measure; unresolved evidence can route to QA.",
+      "rules_engine_recommendation is the assistant draft since 2024 (pack README), not the 2023 rules engine."
+    ],
+    "full_keys": [
+      "agree_event_ids",
+      "agree_with_assistant",
+      "agree_with_assistant_pct",
+      "agree_with_historical_final",
+      "agree_with_historical_final_pct",
+      "disagree_by_firmware",
+      "disagree_by_product",
+      "disagree_by_reason",
+      "disagree_by_tenant",
+      "disagree_samples",
+      "elapsed_ms",
+      "events_total",
+      "events_with_historical_final",
+      "notes"
+    ]
+  },
+  "report": {
+    "events_total": 420,
+    "events_with_historical_final": 200,
+    "agree_with_historical_final": 4,
+    "agree_with_historical_final_pct": 2.0,
+    "agree_with_assistant": 130,
+    "agree_with_assistant_pct": 30.95,
+    "disagree_by_reason": {
+      "RELEASE->ESCALATED_TO_SENIOR_QA": 63,
+      "QUARANTINE_PENDING_LAB->ESCALATED_TO_SENIOR_QA": 40,
+      "RELEASE_WITH_NOTE->ESCALATED_TO_SENIOR_QA": 37,
+      "RELEASE->AUTO_CLOSE": 28,
+      "DESTROY->ESCALATED_TO_SENIOR_QA": 14,
+      "RETURN_TO_ORIGIN->ESCALATED_TO_SENIOR_QA": 7,
+      "REWORK_RELABEL->ESCALATED_TO_SENIOR_QA": 6,
+      "RELEASE_WITH_NOTE->AUTO_CLOSE": 1
+    },
+    "disagree_by_tenant": {
+      "T-VIRENT": 67,
+      "T-SAHYADRI": 37,
+      "T-KAVERI": 23,
+      "T-AURA": 18,
+      "T-CAMPOS": 16,
+      "T-PINNACLE": 15,
+      "T-NORDIA": 11,
+      "T-MERIDIAN": 9
+    },
+    "disagree_by_firmware": {
+      "TT-2.14.3": 72,
+      "TT-2.15.0": 45,
+      "BMS-n/a": 24,
+      "TT-2.13.8": 21,
+      "CS-4.2": 13,
+      "CS-4.3": 12,
+      "CS-4.1": 9
+    },
+    "disagree_by_product": {
+      "unknown": 26,
+      "Neuroplex mRNA-12": 24,
+      "Rinvatec 40mg/mL PFS": 16,
+      "Amberil 25mg tabs": 16,
+      "Glucodyne SoloJet 100U": 16,
+      "Somavance depot 120mg": 15,
+      "Cryostat-T Autologous": 13,
+      "Pediakine ORS-Z": 11,
+      "Zovaxin-Q": 9,
+      "Frigovac-B": 9,
+      "Thermelia 50mcg": 8,
+      "Ostrelia 10mg/mL": 8,
+      "Vitraflox IV 400mg": 6,
+      "SKU-BIO-0912": 3,
+      "somatrogon-hlv": 3
+    },
+    "agree_event_ids": [
+      "EXC-110574",
+      "EXC-110049",
+      "EXC-110266",
+      "EXC-110490"
+    ],
+    "disagree_samples": [
+      {
+        "event_id": "EXC-112198",
+        "tenant_code": "T-AURA",
+        "engine": "AUTO_CLOSE",
+        "historical_final": "RELEASE",
+        "assistant": "AUTO_CLOSE",
+        "firmware": "TT-2.13.8",
+        "product": "unknown",
+        "triage_label": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+        "rationale_head": [
+          "Product identity weak (unresolved): blank product_ref_as_received",
+          "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+          "Triage indicates duplicate of earlier alert"
+        ]
+      },
+      {
+        "event_id": "EXC-110336",
+        "tenant_code": "T-VIRENT",
+        "engine": "ESCALATED_TO_SENIOR_QA",
+        "historical_final": "RELEASE_WITH_NOTE",
+        "assistant": "RELEASE_WITH_NOTE",
+        "firmware": "TT-2.14.3",
+        "product": "Rinvatec 40mg/mL PFS",
+        "triage_label": "ACTIONABLE \u2014 stability authority unresolved",
+        "rationale_head": [
+          "Stability authority unresolved: study product identity not established; study presentation conflicts with product; product-master text not used as substitute",
+          "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-04-07",
+          "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition"
+        ]
+      },
+      {
+        "event_id": "EXC-112352",
+        "tenant_code": "T-PINNACLE",
+        "engine": "AUTO_CLOSE",
+        "historical_final": "RELEASE",
+        "assistant": "AUTO_CLOSE",
+        "firmware": "CS-4.3",
+        "product": "SKU-INJ-3390",
+        "triage_label": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+        "rationale_head": [
+          "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+          "Triage indicates facility equipment event with no product loaded",
+          "Decision rule: rule_facility_equipment_event"
+        ]
+      },
+      {
+        "event_id": "EXC-112394",
+        "tenant_code": "T-VIRENT",
+        "engine": "AUTO_CLOSE",
+        "historical_final": "RELEASE",
+        "assistant": "AUTO_CLOSE",
+        "firmware": "TT-2.15.0",
+        "product": "Pediakine ORS-Z",
+        "triage_label": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+        "rationale_head": [
+          "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+          "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-05-01",
+          "Triage indicates duplicate of earlier alert"
+        ]
+      },
+      {
+        "event_id": "EXC-112289",
+        "tenant_code": "T-CAMPOS",
+        "engine": "ESCALATED_TO_SENIOR_QA",
+        "historical_final": "QUARANTINE_PENDING_LAB",
+        "assistant": "QUARANTINE_PENDING_LAB",
+        "firmware": "TT-2.14.3",
+        "product": "Rinvatec 40mg/mL PFS",
+        "triage_label": "ACTIONABLE \u2014 stability authority unresolved",
+        "rationale_head": [
+          "Stability authority unresolved: study product identity not established; study presentation applicability not established; study presentation conflicts with product; product-master text not used as substitute",
+          "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established; study presentation conflicts with product",
+          "Decision rule: rule_stability_authority"
+        ]
+      },
+      {
+        "event_id": "EXC-111841",
+        "tenant_code": "T-VIRENT",
+        "engine": "ESCALATED_TO_SENIOR_QA",
+        "historical_final": "RELEASE_WITH_NOTE",
+        "assistant": "RELEASE_WITH_NOTE",
+        "firmware": "TT-2.13.8",
+        "product": "unknown",
+        "triage_label": "ACTIONABLE \u2014 identity unresolved",
+        "rationale_head": [
+          "Product identity weak (unresolved): blank product_ref_as_received",
+          "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+          "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-01-12"
+        ]
+      },
+      {
+        "event_id": "EXC-110287",
+        "tenant_code": "T-KAVERI",
+        "engine": "ESCALATED_TO_SENIOR_QA",
+        "historical_final": "DESTROY",
+        "assistant": "DESTROY",
+        "firmware": "TT-2.14.3",
+        "product": "Cryostat-T Autologous",
+        "triage_label": "ACTIONABLE \u2014 stability authority unresolved",
+        "rationale_head": [
+          "Stability authority unresolved: study presentation applicability not established; product-master text not used as substitute",
+          "Escalate: stability authority unresolved \u2014 study presentation applicability not established",
+          "Decision rule: rule_stability_authority"
+        ]
+      },
+      {
+        "event_id": "EXC-110637",
+        "tenant_code": "T-AURA",
+        "engine": "ESCALATED_TO_SENIOR_QA",
+        "historical_final": "DESTROY",
+        "assistant": "DESTROY",
+        "firmware": "TT-2.13.8",
+        "product": "unknown",
+        "triage_label": "ACTIONABLE \u2014 identity unresolved",
+        "rationale_head": [
+          "Product identity weak (unresolved): blank product_ref_as_received",
+          "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+          "Escalate: unresolved/ambiguous product identity"
+        ]
+      },
+      {
+        "event_id": "EXC-110203",
+        "tenant_code": "T-KAVERI",
+        "engine": "ESCALATED_TO_SENIOR_QA",
+        "historical_final": "RELEASE",
+        "assistant": "RELEASE",
+        "firmware": "TT-2.14.3",
+        "product": "Cryostat-T Autologous",
+        "triage_label": "ACTIONABLE \u2014 stability authority unresolved",
+        "rationale_head": [
+          "Stability authority unresolved: study presentation applicability not established; product-master text not used as substitute",
+          "Escalate: stability authority unresolved \u2014 study presentation applicability not established",
+          "Decision rule: rule_stability_authority"
+        ]
+      },
+      {
+        "event_id": "EXC-112877",
+        "tenant_code": "T-CAMPOS",
+        "engine": "ESCALATED_TO_SENIOR_QA",
+        "historical_final": "RELEASE",
+        "assistant": "RELEASE",
+        "firmware": "CS-4.1",
+        "product": "Pediakine ORS-Z",
+        "triage_label": "ACTIONABLE \u2014 stability authority unresolved",
+        "rationale_head": [
+          "Stability authority unresolved: study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+          "Escalate: stability authority unresolved \u2014 study presentation applicability not established; study type does not establish excursion allowance",
+          "Decision rule: rule_stability_authority"
+        ]
+      },
+      {
+        "event_id": "EXC-110651",
+        "tenant_code": "T-PINNACLE",
+        "engine": "ESCALATED_TO_SENIOR_QA",
+        "historical_final": "QUARANTINE_PENDING_LAB",
+        "assistant": "QUARANTINE_PENDING_LAB",
+        "firmware": "CS-4.2",
+        "product": "unknown",
+        "triage_label": "ACTIONABLE \u2014 identity unresolved",
+        "rationale_head": [
+          "Product identity weak (unresolved): blank product_ref_as_received",
+          "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+          "Escalate: unresolved/ambiguous product identity"
+        ]
+      },
+      {
+        "event_id": "EXC-110854",
+        "tenant_code": "T-SAHYADRI",
+        "engine": "AUTO_CLOSE",
+        "historical_final": "RELEASE",
+        "assistant": "AUTO_CLOSE",
+        "firmware": "BMS-n/a",
+        "product": "Zovaxin-Q",
+        "triage_label": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+        "rationale_head": [
+          "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+          "Triage indicates facility equipment event with no product loaded",
+          "Decision rule: rule_facility_equipment_event"
+        ]
+      },
+      {
+        "event_id": "EXC-112765",
+        "tenant_code": "T-AURA",
+        "engine": "ESCALATED_TO_SENIOR_QA",
+        "historical_final": "QUARANTINE_PENDING_LAB",
+        "assistant": "QUARANTINE_PENDING_LAB",
+        "firmware": "CS-4.2",
+        "product": "Hemoval FVIII 500IU",
+        "triage_label": "ACTIONABLE \u2014 stability authority unresolved",
+        "rationale_head": [
+          "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+          "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation applicability not established; study type does not establish excursion allowance",
+          "Decision rule: rule_stability_authority"
+        ]
+      },
+      {
+        "event_id": "EXC-112261",
+        "tenant_code": "T-MERIDIAN",
+        "engine": "ESCALATED_TO_SENIOR_QA",
+        "historical_final": "QUARANTINE_PENDING_LAB",
+        "assistant": "QUARANTINE_PENDING_LAB",
+        "firmware": "TT-2.14.3",
+        "product": "Somavance depot 120mg",
+        "triage_label": "ACTIONABLE \u2014 stability authority unresolved",
+        "rationale_head": [
+          "Stability authority unresolved: study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+          "Escalate: stability authority unresolved \u2014 study presentation applicability not established; study type does not establish excursion allowance",
+          "Decision rule: rule_stability_authority"
+        ]
+      },
+      {
+        "event_id": "EXC-110224",
+        "tenant_code": "T-VIRENT",
+        "engine": "ESCALATED_TO_SENIOR_QA",
+        "historical_final": "QUARANTINE_PENDING_LAB",
+        "assistant": "QUARANTINE_PENDING_LAB",
+        "firmware": "TT-2.14.3",
+        "product": "unknown",
+        "triage_label": "ACTIONABLE \u2014 identity unresolved",
+        "rationale_head": [
+          "Product identity weak (unresolved): blank product_ref_as_received",
+          "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+          "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-04-10"
+        ]
+      },
+      {
+        "event_id": "EXC-112842",
+        "tenant_code": "T-NORDIA",
+        "engine": "ESCALATED_TO_SENIOR_QA",
+        "historical_final": "RELEASE",
+        "assistant": "AUTO_CLOSE",
+        "firmware": "TT-2.14.3",
+        "product": "Cryostat-T Autologous",
+        "triage_label": "ACTIONABLE \u2014 storage instructions unresolved",
+        "rationale_head": [
+          "Stability authority unresolved: study presentation applicability not established; product-master text not used as substitute",
+          "Escalate: storage instructions unresolved \u2014 explicit governing temperature bounds not established from storage text",
+          "Decision rule: rule_unresolved_storage"
+        ]
+      },
+      {
+        "event_id": "EXC-111722",
+        "tenant_code": "T-SAHYADRI",
+        "engine": "ESCALATED_TO_SENIOR_QA",
+        "historical_final": "RELEASE_WITH_NOTE",
+        "assistant": "RELEASE_WITH_NOTE",
+        "firmware": "TT-2.13.8",
+        "product": "unknown",
+        "triage_label": "ACTIONABLE \u2014 identity unresolved",
+        "rationale_head": [
+          "Product identity weak (unresolved): blank product_ref_as_received",
+          "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+          "Escalate: unresolved/ambiguous product identity"
+        ]
+      },
+      {
+        "event_id": "EXC-112653",
+        "tenant_code": "T-SAHYADRI",
+        "engine": "ESCALATED_TO_SENIOR_QA",
+        "historical_final": "RELEASE",
+        "assistant": "AUTO_CLOSE",
+        "firmware": "CS-4.2",
+        "product": "Thermelia 50mcg",
+        "triage_label": "ACTIONABLE \u2014 stability authority unresolved",
+        "rationale_head": [
+          "Stability authority unresolved: study presentation applicability not established; product-master text not used as substitute",
+          "Escalate: stability authority unresolved \u2014 study presentation applicability not established",
+          "Decision rule: rule_stability_authority"
+        ]
+      },
+      {
+        "event_id": "EXC-110098",
+        "tenant_code": "T-AURA",
+        "engine": "ESCALATED_TO_SENIOR_QA",
+        "historical_final": "QUARANTINE_PENDING_LAB",
+        "assistant": "QUARANTINE_PENDING_LAB",
+        "firmware": "TT-2.14.3",
+        "product": "Frigovac-B",
+        "triage_label": "ACTIONABLE \u2014 release authority unresolved",
+        "rationale_head": [
+          "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+          "Gateway gap 331.0 min with interpolated readings \u2014 insufficient evidence of excursion",
+          "Escalate: release authority unresolved \u2014 SOP/site acceptance authority unresolved: indexed body/annexure content not supplied; cited study missing or ambiguous in tenant index"
+        ]
+      },
+      {
+        "event_id": "EXC-110595",
+        "tenant_code": "T-CAMPOS",
+        "engine": "ESCALATED_TO_SENIOR_QA",
+        "historical_final": "RELEASE",
+        "assistant": "RELEASE_WITH_NOTE",
+        "firmware": "CS-4.2",
+        "product": "Amberil 25mg tabs",
+        "triage_label": "ACTIONABLE \u2014 storage instructions unresolved",
+        "rationale_head": [
+          "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+          "Escalate: storage instructions unresolved \u2014 explicit governing temperature bounds not established from storage text",
+          "Decision rule: rule_unresolved_storage"
+        ]
+      },
+      {
+        "event_id": "EXC-110847",
+        "tenant_code": "T-VIRENT",
+        "engine": "ESCALATED_TO_SENIOR_QA",
+        "historical_final": "RELEASE",
+        "assistant": "AUTO_CLOSE",
+        "firmware": "BMS-n/a",
+        "product": "Glucodyne SoloJet 100U",
+        "triage_label": "ACTIONABLE \u2014 cumulative assessment unresolved",
+        "rationale_head": [
+          "Master allowance differs from study; not used: 'Refer QA'",
+          "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-02-19",
+          "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition"
+        ]
+      },
+      {
+        "event_id": "EXC-110357",
+        "tenant_code": "T-MERIDIAN",
+        "engine": "ESCALATED_TO_SENIOR_QA",
+        "historical_final": "RELEASE",
+        "assistant": "RELEASE",
+        "firmware": "TT-2.14.3",
+        "product": "Frigovac-B",
+        "triage_label": "ACTIONABLE \u2014 stability authority unresolved",
+        "rationale_head": [
+          "Stability authority unresolved: study presentation applicability not established; product-master text not used as substitute",
+          "Escalate: stability authority unresolved \u2014 study presentation applicability not established",
+          "Decision rule: rule_stability_authority"
+        ]
+      },
+      {
+        "event_id": "EXC-110021",
+        "tenant_code": "T-KAVERI",
+        "engine": "ESCALATED_TO_SENIOR_QA",
+        "historical_final": "RELEASE_WITH_NOTE",
+        "assistant": "RELEASE_WITH_NOTE",
+        "firmware": "TT-2.14.3",
+        "product": "Frigovac-B",
+        "triage_label": "ACTIONABLE \u2014 stability authority unresolved",
+        "rationale_head": [
+          "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+          "Escalate: stability authority unresolved \u2014 cited study missing or ambiguous in tenant index",
+          "Decision rule: rule_stability_authority"
+        ]
+      },
+      {
+        "event_id": "EXC-111554",
+        "tenant_code": "T-SAHYADRI",
+        "engine": "AUTO_CLOSE",
+        "historical_final": "RELEASE",
+        "assistant": "AUTO_CLOSE",
+        "firmware": "CS-4.2",
+        "product": "Ostrelia 10mg/mL",
+        "triage_label": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+        "rationale_head": [
+          "Stability authority unresolved: study presentation applicability not established; product-master text not used as substitute",
+          "Triage indicates duplicate of earlier alert",
+          "Decision rule: rule_duplicate_alert"
+        ]
+      },
+      {
+        "event_id": "EXC-110042",
+        "tenant_code": "T-KAVERI",
+        "engine": "ESCALATED_TO_SENIOR_QA",
+        "historical_final": "QUARANTINE_PENDING_LAB",
+        "assistant": "QUARANTINE_PENDING_LAB",
+        "firmware": "TT-2.14.3",
+        "product": "Ostrelia 10mg/mL",
+        "triage_label": "ACTIONABLE \u2014 stability authority unresolved",
+        "rationale_head": [
+          "Stability authority unresolved: study presentation applicability not established; product-master text not used as substitute",
+          "Escalate: stability authority unresolved \u2014 study presentation applicability not established",
+          "Decision rule: rule_stability_authority"
+        ]
+      },
+      {
+        "event_id": "EXC-112576",
+        "tenant_code": "T-VIRENT",
+        "engine": "ESCALATED_TO_SENIOR_QA",
+        "historical_final": "RELEASE",
+        "assistant": "RELEASE",
+        "firmware": "CS-4.3",
+        "product": "unknown",
+        "triage_label": "ACTIONABLE \u2014 identity unresolved",
+        "rationale_head": [
+          "Product identity weak (unresolved): blank product_ref_as_received",
+          "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+          "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-03-11"
+        ]
+      },
+      {
+        "event_id": "EXC-110182",
+        "tenant_code": "T-CAMPOS",
+        "engine": "ESCALATED_TO_SENIOR_QA",
+        "historical_final": "QUARANTINE_PENDING_LAB",
+        "assistant": "QUARANTINE_PENDING_LAB",
+        "firmware": "TT-2.14.3",
+        "product": "Ostrelia 10mg/mL",
+        "triage_label": "ACTIONABLE \u2014 stability authority unresolved",
+        "rationale_head": [
+          "Stability authority unresolved: study presentation applicability not established; product-master text not used as substitute",
+          "Escalate: stability authority unresolved \u2014 study presentation applicability not established",
+          "Decision rule: rule_stability_authority"
+        ]
+      },
+      {
+        "event_id": "EXC-111589",
+        "tenant_code": "T-VIRENT",
+        "engine": "ESCALATED_TO_SENIOR_QA",
+        "historical_final": "RELEASE",
+        "assistant": "AUTO_CLOSE",
+        "firmware": "TT-2.13.8",
+        "product": "Somavance depot 120mg",
+        "triage_label": "ACTIONABLE \u2014 stability authority unresolved",
+        "rationale_head": [
+          "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+          "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-01-07",
+          "Escalate: stability authority unresolved \u2014 cited study missing or ambiguous in tenant index"
+        ]
+      },
+      {
+        "event_id": "EXC-110119",
+        "tenant_code": "T-VIRENT",
+        "engine": "ESCALATED_TO_SENIOR_QA",
+        "historical_final": "RETURN_TO_ORIGIN",
+        "assistant": "RETURN_TO_ORIGIN",
+        "firmware": "TT-2.14.3",
+        "product": "Rinvatec 40mg/mL PFS",
+        "triage_label": "ACTIONABLE \u2014 stability authority unresolved",
+        "rationale_head": [
+          "Stability authority unresolved: study product identity not established; study presentation conflicts with product; product-master text not used as substitute",
+          "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-04-04",
+          "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition"
+        ]
+      },
+      {
+        "event_id": "EXC-110448",
+        "tenant_code": "T-VIRENT",
+        "engine": "ESCALATED_TO_SENIOR_QA",
+        "historical_final": "RELEASE_WITH_NOTE",
+        "assistant": "DESTROY",
+        "firmware": "TT-2.14.3",
+        "product": "Glucodyne SoloJet 100U",
+        "triage_label": "ACTIONABLE \u2014 cumulative assessment unresolved",
+        "rationale_head": [
+          "Master allowance differs from study; not used: 'Refer QA'",
+          "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-08-19",
+          "Escalate: cumulative assessment unresolved \u2014 verified batch identity and complete prior-exposure history unavailable; remaining lifetime allowance is unknown"
+        ]
+      },
+      {
+        "event_id": "EXC-112737",
+        "tenant_code": "T-VIRENT",
+        "engine": "ESCALATED_TO_SENIOR_QA",
+        "historical_final": "QUARANTINE_PENDING_LAB",
+        "assistant": "QUARANTINE_PENDING_LAB",
+        "firmware": "CS-4.1",
+        "product": "Neuroplex mRNA-12",
+        "triage_label": "ACTIONABLE \u2014 release authority unresolved",
+        "rationale_head": [
+          "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+          "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-05-31",
+          "Gateway gap 83.0 min with interpolated readings \u2014 insufficient evidence of excursion"
+        ]
+      },
+      {
+        "event_id": "EXC-112163",
+        "tenant_code": "T-VIRENT",
+        "engine": "AUTO_CLOSE",
+        "historical_final": "RELEASE",
+        "assistant": "AUTO_CLOSE",
+        "firmware": "BMS-n/a",
+        "product": "THERMELIA PEN",
+        "triage_label": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+        "rationale_head": [
+          "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+          "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-03-30",
+          "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition"
+        ]
+      },
+      {
+        "event_id": "EXC-110140",
+        "tenant_code": "T-VIRENT",
+        "engine": "ESCALATED_TO_SENIOR_QA",
+        "historical_final": "QUARANTINE_PENDING_LAB",
+        "assistant": "QUARANTINE_PENDING_LAB",
+        "firmware": "TT-2.14.3",
+        "product": "unknown",
+        "triage_label": "ACTIONABLE \u2014 identity unresolved",
+        "rationale_head": [
+          "Product identity weak (unresolved): blank product_ref_as_received",
+          "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+          "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-03-25"
+        ]
+      },
+      {
+        "event_id": "EXC-110686",
+        "tenant_code": "T-MERIDIAN",
+        "engine": "ESCALATED_TO_SENIOR_QA",
+        "historical_final": "REWORK_RELABEL",
+        "assistant": "QUARANTINE_PENDING_LAB",
+        "firmware": "TT-2.15.0",
+        "product": "Neuroplex mRNA-12",
+        "triage_label": "ACTIONABLE \u2014 release authority unresolved",
+        "rationale_head": [
+          "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+          "Gateway gap 45.0 min with interpolated readings \u2014 insufficient evidence of excursion",
+          "Escalate: release authority unresolved \u2014 SOP/site acceptance authority unresolved: indexed body/annexure content not supplied; cited study missing or ambiguous in tenant index"
+        ]
+      },
+      {
+        "event_id": "EXC-111652",
+        "tenant_code": "T-CAMPOS",
+        "engine": "ESCALATED_TO_SENIOR_QA",
+        "historical_final": "RELEASE",
+        "assistant": "AUTO_CLOSE",
+        "firmware": "TT-2.15.0",
+        "product": "Frigovac-B",
+        "triage_label": "ACTIONABLE \u2014 stability authority unresolved",
+        "rationale_head": [
+          "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+          "Escalate: stability authority unresolved \u2014 cited study missing or ambiguous in tenant index",
+          "Decision rule: rule_stability_authority"
+        ]
+      },
+      {
+        "event_id": "EXC-112135",
+        "tenant_code": "T-KAVERI",
+        "engine": "ESCALATED_TO_SENIOR_QA",
+        "historical_final": "RELEASE_WITH_NOTE",
+        "assistant": "RELEASE_WITH_NOTE",
+        "firmware": "TT-2.15.0",
+        "product": "Rinvatec 40mg/mL PFS",
+        "triage_label": "ACTIONABLE \u2014 release authority unresolved",
+        "rationale_head": [
+          "Stability authority unresolved: study product identity not established; study presentation applicability not established; study presentation conflicts with product; product-master text not used as substitute",
+          "Gateway gap 75.0 min with interpolated readings \u2014 insufficient evidence of excursion",
+          "Escalate: release authority unresolved \u2014 SOP/site acceptance authority unresolved: indexed body/annexure content not supplied; study product identity not established; study presentation applicability not established; study presentation conflicts with product"
+        ]
+      },
+      {
+        "event_id": "EXC-110154",
+        "tenant_code": "T-SAHYADRI",
+        "engine": "ESCALATED_TO_SENIOR_QA",
+        "historical_final": "RELEASE_WITH_NOTE",
+        "assistant": "RELEASE_WITH_NOTE",
+        "firmware": "TT-2.14.3",
+        "product": "Vitraflox IV 400mg",
+        "triage_label": "ACTIONABLE \u2014 stability authority unresolved",
+        "rationale_head": [
+          "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+          "Escalate: stability authority unresolved \u2014 cited study missing or ambiguous in tenant index",
+          "Decision rule: rule_stability_authority"
+        ]
+      },
+      {
+        "event_id": "EXC-110693",
+        "tenant_code": "T-AURA",
+        "engine": "ESCALATED_TO_SENIOR_QA",
+        "historical_final": "DESTROY",
+        "assistant": "DESTROY",
+        "firmware": "CS-4.2",
+        "product": "Somavance depot 120mg",
+        "triage_label": "ACTIONABLE \u2014 stability authority unresolved",
+        "rationale_head": [
+          "Stability authority unresolved: study presentation applicability not established; product-master text not used as substitute",
+          "Escalate: stability authority unresolved \u2014 study presentation applicability not established",
+          "Decision rule: rule_stability_authority"
+        ]
+      },
+      {
+        "event_id": "EXC-112051",
+        "tenant_code": "T-VIRENT",
+        "engine": "ESCALATED_TO_SENIOR_QA",
+        "historical_final": "QUARANTINE_PENDING_LAB",
+        "assistant": "QUARANTINE_PENDING_LAB",
+        "firmware": "BMS-n/a",
+        "product": "Pediakine ORS-Z",
+        "triage_label": "ACTIONABLE \u2014 stability authority unresolved",
+        "rationale_head": [
+          "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+          "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-01-31",
+          "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition"
+        ]
+      },
+      {
+        "event_id": "EXC-110735",
+        "tenant_code": "T-VIRENT",
+        "engine": "AUTO_CLOSE",
+        "historical_final": "RELEASE",
+        "assistant": "AUTO_CLOSE",
+        "firmware": "BMS-n/a",
+        "product": "Amberil 25mg tabs",
+        "triage_label": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+        "rationale_head": [
+          "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+          "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-02-19",
+          "Triage indicates duplicate of earlier alert"
+        ]
+      }
+    ],
+    "elapsed_ms": 49.47318701306358,
+    "notes": [
+      "Historical-final agreement uses the 200 non-empty final_disposition rows (case_opened stratum), not all 420.",
+      "Historical agreement is a comparison, not a safety measure; unresolved evidence can route to QA.",
+      "rules_engine_recommendation is the assistant draft since 2024 (pack README), not the 2023 rules engine."
+    ]
+  }
+}

@@ -287,8 +287,8 @@ class AdjudicationService:
             "disagree_samples": disagree_rows,
             "elapsed_ms": elapsed_ms,
             "notes": [
-                "7% headline uses the 200 non-empty final_disposition rows (case_opened stratum), not all 420.",
-                "Low final agreement is expected: engine escalates Refer-QA / unreadable / presentation mismatch rather than guessing RELEASE.",
+                "Historical-final agreement uses the 200 non-empty final_disposition rows (case_opened stratum), not all 420.",
+                "Historical agreement is a comparison, not a safety measure; unresolved evidence can route to QA.",
                 "rules_engine_recommendation is the assistant draft since 2024 (pack README), not the 2023 rules engine.",
             ],
         }
@@ -304,10 +304,10 @@ class AdjudicationService:
         """
         assert self.engine and self.pack
         if baseline_mix is None:
-            # Reproduced 0.4.1 sample regression baseline, NOT QA-approved clinical policy.
+            # Reproduced 0.4.2 sample regression baseline, NOT QA-approved clinical policy.
             baseline_mix = {
-                "AUTO_CLOSE": 111,
-                "ESCALATED_TO_SENIOR_QA": 309,
+                "AUTO_CLOSE": 130,
+                "ESCALATED_TO_SENIOR_QA": 290,
                 "RELEASE_WITH_NOTE": 0,
                 "DESTROY": 0,
                 "QUARANTINE_PENDING_LAB": 0,

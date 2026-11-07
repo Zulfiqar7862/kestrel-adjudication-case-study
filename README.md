@@ -1,6 +1,6 @@
 # Kestrel Sentinel: excursion adjudication
 
-[![CI](https://github.com/Zulfiqar7862/kestrel-adjudication-case-study/actions/workflows/ci.yml/badge.svg?branch=production)](https://github.com/Zulfiqar7862/kestrel-adjudication-case-study/actions/workflows/ci.yml)
+[![CI](https://github.com/Zulfiqar7862/kestrel-adjudication-case-study/actions/workflows/ci.yml/badge.svg?branch=fix%2Fcorrectness-review)](https://github.com/Zulfiqar7862/kestrel-adjudication-case-study/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/python-3.10%E2%80%933.13-blue)
 ![LLM on decision path](https://img.shields.io/badge/LLM%20on%20decision%20path-none-brightgreen)
 
@@ -9,9 +9,11 @@ regulator deadline and a sealed, tamper-evident evidence bundle that a named rev
 
 Case-study submission for Kestrel Cold Chain Solutions, "The Adjudication Problem", by **Zulfiqar Ali Ahmed**.
 
-> **Two branches.** [`main`](https://github.com/Zulfiqar7862/kestrel-adjudication-case-study/tree/main) is the
+> **Branch context.** [`main`](https://github.com/Zulfiqar7862/kestrel-adjudication-case-study/tree/main) is the
 > earlier compact submission: `README.md` + one-file `kestrel.py` + `data/`. This was a packaging choice, not a requirement in the brief.
-> **`production`** (this branch) is a modular prototype with reviewer-driven safety fixes, tests, CI, Docker and docs.
+> **`fix/correctness-review`** is an unmerged correction branch; `production` is unchanged. This remains a modular prototype with specific correctness fixes, tests, CI, Docker and docs.
+>
+> These specific defects were addressed; overall safety and production readiness remain unvalidated.
 > Outcomes now differ from `main`; this is not a validated production deployment.
 
 ---
@@ -53,7 +55,7 @@ git clone -b production https://github.com/Zulfiqar7862/kestrel-adjudication-cas
 cd kestrel-adjudication-case-study
 python -m venv .venv && source .venv/bin/activate
 make install            # pip install -e ".[api,dev]"
-make test               # 123 tests
+make test               # 169 tests
 kestrel run-all         # adjudicate all 420 alerts
 make serve              # open http://127.0.0.1:8080/ui
 ```
@@ -88,15 +90,15 @@ Details: [docs/code-walkthrough.md](docs/code-walkthrough.md), [docs/architectur
 
 | Outcome | Meaning | Count |
 |---|---|---|
-| `AUTO_CLOSE` | Non-actionable candidate; case remains TRIAGED_NON_ACTIONABLE | 111 |
-| `ESCALATED_TO_SENIOR_QA` | Identity, data or uncertainty needs senior review | 309 |
+| `AUTO_CLOSE` | Non-actionable candidate; case remains TRIAGED_NON_ACTIONABLE | 130 |
+| `ESCALATED_TO_SENIOR_QA` | Identity, data or uncertainty needs senior review | 290 |
 | `RELEASE_WITH_NOTE` | Prototype recommendation; human review required | 0 |
 | `QUARANTINE_PENDING_LAB` | Hold for a lab test | 0 |
 | `DESTROY` | Prototype severe-breach recommendation | 0 |
 
 EXC-107133 now returns ESCALATED_TO_SENIOR_QA: the cited study does not establish product/presentation/type applicability, and the governing SOP/site annexure is unresolved. Product-master prose is not a substitute. No batch ledger was invented; cumulative exposure assessment is unresolved without verified history.
 
-Shadow: 91 firmware candidates and 91 scenario/evidence diffs, **0 disposition flips** under the fail-closed gates. Historical-final agreement: 4/200 (2%); assistant-draft agreement: 111/420 (26.43%). These are sample comparisons, not safety/production-accuracy claims. [Correctness-review report, test-first logs and all 203 outcome changes](docs/validation/correctness-review/report.md). The prior 0.4.0 baseline was 224/106/53/26/11; current rule/code version is 0.4.1.
+Shadow: 91 firmware candidates and 91 scenario/evidence diffs, **0 disposition flips** under the current rules. Historical-final agreement: 4/200 (2%); assistant-draft agreement: 130/420 (30.95%). These are sample comparisons, not safety/production-accuracy claims. [Storage-limit report, full 86-case table and AUTO_CLOSE inventory](docs/validation/storage-limits-review/report.md). Previous 0.4.1 counts were 111/309/0/0/0; current rule/code version is 0.4.2. The [earlier correctness-review record](docs/validation/correctness-review/report.md) is retained as historical validation.
 
 ## Project structure
 
@@ -117,7 +119,7 @@ Shadow: 91 firmware candidates and 91 scenario/evidence diffs, **0 disposition f
 │   ├── service.py           facade used by CLI and API
 │   ├── api/                 FastAPI app + reviewer dashboard (static/index.html)
 │   └── cli.py               `kestrel` command
-├── tests/                   123 tests (unit, golden cases, API, invariants)
+├── tests/                   169 tests (unit, golden cases, API, invariants)
 ├── docs/                    architecture, rules, API, operations, case-study write-up
 ├── data/                    case-study inputs (unchanged)
 ├── Dockerfile · Makefile · pyproject.toml · .github/workflows/ci.yml
@@ -159,7 +161,7 @@ Full endpoint list and error codes: [docs/api.md](docs/api.md).
 ## Testing and quality
 
 ```bash
-make test     # pytest, 123 tests
+make test     # pytest, 169 tests
 make lint     # ruff check + ruff format --check
 make cov      # coverage report
 ```
@@ -219,8 +221,9 @@ The full reasoning, requirement traceability and board pushback are in
 - Regulatory deadlines are prototype approximations, not verified legal cut-offs: US next-business-day is mapped to 24 hours and Brazil calendar days to 120 hours in UTC. A maintained jurisdiction calendar and programme applicability rules are required. India 15 days is sourced from tab 13 for notifiable products only.
 - SQLite and local JSON files are the prototype store. Production would use Postgres and object storage with
   object lock.
-- Missing/invalid extrema or label bounds route to QA before historical noise triage; mean alone cannot establish extrema. Complete min/max do not require a mean for this summary-range check.
+- Missing/invalid **required measurements** and **unresolved storage text** are separate QA reasons. Explicit one-sided limits require only their corresponding extremum; mean never substitutes. Strictness/inclusivity is preserved, and no lower bound is invented. Additional restrictions are retained separately, not independently verified.
 - Carrier resolution prefers unique exact legal entity, then exact alias, then unique substring; ambiguity is recorded, never resolved by name length.
+- Every remaining AUTO_CLOSE in this sample (93 duplicate + 37 facility) relies on **unverified historical classification, not independent verification**. Other coded paths are also limited summary/index heuristics; see the full inventory.
 - SOP bodies/site annexures are absent: no release or allowance-based closure is authorised from index pointers. Cumulative lifetime allowances require verified batch history, unavailable here.
 - The dashboard has no login; sign-off takes a typed name. Production needs SSO and e-signature (21 CFR Part 11).
 

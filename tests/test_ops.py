@@ -9,14 +9,14 @@ class TestAgreementAndHealth(_KestrelTestCase):
     """Tests for agreement stratification and health/monitor signals."""
 
     def test_agreement_report_headline(self) -> None:
-        """Agreement command math: 2% of 200 finals, 26.43% assistant on the stratified sample."""
+        """Agreement command math: 2% of 200 finals, 30.95% assistant on the stratified sample."""
         report = self.svc.agreement_report()
         self.assertEqual(report["events_total"], 420)
         self.assertEqual(report["events_with_historical_final"], 200)
         self.assertEqual(report["agree_with_historical_final"], 4)
         self.assertEqual(report["agree_with_historical_final_pct"], 2.0)
-        self.assertEqual(report["agree_with_assistant"], 111)
-        self.assertAlmostEqual(report["agree_with_assistant_pct"], 26.43, places=2)
+        self.assertEqual(report["agree_with_assistant"], 130)
+        self.assertAlmostEqual(report["agree_with_assistant_pct"], 30.95, places=2)
         self.assertNotIn("EXC-107133", report["agree_event_ids"])
         self.assertTrue(report["disagree_by_reason"])
         self.assertTrue(report["disagree_by_tenant"])
@@ -42,7 +42,7 @@ class TestAgreementAndHealth(_KestrelTestCase):
             self.assertIn("threshold", alert)
             self.assertIn("page", alert)
             self.assertIn("runbook_step", alert)
-        self.assertEqual(report["decision_mix"].get("AUTO_CLOSE"), 111)
+        self.assertEqual(report["decision_mix"].get("AUTO_CLOSE"), 130)
         self.assertEqual(report["deadline_breached_in_pack"], 14)
         chain = report["chain_verification"].get("T-KAVERI") or {}
         self.assertTrue(chain.get("ok"))

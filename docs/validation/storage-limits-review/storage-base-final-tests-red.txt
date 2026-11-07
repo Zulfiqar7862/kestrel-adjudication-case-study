@@ -1,0 +1,578 @@
+BASELINE IMPORT /tmp/kestrel-label-baseline/src/kestrel/__init__.py
+FFFFF.FF.FFFF...F.F..FFF.......FFFFFFFFFFFFF                             [100%]
+=================================== FAILURES ===================================
+_ test_storage_spelling_without_invented_bounds[2\xb0C \u2013 8\xb0C-expected0] _
+
+text = '2°C – 8°C', expected = (2.0, 8.0)
+
+    @pytest.mark.parametrize('text,expected', [
+        ('2°C – 8°C', (2.0, 8.0)),
+        ('15°C to 25°C (excursions to 30°C permitted, see stability)', (15.0, 25.0)),
+        ('-80C to -60C (dry ice permitted)', (-80.0, -60.0)),
+        ('-80 to -60 °C', (-80.0, -60.0)),
+        ('FROZEN (-25,-15)', (-25.0, -15.0)),
+        ('Below 25 °C', (None, 25.0)),
+        ('≤ −150 °C vapour phase LN2', (None, -150.0)),
+        ('LN2 vapour phase (-196 nominal)', (None, None)),
+        ('Controlled room temperature', (None, None)),
+    ])
+    def test_storage_spelling_without_invented_bounds(text, expected):
+>       assert as_of.parse_storage_range(text) == expected
+E       assert (None, None) == (2.0, 8.0)
+E
+E         At index 0 diff: None != 2.0
+E         Use -v to get more diff
+
+/workspace/kprod/tests/test_storage_limits.py:24: AssertionError
+_ test_storage_spelling_without_invented_bounds[15\xb0C to 25\xb0C (excursions to 30\xb0C permitted, see stability)-expected1] _
+
+text = '15°C to 25°C (excursions to 30°C permitted, see stability)'
+expected = (15.0, 25.0)
+
+    @pytest.mark.parametrize('text,expected', [
+        ('2°C – 8°C', (2.0, 8.0)),
+        ('15°C to 25°C (excursions to 30°C permitted, see stability)', (15.0, 25.0)),
+        ('-80C to -60C (dry ice permitted)', (-80.0, -60.0)),
+        ('-80 to -60 °C', (-80.0, -60.0)),
+        ('FROZEN (-25,-15)', (-25.0, -15.0)),
+        ('Below 25 °C', (None, 25.0)),
+        ('≤ −150 °C vapour phase LN2', (None, -150.0)),
+        ('LN2 vapour phase (-196 nominal)', (None, None)),
+        ('Controlled room temperature', (None, None)),
+    ])
+    def test_storage_spelling_without_invented_bounds(text, expected):
+>       assert as_of.parse_storage_range(text) == expected
+E       assert (None, None) == (15.0, 25.0)
+E
+E         At index 0 diff: None != 15.0
+E         Use -v to get more diff
+
+/workspace/kprod/tests/test_storage_limits.py:24: AssertionError
+_ test_storage_spelling_without_invented_bounds[-80C to -60C (dry ice permitted)-expected2] _
+
+text = '-80C to -60C (dry ice permitted)', expected = (-80.0, -60.0)
+
+    @pytest.mark.parametrize('text,expected', [
+        ('2°C – 8°C', (2.0, 8.0)),
+        ('15°C to 25°C (excursions to 30°C permitted, see stability)', (15.0, 25.0)),
+        ('-80C to -60C (dry ice permitted)', (-80.0, -60.0)),
+        ('-80 to -60 °C', (-80.0, -60.0)),
+        ('FROZEN (-25,-15)', (-25.0, -15.0)),
+        ('Below 25 °C', (None, 25.0)),
+        ('≤ −150 °C vapour phase LN2', (None, -150.0)),
+        ('LN2 vapour phase (-196 nominal)', (None, None)),
+        ('Controlled room temperature', (None, None)),
+    ])
+    def test_storage_spelling_without_invented_bounds(text, expected):
+>       assert as_of.parse_storage_range(text) == expected
+E       assert (None, None) == (-80.0, -60.0)
+E
+E         At index 0 diff: None != -80.0
+E         Use -v to get more diff
+
+/workspace/kprod/tests/test_storage_limits.py:24: AssertionError
+__ test_storage_spelling_without_invented_bounds[-80 to -60 \xb0C-expected3] ___
+
+text = '-80 to -60 °C', expected = (-80.0, -60.0)
+
+    @pytest.mark.parametrize('text,expected', [
+        ('2°C – 8°C', (2.0, 8.0)),
+        ('15°C to 25°C (excursions to 30°C permitted, see stability)', (15.0, 25.0)),
+        ('-80C to -60C (dry ice permitted)', (-80.0, -60.0)),
+        ('-80 to -60 °C', (-80.0, -60.0)),
+        ('FROZEN (-25,-15)', (-25.0, -15.0)),
+        ('Below 25 °C', (None, 25.0)),
+        ('≤ −150 °C vapour phase LN2', (None, -150.0)),
+        ('LN2 vapour phase (-196 nominal)', (None, None)),
+        ('Controlled room temperature', (None, None)),
+    ])
+    def test_storage_spelling_without_invented_bounds(text, expected):
+>       assert as_of.parse_storage_range(text) == expected
+E       assert (None, None) == (-80.0, -60.0)
+E
+E         At index 0 diff: None != -80.0
+E         Use -v to get more diff
+
+/workspace/kprod/tests/test_storage_limits.py:24: AssertionError
+__ test_storage_spelling_without_invented_bounds[FROZEN (-25,-15)-expected4] ___
+
+text = 'FROZEN (-25,-15)', expected = (-25.0, -15.0)
+
+    @pytest.mark.parametrize('text,expected', [
+        ('2°C – 8°C', (2.0, 8.0)),
+        ('15°C to 25°C (excursions to 30°C permitted, see stability)', (15.0, 25.0)),
+        ('-80C to -60C (dry ice permitted)', (-80.0, -60.0)),
+        ('-80 to -60 °C', (-80.0, -60.0)),
+        ('FROZEN (-25,-15)', (-25.0, -15.0)),
+        ('Below 25 °C', (None, 25.0)),
+        ('≤ −150 °C vapour phase LN2', (None, -150.0)),
+        ('LN2 vapour phase (-196 nominal)', (None, None)),
+        ('Controlled room temperature', (None, None)),
+    ])
+    def test_storage_spelling_without_invented_bounds(text, expected):
+>       assert as_of.parse_storage_range(text) == expected
+E       assert (None, None) == (-25.0, -15.0)
+E
+E         At index 0 diff: None != -25.0
+E         Use -v to get more diff
+
+/workspace/kprod/tests/test_storage_limits.py:24: AssertionError
+_ test_storage_spelling_without_invented_bounds[\u2264 \u2212150 \xb0C vapour phase LN2-expected6] _
+
+text = '≤ −150 °C vapour phase LN2', expected = (None, -150.0)
+
+    @pytest.mark.parametrize('text,expected', [
+        ('2°C – 8°C', (2.0, 8.0)),
+        ('15°C to 25°C (excursions to 30°C permitted, see stability)', (15.0, 25.0)),
+        ('-80C to -60C (dry ice permitted)', (-80.0, -60.0)),
+        ('-80 to -60 °C', (-80.0, -60.0)),
+        ('FROZEN (-25,-15)', (-25.0, -15.0)),
+        ('Below 25 °C', (None, 25.0)),
+        ('≤ −150 °C vapour phase LN2', (None, -150.0)),
+        ('LN2 vapour phase (-196 nominal)', (None, None)),
+        ('Controlled room temperature', (None, None)),
+    ])
+    def test_storage_spelling_without_invented_bounds(text, expected):
+>       assert as_of.parse_storage_range(text) == expected
+E       assert (-196.0, -150.0) == (None, -150.0)
+E
+E         At index 0 diff: -196.0 != None
+E         Use -v to get more diff
+
+/workspace/kprod/tests/test_storage_limits.py:24: AssertionError
+_ test_storage_spelling_without_invented_bounds[LN2 vapour phase (-196 nominal)-expected7] _
+
+text = 'LN2 vapour phase (-196 nominal)', expected = (None, None)
+
+    @pytest.mark.parametrize('text,expected', [
+        ('2°C – 8°C', (2.0, 8.0)),
+        ('15°C to 25°C (excursions to 30°C permitted, see stability)', (15.0, 25.0)),
+        ('-80C to -60C (dry ice permitted)', (-80.0, -60.0)),
+        ('-80 to -60 °C', (-80.0, -60.0)),
+        ('FROZEN (-25,-15)', (-25.0, -15.0)),
+        ('Below 25 °C', (None, 25.0)),
+        ('≤ −150 °C vapour phase LN2', (None, -150.0)),
+        ('LN2 vapour phase (-196 nominal)', (None, None)),
+        ('Controlled room temperature', (None, None)),
+    ])
+    def test_storage_spelling_without_invented_bounds(text, expected):
+>       assert as_of.parse_storage_range(text) == expected
+E       assert (-196.0, -150.0) == (None, None)
+E
+E         At index 0 diff: -196.0 != None
+E         Use -v to get more diff
+
+/workspace/kprod/tests/test_storage_limits.py:24: AssertionError
+_______ test_explicit_bound_metadata[2-8 \xb0C-two_sided-lower0-upper0] ________
+
+text = '2-8 °C', kind = 'two_sided', lower = (2, True), upper = (8, True)
+
+    @pytest.mark.parametrize('text,kind,lower,upper', [
+        ('2-8 °C', 'two_sided', (2, True), (8, True)),
+        ('Below 25 °C', 'upper_only', None, (25, False)),
+        ('≤ −150 °C', 'upper_only', None, (-150, True)),
+        ('Above 2 C', 'lower_only', (2, False), None),
+    ])
+    def test_explicit_bound_metadata(text, kind, lower, upper):
+>       result = as_of.parse_storage_limits(text)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'kestrel.rules.as_of' has no attribute 'parse_storage_limits'. Did you mean: 'parse_storage_range'?
+
+/workspace/kprod/tests/test_storage_limits.py:34: AttributeError
+_____ test_explicit_bound_metadata[Below 25 \xb0C-upper_only-None-upper1] ______
+
+text = 'Below 25 °C', kind = 'upper_only', lower = None, upper = (25, False)
+
+    @pytest.mark.parametrize('text,kind,lower,upper', [
+        ('2-8 °C', 'two_sided', (2, True), (8, True)),
+        ('Below 25 °C', 'upper_only', None, (25, False)),
+        ('≤ −150 °C', 'upper_only', None, (-150, True)),
+        ('Above 2 C', 'lower_only', (2, False), None),
+    ])
+    def test_explicit_bound_metadata(text, kind, lower, upper):
+>       result = as_of.parse_storage_limits(text)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'kestrel.rules.as_of' has no attribute 'parse_storage_limits'. Did you mean: 'parse_storage_range'?
+
+/workspace/kprod/tests/test_storage_limits.py:34: AttributeError
+_ test_explicit_bound_metadata[\u2264 \u2212150 \xb0C-upper_only-None-upper2] __
+
+text = '≤ −150 °C', kind = 'upper_only', lower = None, upper = (-150, True)
+
+    @pytest.mark.parametrize('text,kind,lower,upper', [
+        ('2-8 °C', 'two_sided', (2, True), (8, True)),
+        ('Below 25 °C', 'upper_only', None, (25, False)),
+        ('≤ −150 °C', 'upper_only', None, (-150, True)),
+        ('Above 2 C', 'lower_only', (2, False), None),
+    ])
+    def test_explicit_bound_metadata(text, kind, lower, upper):
+>       result = as_of.parse_storage_limits(text)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'kestrel.rules.as_of' has no attribute 'parse_storage_limits'. Did you mean: 'parse_storage_range'?
+
+/workspace/kprod/tests/test_storage_limits.py:34: AttributeError
+________ test_explicit_bound_metadata[Above 2 C-lower_only-lower3-None] ________
+
+text = 'Above 2 C', kind = 'lower_only', lower = (2, False), upper = None
+
+    @pytest.mark.parametrize('text,kind,lower,upper', [
+        ('2-8 °C', 'two_sided', (2, True), (8, True)),
+        ('Below 25 °C', 'upper_only', None, (25, False)),
+        ('≤ −150 °C', 'upper_only', None, (-150, True)),
+        ('Above 2 C', 'lower_only', (2, False), None),
+    ])
+    def test_explicit_bound_metadata(text, kind, lower, upper):
+>       result = as_of.parse_storage_limits(text)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'kestrel.rules.as_of' has no attribute 'parse_storage_limits'. Did you mean: 'parse_storage_range'?
+
+/workspace/kprod/tests/test_storage_limits.py:34: AttributeError
+_ test_equality_and_strictness_at_each_boundary[Below 25 C-20-24.999-AUTO_CLOSE] _
+
+text = 'Below 25 C', minimum = 20, maximum = 24.999, expected = 'AUTO_CLOSE'
+
+    @pytest.mark.parametrize('text,minimum,maximum,expected', [
+        ('2-8 C', 2, 8, AUTO_CLOSE),
+        ('2-8 C', 1.999, 8, ESCALATE),
+        ('2-8 C', 2, 8.001, ESCALATE),
+        ('Below 25 C', 20, 24.999, AUTO_CLOSE),
+        ('Below 25 C', 20, 25, ESCALATE),
+        ('≤ −150 °C', -180, -150, AUTO_CLOSE),
+        ('≤ −150 °C', -180, -149.999, ESCALATE),
+        ('Above 2 C', 2, 7, ESCALATE),
+        ('Above 2 C', 2.001, 7, AUTO_CLOSE),
+        ('≥ 2 C', 2, 7, AUTO_CLOSE),
+        ('≤ 25 C', None, 25, AUTO_CLOSE),
+    ])
+    def test_equality_and_strictness_at_each_boundary(text, minimum, maximum, expected):
+>       assert result_for(text, minimum, maximum).recommendation == expected
+E       AssertionError: assert 'ESCALATED_TO_SENIOR_QA' == 'AUTO_CLOSE'
+E
+E         - AUTO_CLOSE
+E         + ESCALATED_TO_SENIOR_QA
+
+/workspace/kprod/tests/test_storage_limits.py:64: AssertionError
+_ test_equality_and_strictness_at_each_boundary[\u2264 \u2212150 \xb0C--180--150-AUTO_CLOSE] _
+
+text = '≤ −150 °C', minimum = -180, maximum = -150, expected = 'AUTO_CLOSE'
+
+    @pytest.mark.parametrize('text,minimum,maximum,expected', [
+        ('2-8 C', 2, 8, AUTO_CLOSE),
+        ('2-8 C', 1.999, 8, ESCALATE),
+        ('2-8 C', 2, 8.001, ESCALATE),
+        ('Below 25 C', 20, 24.999, AUTO_CLOSE),
+        ('Below 25 C', 20, 25, ESCALATE),
+        ('≤ −150 °C', -180, -150, AUTO_CLOSE),
+        ('≤ −150 °C', -180, -149.999, ESCALATE),
+        ('Above 2 C', 2, 7, ESCALATE),
+        ('Above 2 C', 2.001, 7, AUTO_CLOSE),
+        ('≥ 2 C', 2, 7, AUTO_CLOSE),
+        ('≤ 25 C', None, 25, AUTO_CLOSE),
+    ])
+    def test_equality_and_strictness_at_each_boundary(text, minimum, maximum, expected):
+>       assert result_for(text, minimum, maximum).recommendation == expected
+E       AssertionError: assert 'ESCALATED_TO_SENIOR_QA' == 'AUTO_CLOSE'
+E
+E         - AUTO_CLOSE
+E         + ESCALATED_TO_SENIOR_QA
+
+/workspace/kprod/tests/test_storage_limits.py:64: AssertionError
+_ test_equality_and_strictness_at_each_boundary[Above 2 C-2.001-7-AUTO_CLOSE] __
+
+text = 'Above 2 C', minimum = 2.001, maximum = 7, expected = 'AUTO_CLOSE'
+
+    @pytest.mark.parametrize('text,minimum,maximum,expected', [
+        ('2-8 C', 2, 8, AUTO_CLOSE),
+        ('2-8 C', 1.999, 8, ESCALATE),
+        ('2-8 C', 2, 8.001, ESCALATE),
+        ('Below 25 C', 20, 24.999, AUTO_CLOSE),
+        ('Below 25 C', 20, 25, ESCALATE),
+        ('≤ −150 °C', -180, -150, AUTO_CLOSE),
+        ('≤ −150 °C', -180, -149.999, ESCALATE),
+        ('Above 2 C', 2, 7, ESCALATE),
+        ('Above 2 C', 2.001, 7, AUTO_CLOSE),
+        ('≥ 2 C', 2, 7, AUTO_CLOSE),
+        ('≤ 25 C', None, 25, AUTO_CLOSE),
+    ])
+    def test_equality_and_strictness_at_each_boundary(text, minimum, maximum, expected):
+>       assert result_for(text, minimum, maximum).recommendation == expected
+E       AssertionError: assert 'ESCALATED_TO_SENIOR_QA' == 'AUTO_CLOSE'
+E
+E         - AUTO_CLOSE
+E         + ESCALATED_TO_SENIOR_QA
+
+/workspace/kprod/tests/test_storage_limits.py:64: AssertionError
+___ test_equality_and_strictness_at_each_boundary[\u2265 2 C-2-7-AUTO_CLOSE] ___
+
+text = '≥ 2 C', minimum = 2, maximum = 7, expected = 'AUTO_CLOSE'
+
+    @pytest.mark.parametrize('text,minimum,maximum,expected', [
+        ('2-8 C', 2, 8, AUTO_CLOSE),
+        ('2-8 C', 1.999, 8, ESCALATE),
+        ('2-8 C', 2, 8.001, ESCALATE),
+        ('Below 25 C', 20, 24.999, AUTO_CLOSE),
+        ('Below 25 C', 20, 25, ESCALATE),
+        ('≤ −150 °C', -180, -150, AUTO_CLOSE),
+        ('≤ −150 °C', -180, -149.999, ESCALATE),
+        ('Above 2 C', 2, 7, ESCALATE),
+        ('Above 2 C', 2.001, 7, AUTO_CLOSE),
+        ('≥ 2 C', 2, 7, AUTO_CLOSE),
+        ('≤ 25 C', None, 25, AUTO_CLOSE),
+    ])
+    def test_equality_and_strictness_at_each_boundary(text, minimum, maximum, expected):
+>       assert result_for(text, minimum, maximum).recommendation == expected
+E       AssertionError: assert 'ESCALATED_TO_SENIOR_QA' == 'AUTO_CLOSE'
+E
+E         - AUTO_CLOSE
+E         + ESCALATED_TO_SENIOR_QA
+
+/workspace/kprod/tests/test_storage_limits.py:64: AssertionError
+_ test_equality_and_strictness_at_each_boundary[\u2264 25 C-None-25-AUTO_CLOSE] _
+
+text = '≤ 25 C', minimum = None, maximum = 25, expected = 'AUTO_CLOSE'
+
+    @pytest.mark.parametrize('text,minimum,maximum,expected', [
+        ('2-8 C', 2, 8, AUTO_CLOSE),
+        ('2-8 C', 1.999, 8, ESCALATE),
+        ('2-8 C', 2, 8.001, ESCALATE),
+        ('Below 25 C', 20, 24.999, AUTO_CLOSE),
+        ('Below 25 C', 20, 25, ESCALATE),
+        ('≤ −150 °C', -180, -150, AUTO_CLOSE),
+        ('≤ −150 °C', -180, -149.999, ESCALATE),
+        ('Above 2 C', 2, 7, ESCALATE),
+        ('Above 2 C', 2.001, 7, AUTO_CLOSE),
+        ('≥ 2 C', 2, 7, AUTO_CLOSE),
+        ('≤ 25 C', None, 25, AUTO_CLOSE),
+    ])
+    def test_equality_and_strictness_at_each_boundary(text, minimum, maximum, expected):
+>       assert result_for(text, minimum, maximum).recommendation == expected
+E       AssertionError: assert 'ESCALATED_TO_SENIOR_QA' == 'AUTO_CLOSE'
+E
+E         - AUTO_CLOSE
+E         + ESCALATED_TO_SENIOR_QA
+
+/workspace/kprod/tests/test_storage_limits.py:64: AssertionError
+_ test_malformed_or_ambiguous_storage_is_distinct_from_missing_measurements[] __
+
+text = ''
+
+    @pytest.mark.parametrize('text', ['', '2--8 C', '8-2 C', 'Below maybe 25 C', '25 C',
+                                      'Controlled room temperature', 'LN2 nominal -196 C', '2-8 C or 15-25 C'])
+    def test_malformed_or_ambiguous_storage_is_distinct_from_missing_measurements(text):
+        result = result_for(text)
+        assert result.recommendation == ESCALATE
+>       assert result.triage_label == 'ACTIONABLE — storage instructions unresolved'
+E       AssertionError: assert 'ACTIONABLE —...ture evidence' == 'ACTIONABLE —...ns unresolved'
+E
+E         - ACTIONABLE — storage instructions unresolved
+E         + ACTIONABLE — insufficient temperature evidence
+
+/workspace/kprod/tests/test_storage_limits.py:87: AssertionError
+_ test_malformed_or_ambiguous_storage_is_distinct_from_missing_measurements[2--8 C] _
+
+text = '2--8 C'
+
+    @pytest.mark.parametrize('text', ['', '2--8 C', '8-2 C', 'Below maybe 25 C', '25 C',
+                                      'Controlled room temperature', 'LN2 nominal -196 C', '2-8 C or 15-25 C'])
+    def test_malformed_or_ambiguous_storage_is_distinct_from_missing_measurements(text):
+        result = result_for(text)
+>       assert result.recommendation == ESCALATE
+E       AssertionError: assert 'AUTO_CLOSE' == 'ESCALATED_TO_SENIOR_QA'
+E
+E         - ESCALATED_TO_SENIOR_QA
+E         + AUTO_CLOSE
+
+/workspace/kprod/tests/test_storage_limits.py:86: AssertionError
+_ test_malformed_or_ambiguous_storage_is_distinct_from_missing_measurements[8-2 C] _
+
+text = '8-2 C'
+
+    @pytest.mark.parametrize('text', ['', '2--8 C', '8-2 C', 'Below maybe 25 C', '25 C',
+                                      'Controlled room temperature', 'LN2 nominal -196 C', '2-8 C or 15-25 C'])
+    def test_malformed_or_ambiguous_storage_is_distinct_from_missing_measurements(text):
+        result = result_for(text)
+>       assert result.recommendation == ESCALATE
+E       AssertionError: assert 'AUTO_CLOSE' == 'ESCALATED_TO_SENIOR_QA'
+E
+E         - ESCALATED_TO_SENIOR_QA
+E         + AUTO_CLOSE
+
+/workspace/kprod/tests/test_storage_limits.py:86: AssertionError
+_ test_malformed_or_ambiguous_storage_is_distinct_from_missing_measurements[Below maybe 25 C] _
+
+text = 'Below maybe 25 C'
+
+    @pytest.mark.parametrize('text', ['', '2--8 C', '8-2 C', 'Below maybe 25 C', '25 C',
+                                      'Controlled room temperature', 'LN2 nominal -196 C', '2-8 C or 15-25 C'])
+    def test_malformed_or_ambiguous_storage_is_distinct_from_missing_measurements(text):
+        result = result_for(text)
+        assert result.recommendation == ESCALATE
+>       assert result.triage_label == 'ACTIONABLE — storage instructions unresolved'
+E       AssertionError: assert 'ACTIONABLE —...ture evidence' == 'ACTIONABLE —...ns unresolved'
+E
+E         - ACTIONABLE — storage instructions unresolved
+E         + ACTIONABLE — insufficient temperature evidence
+
+/workspace/kprod/tests/test_storage_limits.py:87: AssertionError
+_ test_malformed_or_ambiguous_storage_is_distinct_from_missing_measurements[25 C] _
+
+text = '25 C'
+
+    @pytest.mark.parametrize('text', ['', '2--8 C', '8-2 C', 'Below maybe 25 C', '25 C',
+                                      'Controlled room temperature', 'LN2 nominal -196 C', '2-8 C or 15-25 C'])
+    def test_malformed_or_ambiguous_storage_is_distinct_from_missing_measurements(text):
+        result = result_for(text)
+        assert result.recommendation == ESCALATE
+>       assert result.triage_label == 'ACTIONABLE — storage instructions unresolved'
+E       AssertionError: assert 'ACTIONABLE —...ture evidence' == 'ACTIONABLE —...ns unresolved'
+E
+E         - ACTIONABLE — storage instructions unresolved
+E         + ACTIONABLE — insufficient temperature evidence
+
+/workspace/kprod/tests/test_storage_limits.py:87: AssertionError
+_ test_malformed_or_ambiguous_storage_is_distinct_from_missing_measurements[Controlled room temperature] _
+
+text = 'Controlled room temperature'
+
+    @pytest.mark.parametrize('text', ['', '2--8 C', '8-2 C', 'Below maybe 25 C', '25 C',
+                                      'Controlled room temperature', 'LN2 nominal -196 C', '2-8 C or 15-25 C'])
+    def test_malformed_or_ambiguous_storage_is_distinct_from_missing_measurements(text):
+        result = result_for(text)
+        assert result.recommendation == ESCALATE
+>       assert result.triage_label == 'ACTIONABLE — storage instructions unresolved'
+E       AssertionError: assert 'ACTIONABLE —...ture evidence' == 'ACTIONABLE —...ns unresolved'
+E
+E         - ACTIONABLE — storage instructions unresolved
+E         + ACTIONABLE — insufficient temperature evidence
+
+/workspace/kprod/tests/test_storage_limits.py:87: AssertionError
+_ test_malformed_or_ambiguous_storage_is_distinct_from_missing_measurements[LN2 nominal -196 C] _
+
+text = 'LN2 nominal -196 C'
+
+    @pytest.mark.parametrize('text', ['', '2--8 C', '8-2 C', 'Below maybe 25 C', '25 C',
+                                      'Controlled room temperature', 'LN2 nominal -196 C', '2-8 C or 15-25 C'])
+    def test_malformed_or_ambiguous_storage_is_distinct_from_missing_measurements(text):
+        result = result_for(text)
+        assert result.recommendation == ESCALATE
+>       assert result.triage_label == 'ACTIONABLE — storage instructions unresolved'
+E       AssertionError: assert 'ACTIONABLE —...ty unresolved' == 'ACTIONABLE —...ns unresolved'
+E
+E         - ACTIONABLE — storage instructions unresolved
+E         + ACTIONABLE — stability authority unresolved
+
+/workspace/kprod/tests/test_storage_limits.py:87: AssertionError
+_ test_malformed_or_ambiguous_storage_is_distinct_from_missing_measurements[2-8 C or 15-25 C] _
+
+text = '2-8 C or 15-25 C'
+
+    @pytest.mark.parametrize('text', ['', '2--8 C', '8-2 C', 'Below maybe 25 C', '25 C',
+                                      'Controlled room temperature', 'LN2 nominal -196 C', '2-8 C or 15-25 C'])
+    def test_malformed_or_ambiguous_storage_is_distinct_from_missing_measurements(text):
+        result = result_for(text)
+>       assert result.recommendation == ESCALATE
+E       AssertionError: assert 'AUTO_CLOSE' == 'ESCALATED_TO_SENIOR_QA'
+E
+E         - ESCALATED_TO_SENIOR_QA
+E         + AUTO_CLOSE
+
+/workspace/kprod/tests/test_storage_limits.py:86: AssertionError
+_____ test_extra_constraints_are_preserved_without_becoming_numeric_bounds _____
+
+    def test_extra_constraints_are_preserved_without_becoming_numeric_bounds():
+>       limits = as_of.parse_storage_limits('Below 25 C. Do not freeze. Protect from light.')
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'kestrel.rules.as_of' has no attribute 'parse_storage_limits'. Did you mean: 'parse_storage_range'?
+
+/workspace/kprod/tests/test_storage_limits.py:92: AttributeError
+___ test_historical_autoclose_has_explicit_unverified_provenance[Duplicate] ____
+
+triage = 'Duplicate'
+
+    @pytest.mark.parametrize('triage', ['Duplicate', 'Facility equipment event', 'Sensor artefact', 'dock door'])
+    def test_historical_autoclose_has_explicit_unverified_provenance(triage):
+        facts = make_facts(corrected_max_c=8, event={'triage_outcome': triage, 'dock_door_open_flag': 'Y'}, duration_min=10)
+        verdict, trace = decide(facts)
+        assert verdict.disposition == AUTO_CLOSE
+>       assert any('unverified historical classification' in line.lower() and 'not independent' in line.lower()
+                   for line in trace)
+E       assert False
+E        +  where False = any(<generator object test_historical_autoclose_has_explicit_unverified_provenance.<locals>.<genexpr> at 0x7ff924a85970>)
+
+/workspace/kprod/tests/test_storage_limits.py:107: AssertionError
+_ test_historical_autoclose_has_explicit_unverified_provenance[Facility equipment event] _
+
+triage = 'Facility equipment event'
+
+    @pytest.mark.parametrize('triage', ['Duplicate', 'Facility equipment event', 'Sensor artefact', 'dock door'])
+    def test_historical_autoclose_has_explicit_unverified_provenance(triage):
+        facts = make_facts(corrected_max_c=8, event={'triage_outcome': triage, 'dock_door_open_flag': 'Y'}, duration_min=10)
+        verdict, trace = decide(facts)
+        assert verdict.disposition == AUTO_CLOSE
+>       assert any('unverified historical classification' in line.lower() and 'not independent' in line.lower()
+                   for line in trace)
+E       assert False
+E        +  where False = any(<generator object test_historical_autoclose_has_explicit_unverified_provenance.<locals>.<genexpr> at 0x7ff924abe260>)
+
+/workspace/kprod/tests/test_storage_limits.py:107: AssertionError
+_ test_historical_autoclose_has_explicit_unverified_provenance[Sensor artefact] _
+
+triage = 'Sensor artefact'
+
+    @pytest.mark.parametrize('triage', ['Duplicate', 'Facility equipment event', 'Sensor artefact', 'dock door'])
+    def test_historical_autoclose_has_explicit_unverified_provenance(triage):
+        facts = make_facts(corrected_max_c=8, event={'triage_outcome': triage, 'dock_door_open_flag': 'Y'}, duration_min=10)
+        verdict, trace = decide(facts)
+        assert verdict.disposition == AUTO_CLOSE
+>       assert any('unverified historical classification' in line.lower() and 'not independent' in line.lower()
+                   for line in trace)
+E       assert False
+E        +  where False = any(<generator object test_historical_autoclose_has_explicit_unverified_provenance.<locals>.<genexpr> at 0x7ff924a86cf0>)
+
+/workspace/kprod/tests/test_storage_limits.py:107: AssertionError
+___ test_historical_autoclose_has_explicit_unverified_provenance[dock door] ____
+
+triage = 'dock door'
+
+    @pytest.mark.parametrize('triage', ['Duplicate', 'Facility equipment event', 'Sensor artefact', 'dock door'])
+    def test_historical_autoclose_has_explicit_unverified_provenance(triage):
+        facts = make_facts(corrected_max_c=8, event={'triage_outcome': triage, 'dock_door_open_flag': 'Y'}, duration_min=10)
+        verdict, trace = decide(facts)
+        assert verdict.disposition == AUTO_CLOSE
+>       assert any('unverified historical classification' in line.lower() and 'not independent' in line.lower()
+                   for line in trace)
+E       assert False
+E        +  where False = any(<generator object test_historical_autoclose_has_explicit_unverified_provenance.<locals>.<genexpr> at 0x7ff924a86dc0>)
+
+/workspace/kprod/tests/test_storage_limits.py:107: AssertionError
+=========================== short test summary info ============================
+FAILED ../../workspace/kprod/tests/test_storage_limits.py::test_storage_spelling_without_invented_bounds[2\xb0C \u2013 8\xb0C-expected0]
+FAILED ../../workspace/kprod/tests/test_storage_limits.py::test_storage_spelling_without_invented_bounds[15\xb0C to 25\xb0C (excursions to 30\xb0C permitted, see stability)-expected1]
+FAILED ../../workspace/kprod/tests/test_storage_limits.py::test_storage_spelling_without_invented_bounds[-80C to -60C (dry ice permitted)-expected2]
+FAILED ../../workspace/kprod/tests/test_storage_limits.py::test_storage_spelling_without_invented_bounds[-80 to -60 \xb0C-expected3]
+FAILED ../../workspace/kprod/tests/test_storage_limits.py::test_storage_spelling_without_invented_bounds[FROZEN (-25,-15)-expected4]
+FAILED ../../workspace/kprod/tests/test_storage_limits.py::test_storage_spelling_without_invented_bounds[\u2264 \u2212150 \xb0C vapour phase LN2-expected6]
+FAILED ../../workspace/kprod/tests/test_storage_limits.py::test_storage_spelling_without_invented_bounds[LN2 vapour phase (-196 nominal)-expected7]
+FAILED ../../workspace/kprod/tests/test_storage_limits.py::test_explicit_bound_metadata[2-8 \xb0C-two_sided-lower0-upper0]
+FAILED ../../workspace/kprod/tests/test_storage_limits.py::test_explicit_bound_metadata[Below 25 \xb0C-upper_only-None-upper1]
+FAILED ../../workspace/kprod/tests/test_storage_limits.py::test_explicit_bound_metadata[\u2264 \u2212150 \xb0C-upper_only-None-upper2]
+FAILED ../../workspace/kprod/tests/test_storage_limits.py::test_explicit_bound_metadata[Above 2 C-lower_only-lower3-None]
+FAILED ../../workspace/kprod/tests/test_storage_limits.py::test_equality_and_strictness_at_each_boundary[Below 25 C-20-24.999-AUTO_CLOSE]
+FAILED ../../workspace/kprod/tests/test_storage_limits.py::test_equality_and_strictness_at_each_boundary[\u2264 \u2212150 \xb0C--180--150-AUTO_CLOSE]
+FAILED ../../workspace/kprod/tests/test_storage_limits.py::test_equality_and_strictness_at_each_boundary[Above 2 C-2.001-7-AUTO_CLOSE]
+FAILED ../../workspace/kprod/tests/test_storage_limits.py::test_equality_and_strictness_at_each_boundary[\u2265 2 C-2-7-AUTO_CLOSE]
+FAILED ../../workspace/kprod/tests/test_storage_limits.py::test_equality_and_strictness_at_each_boundary[\u2264 25 C-None-25-AUTO_CLOSE]
+FAILED ../../workspace/kprod/tests/test_storage_limits.py::test_malformed_or_ambiguous_storage_is_distinct_from_missing_measurements[]
+FAILED ../../workspace/kprod/tests/test_storage_limits.py::test_malformed_or_ambiguous_storage_is_distinct_from_missing_measurements[2--8 C]
+FAILED ../../workspace/kprod/tests/test_storage_limits.py::test_malformed_or_ambiguous_storage_is_distinct_from_missing_measurements[8-2 C]
+FAILED ../../workspace/kprod/tests/test_storage_limits.py::test_malformed_or_ambiguous_storage_is_distinct_from_missing_measurements[Below maybe 25 C]
+FAILED ../../workspace/kprod/tests/test_storage_limits.py::test_malformed_or_ambiguous_storage_is_distinct_from_missing_measurements[25 C]
+FAILED ../../workspace/kprod/tests/test_storage_limits.py::test_malformed_or_ambiguous_storage_is_distinct_from_missing_measurements[Controlled room temperature]
+FAILED ../../workspace/kprod/tests/test_storage_limits.py::test_malformed_or_ambiguous_storage_is_distinct_from_missing_measurements[LN2 nominal -196 C]
+FAILED ../../workspace/kprod/tests/test_storage_limits.py::test_malformed_or_ambiguous_storage_is_distinct_from_missing_measurements[2-8 C or 15-25 C]
+FAILED ../../workspace/kprod/tests/test_storage_limits.py::test_extra_constraints_are_preserved_without_becoming_numeric_bounds
+FAILED ../../workspace/kprod/tests/test_storage_limits.py::test_historical_autoclose_has_explicit_unverified_provenance[Duplicate]
+FAILED ../../workspace/kprod/tests/test_storage_limits.py::test_historical_autoclose_has_explicit_unverified_provenance[Facility equipment event]
+FAILED ../../workspace/kprod/tests/test_storage_limits.py::test_historical_autoclose_has_explicit_unverified_provenance[Sensor artefact]
+FAILED ../../workspace/kprod/tests/test_storage_limits.py::test_historical_autoclose_has_explicit_unverified_provenance[dock door]
+29 failed, 15 passed in 0.20s

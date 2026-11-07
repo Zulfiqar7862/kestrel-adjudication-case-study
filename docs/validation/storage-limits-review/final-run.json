@@ -1,0 +1,17 @@
+{
+  "count": 420,
+  "counts": {
+    "AUTO_CLOSE": 130,
+    "ESCALATED_TO_SENIOR_QA": 290
+  },
+  "EXC-107133": {
+    "event_id": "EXC-107133",
+    "tenant_code": "T-KAVERI",
+    "recommendation": "ESCALATED_TO_SENIOR_QA",
+    "bundle_id": "EVB-e8aeff4c6cecfe45",
+    "case_id": "CASE-4bdf08f2ac4d",
+    "reg_deadline_utc": "2026-08-12 06:31:00"
+  },
+  "out": "/tmp/kestrel-one-sided/final2.csv",
+  "snapshot_id": "snap-6274cd3ea7e2"
+}

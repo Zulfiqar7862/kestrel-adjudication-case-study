@@ -1,0 +1,16 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+__________ test_unitless_one_sided_instruction_is_not_assumed_celsius __________
+
+    def test_unitless_one_sided_instruction_is_not_assumed_celsius():
+        limits = as_of.parse_storage_limits('Below 25')
+>       assert limits.bound_type == 'unresolved'
+E       AssertionError: assert 'upper_only' == 'unresolved'
+E
+E         - unresolved
+E         + upper_only
+
+tests/test_storage_limits.py:141: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_storage_limits.py::test_unitless_one_sided_instruction_is_not_assumed_celsius
+1 failed in 0.09s

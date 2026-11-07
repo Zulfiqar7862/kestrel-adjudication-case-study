@@ -20,6 +20,7 @@ from dataclasses import dataclass
 from math import isfinite
 from typing import Any, Callable, NamedTuple, Optional
 
+from kestrel.rules.as_of import StorageLimits, TemperatureBound
 from kestrel.rules.identity import ResolvedProduct
 from kestrel.rules.stability import StabilityPosition
 from kestrel.utils import to_float
@@ -74,6 +75,7 @@ class ExcursionFacts:
     duration_min: float
     sop_overlap: bool
     sop_authority_issue: Optional[str] = "governing SOP/site authority not established"
+    storage_limits: Optional[StorageLimits] = None
 
     @property
     def duration_h(self) -> float:
@@ -101,8 +103,27 @@ class ExcursionFacts:
         return str(self.event.get("triage_outcome") or "").lower()
 
     @property
+    def limits(self) -> StorageLimits:
+        if self.storage_limits is not None:
+            return self.storage_limits
+        if (
+            self.label_low_c is None
+            or self.label_high_c is None
+            or not all(isfinite(v) for v in (self.label_low_c, self.label_high_c))
+            or self.label_low_c > self.label_high_c
+        ):
+            return StorageLimits(
+                unresolved_reason="legacy numeric bounds incomplete; one-sided meaning not established"
+            )
+        return StorageLimits(
+            TemperatureBound("lower", self.label_low_c, True), TemperatureBound("upper", self.label_high_c, True)
+        )
+
+    @property
     def out_of_label_range(self) -> Optional[bool]:
-        return is_out_of_range(self.corrected_max_c, self.min_c, self.label_low_c, self.label_high_c)
+        return is_out_of_range(
+            self.corrected_max_c, self.min_c, self.label_low_c, self.label_high_c, limits=self.limits
+        )
 
     def max_within(self, limit_c: Optional[float], tolerance_c: float) -> bool:
         """True when the corrected peak is known and at most ``limit_c + tolerance_c``."""
@@ -119,14 +140,20 @@ Rule = Callable[[ExcursionFacts, list[str]], Optional[Verdict]]
 
 def rule_insufficient_temperature(f: ExcursionFacts, trace: list[str]) -> Optional[Verdict]:
     """Historical triage is not independent proof of a duplicate or an empty load."""
-    values = (f.min_c, f.corrected_max_c, f.label_low_c, f.label_high_c)
-    if (
-        any(v is None or not isfinite(v) for v in values)
-        or f.min_c > f.corrected_max_c
-        or f.label_low_c > f.label_high_c
-    ):
-        trace.append("Escalate: insufficient temperature evidence — complete valid extrema and label range required")
+    issue = temperature_measurement_issue(f.corrected_max_c, f.min_c, f.limits)
+    if issue:
+        trace.append("Escalate: insufficient temperature evidence — " + issue)
         return Verdict(ESCALATE, "ACTIONABLE — insufficient temperature evidence", 0.0)
+    return None
+
+
+def rule_unresolved_storage(f: ExcursionFacts, trace: list[str]) -> Optional[Verdict]:
+    """Unclear instructions are distinct from absent/invalid measured values."""
+    if f.limits.bound_type == "unresolved":
+        trace.append(
+            "Escalate: storage instructions unresolved — " + (f.limits.unresolved_reason or "no explicit bounds")
+        )
+        return Verdict(ESCALATE, "ACTIONABLE — storage instructions unresolved", 0.0)
     return None
 
 
@@ -243,10 +270,10 @@ def rule_dock_door(f: ExcursionFacts, trace: list[str]) -> Optional[Verdict]:
 
 
 def rule_within_label_range(f: ExcursionFacts, trace: list[str]) -> Optional[Verdict]:
-    """After the firmware correction, still inside the labelled range: nothing happened."""
+    """Supplied summaries satisfy the explicit temperature limits; not universal safety."""
     if f.out_of_label_range is not False:
         return None
-    trace.append("Corrected temperatures within labelled storage range")
+    trace.append("Supplied temperature summaries satisfy parsed limits (inclusive/strict as stated)")
     return Verdict(AUTO_CLOSE, "NON_ACTIONABLE — within labelled range", 0.9)
 
 
@@ -356,6 +383,7 @@ def rule_no_parseable_allowance(f: ExcursionFacts, trace: list[str]) -> Verdict:
 
 DECISION_RULES: tuple[Rule, ...] = (
     rule_insufficient_temperature,
+    rule_unresolved_storage,
     rule_cumulative_history_unresolved,
     rule_facility_equipment_event,
     rule_duplicate_alert,
@@ -381,9 +409,11 @@ def decide(facts: ExcursionFacts) -> tuple[Verdict, list[str]]:
     """Run the rules in order and return the first verdict plus the trace of what fired."""
     trace: list[str] = []
     verdict = None
+    deciding_rule = "rule_no_parseable_allowance"
     for rule in DECISION_RULES:
         verdict = rule(facts, trace)
         if verdict is not None:
+            deciding_rule = rule.__name__
             break
     if verdict is None:
         verdict = rule_no_parseable_allowance(facts, trace)
@@ -405,19 +435,70 @@ def decide(facts: ExcursionFacts) -> tuple[Verdict, list[str]]:
         if issues:
             trace.append("Escalate: release authority unresolved — " + "; ".join(issues))
             verdict = Verdict(ESCALATE, "ACTIONABLE — release authority unresolved", 0.0)
+            deciding_rule = "rule_release_authority_gate"
+    trace.append("Decision rule: " + deciding_rule)
+    if facts.limits.constraints:
+        trace.append(
+            "Additional storage constraints retained, not independently verified: "
+            + "; ".join(facts.limits.constraints)
+        )
+    if verdict.disposition == AUTO_CLOSE:
+        trace.append("AUTO_CLOSE limitation: " + AUTO_CLOSE_PATH_LIMITATIONS[deciding_rule])
     return verdict, trace
 
 
+AUTO_CLOSE_PATH_LIMITATIONS = {
+    "rule_facility_equipment_event": "Unverified historical classification: facility/no product loaded; not independent load verification",
+    "rule_duplicate_alert": "Unverified historical classification: duplicate; not independent duplicate verification",
+    "rule_gateway_gap": "Provided gap/interpolation flags and summaries; heuristic, not independent raw-series verification",
+    "rule_sensor_artefact": "Unverified historical classification: sensor artefact; not independent sensor verification; near-limit heuristic",
+    "rule_dock_door": "Unverified historical classification: dock door; not independent load/exposure verification; flag/duration heuristic",
+    "rule_within_label_range": "Parsed temperature limits checked against supplied summaries only; other storage constraints and raw-series completeness not independently verified",
+    "rule_stability_allowance": "Indexed single-event allowance candidate, not universal safety; governing authority gate still required",
+}
+
+
+def temperature_measurement_issue(
+    max_c: Optional[float], min_c: Optional[float], limits: StorageLimits
+) -> Optional[str]:
+    """Only stated bounds require their corresponding extrema; mean never substitutes."""
+    if any(v is not None and not isfinite(v) for v in (max_c, min_c)):
+        return "supplied extrema contain non-finite values"
+    if max_c is None and min_c is None:
+        return "no measured extrema supplied; mean alone is insufficient"
+    if max_c is not None and min_c is not None and min_c > max_c:
+        return "measured extrema reversed"
+    if limits.upper is not None and max_c is None:
+        return "upper limit requires measured maximum; mean/minimum cannot substitute"
+    if limits.lower is not None and min_c is None:
+        return "lower limit requires measured minimum; mean/maximum cannot substitute"
+    return None
+
+
 def is_out_of_range(
-    max_c: Optional[float], min_c: Optional[float], low_c: Optional[float], high_c: Optional[float]
+    max_c: Optional[float],
+    min_c: Optional[float],
+    low_c: Optional[float],
+    high_c: Optional[float],
+    *,
+    limits: Optional[StorageLimits] = None,
 ) -> Optional[bool]:
-    """True/False only for complete valid extrema and limits; otherwise unknown."""
-    values = (max_c, min_c, low_c, high_c)
-    if any(v is None or not isfinite(v) for v in values) or min_c > max_c or low_c > high_c:
+    """True/False only with established semantics and required extrema; else unknown."""
+    if limits is None:
+        if low_c is None or high_c is None or not all(isfinite(v) for v in (low_c, high_c)) or low_c > high_c:
+            return None
+        limits = StorageLimits(TemperatureBound("lower", low_c, True), TemperatureBound("upper", high_c, True))
+    if limits.bound_type == "unresolved" or temperature_measurement_issue(max_c, min_c, limits):
         return None
-    if high_c is not None and max_c is not None and max_c > high_c + EPSILON:
-        return True
-    return low_c is not None and min_c is not None and min_c < low_c - EPSILON
+    if limits.lower:
+        bound = limits.lower
+        if min_c < bound.value_c or (min_c == bound.value_c and not bound.inclusive):
+            return True
+    if limits.upper:
+        bound = limits.upper
+        if max_c > bound.value_c or (max_c == bound.value_c and not bound.inclusive):
+            return True
+    return False
 
 
 def _flag(value: Any) -> bool:

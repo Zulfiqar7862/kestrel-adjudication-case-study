@@ -62,7 +62,7 @@ class TestEngineGolden(_KestrelTestCase):
         self.assertTrue(candidates, "expected INC-2502 facility rows")
         r = self.svc.engine.adjudicate(candidates[0])  # type: ignore[union-attr]
         self.assertEqual(r.recommendation, ESCALATE)
-        self.assertIn("insufficient temperature evidence", " ".join(r.rationale))
+        self.assertIn("storage instructions unresolved", " ".join(r.rationale))
 
     def test_every_event_produces_structured_result(self) -> None:
         """Every pack event yields a structured recommendation and evidence."""

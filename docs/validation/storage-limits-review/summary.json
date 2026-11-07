@@ -1,0 +1,40 @@
+{
+  "date": "2026-11-07 Europe/Berlin CET",
+  "base_commit": "541202b0ea12c1376d4b21d8e3f9503d693f14fe",
+  "branch": "fix/correctness-review",
+  "rule_pack_version": "0.4.2",
+  "code_version": "0.4.2",
+  "before": {
+    "AUTO_CLOSE": 111,
+    "ESCALATED_TO_SENIOR_QA": 309,
+    "RELEASE_WITH_NOTE": 0,
+    "QUARANTINE_PENDING_LAB": 0,
+    "DESTROY": 0
+  },
+  "after": {
+    "AUTO_CLOSE": 130,
+    "ESCALATED_TO_SENIOR_QA": 290,
+    "RELEASE_WITH_NOTE": 0,
+    "QUARANTINE_PENDING_LAB": 0,
+    "DESTROY": 0
+  },
+  "changed_events": 35,
+  "autoclose_rule_counts": {
+    "rule_duplicate_alert": 93,
+    "rule_facility_equipment_event": 37
+  },
+  "label_cases": {
+    "total": 86,
+    "parsed": 83,
+    "unresolved": 3,
+    "AUTO_CLOSE": 27,
+    "QA": 59
+  },
+  "pytest": {
+    "passed": 169,
+    "warnings": 1
+  },
+  "new_tests": 46,
+  "replay_identical": 420,
+  "tenant_chains_verified": 8
+}

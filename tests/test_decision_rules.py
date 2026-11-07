@@ -130,7 +130,7 @@ class TestTemperatureRules(unittest.TestCase):
     def test_fallback_repeat_lane_goes_to_lab(self) -> None:
         verdict, trace = decide(make_facts(event={"prior_excursions_lane_90d": 3}, corrected_max_c=15))
         self.assertEqual(verdict.triage_label, "ACTIONABLE — repeat lane pattern")
-        self.assertIn("prior excursions", trace[-1])
+        self.assertTrue(any("prior excursions" in line for line in trace))
 
 
 class TestOutOfRange(unittest.TestCase):

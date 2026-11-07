@@ -19,7 +19,7 @@ from kestrel.decision_rules import (
     decide,
 )
 from kestrel.ingest import DataPack
-from kestrel.rules.as_of import parse_storage_range, sop_in_force
+from kestrel.rules.as_of import StorageLimits, parse_storage_limits, sop_in_force
 from kestrel.rules.identity import IdentityResolver, ResolvedProduct
 from kestrel.rules.regulatory import regulatory_clock
 from kestrel.rules.stability import StabilityPosition, StabilityResolver
@@ -152,8 +152,11 @@ class AdjudicationEngine:
 
         # --- labelled range ---
         spec_text = product.storage_spec_text or event.get("spec_text_as_received")
-        low, high = parse_storage_range(spec_text)
-        evidence["labelled_range"] = {"text": spec_text, "low_c": low, "high_c": high}
+        limits = parse_storage_limits(spec_text)
+        low = limits.lower.value_c if limits.lower else None
+        high = limits.upper.value_c if limits.upper else None
+        evidence["labelled_range"] = {"text": spec_text, "low_c": low, "high_c": high, **limits.as_dict()}
+        evidence["labelled_range"]["constraints_status"] = "retained, not independently verified"
 
         # --- stability as cited ---
         stability_position = self.stability.resolve(product)
@@ -263,8 +266,15 @@ class AdjudicationEngine:
             duration_min=duration_min,
             sop_overlap=sop_overlap,
             sop_authority_issue=sop_authority_issue,
+            storage_limits=limits,
         )
         rationale.extend(extra)
+        evidence["decision"] = {
+            "rule": next(line.removeprefix("Decision rule: ") for line in extra if line.startswith("Decision rule: ")),
+            "limitations": [
+                line for line in extra if line.startswith(("AUTO_CLOSE limitation:", "Additional storage constraints"))
+            ],
+        }
         if bulletin:
             upper_max = max_temp + self.bulletin_bound_c if max_temp is not None else None
             upper_min = min_temp + self.bulletin_bound_c if min_temp is not None else None
@@ -284,6 +294,7 @@ class AdjudicationEngine:
                 duration_min=duration_min,
                 sop_overlap=sop_overlap,
                 sop_authority_issue=sop_authority_issue,
+                storage_limits=limits,
             )
             sensitive = recommendation != upper[0]
             evidence["temps"]["uncertainty"] = {
@@ -316,10 +327,12 @@ class AdjudicationEngine:
                     f"Temperature uncertainty changes disposition: {recommendation} vs {upper[0]}; QA review required"
                 )
                 recommendation, triage, conf = ESCALATE, "temperature_uncertainty", min(conf, upper[2], 0.4)
+                evidence["decision"] = {"rule": "temperature_uncertainty_gate", "limitations": []}
 
         if not any(p.get("tenant_code") == tenant for p in self.pack.products):
             recommendation, triage, conf = ESCALATE, "unresolved_tenant_identity", 0.0
             rationale.append("Unknown tenant has no product reference pool; no cross-tenant fallback")
+            evidence["decision"] = {"rule": "unresolved_tenant_identity_gate", "limitations": []}
 
         requires_human = recommendation != AUTO_CLOSE
         # Dr Rao: automation on closures only. Even high-confidence RELEASE requires sign-off.
@@ -376,6 +389,7 @@ class AdjudicationEngine:
         duration_min: float,
         sop_overlap: bool,
         sop_authority_issue: Optional[str],
+        storage_limits: StorageLimits,
     ) -> tuple[str, str, float, list[str]]:
         """Build the facts for this alert and run the ordered rule chain (see decision_rules)."""
         facts = ExcursionFacts(
@@ -389,6 +403,7 @@ class AdjudicationEngine:
             duration_min=duration_min,
             sop_overlap=sop_overlap,
             sop_authority_issue=sop_authority_issue,
+            storage_limits=storage_limits,
         )
         verdict, trace = decide(facts)
         return verdict.disposition, verdict.triage_label, verdict.confidence, trace

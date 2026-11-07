@@ -1,4 +1,6 @@
-> Current implementation note (7 Nov 2026 CET): the focused correctness-review fixes are rule/code 0.4.1 on a separate unmerged branch. Current sample results and limitations are in [the executed report](validation/correctness-review/report.md). Design/phase tables below describe intentions, not additional implemented integrations.
+These specific defects were addressed; overall safety and production readiness remain unvalidated.
+
+> Current implementation note (7 Nov 2026 CET): the focused correctness-review fixes are rule/code 0.4.2 on a separate unmerged branch. Current sample results and limitations are in [the current explicit-storage report](validation/storage-limits-review/report.md). Design/phase tables below describe intentions, not additional implemented integrations.
 
 # Case study: The Adjudication Problem
 
@@ -30,7 +32,7 @@ flowchart LR
 ```bash
 python -m venv .venv && source .venv/bin/activate
 pip install -e ".[api,dev]"
-make test                  # 123 tests; runtime varies
+make test                  # 169 tests; runtime varies
 make lint
 kestrel run-all --out results.csv
 kestrel adjudicate --event EXC-107133
@@ -42,12 +44,12 @@ kestrel serve              # /ui and /docs
 
 ## Current results (not platform KPIs)
 
-Persisted run-all, 7 Nov 2026 (CET), rule/code version 0.4.1:
+Persisted run-all, 7 Nov 2026 (CET), rule/code version 0.4.2:
 
 | Output | Count |
 |---|---:|
-| AUTO_CLOSE | 111 |
-| ESCALATED_TO_SENIOR_QA | 309 |
+| AUTO_CLOSE | 130 |
+| ESCALATED_TO_SENIOR_QA | 290 |
 | RELEASE_WITH_NOTE | 0 |
 | QUARANTINE_PENDING_LAB | 0 |
 | DESTROY | 0 |
@@ -57,7 +59,7 @@ Exclusive strata are 61 bulletin re-adjudications + 24 written overrides + 13 fu
 
 **Shadow:** 91 affected-firmware candidates, 91 scenario/evidence diffs, **0 disposition flips** when adding bound-aware analysis to as-reported-only decisions. This is not the historical 61/214 re-adjudication incident. Shadow does not reopen cases or handle invoices automatically.
 
-**Agreement:** historical finals 4/200 = 2%; assistant drafts 111/420 = 26.43%. There are 196 historical-final disagreements. Dr Rao asked for explained differences, not maximised agreement; low agreement does not itself prove safety or failure. Case-level QA review is mandatory before promotion.
+**Agreement:** historical finals 4/200 = 2%; assistant drafts 130/420 = 30.95%. There are 196 historical-final disagreements. Dr Rao asked for explained differences, not maximised agreement; low agreement does not itself prove safety or failure. Case-level QA review is mandatory before promotion.
 
 ## EXC examples: outcome is not the same as evidence correctness
 
@@ -107,7 +109,7 @@ Every requirement cites the brief or pack. Where I push the board, I say so.
 
 - **Reconstructable** — every signed disposition carries an immutable evidence bundle (R4, R5).
 - **As-of correct** — lookups are dated; “today’s SOP” is a bug (R5).
-- **Tenant-safe** — no cross-tenant retrieval (R7).
+- **Tenant-scoped design goal** — no cross-tenant retrieval (R7); full isolation remains unvalidated.
 - **Degradable** — component outage slows disposition or forces human path; it must not silently stop the regulatory clock (R6).
 - **Diffable** — every rules/reference/code change produces a before/after on a frozen golden set (Dr Rao; Sandeep).
 
@@ -182,7 +184,7 @@ Exact wording from board paper BP-26-09 (brief §6):
 
 **Counterargument.** With 82% non-actionable alerts, closing 70% of all alerts would require about 85.4% of the non-actionable population, versus today's 78%. That is an improvement target, not a mathematical requirement to automate product fate. Validate safe closure coverage separately from evidence quality, and never auto-sign product-fate decisions.
 
-**What I would commit to instead:** preserve the current 78% non-actionable closure baseline while measuring safe improvement; never auto-sign product fate; measure whether complete evidence reduces the 23% assistant-overrule baseline on an audited, representative cohort. The stratified pack is not a production KPI.
+**What I would commit to instead:** report observed closure rates without targeting the historical 78% baseline; never auto-sign product fate; measure whether complete evidence reduces the 23% assistant-overrule baseline on an audited, representative cohort. The stratified pack is not a production KPI.
 
 #### 2. Commitment 6 — “All 34 within nine months”
 
@@ -226,7 +228,7 @@ The earlier main-branch prototype used one file as a packaging choice, not a rul
 | **CONFIG** | Typed `Settings` (paths, rule_pack_version, API host/port) |
 | **LOGGING** | Structured JSON logging |
 | **EXCEPTIONS** | `KestrelError` hierarchy (`NotFoundError`, `TenantIsolationError`, `DependencyMissingError`, …) |
-| **DOMAIN** | Enums + dataclasses — engine-safe, no Pydantic required |
+| **DOMAIN** | Enums + dataclasses — plain domain objects, no Pydantic required |
 | **PACK / INGEST** | Workbook memory model + load into SQLite |
 | **REPOSITORY** | `BitemporalStore`, `EvidenceStore` (hash chain, Cl.22 isolation) |
 | **RESOLUTION** | Identity, SOP-as-of, stability, regulatory clock |
@@ -458,7 +460,7 @@ Deterministic engine on auto-close path: ~0 model tokens. Fits Okoro’s cost ce
 | Case lifecycle | `CaseLifecycle` — states incl. REOPENED; `storm_safe_queue` |
 | Shadow / Rao gate | `shadow_replay_bulletin` + CLI |
 | HTTP API | FastAPI + uvicorn (lazy): `/health`, `/adjudicate`, `/cases/*`, `/evidence/*`, `/replay`, `/shadow/bulletin`, `/queue`, `/as-of/sop`, `/ops/*` |
-| CLI + tests | argparse + 123 discovered tests, including `health`/`monitor`, `agreement`, determinism, FastAPI TestClient |
+| CLI + tests | argparse + 169 discovered tests, including `health`/`monitor`, `agreement`, determinism, FastAPI TestClient |
 
 ---
 
@@ -487,12 +489,12 @@ Brief §8.C asks how failure is detected at three in the morning. The following 
 | Queue age | Open actionable age &gt;12h, or reportable age &gt;50% of its window (INC-2502) | QA shift lead | Storm brake; AUTO_CLOSE only facility/duplicate heuristics; drain by deadline |
 | Firmware bulletin change | Vendor bulletin hash/version ≠ last approved `ref_snapshot` | Platform on-call; **notify Marieke de Vries** on version change | `shadow-bulletin`; Rao gate; re-adjudicate firmware cohort; withdraw carrier invoices if liability flips (INC-2506) |
 
-Rerun 7 Nov 2026 (CET): sample regression mix is 111 AUTO_CLOSE / 309 escalation / 0 release-with-note / 0 quarantine / 0 destroy. This is not a QA-approved production baseline. The health helper still reports 14 historically late rows and workbook-mtime staleness; its firmware-change hook is not live bulletin detection, and its alert dictionaries do not send pages.
+Rerun 7 Nov 2026 (CET): sample regression mix is 130 AUTO_CLOSE / 290 escalation / 0 release-with-note / 0 quarantine / 0 destroy. This is not a QA-approved production baseline. The health helper still reports 14 historically late rows and workbook-mtime staleness; its firmware-change hook is not live bulletin detection, and its alert dictionaries do not send pages.
 
 
 ## Validation and review-driven changes
 
-123 tests pass, including the original 19 regressions in `tests/test_review_regressions.py` and 56 parametrized correctness-review cases; ruff check and format are clean. These tests establish software contracts on fixtures/sample data, not clinical validation.
+169 tests pass, including the original 19 regressions in `tests/test_review_regressions.py` and 56 parametrized correctness-review cases, plus 46 explicit-storage/provenance cases; ruff check and format are clean. These tests establish software contracts on fixtures/sample data, not clinical validation.
 
 | Finding | Fix / regression evidence |
 |---|---|
@@ -503,7 +505,7 @@ Rerun 7 Nov 2026 (CET): sample regression mix is 111 AUTO_CLOSE / 309 escalation
 | Replay from current workbook | Typed immutable event/reference snapshot and full expected result; verify and reject mismatched versions; replay with live pack removed, twice without persistence |
 | Reopen lost deadline | Carry deadline/reportability/evidence reference; original signature artifact remains; reopen regression |
 
-The old blanket-bias/parser baseline is superseded; no byte-identical-to-main claim remains. All sample outcome changes require QA explanation/approval before a production rollout. Current labels are rule/code0.4.1, not a retained archive of historical executable builds.
+The old blanket-bias/parser baseline is superseded; no byte-identical-to-main claim remains. All sample outcome changes require QA explanation/approval before a production rollout. Current labels are rule/code0.4.2, not a retained archive of historical executable builds.
 
 ## Evidence retrieval versus the March audit
 

@@ -1,0 +1,839 @@
+[
+  {
+    "event_id": "EXC-111008",
+    "storage_text": "Controlled room temperature",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Product identity weak (unresolved): blank product_ref_as_received",
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-02-19",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112352",
+    "storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111274",
+    "storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-03-24",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111995",
+    "storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2025-12-27",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110854",
+    "storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112765",
+    "storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112828",
+    "storage_text": "-80 to -60 \u00b0C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111631",
+    "storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-02-05",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112359",
+    "storage_text": "-80C to -60C (dry ice permitted)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110861",
+    "storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112506",
+    "storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-06-21",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-112772",
+    "storage_text": "-80C to -60C (dry ice permitted)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110735",
+    "storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-02-19",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112835",
+    "storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110434",
+    "storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-112436",
+    "storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110280",
+    "storage_text": "Store below 25 C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-110672",
+    "storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112226",
+    "storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112681",
+    "storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-112499",
+    "storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-05-09",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111771",
+    "storage_text": "Store below 25 C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110112",
+    "storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-110616",
+    "storage_text": "-80 to -60 \u00b0C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-112296",
+    "storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110350",
+    "storage_text": "-80C to -60C (dry ice permitted)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-110910",
+    "storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Product identity weak (unresolved): blank product_ref_as_received",
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-02-19",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111407",
+    "storage_text": "-80C to -60C (dry ice permitted)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110819",
+    "storage_text": "Store below 25 C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-02-19",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110623",
+    "storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Product identity weak (unresolved): blank product_ref_as_received",
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112058",
+    "storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110749",
+    "storage_text": "-80C to -60C (dry ice permitted)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110980",
+    "storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111939",
+    "storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110035",
+    "storage_text": "Controlled room temperature",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-110539",
+    "storage_text": "-80 to -60 \u00b0C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110133",
+    "storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-03-24",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-111561",
+    "storage_text": "Store below 25 C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110077",
+    "storage_text": "-80C to -60C (dry ice permitted)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-112457",
+    "storage_text": "FROZEN (-25,-15)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111806",
+    "storage_text": "-80C to -60C (dry ice permitted)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111708",
+    "storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111757",
+    "storage_text": "-80C to -60C (dry ice permitted)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111659",
+    "storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2025-12-19",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111491",
+    "storage_text": "Store below 25 C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2025-12-17",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111351",
+    "storage_text": "-80C to -60C (dry ice permitted)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112149",
+    "storage_text": "Controlled room temperature",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111050",
+    "storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111022",
+    "storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-02-19",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111820",
+    "storage_text": "Store below 25 C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-07-06",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111085",
+    "storage_text": "-80C to -60C (dry ice permitted)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112639",
+    "storage_text": "-80 to -60 \u00b0C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110938",
+    "storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-02-19",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110231",
+    "storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-111743",
+    "storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2025-12-17",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110777",
+    "storage_text": "-80C to -60C (dry ice permitted)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112464",
+    "storage_text": "Store below 25 C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110161",
+    "storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-03-24",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-110441",
+    "storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-07-04",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-111967",
+    "storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112625",
+    "storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-04-25",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110028",
+    "storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-03-25",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-111442",
+    "storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-09-07",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111155",
+    "storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111134",
+    "storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110987",
+    "storage_text": "Store below 25 C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-02-19",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111904",
+    "storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112310",
+    "storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112478",
+    "storage_text": "-80 to -60 \u00b0C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112926",
+    "storage_text": "Store below 25 C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110322",
+    "storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-112184",
+    "storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-07-09",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110504",
+    "storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Product identity weak (unresolved): blank product_ref_as_received",
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112107",
+    "storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110259",
+    "storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required",
+      "TT-CB-114: reported and upper-bound (+1.8\u00b0C) scenarios; reported observations unchanged; endpoint analysis is not full-series validation"
+    ]
+  },
+  {
+    "event_id": "EXC-110462",
+    "storage_text": "-80C to -60C (dry ice permitted)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112072",
+    "storage_text": "-80C to -60C (dry ice permitted)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111981",
+    "storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110714",
+    "storage_text": "-80C to -60C (dry ice permitted)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112023",
+    "storage_text": "Store below 25 C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-111484",
+    "storage_text": "-80C to -60C (dry ice permitted)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110826",
+    "storage_text": "-80C to -60C (dry ice permitted)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112562",
+    "storage_text": "-80 to -60 \u00b0C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-112541",
+    "storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110833",
+    "storage_text": "-80 to -60 \u00b0C",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Product identity weak (unresolved): blank product_ref_as_received",
+      "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+      "Carrier contract CNT-2019-0033 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  },
+  {
+    "event_id": "EXC-110805",
+    "storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rationale": [
+      "Stability authority unresolved: study product identity not established; study presentation applicability not established; product-master text not used as substitute",
+      "No Temperature Excursion Management SOP in force for T-VIRENT on 2026-02-19",
+      "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+      "Escalate: insufficient temperature evidence \u2014 complete valid extrema and label range required"
+    ]
+  }
+]

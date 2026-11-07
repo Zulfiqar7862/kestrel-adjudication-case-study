@@ -182,12 +182,16 @@ Shared carrier/facility source registries are captured for replay; products, SOP
 The 420 rows are a stratified evidence sample, not ~11,400/month production traffic. Hash chains/retention dates do not prove raw-series/source-document capture or seven-year durability. Queue sorting is not storm admission, collapse, fairness or independent notification. Batch exposure and shortened-expiry workflow are missing; escalation is review routing, not product fate.
 
 
-## Correctness-review gates (0.4.1)
+## Correctness-review gates (0.4.2)
 
-`decision_rules.decide` first rejects insufficient/invalid extrema or label bounds, before any historical triage rule. No exception is made for unverified duplicate/no-product triage. A cumulative excursion then routes to QA because verified batch identity and complete lifetime history are absent; arbitrary event fields cannot certify them.
+These specific defects were addressed; overall safety and production readiness remain unvalidated.
 
-Carrier resolution ranks exact legal entity, exact alias, then unique substring; ambiguity is preserved as an error in the engine evidence. No longest-name tie-break remains.
+`parse_storage_limits` in `rules/as_of.py` returns explicit `TemperatureBound` objects (kind/value/inclusive), a `StorageLimits.bound_type`, retained constraints, or an unresolved reason. Two-sided numeric ranges are inclusive; “below” is strict; ≤ is inclusive. Bare CRT/LN2 descriptions and nominal values do not create governing numerical bounds. Unknown clauses remain unresolved. The legacy numeric wrapper is not used for engine evaluation because it loses strictness.
 
-`StabilityResolver.resolve` no longer substitutes product-master text for a mismatched/absent study. `AdjudicationEngine.adjudicate` records SOP authority as unresolved: the workbook has index pointers, not governing site/body/annexure contents. The final decision gate blocks all release paths (including early gateway and fallback paths) and allowance-based closures when study/SOP authority or revision conflict is unresolved. An as-of highest-revision candidate is not governing authority.
+`decision_rules.decide` separates invalid/missing required measurements from unresolved storage instructions. An upper-only limit requires max; a lower-only limit requires min; both limits require both extrema. Mean is not a replacement. Supplied nonfinite/reversed extrema remain invalid. Historical triage cannot bypass these gates. Additional restrictions (do not freeze, protect from light, dry ice permitted, excursion-study reference) are preserved independently; this numeric check does not verify compliance or invent freeze limits.
 
-Rule/code version 0.4.1 distinguishes these semantics from 0.4.0; archived old executables are still not supplied. See [executed validation](validation/correctness-review/report.md).
+Carrier resolution and cumulative-history gates from 0.4.1 remain. SOP bodies/site annexures are unavailable, so release/allowance closure remains blocked on unresolved authority. Rule/code 0.4.2 distinguishes the new parsing/provenance semantics. `evidence.decision` records the deciding rule and limitations; all sample AUTO_CLOSEs are unverified historical duplicate/facility classification, not independent duplicate/load verification. `CaseLifecycle.create` puts such proposals in TRIAGED_NON_ACTIONABLE, not a final product-release state.
+
+See [executed validation and the full inventory](validation/storage-limits-review/report.md).
+
+New one-sided instructions require an explicit Celsius unit; “Below 25” without a unit stays unresolved. Existing explicit unitless two-sided workbook shorthands retain their field-specific Celsius convention, not a general cross-document unit inference. A comma pair is recognised only in the explicit FROZEN tuple form, not ambiguous decimal-comma text.

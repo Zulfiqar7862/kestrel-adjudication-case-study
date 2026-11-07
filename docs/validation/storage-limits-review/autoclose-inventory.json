@@ -1,0 +1,943 @@
+[
+  {
+    "event_id": "EXC-112198",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112352",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "Additional storage constraints retained, not independently verified: excursions to 30\u00b0c permitted, see stability",
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112583",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111064",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112394",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111337",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111995",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "Additional storage constraints retained, not independently verified: excursions to 30\u00b0c permitted, see stability",
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111813",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112744",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-110854",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111071",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "Additional storage constraints retained, not independently verified: protect from light",
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111519",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "Additional storage constraints retained, not independently verified: do not freeze",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111365",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111554",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112163",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112205",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "Additional storage constraints retained, not independently verified: do not freeze",
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112758",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112506",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "Additional storage constraints retained, not independently verified: excursions to 30\u00b0c permitted, see stability",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112772",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "Additional storage constraints retained, not independently verified: dry ice permitted",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-110735",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "Additional storage constraints retained, not independently verified: excursions to 30\u00b0c permitted, see stability",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111239",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111043",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "Additional storage constraints retained, not independently verified: protect from light",
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112835",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112177",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111015",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112226",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111246",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112212",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112933",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112681",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112499",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "Additional storage constraints retained, not independently verified: excursions to 30\u00b0c permitted, see stability",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112800",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112380",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112821",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "Additional storage constraints retained, not independently verified: protect from light",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111036",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111141",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "Additional storage constraints retained, not independently verified: do not freeze",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-110945",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111400",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111148",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111533",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-110756",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111890",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111330",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112863",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111876",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111869",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-110819",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111169",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112121",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "Additional storage constraints retained, not independently verified: do not freeze",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112793",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112716",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111736",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-110980",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112555",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112569",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "Additional storage constraints retained, not independently verified: protect from light",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111295",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "Additional storage constraints retained, not independently verified: do not freeze",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111057",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "Additional storage constraints retained, not independently verified: do not freeze",
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-110742",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111883",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112604",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111078",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111834",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112093",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111778",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112891",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111435",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "Additional storage constraints retained, not independently verified: do not freeze",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111708",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112814",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111491",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111547",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "Additional storage constraints retained, not independently verified: do not freeze",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-110966",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112856",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "Additional storage constraints retained, not independently verified: do not freeze",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-110903",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111351",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "Additional storage constraints retained, not independently verified: dry ice permitted",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112660",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111372",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-110784",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111820",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112219",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111855",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112639",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111029",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111218",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111568",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111260",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-110924",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-110840",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111344",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111743",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "Additional storage constraints retained, not independently verified: excursions to 30\u00b0c permitted, see stability",
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111610",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "Additional storage constraints retained, not independently verified: protect from light",
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-110889",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111792",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112373",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111785",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112464",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111449",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111001",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112282",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111897",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112268",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-110791",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112611",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112471",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-110763",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111155",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "Additional storage constraints retained, not independently verified: excursions to 30\u00b0c permitted, see stability",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112849",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111134",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "Additional storage constraints retained, not independently verified: excursions to 30\u00b0c permitted, see stability",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-110721",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "Additional storage constraints retained, not independently verified: do not freeze",
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-110987",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111904",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "Additional storage constraints retained, not independently verified: excursions to 30\u00b0c permitted, see stability",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111358",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112030",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112310",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112646",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "Additional storage constraints retained, not independently verified: do not freeze",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-110728",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112233",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "Additional storage constraints retained, not independently verified: protect from light",
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112443",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "Additional storage constraints retained, not independently verified: protect from light",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111288",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111645",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111715",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112688",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111505",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-111470",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112429",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-110952",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "Additional storage constraints retained, not independently verified: protect from light",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-110525",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112009",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-110826",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "Additional storage constraints retained, not independently verified: dry ice permitted",
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-112562",
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  {
+    "event_id": "EXC-110833",
+    "rule": "rule_facility_equipment_event",
+    "limitations": [
+      "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+    ]
+  }
+]
