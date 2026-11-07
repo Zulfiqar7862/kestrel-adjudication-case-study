@@ -1,0 +1,20 @@
+flowchart TB
+    Workbook["Source files<br/>Workbook is ingested at runtime; brief PDF is problem context, not engine input"]
+    Bootstrap["Service bootstrap<br/>Workbook ingest + DataPack; no live nine-system connectors"]
+    Engine["Adjudication engine<br/>Resolve evidence; run ordered rules; recommendation only"]
+    SQLite["SQLite store<br/>References, alerts, cases, evidence index, notification lane"]
+    Case["Case lifecycle<br/>Review, hash-bound sign-off, linked reopen"]
+    Evidence["Evidence JSON files<br/>Per-tenant directory; content hashes + predecessor links"]
+    Notifications["Independent notifications<br/>Persisted obligations + delivery claims; no evidence/case join"]
+    Interfaces["CLI / API / UI<br/>General routes lack production auth; notification routes fail closed"]
+    Replay["Replay and verification<br/>Sealed input replay; pinned versions; chain checks"]
+    Workbook --> Bootstrap
+    Bootstrap --> Engine
+    Bootstrap --> SQLite
+    Engine --> Evidence
+    Engine --> Case
+    Case --> SQLite
+    SQLite --> Notifications
+    Interfaces --> Case
+    Interfaces --> Notifications
+    Evidence --> Replay

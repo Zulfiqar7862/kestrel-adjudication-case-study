@@ -1,0 +1,20 @@
+{
+  "event_id": "EXC-107133",
+  "recommendation": "ESCALATED_TO_SENIOR_QA",
+  "historical_classification": "ACTIONABLE \u2014 excursion confirmed",
+  "closure_eligibility": "not_eligible",
+  "independent_closure_evidence": [],
+  "requires_human_review": true,
+  "requires_human_signature": true,
+  "confidence": 0.0,
+  "bundle_id": "EVB-90d460ec74b01da5",
+  "case_id": "CASE-11e10af31ce4",
+  "rationale": [
+    "Stability authority unresolved: study product identity not established; study presentation conflicts with product; study type does not establish excursion allowance; product-master text not used as substitute",
+    "SOP overlap: 2 revisions of SOP-KAV-9392 effective on 2026-07-28; candidate Rev 03 (highest rev, not governing authority). Human must confirm (override EXC-110490 pattern).",
+    "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+    "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation conflicts with product; study type does not establish excursion allowance",
+    "Decision rule: rule_stability_authority",
+    "Additional storage constraints retained, not independently verified: protect from light"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "scope": "temporary single-bundle copy; primary run/data/code untouched",
+  "before": {
+    "tenant_code": "T-KAVERI",
+    "length": 1,
+    "ok": true,
+    "errors": []
+  },
+  "after_resealed_reasoning_edit": {
+    "tenant_code": "T-KAVERI",
+    "length": 1,
+    "ok": true,
+    "errors": []
+  },
+  "content_hash_changed": true,
+  "indexed_hash_unchanged": true,
+  "file_hash_differs_from_index": true,
+  "signing_bypass_tested": false,
+  "clinical_outcome_changed": false
+}

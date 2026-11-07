@@ -1,0 +1,64 @@
+{
+  "events": 420,
+  "counts": {
+    "ESCALATED_TO_SENIOR_QA": 290,
+    "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED": 130
+  },
+  "notification_counts": {
+    "UNKNOWN": 392,
+    "PENDING": 28
+  },
+  "replays": 420,
+  "identical_replays": 420,
+  "chains": {
+    "T-AURA": {
+      "tenant_code": "T-AURA",
+      "length": 33,
+      "ok": true,
+      "errors": []
+    },
+    "T-CAMPOS": {
+      "tenant_code": "T-CAMPOS",
+      "length": 26,
+      "ok": true,
+      "errors": []
+    },
+    "T-KAVERI": {
+      "tenant_code": "T-KAVERI",
+      "length": 44,
+      "ok": true,
+      "errors": []
+    },
+    "T-MERIDIAN": {
+      "tenant_code": "T-MERIDIAN",
+      "length": 16,
+      "ok": true,
+      "errors": []
+    },
+    "T-NORDIA": {
+      "tenant_code": "T-NORDIA",
+      "length": 28,
+      "ok": true,
+      "errors": []
+    },
+    "T-PINNACLE": {
+      "tenant_code": "T-PINNACLE",
+      "length": 26,
+      "ok": true,
+      "errors": []
+    },
+    "T-SAHYADRI": {
+      "tenant_code": "T-SAHYADRI",
+      "length": 83,
+      "ok": true,
+      "errors": []
+    },
+    "T-VIRENT": {
+      "tenant_code": "T-VIRENT",
+      "length": 164,
+      "ok": true,
+      "errors": []
+    }
+  },
+  "recommendation_changes_from_62c498f": []
+}

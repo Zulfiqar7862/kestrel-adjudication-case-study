@@ -1,0 +1,16 @@
+flowchart TB
+    Ref["ref_record<br/>PK id; tenant_code; entity_type + natural_key; valid/transaction intervals; JSON"]
+    Alert["alert<br/>PK event_id; tenant_code; alert timestamp; source payload; snapshot_id"]
+    Meta["meta<br/>PK key; value; reference snapshot identifier"]
+    Case["case_row<br/>PK case_id; tenant/event; state; deadline; priority; JSON"]
+    Evidence["evidence_index<br/>PK bundle_id; tenant/event/case; hashes; file path; versions"]
+    Files["Evidence files<br/><root>/<tenant>/EVB-*.json; sealed inputs + expected result"]
+    Obligation["notification_obligation<br/>PK (tenant_code, event_id); original alert origin; payload JSON"]
+    Delivery["notification_delivery_event<br/>PK sequence; tenant/event FK; ATTEMPT or ACK; append-only JSON"]
+    Meta --> Ref
+    Ref --> Alert
+    Alert --> Case
+    Alert --> Obligation
+    Case --> Evidence
+    Evidence --> Files
+    Obligation --> Delivery

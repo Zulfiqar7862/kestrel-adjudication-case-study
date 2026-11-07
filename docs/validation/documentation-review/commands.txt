@@ -1,0 +1,30 @@
+# Working directory: /workspace/kprod; baseline 62c498f, documentation-only.
+/tmp/fixvenv/bin/python -c 'import kestrel; print(kestrel.__file__)'
+# /workspace/kprod/src/kestrel/__init__.py
+# ZIP SHA-256 comparison used Python zipfile/hashlib; source-check.json retains all entries.
+pdftotext -layout data/Case_Study_Brief_Adjudication.pdf /tmp/kestrel-docs-final/brief.txt
+/tmp/fixvenv/bin/pip install pillow
+/tmp/fixvenv/bin/kestrel --log-level WARNING --db /tmp/kestrel-docs-final/run.sqlite --evidence-dir /tmp/kestrel-docs-final/evidence run-all --out /tmp/kestrel-docs-final/results.csv > /tmp/kestrel-docs-final/run-all.json
+/tmp/fixvenv/bin/python docs/diagrams/capture_run.py --run-dir /tmp/kestrel-docs-final
+# 420 rows; 0/290/130; notifications 28 pending/392 unknown; 420/420 replays; 8 chains; no recommendation changes.
+/tmp/fixvenv/bin/python docs/diagrams/render_visuals.py
+# Seven diagram PNGs + one workflow GIF + one decision-frame PNG.
+/tmp/fixvenv/bin/pytest -o addopts='' -q
+# 208 passed, 1 warning in 31.52s.
+/tmp/fixvenv/bin/ruff check
+/tmp/fixvenv/bin/ruff format --check
+/tmp/fixvenv/bin/python docs/diagrams/check_links.py --out docs/validation/documentation-review/links.json
+# No failures; actual totals in links.json.
+/tmp/fixvenv/bin/kestrel --log-level WARNING --db /tmp/kestrel-docs-final/quickstart.sqlite --evidence-dir /tmp/kestrel-docs-final/quickstart-evidence adjudicate --event EXC-107133
+# QA, rule_stability_authority; no sign/send.
+# Isolated integrity reproduction: --bundle is the actual EXC-107133 bundle from the primary run.
+# The exact bundle id/path is in docs/images/workflow-run.json.
+# /tmp/fixvenv/bin/python docs/diagrams/probe_integrity.py --bundle PATH --out docs/validation/documentation-review/integrity-probe.json
+# Observed: chain ok after re-sealed reasoning edit despite indexed-hash mismatch. No engine fix.
+git diff --quiet 62c498f -- src tests data pyproject.toml Makefile .github
+git diff --check
+git ls-files '*__pycache__*' '*.pyc'
+# Engine/tests/data/dependencies/CI unchanged; no tracked bytecode.
+# PNG/GIF copies and SHA-256/dimensions/frame checks: visual-manifest.json.
+# Commit, normal branch push and gh run watch are performed after local verification;
+# final commit SHA and CI URL/result are reported separately, with no merge or PR.

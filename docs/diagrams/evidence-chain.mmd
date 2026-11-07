@@ -1,0 +1,12 @@
+flowchart TB
+    A["Tenant bundle A<br/>Core to SHA-256 H(A); prev_hash = null"]
+    B["Tenant bundle B<br/>Core to SHA-256 H(B); prev_hash = H(A)"]
+    C["Tenant bundle C<br/>Core to SHA-256 H(C); prev_hash = H(B)"]
+    Index["SQLite evidence_index<br/>Tenant + path + content_hash + prev_hash + versions; separate from file write"]
+    Verify["Explicit verification<br/>Core and predecessor checks; indexed-hash binding missing (reported defect)"]
+    Replay["Pinned input replay<br/>Decode saved event/reference snapshot; run matching code/rules; compare full result"]
+    A --> B
+    B --> C
+    A --> Index
+    B --> Verify
+    C --> Replay

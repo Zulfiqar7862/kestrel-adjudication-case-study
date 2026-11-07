@@ -1,0 +1,17 @@
+[
+  {
+    "zip_entry": "Case_Study_Brief_Adjudication.pdf",
+    "sha256": "d9d94b8f0bbe8d7a723d5fac3560f568c7193f22dd250a4ae38046b6ba61205b",
+    "identical_repo_file": "data/Case_Study_Brief_Adjudication.pdf"
+  },
+  {
+    "zip_entry": "__MACOSX/._Case_Study_Brief_Adjudication.pdf",
+    "sha256": "621fdb42edea25c3d414d250a1abd224a8490568f31bc3cc3e84f293cec9837f",
+    "identical_repo_file": null
+  },
+  {
+    "zip_entry": "KCCS_Sentinel_Reference_Data_Pack.xlsx",
+    "sha256": "9fe3fad7d0f77a5fbdaa0f8ce70336a911a8725d38d057b9d9d777c06ea57db3",
+    "identical_repo_file": "data/KCCS_Sentinel_Reference_Data_Pack.xlsx"
+  }
+]

@@ -1,0 +1,15 @@
+flowchart TB
+    Alert["Ingested raw alert<br/>Original alert timestamp + source flags; SQLite persists it"]
+    Pending["PENDING obligation<br/>Historical Y conservatively queues REPORTABLE work"]
+    Unknown["UNKNOWN obligation<br/>N / blank does not prove no obligation; deadline remains UNKNOWN"]
+    Queue["Scoped independent queue<br/>All pending and unknown records; credential + tenant grants on HTTP"]
+    Attempt["Separate ATTEMPT log<br/>FAILED to RETRY_PENDING; SENT to AWAITING_ACK; explicit retry intent only"]
+    Ack["Separate ACK log<br/>Matching SENT attempt; ACK_RECORDED_UNVERIFIED; never legal clearance"]
+    Case["Disposition is separate<br/>No case-state join; obligations are not cleared by sign / close / reopen"]
+    Alert --> Pending
+    Alert --> Unknown
+    Pending --> Queue
+    Unknown --> Queue
+    Queue --> Attempt
+    Attempt --> Ack
+    Queue --> Case

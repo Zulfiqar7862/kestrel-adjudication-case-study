@@ -1,0 +1,764 @@
+{
+  "hld": {
+    "title": "High-level design",
+    "caption": "Implemented local prototype. Grey links show data/control flow, not production isolation or availability guarantees.",
+    "nodes": [
+      {
+        "id": "Workbook",
+        "title": "Source files",
+        "body": "Workbook is ingested at runtime; brief PDF is problem context, not engine input",
+        "col": 0,
+        "row": 0
+      },
+      {
+        "id": "Bootstrap",
+        "title": "Service bootstrap",
+        "body": "Workbook ingest + DataPack; no live nine-system connectors",
+        "col": 1,
+        "row": 0
+      },
+      {
+        "id": "Engine",
+        "title": "Adjudication engine",
+        "body": "Resolve evidence; run ordered rules; recommendation only",
+        "col": 2,
+        "row": 0
+      },
+      {
+        "id": "SQLite",
+        "title": "SQLite store",
+        "body": "References, alerts, cases, evidence index, notification lane",
+        "col": 0,
+        "row": 1
+      },
+      {
+        "id": "Case",
+        "title": "Case lifecycle",
+        "body": "Review, hash-bound sign-off, linked reopen",
+        "col": 1,
+        "row": 1
+      },
+      {
+        "id": "Evidence",
+        "title": "Evidence JSON files",
+        "body": "Per-tenant directory; content hashes + predecessor links",
+        "col": 2,
+        "row": 1
+      },
+      {
+        "id": "Notifications",
+        "title": "Independent notifications",
+        "body": "Persisted obligations + delivery claims; no evidence/case join",
+        "col": 0,
+        "row": 2
+      },
+      {
+        "id": "Interfaces",
+        "title": "CLI / API / UI",
+        "body": "General routes lack production auth; notification routes fail closed",
+        "col": 1,
+        "row": 2
+      },
+      {
+        "id": "Replay",
+        "title": "Replay and verification",
+        "body": "Sealed input replay; pinned versions; chain checks",
+        "col": 2,
+        "row": 2
+      }
+    ],
+    "edges": [
+      {
+        "from": "Workbook",
+        "to": "Bootstrap"
+      },
+      {
+        "from": "Bootstrap",
+        "to": "Engine"
+      },
+      {
+        "from": "Bootstrap",
+        "to": "SQLite"
+      },
+      {
+        "from": "Engine",
+        "to": "Evidence"
+      },
+      {
+        "from": "Engine",
+        "to": "Case"
+      },
+      {
+        "from": "Case",
+        "to": "SQLite"
+      },
+      {
+        "from": "SQLite",
+        "to": "Notifications"
+      },
+      {
+        "from": "Interfaces",
+        "to": "Case"
+      },
+      {
+        "from": "Interfaces",
+        "to": "Notifications"
+      },
+      {
+        "from": "Evidence",
+        "to": "Replay"
+      }
+    ]
+  },
+  "lld": {
+    "title": "Modules, classes and key calls",
+    "caption": "These are code modules, not separately deployed services. See the LLD for exact signatures and trust boundaries.",
+    "nodes": [
+      {
+        "id": "Service",
+        "title": "service.py",
+        "body": "AdjudicationService: bootstrap, adjudicate_event, replay_from_bundle",
+        "col": 1,
+        "row": 0
+      },
+      {
+        "id": "Pack",
+        "title": "ingest.py",
+        "body": "DataPack.load / replay_snapshot; load_workbook_into_store",
+        "col": 0,
+        "row": 0
+      },
+      {
+        "id": "API",
+        "title": "api/app.py + cli.py",
+        "body": "create_app; create_notification_app; command dispatch",
+        "col": 2,
+        "row": 0
+      },
+      {
+        "id": "Engine",
+        "title": "engine.py",
+        "body": "AdjudicationEngine.adjudicate; AdjudicationResult",
+        "col": 1,
+        "row": 1
+      },
+      {
+        "id": "Rules",
+        "title": "rules/ + decision_rules.py",
+        "body": "IdentityResolver, StabilityResolver, StorageLimits, decide",
+        "col": 0,
+        "row": 1
+      },
+      {
+        "id": "Evidence",
+        "title": "storage/evidence.py",
+        "body": "EvidenceStore.write_bundle, verify_document, verify_chain",
+        "col": 2,
+        "row": 1
+      },
+      {
+        "id": "Store",
+        "title": "storage/bitemporal.py",
+        "body": "BitemporalStore: SQLite tables, as-of queries, case queue",
+        "col": 0,
+        "row": 2
+      },
+      {
+        "id": "Lifecycle",
+        "title": "lifecycle.py",
+        "body": "CaseLifecycle.create / transition / sign / reopen",
+        "col": 1,
+        "row": 2
+      },
+      {
+        "id": "Notify",
+        "title": "notifications.py",
+        "body": "NotificationObligations; Principal / Access; scoped grants",
+        "col": 2,
+        "row": 2
+      }
+    ],
+    "edges": [
+      {
+        "from": "API",
+        "to": "Service"
+      },
+      {
+        "from": "Service",
+        "to": "Pack"
+      },
+      {
+        "from": "Service",
+        "to": "Engine"
+      },
+      {
+        "from": "Engine",
+        "to": "Rules"
+      },
+      {
+        "from": "Service",
+        "to": "Evidence"
+      },
+      {
+        "from": "Service",
+        "to": "Lifecycle"
+      },
+      {
+        "from": "Lifecycle",
+        "to": "Store"
+      },
+      {
+        "from": "Evidence",
+        "to": "Store"
+      },
+      {
+        "from": "Service",
+        "to": "Notify"
+      },
+      {
+        "from": "Notify",
+        "to": "Store"
+      }
+    ]
+  },
+  "data-model": {
+    "title": "Data model and storage",
+    "caption": "Arrows are logical associations unless marked in the LLD. Only delivery events have an SQL foreign key to obligations.",
+    "nodes": [
+      {
+        "id": "Ref",
+        "title": "ref_record",
+        "body": "PK id; tenant_code; entity_type + natural_key; valid/transaction intervals; JSON",
+        "col": 0,
+        "row": 0
+      },
+      {
+        "id": "Alert",
+        "title": "alert",
+        "body": "PK event_id; tenant_code; alert timestamp; source payload; snapshot_id",
+        "col": 1,
+        "row": 0
+      },
+      {
+        "id": "Meta",
+        "title": "meta",
+        "body": "PK key; value; reference snapshot identifier",
+        "col": 2,
+        "row": 0
+      },
+      {
+        "id": "Case",
+        "title": "case_row",
+        "body": "PK case_id; tenant/event; state; deadline; priority; JSON",
+        "col": 0,
+        "row": 1
+      },
+      {
+        "id": "Evidence",
+        "title": "evidence_index",
+        "body": "PK bundle_id; tenant/event/case; hashes; file path; versions",
+        "col": 1,
+        "row": 1
+      },
+      {
+        "id": "Files",
+        "title": "Evidence files",
+        "body": "<root>/<tenant>/EVB-*.json; sealed inputs + expected result",
+        "col": 2,
+        "row": 1
+      },
+      {
+        "id": "Obligation",
+        "title": "notification_obligation",
+        "body": "PK (tenant_code, event_id); original alert origin; payload JSON",
+        "col": 1,
+        "row": 2
+      },
+      {
+        "id": "Delivery",
+        "title": "notification_delivery_event",
+        "body": "PK sequence; tenant/event FK; ATTEMPT or ACK; append-only JSON",
+        "col": 2,
+        "row": 2
+      }
+    ],
+    "edges": [
+      {
+        "from": "Meta",
+        "to": "Ref"
+      },
+      {
+        "from": "Ref",
+        "to": "Alert"
+      },
+      {
+        "from": "Alert",
+        "to": "Case"
+      },
+      {
+        "from": "Alert",
+        "to": "Obligation"
+      },
+      {
+        "from": "Case",
+        "to": "Evidence"
+      },
+      {
+        "from": "Evidence",
+        "to": "Files"
+      },
+      {
+        "from": "Obligation",
+        "to": "Delivery"
+      }
+    ]
+  },
+  "case-lifecycle": {
+    "title": "Case lifecycle: allowed transition graph",
+    "caption": "Generated from lifecycle.ALLOWED. create() chooses an initial state directly. Guards apply; dual-sign authentication is not implemented. Crossings are not junctions.",
+    "nodes": [
+      {
+        "id": "NEW",
+        "title": "NEW",
+        "body": "",
+        "col": 1,
+        "row": 0
+      },
+      {
+        "id": "TRIAGED_NON_ACTIONABLE",
+        "title": "TRIAGED_NON_ACTIONABLE",
+        "body": "",
+        "col": 0,
+        "row": 1
+      },
+      {
+        "id": "PENDING_EVIDENCE",
+        "title": "PENDING_EVIDENCE",
+        "body": "Candidate starts PENDING_EVIDENCE",
+        "col": 1,
+        "row": 1
+      },
+      {
+        "id": "AWAITING_REVIEWER",
+        "title": "AWAITING_REVIEWER",
+        "body": "",
+        "col": 2,
+        "row": 1
+      },
+      {
+        "id": "RETURNED_FOR_DATA",
+        "title": "RETURNED_FOR_DATA",
+        "body": "",
+        "col": 0,
+        "row": 2
+      },
+      {
+        "id": "RECOMMENDED",
+        "title": "RECOMMENDED",
+        "body": "",
+        "col": 1,
+        "row": 2
+      },
+      {
+        "id": "PENDING_LAB",
+        "title": "PENDING_LAB",
+        "body": "",
+        "col": 2,
+        "row": 2
+      },
+      {
+        "id": "CLOSED_AUTO",
+        "title": "CLOSED_AUTO",
+        "body": "candidate cannot auto-close",
+        "col": 0,
+        "row": 3
+      },
+      {
+        "id": "PENDING_SECOND_SIGN",
+        "title": "PENDING_SECOND_SIGN",
+        "body": "",
+        "col": 1,
+        "row": 3
+      },
+      {
+        "id": "CLOSED_SIGNED",
+        "title": "CLOSED_SIGNED",
+        "body": "sign() required for closure",
+        "col": 2,
+        "row": 3
+      },
+      {
+        "id": "REOPENED",
+        "title": "REOPENED",
+        "body": "new linked case on reopen",
+        "col": 1,
+        "row": 4
+      }
+    ],
+    "edges": [
+      {
+        "from": "NEW",
+        "to": "AWAITING_REVIEWER"
+      },
+      {
+        "from": "NEW",
+        "to": "PENDING_EVIDENCE"
+      },
+      {
+        "from": "NEW",
+        "to": "RECOMMENDED"
+      },
+      {
+        "from": "NEW",
+        "to": "TRIAGED_NON_ACTIONABLE"
+      },
+      {
+        "from": "TRIAGED_NON_ACTIONABLE",
+        "to": "AWAITING_REVIEWER"
+      },
+      {
+        "from": "TRIAGED_NON_ACTIONABLE",
+        "to": "CLOSED_AUTO"
+      },
+      {
+        "from": "TRIAGED_NON_ACTIONABLE",
+        "to": "RECOMMENDED"
+      },
+      {
+        "from": "PENDING_EVIDENCE",
+        "to": "AWAITING_REVIEWER"
+      },
+      {
+        "from": "PENDING_EVIDENCE",
+        "to": "RECOMMENDED"
+      },
+      {
+        "from": "RECOMMENDED",
+        "to": "AWAITING_REVIEWER"
+      },
+      {
+        "from": "RECOMMENDED",
+        "to": "CLOSED_AUTO"
+      },
+      {
+        "from": "RECOMMENDED",
+        "to": "CLOSED_SIGNED"
+      },
+      {
+        "from": "RECOMMENDED",
+        "to": "PENDING_LAB"
+      },
+      {
+        "from": "RECOMMENDED",
+        "to": "PENDING_SECOND_SIGN"
+      },
+      {
+        "from": "RECOMMENDED",
+        "to": "RETURNED_FOR_DATA"
+      },
+      {
+        "from": "AWAITING_REVIEWER",
+        "to": "CLOSED_SIGNED"
+      },
+      {
+        "from": "AWAITING_REVIEWER",
+        "to": "PENDING_LAB"
+      },
+      {
+        "from": "AWAITING_REVIEWER",
+        "to": "PENDING_SECOND_SIGN"
+      },
+      {
+        "from": "AWAITING_REVIEWER",
+        "to": "RETURNED_FOR_DATA"
+      },
+      {
+        "from": "RETURNED_FOR_DATA",
+        "to": "AWAITING_REVIEWER"
+      },
+      {
+        "from": "RETURNED_FOR_DATA",
+        "to": "PENDING_EVIDENCE"
+      },
+      {
+        "from": "PENDING_LAB",
+        "to": "AWAITING_REVIEWER"
+      },
+      {
+        "from": "PENDING_LAB",
+        "to": "CLOSED_SIGNED"
+      },
+      {
+        "from": "PENDING_SECOND_SIGN",
+        "to": "CLOSED_SIGNED"
+      },
+      {
+        "from": "CLOSED_AUTO",
+        "to": "REOPENED"
+      },
+      {
+        "from": "CLOSED_SIGNED",
+        "to": "REOPENED"
+      },
+      {
+        "from": "REOPENED",
+        "to": "AWAITING_REVIEWER"
+      },
+      {
+        "from": "REOPENED",
+        "to": "PENDING_EVIDENCE"
+      },
+      {
+        "from": "REOPENED",
+        "to": "RECOMMENDED"
+      }
+    ]
+  },
+  "notification-lifecycle": {
+    "title": "Notification obligations and separate delivery history",
+    "caption": "No FILED transition. Delivery records are unverified claims. Signing, closing and evidence failure do not remove queue records.",
+    "nodes": [
+      {
+        "id": "Alert",
+        "title": "Ingested raw alert",
+        "body": "Original alert timestamp + source flags; SQLite persists it",
+        "col": 1,
+        "row": 0
+      },
+      {
+        "id": "Pending",
+        "title": "PENDING obligation",
+        "body": "Historical Y conservatively queues REPORTABLE work",
+        "col": 0,
+        "row": 1
+      },
+      {
+        "id": "Unknown",
+        "title": "UNKNOWN obligation",
+        "body": "N / blank does not prove no obligation; deadline remains UNKNOWN",
+        "col": 2,
+        "row": 1
+      },
+      {
+        "id": "Queue",
+        "title": "Scoped independent queue",
+        "body": "All pending and unknown records; credential + tenant grants on HTTP",
+        "col": 1,
+        "row": 1
+      },
+      {
+        "id": "Attempt",
+        "title": "Separate ATTEMPT log",
+        "body": "FAILED -> RETRY_PENDING; SENT -> AWAITING_ACK; explicit retry intent only",
+        "col": 0,
+        "row": 2
+      },
+      {
+        "id": "Ack",
+        "title": "Separate ACK log",
+        "body": "Matching SENT attempt; ACK_RECORDED_UNVERIFIED; never legal clearance",
+        "col": 2,
+        "row": 2
+      },
+      {
+        "id": "Case",
+        "title": "Disposition is separate",
+        "body": "No case-state join; obligations are not cleared by sign / close / reopen",
+        "col": 1,
+        "row": 3
+      }
+    ],
+    "edges": [
+      {
+        "from": "Alert",
+        "to": "Pending"
+      },
+      {
+        "from": "Alert",
+        "to": "Unknown"
+      },
+      {
+        "from": "Pending",
+        "to": "Queue"
+      },
+      {
+        "from": "Unknown",
+        "to": "Queue"
+      },
+      {
+        "from": "Queue",
+        "to": "Attempt"
+      },
+      {
+        "from": "Attempt",
+        "to": "Ack"
+      },
+      {
+        "from": "Queue",
+        "to": "Case"
+      }
+    ]
+  },
+  "decision-pipeline": {
+    "title": "Decision pipeline: actual rule and post-gate order",
+    "caption": "Follow arrows to the next rule only when no verdict is returned. First verdict then post-gates. Numeric AUTO_CLOSE paths are unverified; sample emits zero.",
+    "nodes": [
+      {
+        "id": "Facts",
+        "title": "Assemble ExcursionFacts",
+        "body": "Parsed explicit limits, summaries, product, study and SOP evidence",
+        "col": 1,
+        "row": 0
+      },
+      {
+        "id": "Guard",
+        "title": "Rules 1-3: evidence guards",
+        "body": "1 insufficient measurements; 2 unresolved storage; 3 cumulative history if required: QA",
+        "col": 0,
+        "row": 1
+      },
+      {
+        "id": "History",
+        "title": "Rules 4-5: early history",
+        "body": "Facility/no-load or duplicate -> unverified historical candidate; not AUTO_CLOSE",
+        "col": 1,
+        "row": 1
+      },
+      {
+        "id": "Resolve",
+        "title": "Rules 6-12",
+        "body": "Gap, identity, study authority, presentation, SOP overlap, Refer QA, unreadable study",
+        "col": 2,
+        "row": 1
+      },
+      {
+        "id": "Arithmetic",
+        "title": "Rules 13-20 + fallback",
+        "body": "Sensor/dock history, label range, freeze, ultra-cold, cap, no-excursion, allowance, fallback",
+        "col": 2,
+        "row": 2
+      },
+      {
+        "id": "Authority",
+        "title": "Post-gate: authority",
+        "body": "Release / note or allowance AUTO_CLOSE needs governing study/SOP authority; else QA",
+        "col": 1,
+        "row": 2
+      },
+      {
+        "id": "Intercept",
+        "title": "Post-gate: historical guard",
+        "body": "Any remaining AUTO_CLOSE with historical closure text becomes an unverified candidate",
+        "col": 0,
+        "row": 2
+      },
+      {
+        "id": "Result",
+        "title": "Recommendation + trace",
+        "body": "Persist deciding rule and limitations; route to human review where required",
+        "col": 1,
+        "row": 3
+      }
+    ],
+    "edges": [
+      {
+        "from": "Facts",
+        "to": "Guard"
+      },
+      {
+        "from": "Guard",
+        "to": "History"
+      },
+      {
+        "from": "History",
+        "to": "Resolve"
+      },
+      {
+        "from": "Resolve",
+        "to": "Arithmetic"
+      },
+      {
+        "from": "Arithmetic",
+        "to": "Authority"
+      },
+      {
+        "from": "Authority",
+        "to": "Intercept"
+      },
+      {
+        "from": "Intercept",
+        "to": "Result"
+      }
+    ]
+  },
+  "evidence-chain": {
+    "title": "Evidence hash chain and replay",
+    "caption": "Known defect: re-sealed tail can pass chain verification without indexed-hash binding. Local files are not WORM; prev_hash is outside the content core.",
+    "nodes": [
+      {
+        "id": "A",
+        "title": "Tenant bundle A",
+        "body": "Core -> SHA-256 H(A); prev_hash = null",
+        "col": 0,
+        "row": 0
+      },
+      {
+        "id": "B",
+        "title": "Tenant bundle B",
+        "body": "Core -> SHA-256 H(B); prev_hash = H(A)",
+        "col": 1,
+        "row": 0
+      },
+      {
+        "id": "C",
+        "title": "Tenant bundle C",
+        "body": "Core -> SHA-256 H(C); prev_hash = H(B)",
+        "col": 2,
+        "row": 0
+      },
+      {
+        "id": "Index",
+        "title": "SQLite evidence_index",
+        "body": "Tenant + path + content_hash + prev_hash + versions; separate from file write",
+        "col": 0,
+        "row": 1
+      },
+      {
+        "id": "Verify",
+        "title": "Explicit verification",
+        "body": "Core and predecessor checks; indexed-hash binding missing (reported defect)",
+        "col": 1,
+        "row": 1
+      },
+      {
+        "id": "Replay",
+        "title": "Pinned input replay",
+        "body": "Decode saved event/reference snapshot; run matching code/rules; compare full result",
+        "col": 2,
+        "row": 1
+      }
+    ],
+    "edges": [
+      {
+        "from": "A",
+        "to": "B"
+      },
+      {
+        "from": "B",
+        "to": "C"
+      },
+      {
+        "from": "A",
+        "to": "Index"
+      },
+      {
+        "from": "B",
+        "to": "Verify"
+      },
+      {
+        "from": "C",
+        "to": "Replay"
+      }
+    ]
+  }
+}

@@ -1,0 +1,74 @@
+[
+  {
+    "repo_path": "docs/images/case-lifecycle.png",
+    "copy_path": "/workspace/final-visuals/case-lifecycle.png",
+    "width": 1540,
+    "height": 1460,
+    "frames": 1,
+    "sha256": "72df88e589a35ad875acfbbd7bc6f72b7f4037c3b4897c501865e1cfbda01b18"
+  },
+  {
+    "repo_path": "docs/images/data-model.png",
+    "copy_path": "/workspace/final-visuals/data-model.png",
+    "width": 1540,
+    "height": 980,
+    "frames": 1,
+    "sha256": "40a2775267ec304817544148ebde66e0c4fee4daa414d131789f32904e548774"
+  },
+  {
+    "repo_path": "docs/images/decision-pipeline.png",
+    "copy_path": "/workspace/final-visuals/decision-pipeline.png",
+    "width": 1540,
+    "height": 1220,
+    "frames": 1,
+    "sha256": "9238cfb8bb3d096db1d483d17b6894dac880e2f91fa629302f236874925078cf"
+  },
+  {
+    "repo_path": "docs/images/evidence-chain.png",
+    "copy_path": "/workspace/final-visuals/evidence-chain.png",
+    "width": 1540,
+    "height": 740,
+    "frames": 1,
+    "sha256": "f7ec4e36d7bf24102b1f54038ffcb034ff35af6bc8a016c55e06a6405beefba7"
+  },
+  {
+    "repo_path": "docs/images/hld.png",
+    "copy_path": "/workspace/final-visuals/hld.png",
+    "width": 1540,
+    "height": 980,
+    "frames": 1,
+    "sha256": "b6ece6596b83b9b24b2a4771eb2b306017047c1f8f630c0658e75cfd4b17c5f7"
+  },
+  {
+    "repo_path": "docs/images/lld.png",
+    "copy_path": "/workspace/final-visuals/lld.png",
+    "width": 1540,
+    "height": 980,
+    "frames": 1,
+    "sha256": "cb20c14c3e904da39525fe577ce0db490351a1656b86cd56625fa11ae8dd8a55"
+  },
+  {
+    "repo_path": "docs/images/notification-lifecycle.png",
+    "copy_path": "/workspace/final-visuals/notification-lifecycle.png",
+    "width": 1540,
+    "height": 1220,
+    "frames": 1,
+    "sha256": "6759ae7c3bc612ff8fc7bd560fe7e7de7cde6c89feee075097acfbbfe1b6985c"
+  },
+  {
+    "repo_path": "docs/images/workflow-decision.png",
+    "copy_path": "/workspace/final-visuals/workflow-decision.png",
+    "width": 1540,
+    "height": 1040,
+    "frames": 1,
+    "sha256": "c27330591343123403c994a5ba97095ed4430989fbc6e20731ea8fa8a4f801e6"
+  },
+  {
+    "repo_path": "docs/images/workflow.gif",
+    "copy_path": "/workspace/final-visuals/workflow.gif",
+    "width": 1540,
+    "height": 1040,
+    "frames": 9,
+    "sha256": "2c1567890f314dd270f21a91c9dd67f049e7d64a1b7299a995a09fc9c19a3ac2"
+  }
+]
