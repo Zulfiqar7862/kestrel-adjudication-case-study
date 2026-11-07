@@ -153,7 +153,7 @@ class CaseLifecycle:
         try:
             doc = self.evidence.get(case["evidence_bundle_id"], tenant_code=case["tenant_code"])
         except (FileNotFoundError, PermissionError, OSError, ValueError) as exc:
-            raise StaleEvidenceError("sealed evidence unavailable; cannot sign") from exc
+            raise StaleEvidenceError(f"sealed evidence unavailable; cannot sign: {exc}") from exc
         # Do not trust a caller-supplied current hash; verify the actual artifact.
         meta = self.store.get_evidence_meta(doc["bundle_id"], tenant_code=case["tenant_code"])
         if (

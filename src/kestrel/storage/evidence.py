@@ -1,4 +1,4 @@
-"""Per-tenant, hash-chained, append-only evidence bundles with retention metadata."""
+"""Per-tenant evidence with local file/index reconciliation and retention metadata."""
 
 from __future__ import annotations
 
@@ -12,12 +12,30 @@ from typing import Any, Optional
 from kestrel.storage.bitemporal import BitemporalStore
 from kestrel.utils import utc_now
 
-"""Immutable, append-only, hash-chained evidence bundles.
+"""Locally hash-chained evidence bundles (not an independently anchored archive).
 
 Each recommendation writes a content-addressed JSON document. Bundles for a
-tenant form a hash chain (prev_hash). Tampering breaks verify_chain().
+tenant form a hash chain (prev_hash). Verification reconciles files and SQLite;
+an actor able to rewrite both stores is outside this local integrity guarantee.
 Tenant isolation: load/get require tenant_code and refuse cross-tenant reads.
 """
+
+
+_CORE_FIELDS = (
+    "tenant_code",
+    "event_id",
+    "case_id",
+    "created_at",
+    "retention_until",
+    "retention_years",
+    "rule_pack_version",
+    "ref_snapshot_id",
+    "code_version",
+    "inputs",
+    "recommendation",
+    "reasoning_steps",
+    "reviewer_signoff",
+)
 
 
 def canonical_hash(payload: dict[str, Any]) -> str:
@@ -26,8 +44,16 @@ def canonical_hash(payload: dict[str, Any]) -> str:
     return hashlib.sha256(body.encode("utf-8")).hexdigest()
 
 
+class EvidenceIntegrityError(ValueError):
+    """Local evidence cannot be reconciled with its index and tenant chain."""
+
+    def __init__(self, report: dict[str, Any]) -> None:
+        self.report = report
+        super().__init__("evidence integrity verification failed: " + "; ".join(report["errors"]))
+
+
 class EvidenceStore:
-    """Append-only, hash-chained, per-tenant evidence bundle store with Cl.22 isolation."""
+    """Per-tenant local file/index evidence store with retention metadata."""
 
     def __init__(
         self,
@@ -134,60 +160,103 @@ class EvidenceStore:
                     f"{any_meta['tenant_code']}, not {tenant_code} (Meridian Cl.22)"
                 )
             raise FileNotFoundError(f"evidence bundle not found: {bundle_id}")
-        path = Path(meta["path"])
-        doc = json.loads(path.read_text(encoding="utf-8"))
-        if doc.get("tenant_code") != tenant_code:
-            raise PermissionError("tenant isolation violation on disk document")
+        report, documents = self._inspect_chain(tenant_code)
+        if not report["ok"]:
+            raise EvidenceIntegrityError(report)
+        if bundle_id not in documents:
+            raise EvidenceIntegrityError({**report, "ok": False, "errors": [f"{bundle_id}: INDEX_CHANGED"]})
+        # Return the bytes parsed during verification, not a second unverified read.
+        doc = documents[bundle_id]
         elapsed_ms = (time.perf_counter() - started) * 1000
         if measure:
             doc["_retrieval_latency_ms"] = elapsed_ms
         return doc
 
     def verify_document(self, doc: dict[str, Any]) -> bool:
-        """Recompute content hash and verify it matches the document metadata."""
-        core = {
-            k: doc[k]
-            for k in (
-                "tenant_code",
-                "event_id",
-                "case_id",
-                "created_at",
-                "retention_until",
-                "retention_years",
-                "rule_pack_version",
-                "ref_snapshot_id",
-                "code_version",
-                "inputs",
-                "recommendation",
-                "reasoning_steps",
-                "reviewer_signoff",
-            )
-            if k in doc
-        }
+        """Check self-consistency only; stored evidence also needs chain/index checks."""
+        core = {k: doc[k] for k in _CORE_FIELDS if k in doc}
         return canonical_hash(core) == doc.get("content_hash")
 
-    def verify_chain(self, tenant_code: str) -> dict[str, Any]:
-        """Walk the tenant hash chain and report tamper/length errors."""
+    def _inspect_chain(self, tenant_code: str) -> tuple[dict[str, Any], dict[str, dict[str, Any]]]:
+        """Reconcile both stores; use indexed hashes, never file claims, as links.
+
+        Read each document once so retrieval uses exactly the inspected contents.
+        This is not a filesystem/SQLite transaction or an independent trust anchor.
+        """
         chain = self.db.chain_for_tenant(tenant_code)
         errors: list[str] = []
+        documents: dict[str, dict[str, Any]] = {}
         prev: Optional[str] = None
-        for position, meta in enumerate(chain):
-            doc = json.loads(Path(meta["path"]).read_text(encoding="utf-8"))
-            if not self.verify_document(doc):
-                errors.append(f"{meta['bundle_id']}: content hash mismatch (tamper)")
-            expected_prev = prev
-            if doc.get("prev_hash") != expected_prev:
-                errors.append(
-                    f"{meta['bundle_id']}: chain break at index {position}: "
-                    f"prev_hash={doc.get('prev_hash')} expected={expected_prev}"
-                )
-            prev = doc.get("content_hash")
-        return {
-            "tenant_code": tenant_code,
-            "length": len(chain),
-            "ok": not errors,
-            "errors": errors,
-        }
+        tenant_dir = self.root.resolve() / tenant_code
+        indexed_paths: set[Path] = set()
+        valid_tenant = bool(tenant_code) and Path(tenant_code).name == tenant_code and tenant_code not in {".", ".."}
+        if not valid_tenant:
+            errors.append("INVALID_TENANT_PATH")
+        else:
+            for meta in chain:
+                bundle_id = meta["bundle_id"]
+                expected_path = tenant_dir / f"{bundle_id}.json"
+                indexed_paths.add(expected_path)
+                if meta["prev_hash"] != prev:
+                    errors.append(f"{bundle_id}: INDEX_PREDECESSOR_MISMATCH")
+                expected_prev = prev
+                prev = meta["content_hash"]
+                try:
+                    path = Path(meta["path"])
+                    if path.resolve() != expected_path or path.is_symlink():
+                        errors.append(f"{bundle_id}: PATH_MISMATCH (expected tenant/bundle placement)")
+                        continue
+                    doc = json.loads(path.read_text(encoding="utf-8"))
+                except FileNotFoundError:
+                    errors.append(f"{bundle_id}: MISSING_FILE")
+                    continue
+                except (OSError, ValueError, RuntimeError) as exc:
+                    errors.append(f"{bundle_id}: UNREADABLE_FILE ({type(exc).__name__})")
+                    continue
+                if not isinstance(doc, dict):
+                    errors.append(f"{bundle_id}: INVALID_DOCUMENT (expected object)")
+                    continue
+                for field in (*_CORE_FIELDS, "bundle_id", "content_hash", "prev_hash", "schema"):
+                    if field not in doc:
+                        errors.append(f"{bundle_id}: MISSING_FIELD:{field}")
+                if not self.verify_document(doc):
+                    errors.append(f"{bundle_id}: CONTENT_HASH_MISMATCH (tamper)")
+                if doc.get("content_hash") != meta["content_hash"]:
+                    errors.append(f"{bundle_id}: INDEX_HASH_MISMATCH")
+                for field in (
+                    "bundle_id",
+                    "tenant_code",
+                    "event_id",
+                    "case_id",
+                    "created_at",
+                    "retention_until",
+                    "rule_pack_version",
+                    "ref_snapshot_id",
+                    "code_version",
+                ):
+                    if doc.get(field) != meta[field]:
+                        errors.append(f"{bundle_id}: INDEX_METADATA_MISMATCH:{field}")
+                if doc.get("bundle_id") != f"EVB-{str(meta['content_hash'])[:16]}":
+                    errors.append(f"{bundle_id}: CONTENT_ADDRESS_MISMATCH")
+                if doc.get("schema") != "kestrel.evidence.v1":
+                    errors.append(f"{bundle_id}: INVALID_SCHEMA")
+                if doc.get("prev_hash") != meta["prev_hash"] or doc.get("prev_hash") != expected_prev:
+                    errors.append(f"{bundle_id}: FILE_PREDECESSOR_MISMATCH")
+                documents[bundle_id] = doc
+            try:
+                if tenant_dir.resolve() != tenant_dir:
+                    errors.append("PATH_MISMATCH (tenant directory symlink)")
+                else:
+                    for path in sorted(tenant_dir.rglob("*.json")):
+                        if path not in indexed_paths:
+                            errors.append(f"{path.relative_to(tenant_dir)}: UNINDEXED_FILE")
+            except (OSError, RuntimeError) as exc:
+                errors.append(f"UNREADABLE_DIRECTORY ({type(exc).__name__})")
+        return ({"tenant_code": tenant_code, "length": len(chain), "ok": not errors, "errors": errors}, documents)
+
+    def verify_chain(self, tenant_code: str) -> dict[str, Any]:
+        """Fail closed on missing, misplaced, unindexed or inconsistent evidence."""
+        return self._inspect_chain(tenant_code)[0]
 
     def produce_full_basis(self, event_id: str, tenant_code: str) -> dict[str, Any]:
         """Board commitment 3: full basis on request — measure latency."""

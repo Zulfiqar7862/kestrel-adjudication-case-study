@@ -1,0 +1,1177 @@
+FFFFFFFFFFFFFFFFFFFFFFFFF                                                [100%]
+=================================== FAILURES ===================================
+_____ test_chain_reconciles_both_stores[resealed_tail-INDEX_HASH_MISMATCH] _____
+
+chain = (<kestrel.storage.evidence.EvidenceStore object at 0x7f8ff0f782f0>, <kestrel.storage.bitemporal.BitemporalStore object...n'), PosixPath('/tmp/pytest-of-box/pytest-98/test_chain_reconciles_both_sto0/evidence/T-A/EVB-2a91fdb65f3b6101.json')])
+damage = 'resealed_tail', reason = 'INDEX_HASH_MISMATCH'
+
+    @pytest.mark.parametrize("damage,reason", [
+        ("resealed_tail", "INDEX_HASH_MISMATCH"),
+        ("resealed_middle", "INDEX_HASH_MISMATCH"),
+        ("deleted_tail", "MISSING_FILE"),
+        ("swapped_files", "INDEX_METADATA_MISMATCH:bundle_id"),
+        ("index_hash", "INDEX_HASH_MISMATCH"),
+        ("index_predecessor", "INDEX_PREDECESSOR_MISMATCH"),
+        ("file_predecessor", "FILE_PREDECESSOR_MISMATCH"),
+        ("index_without_file", "MISSING_FILE"),
+        ("file_without_index", "UNINDEXED_FILE"),
+        ("cross_tenant_path", "PATH_MISMATCH"),
+        ("cross_tenant_document", "INDEX_METADATA_MISMATCH:tenant_code"),
+        ("malformed_json", "UNREADABLE_FILE"),
+    ])
+    def test_chain_reconciles_both_stores(chain, damage, reason):
+        evidence, db, docs, paths = chain
+        tail = docs[-1]["bundle_id"]
+        if damage.startswith("resealed_"):
+            changed = reseal(paths[-1 if damage == "resealed_tail" else 1])
+            if damage == "resealed_middle":
+                successor = docs[-1]
+                successor["prev_hash"] = changed["content_hash"]
+                paths[-1].write_text(json.dumps(successor))
+        elif damage == "deleted_tail":
+            paths[-1].unlink()
+        elif damage == "swapped_files":
+            a, b = paths[0].read_bytes(), paths[-1].read_bytes()
+            paths[0].write_bytes(b)
+            paths[-1].write_bytes(a)
+        elif damage in {"index_hash", "index_predecessor"}:
+            field = "content_hash" if damage == "index_hash" else "prev_hash"
+            with db.connection() as conn:
+                conn.execute(f"UPDATE evidence_index SET {field}=? WHERE bundle_id=?", ("0" * 64, tail))
+        elif damage == "file_predecessor":
+            doc = docs[-1]
+            doc["prev_hash"] = "0" * 64
+            paths[-1].write_text(json.dumps(doc))
+        elif damage == "index_without_file":
+            paths[1].unlink()
+        elif damage == "file_without_index":
+            with db.connection() as conn:
+                conn.execute("DELETE FROM evidence_index WHERE bundle_id=?", (tail,))
+        elif damage == "cross_tenant_path":
+            other = evidence.root / "T-B" / paths[-1].name
+            other.parent.mkdir()
+            paths[-1].rename(other)
+            with db.connection() as conn:
+                conn.execute("UPDATE evidence_index SET path=? WHERE bundle_id=?", (str(other), tail))
+        elif damage == "cross_tenant_document":
+            doc = docs[-1]
+            doc["tenant_code"] = "T-B"
+            paths[-1].write_text(json.dumps(doc))
+            reseal(paths[-1])
+        elif damage == "malformed_json":
+            paths[-1].write_text("{broken")
+        report = evidence.verify_chain("T-A")
+>       assert not report["ok"], report
+E       AssertionError: {'tenant_code': 'T-A', 'length': 3, 'ok': True, 'errors': []}
+E       assert not True
+
+tests/test_evidence_integrity.py:96: AssertionError
+____ test_chain_reconciles_both_stores[resealed_middle-INDEX_HASH_MISMATCH] ____
+
+chain = (<kestrel.storage.evidence.EvidenceStore object at 0x7f8ff14cf610>, <kestrel.storage.bitemporal.BitemporalStore object...n'), PosixPath('/tmp/pytest-of-box/pytest-98/test_chain_reconciles_both_sto1/evidence/T-A/EVB-29c6d3f3c6b00bf4.json')])
+damage = 'resealed_middle', reason = 'INDEX_HASH_MISMATCH'
+
+    @pytest.mark.parametrize("damage,reason", [
+        ("resealed_tail", "INDEX_HASH_MISMATCH"),
+        ("resealed_middle", "INDEX_HASH_MISMATCH"),
+        ("deleted_tail", "MISSING_FILE"),
+        ("swapped_files", "INDEX_METADATA_MISMATCH:bundle_id"),
+        ("index_hash", "INDEX_HASH_MISMATCH"),
+        ("index_predecessor", "INDEX_PREDECESSOR_MISMATCH"),
+        ("file_predecessor", "FILE_PREDECESSOR_MISMATCH"),
+        ("index_without_file", "MISSING_FILE"),
+        ("file_without_index", "UNINDEXED_FILE"),
+        ("cross_tenant_path", "PATH_MISMATCH"),
+        ("cross_tenant_document", "INDEX_METADATA_MISMATCH:tenant_code"),
+        ("malformed_json", "UNREADABLE_FILE"),
+    ])
+    def test_chain_reconciles_both_stores(chain, damage, reason):
+        evidence, db, docs, paths = chain
+        tail = docs[-1]["bundle_id"]
+        if damage.startswith("resealed_"):
+            changed = reseal(paths[-1 if damage == "resealed_tail" else 1])
+            if damage == "resealed_middle":
+                successor = docs[-1]
+                successor["prev_hash"] = changed["content_hash"]
+                paths[-1].write_text(json.dumps(successor))
+        elif damage == "deleted_tail":
+            paths[-1].unlink()
+        elif damage == "swapped_files":
+            a, b = paths[0].read_bytes(), paths[-1].read_bytes()
+            paths[0].write_bytes(b)
+            paths[-1].write_bytes(a)
+        elif damage in {"index_hash", "index_predecessor"}:
+            field = "content_hash" if damage == "index_hash" else "prev_hash"
+            with db.connection() as conn:
+                conn.execute(f"UPDATE evidence_index SET {field}=? WHERE bundle_id=?", ("0" * 64, tail))
+        elif damage == "file_predecessor":
+            doc = docs[-1]
+            doc["prev_hash"] = "0" * 64
+            paths[-1].write_text(json.dumps(doc))
+        elif damage == "index_without_file":
+            paths[1].unlink()
+        elif damage == "file_without_index":
+            with db.connection() as conn:
+                conn.execute("DELETE FROM evidence_index WHERE bundle_id=?", (tail,))
+        elif damage == "cross_tenant_path":
+            other = evidence.root / "T-B" / paths[-1].name
+            other.parent.mkdir()
+            paths[-1].rename(other)
+            with db.connection() as conn:
+                conn.execute("UPDATE evidence_index SET path=? WHERE bundle_id=?", (str(other), tail))
+        elif damage == "cross_tenant_document":
+            doc = docs[-1]
+            doc["tenant_code"] = "T-B"
+            paths[-1].write_text(json.dumps(doc))
+            reseal(paths[-1])
+        elif damage == "malformed_json":
+            paths[-1].write_text("{broken")
+        report = evidence.verify_chain("T-A")
+>       assert not report["ok"], report
+E       AssertionError: {'tenant_code': 'T-A', 'length': 3, 'ok': True, 'errors': []}
+E       assert not True
+
+tests/test_evidence_integrity.py:96: AssertionError
+_________ test_chain_reconciles_both_stores[deleted_tail-MISSING_FILE] _________
+
+chain = (<kestrel.storage.evidence.EvidenceStore object at 0x7f8ff0cd0190>, <kestrel.storage.bitemporal.BitemporalStore object...n'), PosixPath('/tmp/pytest-of-box/pytest-98/test_chain_reconciles_both_sto2/evidence/T-A/EVB-8500909e4e72e1b9.json')])
+damage = 'deleted_tail', reason = 'MISSING_FILE'
+
+    @pytest.mark.parametrize("damage,reason", [
+        ("resealed_tail", "INDEX_HASH_MISMATCH"),
+        ("resealed_middle", "INDEX_HASH_MISMATCH"),
+        ("deleted_tail", "MISSING_FILE"),
+        ("swapped_files", "INDEX_METADATA_MISMATCH:bundle_id"),
+        ("index_hash", "INDEX_HASH_MISMATCH"),
+        ("index_predecessor", "INDEX_PREDECESSOR_MISMATCH"),
+        ("file_predecessor", "FILE_PREDECESSOR_MISMATCH"),
+        ("index_without_file", "MISSING_FILE"),
+        ("file_without_index", "UNINDEXED_FILE"),
+        ("cross_tenant_path", "PATH_MISMATCH"),
+        ("cross_tenant_document", "INDEX_METADATA_MISMATCH:tenant_code"),
+        ("malformed_json", "UNREADABLE_FILE"),
+    ])
+    def test_chain_reconciles_both_stores(chain, damage, reason):
+        evidence, db, docs, paths = chain
+        tail = docs[-1]["bundle_id"]
+        if damage.startswith("resealed_"):
+            changed = reseal(paths[-1 if damage == "resealed_tail" else 1])
+            if damage == "resealed_middle":
+                successor = docs[-1]
+                successor["prev_hash"] = changed["content_hash"]
+                paths[-1].write_text(json.dumps(successor))
+        elif damage == "deleted_tail":
+            paths[-1].unlink()
+        elif damage == "swapped_files":
+            a, b = paths[0].read_bytes(), paths[-1].read_bytes()
+            paths[0].write_bytes(b)
+            paths[-1].write_bytes(a)
+        elif damage in {"index_hash", "index_predecessor"}:
+            field = "content_hash" if damage == "index_hash" else "prev_hash"
+            with db.connection() as conn:
+                conn.execute(f"UPDATE evidence_index SET {field}=? WHERE bundle_id=?", ("0" * 64, tail))
+        elif damage == "file_predecessor":
+            doc = docs[-1]
+            doc["prev_hash"] = "0" * 64
+            paths[-1].write_text(json.dumps(doc))
+        elif damage == "index_without_file":
+            paths[1].unlink()
+        elif damage == "file_without_index":
+            with db.connection() as conn:
+                conn.execute("DELETE FROM evidence_index WHERE bundle_id=?", (tail,))
+        elif damage == "cross_tenant_path":
+            other = evidence.root / "T-B" / paths[-1].name
+            other.parent.mkdir()
+            paths[-1].rename(other)
+            with db.connection() as conn:
+                conn.execute("UPDATE evidence_index SET path=? WHERE bundle_id=?", (str(other), tail))
+        elif damage == "cross_tenant_document":
+            doc = docs[-1]
+            doc["tenant_code"] = "T-B"
+            paths[-1].write_text(json.dumps(doc))
+            reseal(paths[-1])
+        elif damage == "malformed_json":
+            paths[-1].write_text("{broken")
+>       report = evidence.verify_chain("T-A")
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_evidence_integrity.py:95:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src/kestrel/storage/evidence.py:175: in verify_chain
+    doc = json.loads(Path(meta["path"]).read_text(encoding="utf-8"))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/pathlib/_local.py:548: in read_text
+    return PathBase.read_text(self, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/pathlib/_abc.py:632: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PosixPath('/tmp/pytest-of-box/pytest-98/test_chain_reconciles_both_sto2/evidence/T-A/EVB-8500909e4e72e1b9.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-box/pytest-98/test_chain_reconciles_both_sto2/evidence/T-A/EVB-8500909e4e72e1b9.json'
+
+/usr/lib/python3.13/pathlib/_local.py:539: FileNotFoundError
+_ test_chain_reconciles_both_stores[swapped_files-INDEX_METADATA_MISMATCH:bundle_id] _
+
+chain = (<kestrel.storage.evidence.EvidenceStore object at 0x7f8ff0f469e0>, <kestrel.storage.bitemporal.BitemporalStore object...n'), PosixPath('/tmp/pytest-of-box/pytest-98/test_chain_reconciles_both_sto3/evidence/T-A/EVB-20022ebdb4f9f6b4.json')])
+damage = 'swapped_files', reason = 'INDEX_METADATA_MISMATCH:bundle_id'
+
+    @pytest.mark.parametrize("damage,reason", [
+        ("resealed_tail", "INDEX_HASH_MISMATCH"),
+        ("resealed_middle", "INDEX_HASH_MISMATCH"),
+        ("deleted_tail", "MISSING_FILE"),
+        ("swapped_files", "INDEX_METADATA_MISMATCH:bundle_id"),
+        ("index_hash", "INDEX_HASH_MISMATCH"),
+        ("index_predecessor", "INDEX_PREDECESSOR_MISMATCH"),
+        ("file_predecessor", "FILE_PREDECESSOR_MISMATCH"),
+        ("index_without_file", "MISSING_FILE"),
+        ("file_without_index", "UNINDEXED_FILE"),
+        ("cross_tenant_path", "PATH_MISMATCH"),
+        ("cross_tenant_document", "INDEX_METADATA_MISMATCH:tenant_code"),
+        ("malformed_json", "UNREADABLE_FILE"),
+    ])
+    def test_chain_reconciles_both_stores(chain, damage, reason):
+        evidence, db, docs, paths = chain
+        tail = docs[-1]["bundle_id"]
+        if damage.startswith("resealed_"):
+            changed = reseal(paths[-1 if damage == "resealed_tail" else 1])
+            if damage == "resealed_middle":
+                successor = docs[-1]
+                successor["prev_hash"] = changed["content_hash"]
+                paths[-1].write_text(json.dumps(successor))
+        elif damage == "deleted_tail":
+            paths[-1].unlink()
+        elif damage == "swapped_files":
+            a, b = paths[0].read_bytes(), paths[-1].read_bytes()
+            paths[0].write_bytes(b)
+            paths[-1].write_bytes(a)
+        elif damage in {"index_hash", "index_predecessor"}:
+            field = "content_hash" if damage == "index_hash" else "prev_hash"
+            with db.connection() as conn:
+                conn.execute(f"UPDATE evidence_index SET {field}=? WHERE bundle_id=?", ("0" * 64, tail))
+        elif damage == "file_predecessor":
+            doc = docs[-1]
+            doc["prev_hash"] = "0" * 64
+            paths[-1].write_text(json.dumps(doc))
+        elif damage == "index_without_file":
+            paths[1].unlink()
+        elif damage == "file_without_index":
+            with db.connection() as conn:
+                conn.execute("DELETE FROM evidence_index WHERE bundle_id=?", (tail,))
+        elif damage == "cross_tenant_path":
+            other = evidence.root / "T-B" / paths[-1].name
+            other.parent.mkdir()
+            paths[-1].rename(other)
+            with db.connection() as conn:
+                conn.execute("UPDATE evidence_index SET path=? WHERE bundle_id=?", (str(other), tail))
+        elif damage == "cross_tenant_document":
+            doc = docs[-1]
+            doc["tenant_code"] = "T-B"
+            paths[-1].write_text(json.dumps(doc))
+            reseal(paths[-1])
+        elif damage == "malformed_json":
+            paths[-1].write_text("{broken")
+        report = evidence.verify_chain("T-A")
+        assert not report["ok"], report
+>       assert any(reason in error for error in report["errors"]), report
+E       AssertionError: {'tenant_code': 'T-A', 'length': 3, 'ok': False, 'errors': ['EVB-b5c4b63334a2fd7d: chain break at index 0: prev_hash=d...b4: chain break at index 2: prev_hash=None expected=d28fa79323bb8c64db3e0b698604083c17b9d5a8528a7d0aa15c38b9bb3266f3']}
+E       assert False
+E        +  where False = any(<generator object test_chain_reconciles_both_stores.<locals>.<genexpr> at 0x7f8ff0aec520>)
+
+tests/test_evidence_integrity.py:97: AssertionError
+______ test_chain_reconciles_both_stores[index_hash-INDEX_HASH_MISMATCH] _______
+
+chain = (<kestrel.storage.evidence.EvidenceStore object at 0x7f8ff0f47360>, <kestrel.storage.bitemporal.BitemporalStore object...n'), PosixPath('/tmp/pytest-of-box/pytest-98/test_chain_reconciles_both_sto4/evidence/T-A/EVB-a006918ef67f77e8.json')])
+damage = 'index_hash', reason = 'INDEX_HASH_MISMATCH'
+
+    @pytest.mark.parametrize("damage,reason", [
+        ("resealed_tail", "INDEX_HASH_MISMATCH"),
+        ("resealed_middle", "INDEX_HASH_MISMATCH"),
+        ("deleted_tail", "MISSING_FILE"),
+        ("swapped_files", "INDEX_METADATA_MISMATCH:bundle_id"),
+        ("index_hash", "INDEX_HASH_MISMATCH"),
+        ("index_predecessor", "INDEX_PREDECESSOR_MISMATCH"),
+        ("file_predecessor", "FILE_PREDECESSOR_MISMATCH"),
+        ("index_without_file", "MISSING_FILE"),
+        ("file_without_index", "UNINDEXED_FILE"),
+        ("cross_tenant_path", "PATH_MISMATCH"),
+        ("cross_tenant_document", "INDEX_METADATA_MISMATCH:tenant_code"),
+        ("malformed_json", "UNREADABLE_FILE"),
+    ])
+    def test_chain_reconciles_both_stores(chain, damage, reason):
+        evidence, db, docs, paths = chain
+        tail = docs[-1]["bundle_id"]
+        if damage.startswith("resealed_"):
+            changed = reseal(paths[-1 if damage == "resealed_tail" else 1])
+            if damage == "resealed_middle":
+                successor = docs[-1]
+                successor["prev_hash"] = changed["content_hash"]
+                paths[-1].write_text(json.dumps(successor))
+        elif damage == "deleted_tail":
+            paths[-1].unlink()
+        elif damage == "swapped_files":
+            a, b = paths[0].read_bytes(), paths[-1].read_bytes()
+            paths[0].write_bytes(b)
+            paths[-1].write_bytes(a)
+        elif damage in {"index_hash", "index_predecessor"}:
+            field = "content_hash" if damage == "index_hash" else "prev_hash"
+            with db.connection() as conn:
+                conn.execute(f"UPDATE evidence_index SET {field}=? WHERE bundle_id=?", ("0" * 64, tail))
+        elif damage == "file_predecessor":
+            doc = docs[-1]
+            doc["prev_hash"] = "0" * 64
+            paths[-1].write_text(json.dumps(doc))
+        elif damage == "index_without_file":
+            paths[1].unlink()
+        elif damage == "file_without_index":
+            with db.connection() as conn:
+                conn.execute("DELETE FROM evidence_index WHERE bundle_id=?", (tail,))
+        elif damage == "cross_tenant_path":
+            other = evidence.root / "T-B" / paths[-1].name
+            other.parent.mkdir()
+            paths[-1].rename(other)
+            with db.connection() as conn:
+                conn.execute("UPDATE evidence_index SET path=? WHERE bundle_id=?", (str(other), tail))
+        elif damage == "cross_tenant_document":
+            doc = docs[-1]
+            doc["tenant_code"] = "T-B"
+            paths[-1].write_text(json.dumps(doc))
+            reseal(paths[-1])
+        elif damage == "malformed_json":
+            paths[-1].write_text("{broken")
+        report = evidence.verify_chain("T-A")
+>       assert not report["ok"], report
+E       AssertionError: {'tenant_code': 'T-A', 'length': 3, 'ok': True, 'errors': []}
+E       assert not True
+
+tests/test_evidence_integrity.py:96: AssertionError
+_ test_chain_reconciles_both_stores[index_predecessor-INDEX_PREDECESSOR_MISMATCH] _
+
+chain = (<kestrel.storage.evidence.EvidenceStore object at 0x7f8ff0f86330>, <kestrel.storage.bitemporal.BitemporalStore object...n'), PosixPath('/tmp/pytest-of-box/pytest-98/test_chain_reconciles_both_sto5/evidence/T-A/EVB-ac3b3555624ba92d.json')])
+damage = 'index_predecessor', reason = 'INDEX_PREDECESSOR_MISMATCH'
+
+    @pytest.mark.parametrize("damage,reason", [
+        ("resealed_tail", "INDEX_HASH_MISMATCH"),
+        ("resealed_middle", "INDEX_HASH_MISMATCH"),
+        ("deleted_tail", "MISSING_FILE"),
+        ("swapped_files", "INDEX_METADATA_MISMATCH:bundle_id"),
+        ("index_hash", "INDEX_HASH_MISMATCH"),
+        ("index_predecessor", "INDEX_PREDECESSOR_MISMATCH"),
+        ("file_predecessor", "FILE_PREDECESSOR_MISMATCH"),
+        ("index_without_file", "MISSING_FILE"),
+        ("file_without_index", "UNINDEXED_FILE"),
+        ("cross_tenant_path", "PATH_MISMATCH"),
+        ("cross_tenant_document", "INDEX_METADATA_MISMATCH:tenant_code"),
+        ("malformed_json", "UNREADABLE_FILE"),
+    ])
+    def test_chain_reconciles_both_stores(chain, damage, reason):
+        evidence, db, docs, paths = chain
+        tail = docs[-1]["bundle_id"]
+        if damage.startswith("resealed_"):
+            changed = reseal(paths[-1 if damage == "resealed_tail" else 1])
+            if damage == "resealed_middle":
+                successor = docs[-1]
+                successor["prev_hash"] = changed["content_hash"]
+                paths[-1].write_text(json.dumps(successor))
+        elif damage == "deleted_tail":
+            paths[-1].unlink()
+        elif damage == "swapped_files":
+            a, b = paths[0].read_bytes(), paths[-1].read_bytes()
+            paths[0].write_bytes(b)
+            paths[-1].write_bytes(a)
+        elif damage in {"index_hash", "index_predecessor"}:
+            field = "content_hash" if damage == "index_hash" else "prev_hash"
+            with db.connection() as conn:
+                conn.execute(f"UPDATE evidence_index SET {field}=? WHERE bundle_id=?", ("0" * 64, tail))
+        elif damage == "file_predecessor":
+            doc = docs[-1]
+            doc["prev_hash"] = "0" * 64
+            paths[-1].write_text(json.dumps(doc))
+        elif damage == "index_without_file":
+            paths[1].unlink()
+        elif damage == "file_without_index":
+            with db.connection() as conn:
+                conn.execute("DELETE FROM evidence_index WHERE bundle_id=?", (tail,))
+        elif damage == "cross_tenant_path":
+            other = evidence.root / "T-B" / paths[-1].name
+            other.parent.mkdir()
+            paths[-1].rename(other)
+            with db.connection() as conn:
+                conn.execute("UPDATE evidence_index SET path=? WHERE bundle_id=?", (str(other), tail))
+        elif damage == "cross_tenant_document":
+            doc = docs[-1]
+            doc["tenant_code"] = "T-B"
+            paths[-1].write_text(json.dumps(doc))
+            reseal(paths[-1])
+        elif damage == "malformed_json":
+            paths[-1].write_text("{broken")
+        report = evidence.verify_chain("T-A")
+>       assert not report["ok"], report
+E       AssertionError: {'tenant_code': 'T-A', 'length': 3, 'ok': True, 'errors': []}
+E       assert not True
+
+tests/test_evidence_integrity.py:96: AssertionError
+_ test_chain_reconciles_both_stores[file_predecessor-FILE_PREDECESSOR_MISMATCH] _
+
+chain = (<kestrel.storage.evidence.EvidenceStore object at 0x7f8ff0f3e140>, <kestrel.storage.bitemporal.BitemporalStore object...n'), PosixPath('/tmp/pytest-of-box/pytest-98/test_chain_reconciles_both_sto6/evidence/T-A/EVB-0cc2e87682a7ea32.json')])
+damage = 'file_predecessor', reason = 'FILE_PREDECESSOR_MISMATCH'
+
+    @pytest.mark.parametrize("damage,reason", [
+        ("resealed_tail", "INDEX_HASH_MISMATCH"),
+        ("resealed_middle", "INDEX_HASH_MISMATCH"),
+        ("deleted_tail", "MISSING_FILE"),
+        ("swapped_files", "INDEX_METADATA_MISMATCH:bundle_id"),
+        ("index_hash", "INDEX_HASH_MISMATCH"),
+        ("index_predecessor", "INDEX_PREDECESSOR_MISMATCH"),
+        ("file_predecessor", "FILE_PREDECESSOR_MISMATCH"),
+        ("index_without_file", "MISSING_FILE"),
+        ("file_without_index", "UNINDEXED_FILE"),
+        ("cross_tenant_path", "PATH_MISMATCH"),
+        ("cross_tenant_document", "INDEX_METADATA_MISMATCH:tenant_code"),
+        ("malformed_json", "UNREADABLE_FILE"),
+    ])
+    def test_chain_reconciles_both_stores(chain, damage, reason):
+        evidence, db, docs, paths = chain
+        tail = docs[-1]["bundle_id"]
+        if damage.startswith("resealed_"):
+            changed = reseal(paths[-1 if damage == "resealed_tail" else 1])
+            if damage == "resealed_middle":
+                successor = docs[-1]
+                successor["prev_hash"] = changed["content_hash"]
+                paths[-1].write_text(json.dumps(successor))
+        elif damage == "deleted_tail":
+            paths[-1].unlink()
+        elif damage == "swapped_files":
+            a, b = paths[0].read_bytes(), paths[-1].read_bytes()
+            paths[0].write_bytes(b)
+            paths[-1].write_bytes(a)
+        elif damage in {"index_hash", "index_predecessor"}:
+            field = "content_hash" if damage == "index_hash" else "prev_hash"
+            with db.connection() as conn:
+                conn.execute(f"UPDATE evidence_index SET {field}=? WHERE bundle_id=?", ("0" * 64, tail))
+        elif damage == "file_predecessor":
+            doc = docs[-1]
+            doc["prev_hash"] = "0" * 64
+            paths[-1].write_text(json.dumps(doc))
+        elif damage == "index_without_file":
+            paths[1].unlink()
+        elif damage == "file_without_index":
+            with db.connection() as conn:
+                conn.execute("DELETE FROM evidence_index WHERE bundle_id=?", (tail,))
+        elif damage == "cross_tenant_path":
+            other = evidence.root / "T-B" / paths[-1].name
+            other.parent.mkdir()
+            paths[-1].rename(other)
+            with db.connection() as conn:
+                conn.execute("UPDATE evidence_index SET path=? WHERE bundle_id=?", (str(other), tail))
+        elif damage == "cross_tenant_document":
+            doc = docs[-1]
+            doc["tenant_code"] = "T-B"
+            paths[-1].write_text(json.dumps(doc))
+            reseal(paths[-1])
+        elif damage == "malformed_json":
+            paths[-1].write_text("{broken")
+        report = evidence.verify_chain("T-A")
+        assert not report["ok"], report
+>       assert any(reason in error for error in report["errors"]), report
+E       AssertionError: {'tenant_code': 'T-A', 'length': 3, 'ok': False, 'errors': ['EVB-0cc2e87682a7ea32: chain break at index 2: prev_hash=0...000000000000000000000000000000000000000000 expected=104b44a9d39207c4d332f42da9692b6cdaa9d2a0a5ffc4ecb1f26180046b6983']}
+E       assert False
+E        +  where False = any(<generator object test_chain_reconciles_both_stores.<locals>.<genexpr> at 0x7f8ff0aecad0>)
+
+tests/test_evidence_integrity.py:97: AssertionError
+______ test_chain_reconciles_both_stores[index_without_file-MISSING_FILE] ______
+
+chain = (<kestrel.storage.evidence.EvidenceStore object at 0x7f8ff0f3e9c0>, <kestrel.storage.bitemporal.BitemporalStore object...n'), PosixPath('/tmp/pytest-of-box/pytest-98/test_chain_reconciles_both_sto7/evidence/T-A/EVB-4a258346eef34655.json')])
+damage = 'index_without_file', reason = 'MISSING_FILE'
+
+    @pytest.mark.parametrize("damage,reason", [
+        ("resealed_tail", "INDEX_HASH_MISMATCH"),
+        ("resealed_middle", "INDEX_HASH_MISMATCH"),
+        ("deleted_tail", "MISSING_FILE"),
+        ("swapped_files", "INDEX_METADATA_MISMATCH:bundle_id"),
+        ("index_hash", "INDEX_HASH_MISMATCH"),
+        ("index_predecessor", "INDEX_PREDECESSOR_MISMATCH"),
+        ("file_predecessor", "FILE_PREDECESSOR_MISMATCH"),
+        ("index_without_file", "MISSING_FILE"),
+        ("file_without_index", "UNINDEXED_FILE"),
+        ("cross_tenant_path", "PATH_MISMATCH"),
+        ("cross_tenant_document", "INDEX_METADATA_MISMATCH:tenant_code"),
+        ("malformed_json", "UNREADABLE_FILE"),
+    ])
+    def test_chain_reconciles_both_stores(chain, damage, reason):
+        evidence, db, docs, paths = chain
+        tail = docs[-1]["bundle_id"]
+        if damage.startswith("resealed_"):
+            changed = reseal(paths[-1 if damage == "resealed_tail" else 1])
+            if damage == "resealed_middle":
+                successor = docs[-1]
+                successor["prev_hash"] = changed["content_hash"]
+                paths[-1].write_text(json.dumps(successor))
+        elif damage == "deleted_tail":
+            paths[-1].unlink()
+        elif damage == "swapped_files":
+            a, b = paths[0].read_bytes(), paths[-1].read_bytes()
+            paths[0].write_bytes(b)
+            paths[-1].write_bytes(a)
+        elif damage in {"index_hash", "index_predecessor"}:
+            field = "content_hash" if damage == "index_hash" else "prev_hash"
+            with db.connection() as conn:
+                conn.execute(f"UPDATE evidence_index SET {field}=? WHERE bundle_id=?", ("0" * 64, tail))
+        elif damage == "file_predecessor":
+            doc = docs[-1]
+            doc["prev_hash"] = "0" * 64
+            paths[-1].write_text(json.dumps(doc))
+        elif damage == "index_without_file":
+            paths[1].unlink()
+        elif damage == "file_without_index":
+            with db.connection() as conn:
+                conn.execute("DELETE FROM evidence_index WHERE bundle_id=?", (tail,))
+        elif damage == "cross_tenant_path":
+            other = evidence.root / "T-B" / paths[-1].name
+            other.parent.mkdir()
+            paths[-1].rename(other)
+            with db.connection() as conn:
+                conn.execute("UPDATE evidence_index SET path=? WHERE bundle_id=?", (str(other), tail))
+        elif damage == "cross_tenant_document":
+            doc = docs[-1]
+            doc["tenant_code"] = "T-B"
+            paths[-1].write_text(json.dumps(doc))
+            reseal(paths[-1])
+        elif damage == "malformed_json":
+            paths[-1].write_text("{broken")
+>       report = evidence.verify_chain("T-A")
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_evidence_integrity.py:95:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src/kestrel/storage/evidence.py:175: in verify_chain
+    doc = json.loads(Path(meta["path"]).read_text(encoding="utf-8"))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/pathlib/_local.py:548: in read_text
+    return PathBase.read_text(self, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/pathlib/_abc.py:632: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PosixPath('/tmp/pytest-of-box/pytest-98/test_chain_reconciles_both_sto7/evidence/T-A/EVB-f7d54c406d0fb65c.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-box/pytest-98/test_chain_reconciles_both_sto7/evidence/T-A/EVB-f7d54c406d0fb65c.json'
+
+/usr/lib/python3.13/pathlib/_local.py:539: FileNotFoundError
+_____ test_chain_reconciles_both_stores[file_without_index-UNINDEXED_FILE] _____
+
+chain = (<kestrel.storage.evidence.EvidenceStore object at 0x7f8ff0fe9250>, <kestrel.storage.bitemporal.BitemporalStore object...n'), PosixPath('/tmp/pytest-of-box/pytest-98/test_chain_reconciles_both_sto8/evidence/T-A/EVB-704bbf0d33863f61.json')])
+damage = 'file_without_index', reason = 'UNINDEXED_FILE'
+
+    @pytest.mark.parametrize("damage,reason", [
+        ("resealed_tail", "INDEX_HASH_MISMATCH"),
+        ("resealed_middle", "INDEX_HASH_MISMATCH"),
+        ("deleted_tail", "MISSING_FILE"),
+        ("swapped_files", "INDEX_METADATA_MISMATCH:bundle_id"),
+        ("index_hash", "INDEX_HASH_MISMATCH"),
+        ("index_predecessor", "INDEX_PREDECESSOR_MISMATCH"),
+        ("file_predecessor", "FILE_PREDECESSOR_MISMATCH"),
+        ("index_without_file", "MISSING_FILE"),
+        ("file_without_index", "UNINDEXED_FILE"),
+        ("cross_tenant_path", "PATH_MISMATCH"),
+        ("cross_tenant_document", "INDEX_METADATA_MISMATCH:tenant_code"),
+        ("malformed_json", "UNREADABLE_FILE"),
+    ])
+    def test_chain_reconciles_both_stores(chain, damage, reason):
+        evidence, db, docs, paths = chain
+        tail = docs[-1]["bundle_id"]
+        if damage.startswith("resealed_"):
+            changed = reseal(paths[-1 if damage == "resealed_tail" else 1])
+            if damage == "resealed_middle":
+                successor = docs[-1]
+                successor["prev_hash"] = changed["content_hash"]
+                paths[-1].write_text(json.dumps(successor))
+        elif damage == "deleted_tail":
+            paths[-1].unlink()
+        elif damage == "swapped_files":
+            a, b = paths[0].read_bytes(), paths[-1].read_bytes()
+            paths[0].write_bytes(b)
+            paths[-1].write_bytes(a)
+        elif damage in {"index_hash", "index_predecessor"}:
+            field = "content_hash" if damage == "index_hash" else "prev_hash"
+            with db.connection() as conn:
+                conn.execute(f"UPDATE evidence_index SET {field}=? WHERE bundle_id=?", ("0" * 64, tail))
+        elif damage == "file_predecessor":
+            doc = docs[-1]
+            doc["prev_hash"] = "0" * 64
+            paths[-1].write_text(json.dumps(doc))
+        elif damage == "index_without_file":
+            paths[1].unlink()
+        elif damage == "file_without_index":
+            with db.connection() as conn:
+                conn.execute("DELETE FROM evidence_index WHERE bundle_id=?", (tail,))
+        elif damage == "cross_tenant_path":
+            other = evidence.root / "T-B" / paths[-1].name
+            other.parent.mkdir()
+            paths[-1].rename(other)
+            with db.connection() as conn:
+                conn.execute("UPDATE evidence_index SET path=? WHERE bundle_id=?", (str(other), tail))
+        elif damage == "cross_tenant_document":
+            doc = docs[-1]
+            doc["tenant_code"] = "T-B"
+            paths[-1].write_text(json.dumps(doc))
+            reseal(paths[-1])
+        elif damage == "malformed_json":
+            paths[-1].write_text("{broken")
+        report = evidence.verify_chain("T-A")
+>       assert not report["ok"], report
+E       AssertionError: {'tenant_code': 'T-A', 'length': 2, 'ok': True, 'errors': []}
+E       assert not True
+
+tests/test_evidence_integrity.py:96: AssertionError
+______ test_chain_reconciles_both_stores[cross_tenant_path-PATH_MISMATCH] ______
+
+chain = (<kestrel.storage.evidence.EvidenceStore object at 0x7f8ff0fe9a50>, <kestrel.storage.bitemporal.BitemporalStore object...n'), PosixPath('/tmp/pytest-of-box/pytest-98/test_chain_reconciles_both_sto9/evidence/T-A/EVB-61a79494eda7e84e.json')])
+damage = 'cross_tenant_path', reason = 'PATH_MISMATCH'
+
+    @pytest.mark.parametrize("damage,reason", [
+        ("resealed_tail", "INDEX_HASH_MISMATCH"),
+        ("resealed_middle", "INDEX_HASH_MISMATCH"),
+        ("deleted_tail", "MISSING_FILE"),
+        ("swapped_files", "INDEX_METADATA_MISMATCH:bundle_id"),
+        ("index_hash", "INDEX_HASH_MISMATCH"),
+        ("index_predecessor", "INDEX_PREDECESSOR_MISMATCH"),
+        ("file_predecessor", "FILE_PREDECESSOR_MISMATCH"),
+        ("index_without_file", "MISSING_FILE"),
+        ("file_without_index", "UNINDEXED_FILE"),
+        ("cross_tenant_path", "PATH_MISMATCH"),
+        ("cross_tenant_document", "INDEX_METADATA_MISMATCH:tenant_code"),
+        ("malformed_json", "UNREADABLE_FILE"),
+    ])
+    def test_chain_reconciles_both_stores(chain, damage, reason):
+        evidence, db, docs, paths = chain
+        tail = docs[-1]["bundle_id"]
+        if damage.startswith("resealed_"):
+            changed = reseal(paths[-1 if damage == "resealed_tail" else 1])
+            if damage == "resealed_middle":
+                successor = docs[-1]
+                successor["prev_hash"] = changed["content_hash"]
+                paths[-1].write_text(json.dumps(successor))
+        elif damage == "deleted_tail":
+            paths[-1].unlink()
+        elif damage == "swapped_files":
+            a, b = paths[0].read_bytes(), paths[-1].read_bytes()
+            paths[0].write_bytes(b)
+            paths[-1].write_bytes(a)
+        elif damage in {"index_hash", "index_predecessor"}:
+            field = "content_hash" if damage == "index_hash" else "prev_hash"
+            with db.connection() as conn:
+                conn.execute(f"UPDATE evidence_index SET {field}=? WHERE bundle_id=?", ("0" * 64, tail))
+        elif damage == "file_predecessor":
+            doc = docs[-1]
+            doc["prev_hash"] = "0" * 64
+            paths[-1].write_text(json.dumps(doc))
+        elif damage == "index_without_file":
+            paths[1].unlink()
+        elif damage == "file_without_index":
+            with db.connection() as conn:
+                conn.execute("DELETE FROM evidence_index WHERE bundle_id=?", (tail,))
+        elif damage == "cross_tenant_path":
+            other = evidence.root / "T-B" / paths[-1].name
+            other.parent.mkdir()
+            paths[-1].rename(other)
+            with db.connection() as conn:
+                conn.execute("UPDATE evidence_index SET path=? WHERE bundle_id=?", (str(other), tail))
+        elif damage == "cross_tenant_document":
+            doc = docs[-1]
+            doc["tenant_code"] = "T-B"
+            paths[-1].write_text(json.dumps(doc))
+            reseal(paths[-1])
+        elif damage == "malformed_json":
+            paths[-1].write_text("{broken")
+        report = evidence.verify_chain("T-A")
+>       assert not report["ok"], report
+E       AssertionError: {'tenant_code': 'T-A', 'length': 3, 'ok': True, 'errors': []}
+E       assert not True
+
+tests/test_evidence_integrity.py:96: AssertionError
+_ test_chain_reconciles_both_stores[cross_tenant_document-INDEX_METADATA_MISMATCH:tenant_code] _
+
+chain = (<kestrel.storage.evidence.EvidenceStore object at 0x7f8ff0fef2f0>, <kestrel.storage.bitemporal.BitemporalStore object...'), PosixPath('/tmp/pytest-of-box/pytest-98/test_chain_reconciles_both_sto10/evidence/T-A/EVB-a892bc7e21031984.json')])
+damage = 'cross_tenant_document', reason = 'INDEX_METADATA_MISMATCH:tenant_code'
+
+    @pytest.mark.parametrize("damage,reason", [
+        ("resealed_tail", "INDEX_HASH_MISMATCH"),
+        ("resealed_middle", "INDEX_HASH_MISMATCH"),
+        ("deleted_tail", "MISSING_FILE"),
+        ("swapped_files", "INDEX_METADATA_MISMATCH:bundle_id"),
+        ("index_hash", "INDEX_HASH_MISMATCH"),
+        ("index_predecessor", "INDEX_PREDECESSOR_MISMATCH"),
+        ("file_predecessor", "FILE_PREDECESSOR_MISMATCH"),
+        ("index_without_file", "MISSING_FILE"),
+        ("file_without_index", "UNINDEXED_FILE"),
+        ("cross_tenant_path", "PATH_MISMATCH"),
+        ("cross_tenant_document", "INDEX_METADATA_MISMATCH:tenant_code"),
+        ("malformed_json", "UNREADABLE_FILE"),
+    ])
+    def test_chain_reconciles_both_stores(chain, damage, reason):
+        evidence, db, docs, paths = chain
+        tail = docs[-1]["bundle_id"]
+        if damage.startswith("resealed_"):
+            changed = reseal(paths[-1 if damage == "resealed_tail" else 1])
+            if damage == "resealed_middle":
+                successor = docs[-1]
+                successor["prev_hash"] = changed["content_hash"]
+                paths[-1].write_text(json.dumps(successor))
+        elif damage == "deleted_tail":
+            paths[-1].unlink()
+        elif damage == "swapped_files":
+            a, b = paths[0].read_bytes(), paths[-1].read_bytes()
+            paths[0].write_bytes(b)
+            paths[-1].write_bytes(a)
+        elif damage in {"index_hash", "index_predecessor"}:
+            field = "content_hash" if damage == "index_hash" else "prev_hash"
+            with db.connection() as conn:
+                conn.execute(f"UPDATE evidence_index SET {field}=? WHERE bundle_id=?", ("0" * 64, tail))
+        elif damage == "file_predecessor":
+            doc = docs[-1]
+            doc["prev_hash"] = "0" * 64
+            paths[-1].write_text(json.dumps(doc))
+        elif damage == "index_without_file":
+            paths[1].unlink()
+        elif damage == "file_without_index":
+            with db.connection() as conn:
+                conn.execute("DELETE FROM evidence_index WHERE bundle_id=?", (tail,))
+        elif damage == "cross_tenant_path":
+            other = evidence.root / "T-B" / paths[-1].name
+            other.parent.mkdir()
+            paths[-1].rename(other)
+            with db.connection() as conn:
+                conn.execute("UPDATE evidence_index SET path=? WHERE bundle_id=?", (str(other), tail))
+        elif damage == "cross_tenant_document":
+            doc = docs[-1]
+            doc["tenant_code"] = "T-B"
+            paths[-1].write_text(json.dumps(doc))
+            reseal(paths[-1])
+        elif damage == "malformed_json":
+            paths[-1].write_text("{broken")
+        report = evidence.verify_chain("T-A")
+>       assert not report["ok"], report
+E       AssertionError: {'tenant_code': 'T-A', 'length': 3, 'ok': True, 'errors': []}
+E       assert not True
+
+tests/test_evidence_integrity.py:96: AssertionError
+______ test_chain_reconciles_both_stores[malformed_json-UNREADABLE_FILE] _______
+
+chain = (<kestrel.storage.evidence.EvidenceStore object at 0x7f8ff15534d0>, <kestrel.storage.bitemporal.BitemporalStore object...'), PosixPath('/tmp/pytest-of-box/pytest-98/test_chain_reconciles_both_sto11/evidence/T-A/EVB-6f55db0bda7a2917.json')])
+damage = 'malformed_json', reason = 'UNREADABLE_FILE'
+
+    @pytest.mark.parametrize("damage,reason", [
+        ("resealed_tail", "INDEX_HASH_MISMATCH"),
+        ("resealed_middle", "INDEX_HASH_MISMATCH"),
+        ("deleted_tail", "MISSING_FILE"),
+        ("swapped_files", "INDEX_METADATA_MISMATCH:bundle_id"),
+        ("index_hash", "INDEX_HASH_MISMATCH"),
+        ("index_predecessor", "INDEX_PREDECESSOR_MISMATCH"),
+        ("file_predecessor", "FILE_PREDECESSOR_MISMATCH"),
+        ("index_without_file", "MISSING_FILE"),
+        ("file_without_index", "UNINDEXED_FILE"),
+        ("cross_tenant_path", "PATH_MISMATCH"),
+        ("cross_tenant_document", "INDEX_METADATA_MISMATCH:tenant_code"),
+        ("malformed_json", "UNREADABLE_FILE"),
+    ])
+    def test_chain_reconciles_both_stores(chain, damage, reason):
+        evidence, db, docs, paths = chain
+        tail = docs[-1]["bundle_id"]
+        if damage.startswith("resealed_"):
+            changed = reseal(paths[-1 if damage == "resealed_tail" else 1])
+            if damage == "resealed_middle":
+                successor = docs[-1]
+                successor["prev_hash"] = changed["content_hash"]
+                paths[-1].write_text(json.dumps(successor))
+        elif damage == "deleted_tail":
+            paths[-1].unlink()
+        elif damage == "swapped_files":
+            a, b = paths[0].read_bytes(), paths[-1].read_bytes()
+            paths[0].write_bytes(b)
+            paths[-1].write_bytes(a)
+        elif damage in {"index_hash", "index_predecessor"}:
+            field = "content_hash" if damage == "index_hash" else "prev_hash"
+            with db.connection() as conn:
+                conn.execute(f"UPDATE evidence_index SET {field}=? WHERE bundle_id=?", ("0" * 64, tail))
+        elif damage == "file_predecessor":
+            doc = docs[-1]
+            doc["prev_hash"] = "0" * 64
+            paths[-1].write_text(json.dumps(doc))
+        elif damage == "index_without_file":
+            paths[1].unlink()
+        elif damage == "file_without_index":
+            with db.connection() as conn:
+                conn.execute("DELETE FROM evidence_index WHERE bundle_id=?", (tail,))
+        elif damage == "cross_tenant_path":
+            other = evidence.root / "T-B" / paths[-1].name
+            other.parent.mkdir()
+            paths[-1].rename(other)
+            with db.connection() as conn:
+                conn.execute("UPDATE evidence_index SET path=? WHERE bundle_id=?", (str(other), tail))
+        elif damage == "cross_tenant_document":
+            doc = docs[-1]
+            doc["tenant_code"] = "T-B"
+            paths[-1].write_text(json.dumps(doc))
+            reseal(paths[-1])
+        elif damage == "malformed_json":
+            paths[-1].write_text("{broken")
+>       report = evidence.verify_chain("T-A")
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_evidence_integrity.py:95:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src/kestrel/storage/evidence.py:175: in verify_chain
+    doc = json.loads(Path(meta["path"]).read_text(encoding="utf-8"))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/json/decoder.py:345: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <json.decoder.JSONDecoder object at 0x7f8ff447f4d0>, s = '{broken'
+idx = 0
+
+    def raw_decode(self, s, idx=0):
+        """Decode a JSON document from ``s`` (a ``str`` beginning with
+        a JSON document) and return a 2-tuple of the Python
+        representation and the index in ``s`` where the document ended.
+
+        This can be used to decode a JSON document from a string that may
+        have extraneous data at the end.
+
+        """
+        try:
+>           obj, end = self.scan_once(s, idx)
+                       ^^^^^^^^^^^^^^^^^^^^^^
+E           json.decoder.JSONDecodeError: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+
+/usr/lib/python3.13/json/decoder.py:361: JSONDecodeError
+_________________ test_resealed_ancestor_blocks_consumers[get] _________________
+
+service = <kestrel.service.AdjudicationService object at 0x7f8ff0f782f0>
+consumer = 'get'
+
+    @pytest.mark.parametrize("consumer", ["get", "basis", "replay", "sign"])
+    def test_resealed_ancestor_blocks_consumers(service, consumer):
+        first = service.adjudicate_event("EXC-107133", persist=True)
+        second = service.adjudicate_event("EXC-107133", persist=True)
+        meta = service.store.get_evidence_meta(first["bundle"]["bundle_id"])
+        reseal(Path(meta["path"]))
+        bundle = second["bundle"]
+        tenant = bundle["tenant_code"]
+        if consumer == "sign":
+            with pytest.raises(StaleEvidenceError):
+                service.lifecycle.sign(second["case"]["case_id"], "QA", Disposition.RELEASE_WITH_NOTE,
+                                       bundle_hash=bundle["content_hash"])
+            assert service.store.get_case(second["case"]["case_id"])["state"] != "CLOSED_SIGNED"
+        else:
+>           with pytest.raises(ValueError, match="INDEX_HASH_MISMATCH"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests/test_evidence_integrity.py:119: Failed
+________________ test_resealed_ancestor_blocks_consumers[basis] ________________
+
+service = <kestrel.service.AdjudicationService object at 0x7f8ff0cd0b90>
+consumer = 'basis'
+
+    @pytest.mark.parametrize("consumer", ["get", "basis", "replay", "sign"])
+    def test_resealed_ancestor_blocks_consumers(service, consumer):
+        first = service.adjudicate_event("EXC-107133", persist=True)
+        second = service.adjudicate_event("EXC-107133", persist=True)
+        meta = service.store.get_evidence_meta(first["bundle"]["bundle_id"])
+        reseal(Path(meta["path"]))
+        bundle = second["bundle"]
+        tenant = bundle["tenant_code"]
+        if consumer == "sign":
+            with pytest.raises(StaleEvidenceError):
+                service.lifecycle.sign(second["case"]["case_id"], "QA", Disposition.RELEASE_WITH_NOTE,
+                                       bundle_hash=bundle["content_hash"])
+            assert service.store.get_case(second["case"]["case_id"])["state"] != "CLOSED_SIGNED"
+        else:
+>           with pytest.raises(ValueError, match="INDEX_HASH_MISMATCH"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests/test_evidence_integrity.py:119: Failed
+_______________ test_resealed_ancestor_blocks_consumers[replay] ________________
+
+service = <kestrel.service.AdjudicationService object at 0x7f8ff0cd1450>
+consumer = 'replay'
+
+    @pytest.mark.parametrize("consumer", ["get", "basis", "replay", "sign"])
+    def test_resealed_ancestor_blocks_consumers(service, consumer):
+        first = service.adjudicate_event("EXC-107133", persist=True)
+        second = service.adjudicate_event("EXC-107133", persist=True)
+        meta = service.store.get_evidence_meta(first["bundle"]["bundle_id"])
+        reseal(Path(meta["path"]))
+        bundle = second["bundle"]
+        tenant = bundle["tenant_code"]
+        if consumer == "sign":
+            with pytest.raises(StaleEvidenceError):
+                service.lifecycle.sign(second["case"]["case_id"], "QA", Disposition.RELEASE_WITH_NOTE,
+                                       bundle_hash=bundle["content_hash"])
+            assert service.store.get_case(second["case"]["case_id"])["state"] != "CLOSED_SIGNED"
+        else:
+>           with pytest.raises(ValueError, match="INDEX_HASH_MISMATCH"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests/test_evidence_integrity.py:119: Failed
+________________ test_resealed_ancestor_blocks_consumers[sign] _________________
+
+service = <kestrel.service.AdjudicationService object at 0x7f8ff0f469e0>
+consumer = 'sign'
+
+    @pytest.mark.parametrize("consumer", ["get", "basis", "replay", "sign"])
+    def test_resealed_ancestor_blocks_consumers(service, consumer):
+        first = service.adjudicate_event("EXC-107133", persist=True)
+        second = service.adjudicate_event("EXC-107133", persist=True)
+        meta = service.store.get_evidence_meta(first["bundle"]["bundle_id"])
+        reseal(Path(meta["path"]))
+        bundle = second["bundle"]
+        tenant = bundle["tenant_code"]
+        if consumer == "sign":
+>           with pytest.raises(StaleEvidenceError):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE StaleEvidenceError
+
+tests/test_evidence_integrity.py:114: Failed
+_________________________ test_cli_verify_fails_closed _________________________
+
+chain = (<kestrel.storage.evidence.EvidenceStore object at 0x7f8ff0b07430>, <kestrel.storage.bitemporal.BitemporalStore object...son'), PosixPath('/tmp/pytest-of-box/pytest-98/test_cli_verify_fails_closed0/evidence/T-A/EVB-c3afc4f9bbffdb54.json')])
+capsys = <_pytest.capture.CaptureFixture object at 0x7f8ff182fb60>
+
+    def test_cli_verify_fails_closed(chain, capsys):
+        evidence, _, _, paths = chain
+        reseal(paths[-1])
+        class Service:
+            verify_tenant_chain = evidence.verify_chain
+        status = _cmd_verify(Service(), argparse.Namespace(tenant="T-A"))
+        output = json.loads(capsys.readouterr().out)
+>       assert status == 1
+E       assert 0 == 1
+
+tests/test_evidence_integrity.py:135: AssertionError
+_____________________ test_api_verify_reports_missing_file _____________________
+
+service = <kestrel.service.AdjudicationService object at 0x7f8ff0ff03e0>
+
+    def test_api_verify_reports_missing_file(service):
+        out = service.adjudicate_event("EXC-107133", persist=True)
+        meta = service.store.get_evidence_meta(out["bundle"]["bundle_id"])
+        Path(meta["path"]).unlink()
+        response = TestClient(create_app(service)).post("/evidence/verify", json={"tenant_code": "T-KAVERI"})
+>       assert response.status_code == 200
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+tests/test_evidence_integrity.py:145: AssertionError
+___________________ test_api_rejects_resealed_evidence[get] ____________________
+
+service = <kestrel.service.AdjudicationService object at 0x7f8ff0907ad0>
+surface = 'get'
+
+    @pytest.mark.parametrize("surface", ["get", "basis", "replay", "sign"])
+    def test_api_rejects_resealed_evidence(service, surface):
+        out = service.adjudicate_event("EXC-107133", persist=True)
+        bundle = out["bundle"]
+        reseal(Path(service.store.get_evidence_meta(bundle["bundle_id"])["path"]))
+        client = TestClient(create_app(service))
+        if surface == "get":
+            response = client.get(f"/evidence/{bundle['bundle_id']}", params={"tenant_code": "T-KAVERI"})
+        elif surface == "basis":
+            response = client.post("/evidence/basis", json={"event_id": "EXC-107133", "tenant_code": "T-KAVERI"})
+        elif surface == "replay":
+            response = client.post("/replay", json={"bundle_id": bundle["bundle_id"], "tenant_code": "T-KAVERI"})
+        else:
+            response = client.post(f"/cases/{out['case']['case_id']}/sign", params={"signed_by": "QA",
+                "disposition": "RELEASE_WITH_NOTE", "bundle_hash": bundle["content_hash"]})
+>       assert response.status_code == 409
+E       assert 200 == 409
+E        +  where 200 = <Response [200 OK]>.status_code
+
+tests/test_evidence_integrity.py:165: AssertionError
+__________________ test_api_rejects_resealed_evidence[basis] ___________________
+
+service = <kestrel.service.AdjudicationService object at 0x7f8fef86a9c0>
+surface = 'basis'
+
+    @pytest.mark.parametrize("surface", ["get", "basis", "replay", "sign"])
+    def test_api_rejects_resealed_evidence(service, surface):
+        out = service.adjudicate_event("EXC-107133", persist=True)
+        bundle = out["bundle"]
+        reseal(Path(service.store.get_evidence_meta(bundle["bundle_id"])["path"]))
+        client = TestClient(create_app(service))
+        if surface == "get":
+            response = client.get(f"/evidence/{bundle['bundle_id']}", params={"tenant_code": "T-KAVERI"})
+        elif surface == "basis":
+            response = client.post("/evidence/basis", json={"event_id": "EXC-107133", "tenant_code": "T-KAVERI"})
+        elif surface == "replay":
+            response = client.post("/replay", json={"bundle_id": bundle["bundle_id"], "tenant_code": "T-KAVERI"})
+        else:
+            response = client.post(f"/cases/{out['case']['case_id']}/sign", params={"signed_by": "QA",
+                "disposition": "RELEASE_WITH_NOTE", "bundle_hash": bundle["content_hash"]})
+>       assert response.status_code == 409
+E       assert 200 == 409
+E        +  where 200 = <Response [200 OK]>.status_code
+
+tests/test_evidence_integrity.py:165: AssertionError
+__________________ test_api_rejects_resealed_evidence[replay] __________________
+
+service = <kestrel.service.AdjudicationService object at 0x7f8ff096ae00>
+surface = 'replay'
+
+    @pytest.mark.parametrize("surface", ["get", "basis", "replay", "sign"])
+    def test_api_rejects_resealed_evidence(service, surface):
+        out = service.adjudicate_event("EXC-107133", persist=True)
+        bundle = out["bundle"]
+        reseal(Path(service.store.get_evidence_meta(bundle["bundle_id"])["path"]))
+        client = TestClient(create_app(service))
+        if surface == "get":
+            response = client.get(f"/evidence/{bundle['bundle_id']}", params={"tenant_code": "T-KAVERI"})
+        elif surface == "basis":
+            response = client.post("/evidence/basis", json={"event_id": "EXC-107133", "tenant_code": "T-KAVERI"})
+        elif surface == "replay":
+            response = client.post("/replay", json={"bundle_id": bundle["bundle_id"], "tenant_code": "T-KAVERI"})
+        else:
+            response = client.post(f"/cases/{out['case']['case_id']}/sign", params={"signed_by": "QA",
+                "disposition": "RELEASE_WITH_NOTE", "bundle_hash": bundle["content_hash"]})
+>       assert response.status_code == 409
+E       assert 200 == 409
+E        +  where 200 = <Response [200 OK]>.status_code
+
+tests/test_evidence_integrity.py:165: AssertionError
+___________________ test_api_rejects_resealed_evidence[sign] ___________________
+
+service = <kestrel.service.AdjudicationService object at 0x7f8ff0fea150>
+surface = 'sign'
+
+    @pytest.mark.parametrize("surface", ["get", "basis", "replay", "sign"])
+    def test_api_rejects_resealed_evidence(service, surface):
+        out = service.adjudicate_event("EXC-107133", persist=True)
+        bundle = out["bundle"]
+        reseal(Path(service.store.get_evidence_meta(bundle["bundle_id"])["path"]))
+        client = TestClient(create_app(service))
+        if surface == "get":
+            response = client.get(f"/evidence/{bundle['bundle_id']}", params={"tenant_code": "T-KAVERI"})
+        elif surface == "basis":
+            response = client.post("/evidence/basis", json={"event_id": "EXC-107133", "tenant_code": "T-KAVERI"})
+        elif surface == "replay":
+            response = client.post("/replay", json={"bundle_id": bundle["bundle_id"], "tenant_code": "T-KAVERI"})
+        else:
+            response = client.post(f"/cases/{out['case']['case_id']}/sign", params={"signed_by": "QA",
+                "disposition": "RELEASE_WITH_NOTE", "bundle_hash": bundle["content_hash"]})
+        assert response.status_code == 409
+>       assert "INDEX_HASH_MISMATCH" in response.text
+E       assert 'INDEX_HASH_MISMATCH' in '{"detail":"evidence changed since it was viewed; reload before signing"}'
+E        +  where '{"detail":"evidence changed since it was viewed; reload before signing"}' = <Response [409 Conflict]>.text
+
+tests/test_evidence_integrity.py:166: AssertionError
+_______________ test_unindexed_file_in_other_tenant_is_rejected ________________
+
+chain = (<kestrel.storage.evidence.EvidenceStore object at 0x7f8fef219f10>, <kestrel.storage.bitemporal.BitemporalStore object...n'), PosixPath('/tmp/pytest-of-box/pytest-98/test_unindexed_file_in_other_t0/evidence/T-A/EVB-7567d30ca6559b1a.json')])
+
+    def test_unindexed_file_in_other_tenant_is_rejected(chain):
+        evidence, _, _, paths = chain
+        other = evidence.root / "T-B" / paths[-1].name
+        other.parent.mkdir()
+        other.write_bytes(paths[-1].read_bytes())
+        report = evidence.verify_chain("T-B")
+>       assert not report["ok"], report
+E       AssertionError: {'tenant_code': 'T-B', 'length': 0, 'ok': True, 'errors': []}
+E       assert not True
+
+tests/test_evidence_integrity.py:175: AssertionError
+________________ test_orphan_files_with_empty_index_fail_closed ________________
+
+chain = (<kestrel.storage.evidence.EvidenceStore object at 0x7f8fef21a9f0>, <kestrel.storage.bitemporal.BitemporalStore object...n'), PosixPath('/tmp/pytest-of-box/pytest-98/test_orphan_files_with_empty_i0/evidence/T-A/EVB-650ff7be51c8f67b.json')])
+
+    def test_orphan_files_with_empty_index_fail_closed(chain):
+        evidence, db, _, _ = chain
+        with db.connection() as conn:
+            conn.execute("DELETE FROM evidence_index")
+        report = evidence.verify_chain("T-A")
+>       assert not report["ok"], report
+E       AssertionError: {'tenant_code': 'T-A', 'length': 0, 'ok': True, 'errors': []}
+E       assert not True
+
+tests/test_evidence_integrity.py:184: AssertionError
+______________ test_sign_resealed_bundle_uses_shared_verification ______________
+
+service = <kestrel.service.AdjudicationService object at 0x7f8ff08f7c50>
+
+    def test_sign_resealed_bundle_uses_shared_verification(service):
+        out = service.adjudicate_event("EXC-107133", persist=True)
+        bundle = out["bundle"]
+        reseal(Path(service.store.get_evidence_meta(bundle["bundle_id"])["path"]))
+>       with pytest.raises(StaleEvidenceError, match="INDEX_HASH_MISMATCH"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'INDEX_HASH_MISMATCH'
+E         Actual message: 'evidence changed since it was viewed; reload before signing'
+
+tests/test_evidence_integrity.py:192: AssertionError
+=============================== warnings summary ===============================
+../../tmp/fixvenv/lib/python3.13/site-packages/fastapi/testclient.py:1
+  /tmp/fixvenv/lib/python3.13/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_evidence_integrity.py::test_chain_reconciles_both_stores[resealed_tail-INDEX_HASH_MISMATCH]
+FAILED tests/test_evidence_integrity.py::test_chain_reconciles_both_stores[resealed_middle-INDEX_HASH_MISMATCH]
+FAILED tests/test_evidence_integrity.py::test_chain_reconciles_both_stores[deleted_tail-MISSING_FILE]
+FAILED tests/test_evidence_integrity.py::test_chain_reconciles_both_stores[swapped_files-INDEX_METADATA_MISMATCH:bundle_id]
+FAILED tests/test_evidence_integrity.py::test_chain_reconciles_both_stores[index_hash-INDEX_HASH_MISMATCH]
+FAILED tests/test_evidence_integrity.py::test_chain_reconciles_both_stores[index_predecessor-INDEX_PREDECESSOR_MISMATCH]
+FAILED tests/test_evidence_integrity.py::test_chain_reconciles_both_stores[file_predecessor-FILE_PREDECESSOR_MISMATCH]
+FAILED tests/test_evidence_integrity.py::test_chain_reconciles_both_stores[index_without_file-MISSING_FILE]
+FAILED tests/test_evidence_integrity.py::test_chain_reconciles_both_stores[file_without_index-UNINDEXED_FILE]
+FAILED tests/test_evidence_integrity.py::test_chain_reconciles_both_stores[cross_tenant_path-PATH_MISMATCH]
+FAILED tests/test_evidence_integrity.py::test_chain_reconciles_both_stores[cross_tenant_document-INDEX_METADATA_MISMATCH:tenant_code]
+FAILED tests/test_evidence_integrity.py::test_chain_reconciles_both_stores[malformed_json-UNREADABLE_FILE]
+FAILED tests/test_evidence_integrity.py::test_resealed_ancestor_blocks_consumers[get]
+FAILED tests/test_evidence_integrity.py::test_resealed_ancestor_blocks_consumers[basis]
+FAILED tests/test_evidence_integrity.py::test_resealed_ancestor_blocks_consumers[replay]
+FAILED tests/test_evidence_integrity.py::test_resealed_ancestor_blocks_consumers[sign]
+FAILED tests/test_evidence_integrity.py::test_cli_verify_fails_closed - asser...
+FAILED tests/test_evidence_integrity.py::test_api_verify_reports_missing_file
+FAILED tests/test_evidence_integrity.py::test_api_rejects_resealed_evidence[get]
+FAILED tests/test_evidence_integrity.py::test_api_rejects_resealed_evidence[basis]
+FAILED tests/test_evidence_integrity.py::test_api_rejects_resealed_evidence[replay]
+FAILED tests/test_evidence_integrity.py::test_api_rejects_resealed_evidence[sign]
+FAILED tests/test_evidence_integrity.py::test_unindexed_file_in_other_tenant_is_rejected
+FAILED tests/test_evidence_integrity.py::test_orphan_files_with_empty_index_fail_closed
+FAILED tests/test_evidence_integrity.py::test_sign_resealed_bundle_uses_shared_verification
+25 failed, 1 warning in 16.48s

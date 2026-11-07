@@ -230,8 +230,9 @@ def _cmd_basis(svc: AdjudicationService, args: argparse.Namespace) -> int:
 
 
 def _cmd_verify(svc: AdjudicationService, args: argparse.Namespace) -> int:
-    _print_json(svc.verify_tenant_chain(args.tenant))
-    return 0
+    report = svc.verify_tenant_chain(args.tenant)
+    _print_json(report)
+    return 0 if report["ok"] else 1
 
 
 def _cmd_replay(svc: AdjudicationService, args: argparse.Namespace) -> int:

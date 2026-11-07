@@ -1,0 +1,108 @@
+........................................................................ [ 30%]
+...........FF........................................................... [ 61%]
+........................................................................ [ 92%]
+.................                                                        [100%]
+=================================== FAILURES ===================================
+__________________ TestEvidenceChain.test_replay_determinism ___________________
+
+self = <tests.test_evidence.TestEvidenceChain testMethod=test_replay_determinism>
+
+    def test_replay_determinism(self) -> None:
+        """Replaying from bundle yields an identical disposition."""
+        out = self.svc.adjudicate_event("EXC-107133", persist=True)
+>       replay = self.svc.replay_from_bundle(out["bundle"]["bundle_id"], "T-KAVERI")
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_evidence.py:56:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src/kestrel/service.py:194: in replay_from_bundle
+    doc = self.evidence.get(bundle_id, tenant_code=tenant_code)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <kestrel.storage.evidence.EvidenceStore object at 0x7ffbedda1c70>
+bundle_id = 'EVB-807daac6b9bb75da', tenant_code = 'T-KAVERI', measure = False
+
+    def get(
+        self,
+        bundle_id: str,
+        *,
+        tenant_code: str,
+        measure: bool = False,
+    ) -> dict[str, Any]:
+        """Retrieve full basis for a disposition. Enforces tenant isolation."""
+        started = time.perf_counter()
+        meta = self.db.get_evidence_meta(bundle_id, tenant_code=tenant_code)
+        if not meta:
+            # Distinguish missing vs cross-tenant
+            any_meta = self.db.get_evidence_meta(bundle_id, tenant_code=None)
+            if any_meta and any_meta["tenant_code"] != tenant_code:
+                raise PermissionError(
+                    f"tenant isolation: bundle {bundle_id} belongs to "
+                    f"{any_meta['tenant_code']}, not {tenant_code} (Meridian Cl.22)"
+                )
+            raise FileNotFoundError(f"evidence bundle not found: {bundle_id}")
+        report, documents = self._inspect_chain(tenant_code)
+        if not report["ok"]:
+>           raise EvidenceIntegrityError(report)
+E           kestrel.storage.evidence.EvidenceIntegrityError: evidence integrity verification failed: EVB-c0724adc4c5dbbf8: CONTENT_HASH_MISMATCH (tamper)
+
+src/kestrel/storage/evidence.py:148: EvidenceIntegrityError
+_____________ TestEvidenceChain.test_retrieval_latency_under_hour ______________
+
+self = <tests.test_evidence.TestEvidenceChain testMethod=test_retrieval_latency_under_hour>
+
+    def test_retrieval_latency_under_hour(self) -> None:
+        """Full basis retrieval is far under the one-hour board commitment."""
+        self.svc.adjudicate_event("EXC-107133", persist=True)
+>       basis = self.svc.full_basis("EXC-107133", "T-KAVERI")
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_evidence.py:48:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src/kestrel/service.py:186: in full_basis
+    return self.evidence.produce_full_basis(event_id, tenant_code)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/kestrel/storage/evidence.py:267: in produce_full_basis
+    doc = self.get(meta["bundle_id"], tenant_code=tenant_code, measure=True)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <kestrel.storage.evidence.EvidenceStore object at 0x7ffbedda1c70>
+bundle_id = 'EVB-b3b046dcc9ef2a36', tenant_code = 'T-KAVERI', measure = True
+
+    def get(
+        self,
+        bundle_id: str,
+        *,
+        tenant_code: str,
+        measure: bool = False,
+    ) -> dict[str, Any]:
+        """Retrieve full basis for a disposition. Enforces tenant isolation."""
+        started = time.perf_counter()
+        meta = self.db.get_evidence_meta(bundle_id, tenant_code=tenant_code)
+        if not meta:
+            # Distinguish missing vs cross-tenant
+            any_meta = self.db.get_evidence_meta(bundle_id, tenant_code=None)
+            if any_meta and any_meta["tenant_code"] != tenant_code:
+                raise PermissionError(
+                    f"tenant isolation: bundle {bundle_id} belongs to "
+                    f"{any_meta['tenant_code']}, not {tenant_code} (Meridian Cl.22)"
+                )
+            raise FileNotFoundError(f"evidence bundle not found: {bundle_id}")
+        report, documents = self._inspect_chain(tenant_code)
+        if not report["ok"]:
+>           raise EvidenceIntegrityError(report)
+E           kestrel.storage.evidence.EvidenceIntegrityError: evidence integrity verification failed: EVB-c0724adc4c5dbbf8: CONTENT_HASH_MISMATCH (tamper)
+
+src/kestrel/storage/evidence.py:148: EvidenceIntegrityError
+=============================== warnings summary ===============================
+../../tmp/fixvenv/lib/python3.13/site-packages/fastapi/testclient.py:1
+  /tmp/fixvenv/lib/python3.13/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_evidence.py::TestEvidenceChain::test_replay_determinism - k...
+FAILED tests/test_evidence.py::TestEvidenceChain::test_retrieval_latency_under_hour
+2 failed, 231 passed, 1 warning in 46.17s

@@ -1,0 +1,26 @@
+{
+  "count": 420,
+  "counts": {
+    "ESCALATED_TO_SENIOR_QA": 290,
+    "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED": 130
+  },
+  "closure_counts": {
+    "verified_auto_close": 0,
+    "historical_candidates_unverified": 130,
+    "other_auto_close_unverified": 0
+  },
+  "EXC-107133": {
+    "event_id": "EXC-107133",
+    "tenant_code": "T-KAVERI",
+    "recommendation": "ESCALATED_TO_SENIOR_QA",
+    "historical_classification": "ACTIONABLE \u2014 excursion confirmed",
+    "closure_eligibility": "not_eligible",
+    "independent_closure_evidence": [],
+    "requires_human_review": true,
+    "bundle_id": "EVB-cd63bb77657d0696",
+    "case_id": "CASE-e6a323f5f0de",
+    "reg_deadline_utc": null
+  },
+  "out": "/tmp/kestrel-chain-review/final/results.csv",
+  "snapshot_id": "snap-db553bda103f"
+}

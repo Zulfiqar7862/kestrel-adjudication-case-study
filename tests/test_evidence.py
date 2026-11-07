@@ -26,6 +26,9 @@ class TestEvidenceChain(_KestrelTestCase):
         self.assertGreaterEqual(chain["length"], 1)
         meta = self.svc.store.evidence_for_event("EXC-107133", tenant)[0]
         path = Path(meta["path"])
+        # This class shares a service: restore tampering before other tests read
+        # the now fully verified tenant chain. Keep every tamper assertion.
+        self.addCleanup(path.write_text, path.read_text(encoding="utf-8"), encoding="utf-8")
         doc = json.loads(path.read_text(encoding="utf-8"))
         doc["recommendation"]["disposition"] = "DESTROY"
         path.write_text(json.dumps(doc, indent=2), encoding="utf-8")

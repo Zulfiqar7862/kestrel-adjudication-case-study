@@ -38,9 +38,17 @@ review; untrusted tenants must not be given direct privileged filesystem access.
 The canonical SHA-256 core includes the inputs, recommendation, reasoning,
 versions and sign-off metadata. It excludes `prev_hash`, `bundle_id` and file path.
 Each next JSON carries the previous content hash. `verify_document` recomputes
-the core; `verify_chain` checks file contents and predecessor ordering against
-the indexed sequence. `get()` alone does not perform content-hash verification;
-signing and replay explicitly do. Do not mistake retrieval for integrity checking.
+the core for self-consistency only. `verify_chain()` additionally binds every
+file's hash, identifiers, tenant, versions and predecessor to SQLite metadata and
+the preceding indexed hash. It checks expected tenant/bundle paths and inventories
+tenant JSON files so missing files and unindexed files fail closed.
+
+`get()` uses this same whole-tenant reconciliation and returns the document parsed
+during verification, not a second unverified read. Basis, signing and replay all
+use `get()`. Any integrity failure blocks these reads for the tenant, even when
+an unrelated bundle is damaged. HTTP consumers return 409 with specific reasons;
+`POST /evidence/verify` returns a diagnostic `ok: false` report. CLI `verify` prints
+the same report and exits 1 on failure (0 for an untouched valid chain).
 
 ![Per-tenant evidence chain and replay](images/evidence-chain.png)
 
@@ -55,7 +63,7 @@ flowchart TB
     B["Tenant bundle B<br/>Core to SHA-256 H(B); prev_hash = H(A)"]
     C["Tenant bundle C<br/>Core to SHA-256 H(C); prev_hash = H(B)"]
     Index["SQLite evidence_index<br/>Tenant + path + content_hash + prev_hash + versions; separate from file write"]
-    Verify["Explicit verification<br/>Core and predecessor checks; indexed-hash binding missing (reported defect)"]
+    Verify["Explicit verification<br/>Bind core hashes, metadata, paths and predecessor links to index; reject missing/orphan files"]
     Replay["Pinned input replay<br/>Decode saved event/reference snapshot; run matching code/rules; compare full result"]
     A --> B
     B --> C
@@ -66,15 +74,20 @@ flowchart TB
 
 </details>
 
-**Executed defect, not fixed here:** a temporary one-bundle reasoning edit followed
-by recomputing its core hash still passes `verify_chain()` while the SQLite indexed
-hash remains different. The verifier does not cross-check those hashes. See the
-[isolated result](validation/documentation-review/integrity-probe.json); signing
-bypass was not tested. Chain-OK is not an authenticated content-root guarantee.
+**Executed fix:** regression tests now reject re-sealed tails and middle records,
+missing/replaced/swapped files, file/index metadata or link mismatches, unindexed
+files and cross-tenant placement. Signing also rejects a valid-looking child of a
+corrupted ancestor. [Failing/passing evidence](validation/evidence-chain-review/report.md).
+The [earlier probe](validation/documentation-review/integrity-probe.json) records
+behaviour before this fix, not the current verifier.
 
-**Limitations:** local JSON and SQLite are not WORM storage. File write and index
-write are separate operations; multi-writer serialisation, crash recovery,
-cryptographic signer identity and seven-year recoverability are not demonstrated.
+**Limitations:** local SQLite plus files is not an independent anchor. Someone who
+can consistently rewrite both can still forge evidence, or remove matching index
+rows and files together without an externally recorded head/count. Local JSON and
+SQLite are not WORM. File/index writes and verification are not a cross-store
+transaction; concurrent writers, crash recovery, external anchoring, signer
+identity and seven-year recoverability remain unvalidated. Full-tenant reads are
+linear in stored evidence and may block on an unrelated integrity failure.
 Original raw sensor series and governing PDF bytes are not fully archived.
 
 ## Notification lane

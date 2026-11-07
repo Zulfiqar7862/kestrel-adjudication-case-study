@@ -6,7 +6,7 @@ These specific defects were addressed; overall safety and production readiness r
 
 | Area | Current gap / inspection finding | Status |
 |---|---|---|
-| Identity | Product master pool is tenant scoped, but aliases marked Y are traversed without honouring comments such as strength/presentation differences; generic INN/fuzzy matches may promote a unique row | Existing correctness concern; not changed in this documentation task |
+| Identity | Product master pool is tenant scoped, but aliases marked Y are traversed without honouring comments such as strength/presentation differences; generic INN/fuzzy matches may promote a unique row | Existing correctness concern; not changed by the integrity fix |
 | Study discovery | Only the cited study is resolved; no full candidate/rejection catalogue, strength-controlled discovery or authenticated full-report authority | Unfinished; no study ID hard-coded as a remedy |
 | SOP/site annexures | Effective-date metadata and overlaps are visible, but indexed body/site annexure content is absent | Release authority unresolved; explicit resolution-task workflow not implemented |
 | Batch exposure | No verified batch identity or complete prior-exposure/once-only-use history | Cumulative assessment cannot assume zero |
@@ -15,32 +15,38 @@ These specific defects were addressed; overall safety and production readiness r
 | General HTTP API | Most case/evidence/dashboard routes lack authenticated tenant ownership checks; notification lane alone has scoped grants | Not a production tenant wall |
 | Notification operations | No approved policy/calendar registry, live sender/retry worker, verified filing receipt or pager; references never clear obligations | 28 pending / 392 unknown in this sample are not verified legal-reportability counts |
 | Evidence/storage | Local mutable JSON + SQLite; file/index publication is non-atomic; concurrent chain writers unvalidated; raw source series/PDF archive incomplete | Not WORM, HA or seven-year recovery evidence |
-| Integrity reads | `EvidenceStore.get()` checks tenant matching but does not itself recompute the content hash; explicit verification, replay and signing do | Retrieval alone is not an integrity guarantee |
+| Integrity reads | Shared file/index/whole-tenant reconciliation now guards retrieval, basis, signing and replay; this costs a full tenant scan and blocks on unrelated damage | Local consistency, not authenticated provenance or an independent anchor |
 | Point-in-time knowledge | Main calculation reads a current workbook DataPack; interval tables do not provide universal historical knowledge-time enforcement | Sealed replay is narrower than no-hindsight reconstruction |
 | Namespace/security | Alert event IDs are global keys; tenant strings feed privileged local paths; caller-owned tenant IDs are not a general auth mechanism | Production namespace/path/access review required |
 | Source changes | No general source-dependency index with affected-case re-review/reopen tasks | Unfinished |
 | Precedents/curation | No production tenant-partitioned reasoning import with decision-known-before-alert filtering, or evidence-completeness-conditioned disagreement/curation backlog | Unfinished |
 | Operations | No validated tenant fairness, incident admission, live bulletin feed, delivery/clock paging or load/restore benchmark | Health dictionaries/queue ordering are not deployed operational guarantees |
 
-Except for the isolated integrity probe below, these are code-inspection findings
-and known gaps, not newly executed exploit or clinical outcome claims. This pass changed documentation/visuals only. Source data
-and engine behaviour were left untouched. The executed sample/replay checks are
-listed separately in [validation](06-testing-and-validation.md).
+The other gaps above are code-inspection findings and known limitations, not new
+executed exploit or clinical outcome claims. The focused integrity fix changes no
+clinical decision rules or source data. Executed sample/replay checks are listed
+separately in [validation](06-testing-and-validation.md).
 
-## Executed integrity defect — reported, not fixed
+## Evidence integrity: addressed defect and remaining trust limit
 
-In a separate temporary single-bundle store, an actual bundle's reasoning was
-edited and its core SHA-256 recomputed without updating the SQLite indexed hash.
-`verify_chain()` still returned `ok: true`, despite the file/index hash mismatch.
-The verifier does not bind the file's recomputed content hash to the indexed hash.
-This is narrower than a claim that every tampering attack succeeds; signing has
-its own metadata/hash checks, and no signing bypass was tested.
+The [previous isolated probe](validation/documentation-review/integrity-probe.json)
+showed a re-sealed tail passing with a different indexed hash. The current
+[regression report](validation/evidence-chain-review/report.md) records failing
+then passing tests for that defect, middle re-sealing, missing/replaced files,
+index/file mismatches, orphan files, predecessor checks and tenant placement.
+All evidence consumers share the verifier through `get()`; signing and replay
+cannot accept a re-sealed bundle or a child whose tenant chain is inconsistent.
+The [probe utility](diagrams/probe_integrity.py) now expects rejection.
 
-[Actual isolated probe result](validation/documentation-review/integrity-probe.json) ·
-[Reproducible probe](diagrams/probe_integrity.py).
-The primary run, original data, clinical outcomes and engine code were untouched.
-No fix or test-suite change was made in this documentation task. Chain-OK must
-not be represented as an authenticated integrity/root guarantee.
+**SQLite plus local files is not an independent anchor. Someone who can rewrite
+both can still forge a consistent history.** Deleting matching files and index
+rows together, including an entire chain, cannot be detected without an external
+head/count/checkpoint. No external timestamp authority, signed root, immutable
+backup or WORM archive was added. Reconciliation is not an atomic cross-store
+snapshot, and concurrent publication/restore/failure behaviour is unvalidated.
+These are trust/design limitations from code inspection, not executed claims
+that a joint-store forgery was prevented. Signing still does not authenticate a
+person's authority or establish clinical release eligibility.
 
 ## Roadmap: proposed, not implemented
 

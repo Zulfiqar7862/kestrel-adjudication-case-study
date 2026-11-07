@@ -1,0 +1,44 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.5, pytest-9.2.0, pluggy-1.7.0 -- /tmp/fixvenv/bin/python3
+cachedir: .pytest_cache
+rootdir: /workspace/kprod
+configfile: pyproject.toml
+plugins: cov-7.1.0, anyio-4.16.0
+collecting ... collected 27 items
+
+tests/test_evidence_integrity.py::test_chain_reconciles_both_stores[resealed_tail-INDEX_HASH_MISMATCH] PASSED [  3%]
+tests/test_evidence_integrity.py::test_chain_reconciles_both_stores[resealed_middle-INDEX_HASH_MISMATCH] PASSED [  7%]
+tests/test_evidence_integrity.py::test_chain_reconciles_both_stores[deleted_tail-MISSING_FILE] PASSED [ 11%]
+tests/test_evidence_integrity.py::test_chain_reconciles_both_stores[swapped_files-INDEX_METADATA_MISMATCH:bundle_id] PASSED [ 14%]
+tests/test_evidence_integrity.py::test_chain_reconciles_both_stores[index_hash-INDEX_HASH_MISMATCH] PASSED [ 18%]
+tests/test_evidence_integrity.py::test_chain_reconciles_both_stores[index_predecessor-INDEX_PREDECESSOR_MISMATCH] PASSED [ 22%]
+tests/test_evidence_integrity.py::test_chain_reconciles_both_stores[file_predecessor-FILE_PREDECESSOR_MISMATCH] PASSED [ 25%]
+tests/test_evidence_integrity.py::test_chain_reconciles_both_stores[index_without_file-MISSING_FILE] PASSED [ 29%]
+tests/test_evidence_integrity.py::test_chain_reconciles_both_stores[file_without_index-UNINDEXED_FILE] PASSED [ 33%]
+tests/test_evidence_integrity.py::test_chain_reconciles_both_stores[cross_tenant_path-PATH_MISMATCH] PASSED [ 37%]
+tests/test_evidence_integrity.py::test_chain_reconciles_both_stores[cross_tenant_document-INDEX_METADATA_MISMATCH:tenant_code] PASSED [ 40%]
+tests/test_evidence_integrity.py::test_chain_reconciles_both_stores[malformed_json-UNREADABLE_FILE] PASSED [ 44%]
+tests/test_evidence_integrity.py::test_resealed_ancestor_blocks_consumers[get] PASSED [ 48%]
+tests/test_evidence_integrity.py::test_resealed_ancestor_blocks_consumers[basis] PASSED [ 51%]
+tests/test_evidence_integrity.py::test_resealed_ancestor_blocks_consumers[replay] PASSED [ 55%]
+tests/test_evidence_integrity.py::test_resealed_ancestor_blocks_consumers[sign] PASSED [ 59%]
+tests/test_evidence_integrity.py::test_cli_verify_fails_closed PASSED    [ 62%]
+tests/test_evidence_integrity.py::test_api_verify_reports_missing_file PASSED [ 66%]
+tests/test_evidence_integrity.py::test_api_rejects_resealed_evidence[get] PASSED [ 70%]
+tests/test_evidence_integrity.py::test_api_rejects_resealed_evidence[basis] PASSED [ 74%]
+tests/test_evidence_integrity.py::test_api_rejects_resealed_evidence[replay] PASSED [ 77%]
+tests/test_evidence_integrity.py::test_api_rejects_resealed_evidence[sign] PASSED [ 81%]
+tests/test_evidence_integrity.py::test_unindexed_file_in_other_tenant_is_rejected PASSED [ 85%]
+tests/test_evidence_integrity.py::test_orphan_files_with_empty_index_fail_closed PASSED [ 88%]
+tests/test_evidence_integrity.py::test_sign_resealed_bundle_uses_shared_verification PASSED [ 92%]
+tests/test_evidence_integrity.py::test_explicit_null_metadata_cannot_be_omitted[prev_hash] PASSED [ 96%]
+tests/test_evidence_integrity.py::test_explicit_null_metadata_cannot_be_omitted[case_id] PASSED [100%]
+
+=============================== warnings summary ===============================
+../../tmp/fixvenv/lib/python3.13/site-packages/fastapi/testclient.py:1
+  /tmp/fixvenv/lib/python3.13/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+----------- generated xml file: /tmp/kestrel-chain-review/green.xml ------------
+======================== 27 passed, 1 warning in 16.76s ========================

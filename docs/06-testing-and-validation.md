@@ -2,26 +2,31 @@
 
 These specific defects were addressed; overall safety and production readiness remain unvalidated.
 
-## What was executed for this documentation pass
+## Current evidence-chain fix verification
 
-The engine, tests, package configuration and source data are unchanged from
-`62c498f7110d6aa335194097da3c28b522aaf9ec`. New Python files are documentation
-capture/render/link-check utilities only. [Run report and exact commands](validation/documentation-review/report.md).
+The focused integrity change starts from `0bb2337`. It changes evidence
+reconciliation, consumer error handling and CLI verification status, not clinical
+rules, source data or notification policy. [Failing/passing tests and commands](validation/evidence-chain-review/report.md).
 
 | Check | Observed result |
 |---|---|
-| Full pytest suite | 208 passed; one test-client dependency deprecation warning |
-| Ruff lint / format | Passing; no engine/test source edits |
+| Test-first regressions | 25 initial failures; 2 additional field-presence failures before that fix; then all 27 pass |
+| Full pytest suite | 235 passed; one existing test-client dependency deprecation warning |
+| Ruff lint / format | Passing |
 | Fresh temporary `run-all` | 420 sample records persisted |
 | Recommendations | 0 AUTO_CLOSE / 290 QA / 130 unverified historical candidates; note/quarantine/destroy zero |
-| Verified closure counter | 0; other unverified numeric AUTO_CLOSE counter also 0 |
+| Verified closure counter | 0; no outcome/count changes |
 | Independent obligations | 28 conservative PENDING / 392 UNKNOWN |
-| Comparison with previous verified CSV | No recommendation changed |
 | Full-result sealed-input replay | 420/420 identical |
-| Tenant evidence chains | All 8 OK |
-| ZIP/data verification | Two substantive files match SHA-256; one macOS metadata entry; data/ unchanged |
-| Isolated integrity probe | Re-sealed reasoning edit can pass chain verification despite indexed-hash mismatch; reported, not fixed |
-| Local links / image paths | Checked by the documentation link utility; see retained result |
+| Untouched tenant evidence chains | All 8 OK; direct CLI verify exit 0 |
+| Isolated re-sealed tail | Rejected with INDEX_HASH_MISMATCH; direct CLI exit 1 |
+| API consumers on damaged evidence | Verify returns ok:false; basis/replay/sign return 409 with reason |
+| Existing test fixture repair | Original tamper assertions retained; cleanup restores shared file after test |
+
+The [previous documentation review](validation/documentation-review/report.md)
+retains its 208-test baseline, source ZIP/SHA-256 check, visuals and the original
+unfixed integrity probe. Those artifacts describe that earlier revision, not the
+current verifier. Source data remains unchanged.
 
 These are regression/sample observations, not clinical truth, production rates,
 validated legal applicability, throughput benchmarks or long-term durability proof.
@@ -39,7 +44,8 @@ mkdir -p /tmp/kestrel-docs-check
 kestrel --log-level WARNING --db /tmp/kestrel-docs-check/run.sqlite \
   --evidence-dir /tmp/kestrel-docs-check/evidence run-all \
   --out /tmp/kestrel-docs-check/results.csv > /tmp/kestrel-docs-check/run-all.json
-python docs/diagrams/capture_run.py --run-dir /tmp/kestrel-docs-check
+python docs/diagrams/capture_run.py --run-dir /tmp/kestrel-docs-check \
+  --case-output /tmp/kestrel-docs-check/EXC-107133.json
 python docs/diagrams/check_links.py
 ```
 

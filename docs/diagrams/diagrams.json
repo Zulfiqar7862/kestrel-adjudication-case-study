@@ -693,7 +693,7 @@
   },
   "evidence-chain": {
     "title": "Evidence hash chain and replay",
-    "caption": "Known defect: re-sealed tail can pass chain verification without indexed-hash binding. Local files are not WORM; prev_hash is outside the content core.",
+    "caption": "Local file/index reconciliation is not an independent anchor: rewriting both can forge history. JSON and SQLite writes are separate; not WORM.",
     "nodes": [
       {
         "id": "A",
@@ -726,7 +726,7 @@
       {
         "id": "Verify",
         "title": "Explicit verification",
-        "body": "Core and predecessor checks; indexed-hash binding missing (reported defect)",
+        "body": "Bind core hashes, metadata, paths and predecessor links to index; reject missing/orphan files",
         "col": 1,
         "row": 1
       },

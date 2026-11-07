@@ -1,0 +1,36 @@
+[
+  [
+    "/tmp/fixvenv/bin/kestrel",
+    "--log-level",
+    "WARNING",
+    "--db",
+    "/tmp/kestrel-chain-review/final/run.sqlite",
+    "--evidence-dir",
+    "/tmp/kestrel-chain-review/final/evidence",
+    "replay",
+    "--bundle",
+    "EVB-cd63bb77657d0696",
+    "--tenant",
+    "T-KAVERI"
+  ],
+  [
+    "/tmp/fixvenv/bin/python",
+    "docs/diagrams/probe_integrity.py",
+    "--bundle",
+    "/tmp/kestrel-chain-review/final/evidence/T-KAVERI/EVB-cd63bb77657d0696.json",
+    "--out",
+    "/tmp/kestrel-chain-review/integrity-probe.json"
+  ],
+  [
+    "/tmp/fixvenv/bin/kestrel",
+    "--log-level",
+    "WARNING",
+    "--db",
+    "/tmp/kestrel-chain-review/cli-probe/run.sqlite",
+    "--evidence-dir",
+    "/tmp/kestrel-chain-review/cli-probe/evidence",
+    "verify",
+    "--tenant",
+    "T-KAVERI"
+  ]
+]

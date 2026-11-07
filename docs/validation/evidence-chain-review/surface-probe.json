@@ -1,0 +1,69 @@
+{
+  "verify": {
+    "status": 200,
+    "body": {
+      "tenant_code": "T-KAVERI",
+      "length": 1,
+      "ok": false,
+      "errors": [
+        "EVB-ad52917ecf2a982d: INDEX_HASH_MISMATCH"
+      ]
+    }
+  },
+  "basis": {
+    "status": 409,
+    "body": {
+      "error": "evidence integrity verification failed: EVB-ad52917ecf2a982d: INDEX_HASH_MISMATCH",
+      "verification": {
+        "tenant_code": "T-KAVERI",
+        "length": 1,
+        "ok": false,
+        "errors": [
+          "EVB-ad52917ecf2a982d: INDEX_HASH_MISMATCH"
+        ]
+      }
+    }
+  },
+  "replay": {
+    "status": 409,
+    "body": {
+      "error": "evidence integrity verification failed: EVB-ad52917ecf2a982d: INDEX_HASH_MISMATCH",
+      "verification": {
+        "tenant_code": "T-KAVERI",
+        "length": 1,
+        "ok": false,
+        "errors": [
+          "EVB-ad52917ecf2a982d: INDEX_HASH_MISMATCH"
+        ]
+      }
+    }
+  },
+  "sign": {
+    "status": 409,
+    "body": {
+      "error": "evidence integrity verification failed: EVB-ad52917ecf2a982d: INDEX_HASH_MISMATCH",
+      "verification": {
+        "tenant_code": "T-KAVERI",
+        "length": 1,
+        "ok": false,
+        "errors": [
+          "EVB-ad52917ecf2a982d: INDEX_HASH_MISMATCH"
+        ]
+      }
+    }
+  },
+  "case_state_after_rejected_sign": "AWAITING_REVIEWER",
+  "cli_verify_exit": 1,
+  "cli_verify_command": [
+    "/tmp/fixvenv/bin/kestrel",
+    "--log-level",
+    "WARNING",
+    "--db",
+    "/tmp/kestrel-chain-review/cli-probe/run.sqlite",
+    "--evidence-dir",
+    "/tmp/kestrel-chain-review/cli-probe/evidence",
+    "verify",
+    "--tenant",
+    "T-KAVERI"
+  ]
+}

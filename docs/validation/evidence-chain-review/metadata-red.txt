@@ -1,0 +1,54 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+___________ test_explicit_null_metadata_cannot_be_omitted[prev_hash] ___________
+
+chain = (<kestrel.storage.evidence.EvidenceStore object at 0x7f98c2e8c050>, <kestrel.storage.bitemporal.BitemporalStore object...'), PosixPath('/tmp/pytest-of-box/pytest-106/test_explicit_null_metadata_ca0/evidence/T-A/EVB-759c06c202ea8b91.json')])
+missing = 'prev_hash'
+
+    @pytest.mark.parametrize("missing", ["prev_hash", "case_id"])
+    def test_explicit_null_metadata_cannot_be_omitted(chain, missing):
+        evidence, _, docs, paths = chain
+        doc = docs[0]
+        del doc[missing]
+        if missing == "case_id":
+            core = {k: v for k, v in doc.items() if k not in {"bundle_id", "content_hash", "prev_hash", "schema"}}
+            doc["content_hash"] = canonical_hash(core)
+        paths[0].write_text(json.dumps(doc))
+        report = evidence.verify_chain("T-A")
+>       assert any(f"MISSING_FIELD:{missing}" in e for e in report["errors"]), report
+E       AssertionError: {'tenant_code': 'T-A', 'length': 3, 'ok': True, 'errors': []}
+E       assert False
+E        +  where False = any(<generator object test_explicit_null_metadata_cannot_be_omitted.<locals>.<genexpr> at 0x7f98c37ebd30>)
+
+tests/test_evidence_integrity.py:228: AssertionError
+____________ test_explicit_null_metadata_cannot_be_omitted[case_id] ____________
+
+chain = (<kestrel.storage.evidence.EvidenceStore object at 0x7f98c2f379d0>, <kestrel.storage.bitemporal.BitemporalStore object...'), PosixPath('/tmp/pytest-of-box/pytest-106/test_explicit_null_metadata_ca1/evidence/T-A/EVB-f588503e265f89c0.json')])
+missing = 'case_id'
+
+    @pytest.mark.parametrize("missing", ["prev_hash", "case_id"])
+    def test_explicit_null_metadata_cannot_be_omitted(chain, missing):
+        evidence, _, docs, paths = chain
+        doc = docs[0]
+        del doc[missing]
+        if missing == "case_id":
+            core = {k: v for k, v in doc.items() if k not in {"bundle_id", "content_hash", "prev_hash", "schema"}}
+            doc["content_hash"] = canonical_hash(core)
+        paths[0].write_text(json.dumps(doc))
+        report = evidence.verify_chain("T-A")
+>       assert any(f"MISSING_FIELD:{missing}" in e for e in report["errors"]), report
+E       AssertionError: {'tenant_code': 'T-A', 'length': 3, 'ok': False, 'errors': ['EVB-af3456f5243e2597: INDEX_HASH_MISMATCH']}
+E       assert False
+E        +  where False = any(<generator object test_explicit_null_metadata_cannot_be_omitted.<locals>.<genexpr> at 0x7f98c2ebc2b0>)
+
+tests/test_evidence_integrity.py:228: AssertionError
+=============================== warnings summary ===============================
+../../tmp/fixvenv/lib/python3.13/site-packages/fastapi/testclient.py:1
+  /tmp/fixvenv/lib/python3.13/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_evidence_integrity.py::test_explicit_null_metadata_cannot_be_omitted[prev_hash]
+FAILED tests/test_evidence_integrity.py::test_explicit_null_metadata_cannot_be_omitted[case_id]
+2 failed, 25 deselected, 1 warning in 0.36s

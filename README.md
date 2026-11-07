@@ -95,9 +95,11 @@ Product alias caveats/negative relationships are not properly modelled. Study
 discovery, site-annexure resolution, verified batch history and precedent import
 are unfinished. Numeric rules and signing paths are not clinically validated.
 Most API routes lack production authentication. Evidence files/SQLite are not a
-proven WORM archive or highly available deployment. An isolated probe also found
-a re-sealed tail can pass chain verification despite an indexed-hash mismatch;
-this documentation task reports it without changing the engine. Delivery retry/receipt records
+proven WORM archive or highly available deployment. File/index mismatches now
+block evidence retrieval, signing and replay, but SQLite plus local files is not
+an independent anchor: someone able to rewrite both can still forge evidence.
+[Integrity regression results](docs/validation/evidence-chain-review/report.md).
+Delivery retry/receipt records
 are unverified claims; no worker, legal filing adapter or pager is supplied.
 
 [Detailed limitations and inspection concerns](docs/07-limitations-and-roadmap.md) ·

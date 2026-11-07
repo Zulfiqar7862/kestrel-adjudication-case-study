@@ -50,7 +50,8 @@ def main():
             "signing_bypass_tested": False,
             "clinical_outcome_changed": False,
         }
-        assert result["file_hash_differs_from_index"] and after["ok"]
+        assert before["ok"] and result["file_hash_differs_from_index"] and not after["ok"]
+        assert any("INDEX_HASH_MISMATCH" in error for error in after["errors"])
         args.out.write_text(json.dumps(result, indent=2) + "\n")
         print(json.dumps(result, indent=2))
 

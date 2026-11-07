@@ -16,6 +16,7 @@ from kestrel.exceptions import (
     ValidationAppError,
 )
 from kestrel.service import AdjudicationService
+from kestrel.storage.evidence import EvidenceIntegrityError
 
 AdjudicateRequest: Any = None
 
@@ -182,6 +183,10 @@ def create_app(svc: Optional[AdjudicationService] = None, *, notification_access
     def get_svc() -> AdjudicationService:
         """FastAPI dependency: shared AdjudicationService."""
         return app.state.svc
+
+    @app.exception_handler(EvidenceIntegrityError)
+    async def _integrity_exc(_request: Request, exc: EvidenceIntegrityError) -> JSONResponse:
+        return JSONResponse(status_code=409, content={"error": str(exc), "verification": exc.report})
 
     @app.exception_handler(TenantIsolationError)
     async def _tenant_exc(_request: Request, exc: TenantIsolationError) -> JSONResponse:

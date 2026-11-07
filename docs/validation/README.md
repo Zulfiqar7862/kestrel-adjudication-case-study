@@ -2,10 +2,11 @@
 
 These specific defects were addressed; overall safety and production readiness remain unvalidated.
 
-## Current documentation-only rerun
+## Current evidence-chain fix
 
-[Documentation review](documentation-review/report.md): actual current counts,
-source SHA-256 check, full tests, link checks, replay and unchanged behaviour.
+[Evidence-chain review](evidence-chain-review/report.md): test-first file/index
+reconciliation and guarded consumers; 235 tests pass; unchanged 0/290/130 counts,
+28/392 notification split, 420 identical replays and 8 untouched chains.
 [Current testing guide](../06-testing-and-validation.md).
 
 ## Retained historical reports
@@ -14,6 +15,7 @@ These reports are versioned experiment records, not a single current specificati
 Read the stated baseline/version before quoting any count or implementation claim.
 Raw failures, outputs and source observations are preserved, not silently rewritten.
 
+- [Documentation/visuals, baseline 62c498f](documentation-review/report.md)
 - [Notification obligations, 0.5.1](notification-obligations-review/report.md)
 - [Initial independent notification lane, 0.5.0](evidence-workflows/02-notifications.md)
 - [Historical candidates separated from closures, 0.4.3](historical-candidates-review/report.md)

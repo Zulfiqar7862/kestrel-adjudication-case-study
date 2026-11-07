@@ -1,0 +1,36 @@
+# Working directory /workspace/kprod; /tmp/fixvenv used throughout.
+git branch --show-current
+git rev-parse HEAD
+/tmp/fixvenv/bin/python -c 'import kestrel;print(kestrel.__file__)'
+# fix/correctness-review; 0bb233710ce1b905c50d1687237bfd4efa2e8b83; /workspace/kprod/src/kestrel/__init__.py
+# Initial collection error: incorrect test import kestrel.domain.enums; corrected to kestrel.domain.
+# A correction command tried python (not installed); rerun with /tmp/fixvenv/bin/python. No production edit yet.
+/tmp/fixvenv/bin/pytest -o addopts='' tests/test_evidence_integrity.py -q --junitxml=/tmp/kestrel-chain-review/red.xml
+# exit 1; 25 failed, 1 warning in 16.48s; saved red.txt, before production edits.
+/tmp/fixvenv/bin/pytest -o addopts='' tests/test_evidence_integrity.py -q -k explicit_null --junitxml=/tmp/kestrel-chain-review/metadata-red.xml
+# exit 1; 2 failed, 25 deselected, 1 warning in 0.36s; before field-presence fix.
+/tmp/fixvenv/bin/pytest -o addopts='' tests/test_evidence_integrity.py -vv --junitxml=/tmp/kestrel-chain-review/green.xml
+# exit 0; 27 passed, 1 warning in 16.76s.
+/tmp/fixvenv/bin/pytest -o addopts='' -q
+# First full: 2 failed, 231 passed; fixture contamination, fixed with cleanup only.
+# Intermediate full: 233 passed (before two added field tests).
+# Final full: exit 0; 235 passed, 1 warning in 45.61s.
+/tmp/fixvenv/bin/ruff check --fix src/kestrel/storage/evidence.py src/kestrel/api/app.py tests/test_evidence_integrity.py
+/tmp/fixvenv/bin/ruff format src/kestrel/storage/evidence.py src/kestrel/api/app.py src/kestrel/lifecycle.py src/kestrel/cli.py tests/test_evidence_integrity.py
+mkdir -p /tmp/kestrel-chain-review/final
+/tmp/fixvenv/bin/kestrel --log-level WARNING --db /tmp/kestrel-chain-review/final/run.sqlite --evidence-dir /tmp/kestrel-chain-review/final/evidence run-all --out /tmp/kestrel-chain-review/final/results.csv > /tmp/kestrel-chain-review/final/run-all.json
+# exit 0; 420 rows, 0/290/130, notifications 28/392; same result as initial temp run.
+/tmp/fixvenv/bin/python docs/diagrams/capture_run.py --run-dir /tmp/kestrel-chain-review/final --case-output /tmp/kestrel-chain-review/final/EXC-107133.json
+# exit 0; 420/420 identical replays; all 8 chains pass; no recommendation changes.
+/tmp/fixvenv/bin/kestrel --log-level WARNING --db /tmp/kestrel-chain-review/final/run.sqlite --evidence-dir /tmp/kestrel-chain-review/final/evidence verify --tenant T-KAVERI
+# exit 0; length 44, ok true, errors [].
+# Direct CLI replay --bundle uses the real bundle id saved in cli-replay.json.
+# Isolated probe --bundle uses that same persisted source file; never edits primary run.
+# Exact expanded commands for replay/probe/CLI damage are retained in executed-commands.json.
+/tmp/fixvenv/bin/ruff check
+/tmp/fixvenv/bin/ruff format --check
+/tmp/fixvenv/bin/python docs/diagrams/check_links.py --out docs/validation/evidence-chain-review/links.json
+git diff --check
+git diff --quiet 0bb2337 -- data src/kestrel/engine.py src/kestrel/decision_rules.py src/kestrel/identity.py src/kestrel/stability.py src/kestrel/rules src/kestrel/notifications.py
+git ls-files '*__pycache__*' '*.pyc'
+# Normal commit/push and gh run watch are performed after local checks; final identifiers reported separately.
