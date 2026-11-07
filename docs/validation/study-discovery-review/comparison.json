@@ -1,0 +1,17 @@
+{
+  "baseline": "15724a2df10b11e6a76c2ef32c4a59249434c226",
+  "before_counts": {
+    "ESCALATED_TO_SENIOR_QA": 383,
+    "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED": 37
+  },
+  "after_counts": {
+    "ESCALATED_TO_SENIOR_QA": 383,
+    "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED": 37
+  },
+  "recommendation_changes": [],
+  "changed_result_fields": {
+    "study_discovery": 420,
+    "rationale": 420,
+    "evidence": 420
+  }
+}

@@ -1,0 +1,118 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+______________ test_excel_datetime_authority_values_do_not_crash _______________
+
+    def test_excel_datetime_authority_values_do_not_crash():
+        from datetime import datetime
+>       audit = discover([study(effective_from=datetime(2025, 1, 1), effective_to=datetime(2027, 1, 1),
+                                known_from=datetime(2025, 1, 1))])
+
+tests/test_study_discovery.py:319:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests/test_study_discovery.py:68: in discover
+    return resolver.discover(p or product(), **args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/kestrel/rules/stability.py:133: in discover
+    return discover_studies(
+src/kestrel/rules/study_discovery.py:295: in discover_studies
+    candidates = [evaluate_candidate(row, product, cited_count=count, **context) for row in own]
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+row = {'tenant_code': 'T', 'study_ref': 'NEW-REFERENCE', 'product_text_as_written': 'Medicine 100U pen', 'study_type': 'Excursion / thermal cycling', ...}
+product = ResolvedProduct(tenant_code='T', match_method='sku_exact', confidence=1, brand='Medicine 100U pen', generic_inn=None, ...didates=[], unresolved_reason=None, status='UNRESOLVED', reasons=[], identity_links=[], release_identity_eligible=True)
+cited_count = 1, knowledge_date = datetime.date(2026, 1, 1)
+event_date = datetime.date(2026, 1, 1), min_temp_c = 4, max_temp_c = 12
+duration_min = 15, sop_authority = 'ESTABLISHED', prior_exposure_hours = None
+
+    def evaluate_candidate(
+        row: dict[str, Any],
+        product: ResolvedProduct,
+        *,
+        cited_count: int,
+        knowledge_date: Optional[date],
+        event_date: Optional[date],
+        min_temp_c: Optional[float],
+        max_temp_c: Optional[float],
+        duration_min: Optional[float],
+        sop_authority: str,
+        prior_exposure_hours: Optional[float],
+    ) -> StudyCandidate:
+        from kestrel.rules.stability import _parse_allowance
+
+        reasons: list[StudyRejection] = []
+
+        def reject(code: str, detail: str, unknown: bool = False) -> None:
+            reasons.append(StudyRejection(StudyRejectionCode(code), detail, "UNKNOWN" if unknown else "REJECTED"))
+
+        cited = bool(product.stability_study_ref and row.get("study_ref") == product.stability_study_ref)
+        if row.get("tenant_code") != product.tenant_code:
+            # Defensive public helper: do not return any foreign source material.
+            return StudyCandidate(
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                False,
+                "REJECTED",
+                [StudyRejection(StudyRejectionCode.WRONG_TENANT, "Candidate not owned by event tenant")],
+            )
+        if not product.release_identity_eligible:
+            reject("IDENTITY_UNRESOLVED", "Typed tenant product identity is not established", True)
+        if not cited:
+            reject(
+                "UNCITED_MAPPING_UNKNOWN",
+                "No verified alternate-study mapping; discovery does not promote an uncited row",
+                True,
+            )
+        elif cited_count != 1:
+            reject("AMBIGUOUS_CITATION", "Multiple tenant rows carry the cited reference")
+        text = str(row.get("product_text_as_written") or "")
+        brand = str(product.brand or "")
+        if not _name(brand) or (
+            _name(brand) != _name(text) and not re.search(r"(?<!\w)" + re.escape(_norm(brand)) + r"(?!\w)", _norm(text))
+        ):
+            reject("WRONG_PRODUCT", "Study product text does not establish the labelled product; synonyms not inferred")
+        ps, ss = _strengths(brand), _strengths(text)
+        if not ps or not ss:
+            reject("STRENGTH_UNKNOWN", "Explicit comparable product/study strength and unit missing", True)
+        elif ps != ss:
+            reject("STRENGTH_MISMATCH", "Product and study strength/unit signatures differ; no unit conversion inferred")
+        hint = product.presentation_hint
+        form = _presentation_from_text(text)
+        if not hint or not form:
+            reject("PRESENTATION_UNKNOWN", "Explicit comparable presentation missing", True)
+        elif hint != form or (hint in {"pen", "pfs"} and "vial" in _norm(text)):
+            reject("PRESENTATION_MISMATCH", "Study presentation conflicts with product, including contradictory suffixes")
+        if "excursion" not in _norm(row.get("study_type")):
+            reject("NOT_EXCURSION_STUDY", "Study type does not establish an excursion allowance")
+        if _norm(row.get("readable")) != "y":
+            reject("UNREADABLE", "Index does not assert fully readable evidence", True)
+        approval = _norm(row.get("approval_status"))
+        if not approval:
+            reject("APPROVAL_UNKNOWN", "Approval metadata absent from supplied index", True)
+        elif approval != "approved":
+            reject("NOT_APPROVED", "Study is not explicitly approved")
+        start, end = _date(row.get("effective_from")), _date(row.get("effective_to"))
+        if not start or not end or not event_date:
+            reject(
+                "EFFECTIVITY_UNKNOWN",
+                "Effective interval or event date absent/unparseable; no open interval inferred",
+                True,
+            )
+>       elif start > end or not start <= event_date <= end or (knowledge_date and start > knowledge_date):
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: '<=' not supported between instances of 'datetime.datetime' and 'datetime.date'
+
+src/kestrel/rules/study_discovery.py:200: TypeError
+=============================== warnings summary ===============================
+../../tmp/fixvenv/lib/python3.13/site-packages/fastapi/testclient.py:1
+  /tmp/fixvenv/lib/python3.13/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_study_discovery.py::test_excel_datetime_authority_values_do_not_crash
+1 failed, 51 deselected, 1 warning in 0.31s

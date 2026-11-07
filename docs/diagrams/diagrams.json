@@ -145,7 +145,7 @@
       {
         "id": "Rules",
         "title": "rules/ + decision_rules.py",
-        "body": "IdentityResolver, StabilityResolver, StorageLimits, decide",
+        "body": "IdentityResolver; StabilityResolver.resolve / discover; typed StudyDiscovery rejections; StorageLimits; decide",
         "col": 0,
         "row": 1
       },
@@ -628,7 +628,7 @@
       {
         "id": "Facts",
         "title": "Assemble ExcursionFacts",
-        "body": "Parsed explicit limits, summaries, product, study and SOP evidence",
+        "body": "Explicit limits, measurements, typed product identity; all tenant study rows with rejection reasons",
         "col": 1,
         "row": 0
       },
@@ -802,6 +802,76 @@
       {
         "from": "C",
         "to": "Replay"
+      }
+    ]
+  },
+  "study-discovery": {
+    "title": "Study discovery: index evidence, not release authority",
+    "caption": "Every tenant-owned index row is catalogued. Missing authority stays UNKNOWN; no alternate citation or clinical envelope is invented.",
+    "nodes": [
+      {
+        "id": "Scope",
+        "title": "Tenant boundary",
+        "body": "Search all owned index rows; exclude foreign/unowned material before evaluation",
+        "col": 0,
+        "row": 0
+      },
+      {
+        "id": "Identity",
+        "title": "Product applicability",
+        "body": "Identity gate; conservative name, strength/unit and presentation comparison; no inferred synonyms",
+        "col": 1,
+        "row": 0
+      },
+      {
+        "id": "Authority",
+        "title": "Authority at time",
+        "body": "Approval, effective and known dates, supersession and SOP; absent metadata stays UNKNOWN",
+        "col": 2,
+        "row": 0
+      },
+      {
+        "id": "Coverage",
+        "title": "Exposure coverage",
+        "body": "Explicit time/temperature allowance; upper-bound scenario; cumulative/once-only history never assumed zero",
+        "col": 0,
+        "row": 1
+      },
+      {
+        "id": "Catalogue",
+        "title": "Typed candidate catalogue",
+        "body": "SELECTED or REJECTED; code, detail, UNKNOWN status, source sheet/row; no uncited promotion",
+        "col": 1,
+        "row": 1
+      },
+      {
+        "id": "Surfaces",
+        "title": "Sealed evidence / API / UI",
+        "body": "Identical catalogue retained in snapshot replay; OpenAPI enum; escaped rendered details",
+        "col": 2,
+        "row": 1
+      }
+    ],
+    "edges": [
+      {
+        "from": "Scope",
+        "to": "Identity"
+      },
+      {
+        "from": "Identity",
+        "to": "Authority"
+      },
+      {
+        "from": "Authority",
+        "to": "Coverage"
+      },
+      {
+        "from": "Coverage",
+        "to": "Catalogue"
+      },
+      {
+        "from": "Catalogue",
+        "to": "Surfaces"
       }
     ]
   }

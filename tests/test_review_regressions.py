@@ -42,8 +42,8 @@ def fixture(min_c=3.0, max_c=8.0, firmware="TT-2.14.3"):
         "logger_fw": firmware,
         "_alert_ts": datetime(2026, 1, 2),
     }
-    # Supply a synthetic applicable study so firmware/parser tests still isolate
-    # their original arithmetic rather than relying on now-forbidden master prose.
+    # Synthetic contextual study only: no approval/effectivity/strength authority.
+    # Item 4 must reject its use for a clinical fate, while preserving raw summaries.
     pack.stability = [
         {
             "tenant_code": "T-X",
@@ -76,14 +76,24 @@ class TestTemperatureAndIdentity(unittest.TestCase):
         p, event = fixture(min_c=-0.1, max_c=6)
         r = AdjudicationEngine(p).adjudicate(event)
         u = r.evidence["temps"]["uncertainty"]
-        self.assertEqual(u["reported_scenario"]["recommendation"], "DESTROY")
-        self.assertNotEqual(u["upper_bound_scenario"]["recommendation"], "DESTROY")
+        # Item 4: an unapproved, undated index prohibition cannot establish DESTROY.
+        # Conditional freeze arithmetic is still covered below the discovery gate.
+        self.assertEqual(u["reported_scenario"]["recommendation"], "ESCALATED_TO_SENIOR_QA")
+        self.assertEqual(u["upper_bound_scenario"]["recommendation"], "ESCALATED_TO_SENIOR_QA")
+        self.assertEqual(r.evidence["temps"]["min_reported"], -0.1)
+        self.assertEqual(u["upper_bound_scenario"]["max_c"], 7.8)
+        self.assertIsNone(r.study_discovery["selected_study_ref"])
+        self.assertIn("APPROVAL_UNKNOWN", str(r.study_discovery))
         self.assertEqual(r.recommendation, "ESCALATED_TO_SENIOR_QA")
 
     def test_bulletin_same_outcome_stays_flagged(self):
         p, event = fixture(max_c=20)
         r = AdjudicationEngine(p).adjudicate(event)
-        self.assertEqual(r.recommendation, "DESTROY")
+        # Missing study authority must not invent a destructive clinical fate.
+        self.assertEqual(r.recommendation, "ESCALATED_TO_SENIOR_QA")
+        self.assertIsNone(r.study_discovery["selected_study_ref"])
+        self.assertIn("APPROVAL_UNKNOWN", str(r.study_discovery))
+        self.assertEqual(r.reported_max_temp_c, 20)
         self.assertTrue(r.bulletin_applied)
         self.assertFalse(r.evidence["temps"]["uncertainty"]["outcome_sensitive"])
 

@@ -1,0 +1,72 @@
+# CWD /workspace/kprod; branch fix/correctness-review; baseline 15724a2df10b11e6a76c2ef32c4a59249434c226
+# All Python/pytest/ruff/kestrel commands use /tmp/fixvenv, not /tmp/fv.
+/tmp/fixvenv/bin/python -c 'import kestrel; print(kestrel.__file__)'
+# /workspace/kprod/src/kestrel/__init__.py
+# Before production changes: DataPack.load + asdict(engine.adjudicate(event)) for all 420,
+# written to /tmp/kestrel-study-review/before.json. No data/ writes.
+/tmp/fixvenv/bin/pytest -o addopts='' tests/test_study_discovery.py -q --junitxml=/tmp/kestrel-study-review/red-corrected.xml
+# exit 1: 38 failures; git diff --quiet -- src returned 0 before implementation.
+# First red attempt had one wrong service harness name; corrected before production edits.
+/tmp/fixvenv/bin/pytest -o addopts='' tests/test_study_discovery.py -q -k 'malformed or single_use or nonfinite or helper or positive_selection'
+# exit 1: 8 failed, 2 passed, 38 deselected. See hardening-red.txt.
+/tmp/fixvenv/bin/pytest -o addopts='' tests/test_study_discovery.py -q -k 'rationale or conditional_arithmetic'
+# final valid-fixture red: 1 failed, 2 passed, 48 deselected (integration-red-final.txt).
+# Earlier fact-helper keyword/.value mistakes were harness errors, not acceptance red evidence.
+/tmp/fixvenv/bin/pytest -o addopts='' tests/test_study_discovery.py -q -k excel_datetime
+# exit 1: 1 failed, 51 deselected (date-red.txt).
+# Initial implementation had a parser module import typo (collection error); fixed against
+# actual kestrel.rules.as_of import. Lint found two import-order issues, fixed with ruff.
+/tmp/fixvenv/bin/pytest -o addopts='' tests/test_study_discovery.py -vv --junitxml=/tmp/kestrel-study-review/green-final.xml
+# exit 0: 54 passed, 1 pre-existing FastAPI/Starlette deprecation warning.
+/tmp/fixvenv/bin/pytest -o addopts='' tests/test_study_discovery.py tests/test_review_regressions.py -q
+# exit 0: 70 passed (before final Excel datetime case; final full run includes it).
+/tmp/fixvenv/bin/pytest -o addopts='' -q --junitxml=/tmp/kestrel-study-review/full-acceptance.xml
+# exit 0: 325 passed, 1 warning, 55.31s (final acceptance). Initial integration: 3 failed /306 passed.
+# Two old synthetic tests had unsupported DESTROY expectations; changes explained in report.
+# Third retained its original missing-duration assertion, now fulfilled by cited typed trace.
+/tmp/fixvenv/bin/ruff check
+/tmp/fixvenv/bin/ruff format --check
+# All checks passed; 86 files already formatted.
+/tmp/fixvenv/bin/kestrel --log-level WARNING --db /tmp/kestrel-study-review/accepted/run.sqlite --evidence-dir /tmp/kestrel-study-review/accepted/evidence run-all --out /tmp/kestrel-study-review/accepted/results.csv
+# stdout saved as accepted/run-all.json; fresh DB/evidence paths.
+/tmp/fixvenv/bin/python docs/diagrams/capture_run.py --run-dir /tmp/kestrel-study-review/accepted --case-output /tmp/kestrel-study-review/accepted/EXC-107133.json
+# exit 0: 420 records; 420 identical full-result replays; all 8 tenant chains OK.
+# The helper's old 62c498f comparator is not this item-4 baseline; verification.json
+# retains executed metrics and explicitly uses the separate 15724a2 comparison.
+# API TestClient GET /events/EXC-107133 and /openapi.json -> HTTP200; saved payload/components.
+# Actual Node studyPanel() output saved to ui-study-panel.html; tests exercise escaping
+# and positive SELECTED rendering. No browser screenshot or end-to-end browser claim.
+# Equality asserted: API study_discovery == sealed inputs.resolution.stability.discovery
+# == sealed inputs.expected_result.study_discovery.
+# Final acceptance recalculated all420 objects against the frozen baseline; only
+# study_discovery/evidence/rationale changed. No source metadata was filled in.
+# Direct actual-ID CLI commands and successful results: executed-cli-commands.json, cli-*.txt.
+# An initial CLI attempt used --tenant-code instead of documented --tenant (exit2);
+# corrected to --tenant/--bundle, both exit0. No application failure hidden.
+# Comparison helper initially assumed deciding_rule was top-level (KeyError after
+# field summary); actual result keys confirm only study_discovery/evidence/rationale changed.
+# render_visuals.graph generated lld, decision-pipeline, study-discovery PNGs;
+# copies + editable sources saved to /workspace/final-visuals; hashes in visual-manifest.json.
+/tmp/fixvenv/bin/python docs/diagrams/check_links.py --out docs/validation/study-discovery-review/links.json
+git diff --check
+git diff --quiet 15724a2 -- data
+git ls-files '*__pycache__*' '*.pyc'
+# No changed data, no tracked bytecode, no merge/PR/force-push; normal commit/push only.
+
+# Final diff review found two additional item-4 consistency defects; regressions first:
+/tmp/fixvenv/bin/pytest -o addopts='' tests/test_study_discovery.py -q -k contradictory_pen
+# exit1: 1 failed (presentation-red.txt); a PFS precedence match concealed a pen suffix.
+/tmp/fixvenv/bin/pytest -o addopts='' tests/test_study_discovery.py -q -k no_selection_never
+# exit1: 1 failed (assessment-red.txt); stale cumulative wording claimed a selected study.
+# Final source rejects all contradictory form descriptors and preserves unresolved wording.
+# Earlier overlapping full-suite runs collided on a shared redirected log path; their
+# sparse log is not acceptance evidence. Final acceptance uses unique paths:
+/tmp/fixvenv/bin/pytest -o addopts='' -q --junitxml=/tmp/kestrel-study-review/full-acceptance.xml
+# stdout /tmp/kestrel-study-review/full-acceptance.txt, copied to pytest.txt only after exit0.
+/tmp/fixvenv/bin/python /tmp/kestrel-study-review/final_artifacts.py
+# Real final-source all420 comparisons, actual sealed API/OpenAPI/Node render and CLI exits
+# are recorded in surface-validation.json, not inferred from code inspection.
+# First docs link pass found stale inline Mermaid/self-link; synchronized and rechecked.
+
+# Copied validation text uses LF and strips trailing spaces only (git diff --check);
+# test results/traceback content unchanged; raw originals remain under /tmp/kestrel-study-review.

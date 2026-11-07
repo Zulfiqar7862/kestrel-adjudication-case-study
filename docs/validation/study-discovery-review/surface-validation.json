@@ -1,0 +1,18 @@
+{
+  "events_compared": 420,
+  "result_fields_changed": {
+    "study_discovery": 420,
+    "rationale": 420,
+    "evidence": 420
+  },
+  "recommendations_changed": 0,
+  "rejection_groups": 54,
+  "api_http": 200,
+  "openapi_http": 200,
+  "sealed_api_equal": true,
+  "node_rendered": true,
+  "cli_exit_codes": [
+    0,
+    0
+  ]
+}

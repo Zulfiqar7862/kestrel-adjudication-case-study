@@ -6,7 +6,9 @@ These specific defects were addressed; overall safety and production readiness r
 
 1. Bootstrap ingests workbook rows into SQLite and loads a current `DataPack`.
 2. The engine resolves references and measurements, then returns a recommendation
-   and trace. It is not an LLM decision path.
+   and trace. It is not an LLM decision path. Study discovery catalogues all tenant-owned
+   index rows with typed rejection reasons and explicit UNKNOWN authority gaps;
+   see the [study contract](03-lld.md#study-discovery-contract).
 3. The service writes an evidence JSON and its SQLite index, then creates a case
    linked to that evidence. It does not automatically sign the case.
 4. The independent notification lane reads ingested alerts, not assembled bundles.

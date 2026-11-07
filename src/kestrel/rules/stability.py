@@ -115,6 +115,33 @@ class StabilityResolver:
         for study in pack.stability:
             self.by_ref.setdefault((study.get("tenant_code"), str(study.get("study_ref"))), []).append(study)
 
+    def discover(
+        self,
+        product: ResolvedProduct,
+        *,
+        knowledge_date=None,
+        event_date=None,
+        min_temp_c=None,
+        max_temp_c=None,
+        duration_min=None,
+        sop_authority="UNKNOWN",
+        prior_exposure_hours=None,
+    ):
+        """Catalogue every tenant-owned candidate; never infer missing authority."""
+        from kestrel.rules.study_discovery import discover_studies
+
+        return discover_studies(
+            self.pack.stability,
+            product,
+            knowledge_date=knowledge_date,
+            event_date=event_date,
+            min_temp_c=min_temp_c,
+            max_temp_c=max_temp_c,
+            duration_min=duration_min,
+            sop_authority=sop_authority,
+            prior_exposure_hours=prior_exposure_hours,
+        )
+
     def resolve(self, product: ResolvedProduct) -> StabilityPosition:
         """Use only a uniquely cited, product/presentation-aligned excursion study.
 

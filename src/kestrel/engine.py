@@ -69,6 +69,7 @@ class AdjudicationResult:
     confidence: float
     triage_label: str
     identity_evidence: dict[str, Any] = field(default_factory=dict)
+    study_discovery: dict[str, Any] = field(default_factory=dict)
     historical_classification: Optional[str] = None
     closure_eligibility: str = "not_eligible"
     independent_closure_evidence: list[str] = field(default_factory=list)
@@ -241,6 +242,37 @@ class AdjudicationEngine:
             else "SOP/site acceptance authority unresolved: indexed body/annexure content not supplied"
         )
         evidence["sop_authority"] = {"status": "unresolved", "reason": sop_authority_issue}
+
+        # Study discovery is exhaustive within the tenant, not a guessed alternate citation.
+        # Snapshot membership is not a historical knowledge-time proof.
+        discovery = self.stability.discover(
+            product,
+            event_date=as_of,
+            knowledge_date=alert_ts.date() if alert_ts else None,
+            min_temp_c=min_temp,
+            max_temp_c=max_temp + (self.bulletin_bound_c if bulletin else 0) if max_temp is not None else None,
+            duration_min=to_float(event.get("duration_min")),
+            sop_authority="CONFLICT" if sop_overlap else "UNKNOWN",
+        ).assessment()
+        evidence["stability"]["discovery"] = discovery
+        if discovery["selected_study_ref"] is None:
+            stability_position.source = "unresolved"
+            stability_position.authority_issue = (
+                stability_position.authority_issue or "No admissible study: see typed candidate rejection reasons"
+            )
+            evidence["stability"]["source"] = "unresolved"
+            evidence["stability"]["authority_issue"] = stability_position.authority_issue
+            if not (stability_position.cumulative or stability_position.cumulative_above_label):
+                evidence["stability"]["cumulative_assessment"] = (
+                    "unresolved: no admissible study; cumulative requirement unknown"
+                )
+            rationale.append("Study discovery unresolved; candidate rejection catalogue retained in evidence")
+            rationale.extend(
+                f"Study {candidate['study_ref']}: {reason['code']} [{reason['assessment']}] — {reason['detail']}"
+                for candidate in discovery["candidates"]
+                if candidate["cited"]
+                for reason in candidate["rejections"]
+            )
 
         # --- carrier contract as-at ---
         carrier_identity = self.identity.resolve_carrier(tenant, event.get("carrier_ref_as_received"), as_of)
@@ -427,6 +459,7 @@ class AdjudicationEngine:
             recommendation=recommendation,
             requires_human_signature=requires_human,
             identity_evidence=evidence["identity"],
+            study_discovery=discovery,
             historical_classification=historical_classification,
             closure_eligibility=closure_eligibility,
             independent_closure_evidence=[],

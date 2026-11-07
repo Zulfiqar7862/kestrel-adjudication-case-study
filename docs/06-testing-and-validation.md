@@ -67,3 +67,9 @@ residency compliance or seven-year source reconstruction.
 passing evidence from earlier changes. Old outcome counts and limitations are
 labelled by version there; they are not current acceptance targets. Historical
 finals/assistant drafts are references, not clinical gold labels or count targets.
+
+## Item 4: study discovery
+
+See the [isolated study review](validation/study-discovery-review/report.md) for
+failing-then-passing tests, complete 420-event/replay comparison, eight tenant
+chain checks and candidate API/UI evidence. No source workbook data was edited.

@@ -156,6 +156,19 @@ function renderList() {
   $("list").querySelectorAll(".row").forEach((b) => b.onclick = () => openEvent(b.dataset.id));
 }
 
+function studyPanel(audit) {
+  if (!audit) return `<div class="card">Study discovery unavailable — unresolved</div>`;
+  return `<div class="card" id="study-discovery"><h2>Study discovery: ${esc(audit.status)}</h2>
+    <p>Cited: ${esc(audit.cited_study_ref)}; selected: ${esc(audit.selected_study_ref || "NONE — unresolved")}.</p>
+    <p>${esc(audit.scope)}. ${esc(audit.authority_limit)}.</p>
+    <p>Event date: ${esc(audit.event_date)}; knowledge-date request: ${esc(audit.knowledge_date)} (not proof of historical availability).</p>
+    <ul>${(audit.reasons || []).map(r => `<li>${esc(r.code)} [${esc(r.assessment)}]: ${esc(r.detail)}</li>`).join("")}</ul>` +
+    (audit.candidates || []).map(c => `<details><summary>${esc(c.study_ref)} — ${esc(c.status)}</summary>
+      <p>${esc(c.source_sheet)} row ${esc(c.source_row)}; cited: ${esc(c.cited)}; ${esc(c.study_type)}.</p>
+      <p>${esc(c.product_text)}; indexed allowance: ${esc(c.permitted_text)} (not release authority).</p>
+      <ul>${c.rejections.map(r => `<li>${esc(r.code)} [${esc(r.assessment)}]: ${esc(r.detail)}</li>`).join("")}</ul></details>`).join("") + `</div>`;
+}
+
 // BEGIN IDENTITY PANEL
 function identityPanel(assessments) {
   return `<div class="card" id="identity-evidence"><h2>Identity evidence — source claims, not clinical authority</h2>` +
@@ -202,7 +215,7 @@ async function openEvent(id) {
       <h2>Rules in force on the excursion date</h2>
       <dl>
         <dt>Product</dt><dd>${esc(b.product_brand)} (${esc(b.product_sku)}), matched by ${esc(b.product_match_method)}</dd>
-        <dt>Stability study</dt><dd>${esc(b.stability_study_ref)}</dd>
+        <dt>Cited study (not selected authority)</dt><dd>${esc(b.stability_study_ref)}</dd>
         <dt>Customer SOP</dt><dd>${esc(b.sop_doc_id)} Rev ${esc(b.sop_revision)}${b.sop_overlap_conflict ? ' <span class="badge b-WARN">two revisions overlap, please confirm</span>' : ""}</dd>
         <dt>Carrier contract</dt><dd>${esc(b.carrier_contract_id)}${b.carrier_has_cold_chain_clause === false ? " (no cold-chain clause)" : ""}</dd>
         <dt>Report to regulator</dt><dd>${esc(r.reportability_status || "UNKNOWN")}; deadline ${r.deadline_utc ? esc(r.deadline_utc) + " UTC" : "UNKNOWN — controlled applicability/calendar required"} <a href="/notifications?tenant_code=${encodeURIComponent(data.tenant_code)}">Independent filing queue (scoped authorisation required)</a></dd>
@@ -211,6 +224,7 @@ async function openEvent(id) {
       <ol class="trace">${data.rationale.map((x) => `<li>${esc(x)}</li>`).join("")}</ol>
     </div>
     ${identityPanel(data.identity_evidence)}
+    ${studyPanel(data.study_discovery)}
     <div class="card" id="evidence">
       <h2 class="step-title"><span class="num">3</span>Seal and verify the evidence</h2>
       <p class="hint">Sealing saves exactly what you see above as a tamper-evident record and opens a case for signing.</p>

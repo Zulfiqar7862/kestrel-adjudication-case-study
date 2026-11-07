@@ -47,7 +47,7 @@ class DataPack:
         pack.facilities = sheet_rows(workbook["03_Facility_Registry"], include_source=True)
         pack.carriers = sheet_rows(workbook["04_Carrier_Contracts"], include_source=True)
         pack.sops = sheet_rows(workbook["05_SOP_Index"])
-        pack.stability = sheet_rows(workbook["06_Stability_Index"])
+        pack.stability = sheet_rows(workbook["06_Stability_Index"], include_source=True)
         pack.aliases = sheet_rows(workbook["07_Alias_Observations"], include_source=True)
         pack.overrides = sheet_rows(workbook["09_Override_Reasons"])
         pack.tenants = [
@@ -168,7 +168,7 @@ def load_workbook_into_store(
         )
 
     # Stability
-    for sop in sheet_rows(workbook["06_Stability_Index"]):
+    for sop in sheet_rows(workbook["06_Stability_Index"], include_source=True):
         store.insert_ref(
             entity_type="stability",
             tenant_code=sop.get("tenant_code"),

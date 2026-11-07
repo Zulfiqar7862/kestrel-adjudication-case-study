@@ -1,0 +1,12 @@
+flowchart TB
+    Scope["Tenant boundary<br/>Search all owned index rows; exclude foreign/unowned material before evaluation"]
+    Identity["Product applicability<br/>Identity gate; conservative name, strength/unit and presentation comparison; no inferred synonyms"]
+    Authority["Authority at time<br/>Approval, effective and known dates, supersession and SOP; absent metadata stays UNKNOWN"]
+    Coverage["Exposure coverage<br/>Explicit time/temperature allowance; upper-bound scenario; cumulative/once-only history never assumed zero"]
+    Catalogue["Typed candidate catalogue<br/>SELECTED or REJECTED; code, detail, UNKNOWN status, source sheet/row; no uncited promotion"]
+    Surfaces["Sealed evidence / API / UI<br/>Identical catalogue retained in snapshot replay; OpenAPI enum; escaped rendered details"]
+    Scope --> Identity
+    Identity --> Authority
+    Authority --> Coverage
+    Coverage --> Catalogue
+    Catalogue --> Surfaces

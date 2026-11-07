@@ -1,0 +1,1055 @@
+{
+  "event_id": "EXC-107133",
+  "tenant_code": "T-KAVERI",
+  "identity_evidence": {
+    "product": {
+      "status": "RESOLVED_SOURCE_ASSERTED",
+      "reasons": [],
+      "links": [
+        {
+          "kind": "EXACT_GTIN",
+          "tenant_code": "T-KAVERI",
+          "source_sheet": "02_Product_Master",
+          "source_row": 57,
+          "verification_status": "SOURCE_ASSERTED",
+          "confirmed_by": null,
+          "confirmed_on": null,
+          "conflict_note": null,
+          "source_tenant_code": "T-KAVERI",
+          "contract_id": null,
+          "left": "08901234500035",
+          "right": "08901234500035",
+          "scope_basis": "tenant_source_claim"
+        }
+      ],
+      "candidates": [
+        {
+          "erp_source": "Infor M3",
+          "tenant_code": "T-KAVERI",
+          "brand_as_labelled": "Glucodyne SoloJet 100U",
+          "generic_inn": "insulin glargine-kbx",
+          "internal_sku": null,
+          "gtin": "08901234500035",
+          "legacy_code": null,
+          "storage_spec_text": "2-8C (protect from light)",
+          "mkt_tolerance_text": "MKT \u2264 8 \u00b0C over 30 d",
+          "permitted_excursion_text": "Cumulative 72 h above 8 \u00b0C permitted across shelf life",
+          "stability_study_ref": "STB-3584",
+          "light_sensitive": "N",
+          "last_updated": "2024-07-16",
+          "_source_sheet": "02_Product_Master",
+          "_source_row": 57
+        }
+      ],
+      "release_identity_eligible": true,
+      "usage": "PRODUCT_IDENTITY",
+      "match_method": "gtin_exact"
+    },
+    "facility": {
+      "status": "UNRESOLVED_NOT_EVALUATED",
+      "reasons": [
+        "Facility resolver unused by engine/SOP selection; tenant ownership and governing site authority not established"
+      ],
+      "links": [],
+      "candidates": [],
+      "release_identity_eligible": false,
+      "usage": "UNUSED_NOT_AUTHORITY_INPUT"
+    },
+    "carrier": {
+      "status": "RESOLVED_SOURCE_ASSERTED",
+      "reasons": [],
+      "links": [
+        {
+          "kind": "ALIAS",
+          "tenant_code": "T-KAVERI",
+          "source_sheet": "04_Carrier_Contracts",
+          "source_row": 14,
+          "verification_status": "SOURCE_ASSERTED",
+          "confirmed_by": null,
+          "confirmed_on": null,
+          "conflict_note": null,
+          "source_tenant_code": null,
+          "contract_id": "CNT-2021-0245",
+          "left": "Tapti Exp Cargo",
+          "right": "Tapti Express Cargo",
+          "scope_basis": "contract_registry"
+        },
+        {
+          "kind": "LEGAL_ENTITY",
+          "tenant_code": "T-KAVERI",
+          "source_sheet": "04_Carrier_Contracts",
+          "source_row": 14,
+          "verification_status": "SOURCE_ASSERTED",
+          "confirmed_by": null,
+          "confirmed_on": null,
+          "conflict_note": null,
+          "source_tenant_code": null,
+          "contract_id": "CNT-2021-0245",
+          "left": "Tapti Express Cargo",
+          "right": "CNT-2021-0245",
+          "scope_basis": "contract_registry"
+        }
+      ],
+      "candidates": [
+        {
+          "contract_id": "CNT-2021-0245",
+          "counterparty_legal_entity": "Tapti Express Cargo",
+          "names_seen_on_documents": "Tapti Express | Tapti Exp Cargo | TEC",
+          "parent_of": null,
+          "effective_from": "2021-08-02",
+          "effective_to": "evergreen",
+          "governing_law": "India",
+          "cold_chain_clause": "\u2014 none \u2014",
+          "liability_summary": "Contract predates the cold-chain schedule. No temperature deviation clause. General carriage terms only.",
+          "liability_cap": "2 SDR/kg (Convention)",
+          "claim_window_days": 7,
+          "amendment_docs": "AMD-01; AMD-02",
+          "_source_sheet": "04_Carrier_Contracts",
+          "_source_row": 14,
+          "_effective_from": "2021-08-02",
+          "_effective_to": null
+        }
+      ],
+      "release_identity_eligible": true,
+      "usage": "REFERENCE_IDENTITY_ONLY"
+    }
+  },
+  "study_discovery": {
+    "tenant_code": "T-KAVERI",
+    "cited_study_ref": "STB-3584",
+    "selected_study_ref": null,
+    "status": "UNRESOLVED",
+    "event_date": "2026-07-28",
+    "knowledge_date": "2026-07-28",
+    "candidates": [
+      {
+        "study_ref": "STB-8040",
+        "source_sheet": "06_Stability_Index",
+        "source_row": 96,
+        "product_text": "live attenuated BCG",
+        "study_type": "Excursion / thermal cycling",
+        "permitted_text": "One excursion, up to 6 h below 15 \u00b0C",
+        "cited": false,
+        "status": "REJECTED",
+        "rejections": [
+          {
+            "code": "UNCITED_MAPPING_UNKNOWN",
+            "detail": "No verified alternate-study mapping; discovery does not promote an uncited row",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "WRONG_PRODUCT",
+            "detail": "Study product text does not establish the labelled product; synonyms not inferred",
+            "assessment": "REJECTED"
+          },
+          {
+            "code": "STRENGTH_UNKNOWN",
+            "detail": "Explicit comparable product/study strength and unit missing",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "PRESENTATION_UNKNOWN",
+            "detail": "Explicit comparable presentation missing",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "APPROVAL_UNKNOWN",
+            "detail": "Approval metadata absent from supplied index",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "EFFECTIVITY_UNKNOWN",
+            "detail": "Effective interval or event date absent/unparseable; no open interval inferred",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "KNOWLEDGE_TIME_UNKNOWN",
+            "detail": "Study availability at requested knowledge time not established",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "SUPERSESSION_UNKNOWN",
+            "detail": "Supersession status not supplied",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "ONCE_ONLY_HISTORY_UNKNOWN",
+            "detail": "Verified batch identity and complete applicable prior exposure not supplied",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "CONFLICTING_SOP",
+            "detail": "Governing SOP revisions conflict",
+            "assessment": "REJECTED"
+          }
+        ]
+      },
+      {
+        "study_ref": "STB-9951",
+        "source_sheet": "06_Stability_Index",
+        "source_row": 97,
+        "product_text": "Neuroplex-12",
+        "study_type": "Excursion / thermal cycling",
+        "permitted_text": "Up to 96 h at or below -60 \u00b0C, dry ice replenishment permitted",
+        "cited": false,
+        "status": "REJECTED",
+        "rejections": [
+          {
+            "code": "UNCITED_MAPPING_UNKNOWN",
+            "detail": "No verified alternate-study mapping; discovery does not promote an uncited row",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "WRONG_PRODUCT",
+            "detail": "Study product text does not establish the labelled product; synonyms not inferred",
+            "assessment": "REJECTED"
+          },
+          {
+            "code": "STRENGTH_UNKNOWN",
+            "detail": "Explicit comparable product/study strength and unit missing",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "PRESENTATION_UNKNOWN",
+            "detail": "Explicit comparable presentation missing",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "UNREADABLE",
+            "detail": "Index does not assert fully readable evidence",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "APPROVAL_UNKNOWN",
+            "detail": "Approval metadata absent from supplied index",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "EFFECTIVITY_UNKNOWN",
+            "detail": "Effective interval or event date absent/unparseable; no open interval inferred",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "KNOWLEDGE_TIME_UNKNOWN",
+            "detail": "Study availability at requested knowledge time not established",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "SUPERSESSION_UNKNOWN",
+            "detail": "Supersession status not supplied",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "ALLOWANCE_UNPARSEABLE",
+            "detail": "No complete numeric allowance: no duration/disposition authority established; prohibition alone is not permission",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "TEMPERATURE_RANGE_UNKNOWN",
+            "detail": "No established full envelope for this event; an above-label threshold is not a tested maximum",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "CONFLICTING_SOP",
+            "detail": "Governing SOP revisions conflict",
+            "assessment": "REJECTED"
+          }
+        ]
+      },
+      {
+        "study_ref": "STB-4867",
+        "source_sheet": "06_Stability_Index",
+        "source_row": 98,
+        "product_text": "elasomeran-tbd",
+        "study_type": "Long-term",
+        "permitted_text": null,
+        "cited": false,
+        "status": "REJECTED",
+        "rejections": [
+          {
+            "code": "UNCITED_MAPPING_UNKNOWN",
+            "detail": "No verified alternate-study mapping; discovery does not promote an uncited row",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "WRONG_PRODUCT",
+            "detail": "Study product text does not establish the labelled product; synonyms not inferred",
+            "assessment": "REJECTED"
+          },
+          {
+            "code": "STRENGTH_UNKNOWN",
+            "detail": "Explicit comparable product/study strength and unit missing",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "PRESENTATION_UNKNOWN",
+            "detail": "Explicit comparable presentation missing",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "NOT_EXCURSION_STUDY",
+            "detail": "Study type does not establish an excursion allowance",
+            "assessment": "REJECTED"
+          },
+          {
+            "code": "UNREADABLE",
+            "detail": "Index does not assert fully readable evidence",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "APPROVAL_UNKNOWN",
+            "detail": "Approval metadata absent from supplied index",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "EFFECTIVITY_UNKNOWN",
+            "detail": "Effective interval or event date absent/unparseable; no open interval inferred",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "KNOWLEDGE_TIME_UNKNOWN",
+            "detail": "Study availability at requested knowledge time not established",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "SUPERSESSION_UNKNOWN",
+            "detail": "Supersession status not supplied",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "ALLOWANCE_MISSING",
+            "detail": "Permitted-excursion text absent",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "TEMPERATURE_RANGE_UNKNOWN",
+            "detail": "No established full envelope for this event; an above-label threshold is not a tested maximum",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "CONFLICTING_SOP",
+            "detail": "Governing SOP revisions conflict",
+            "assessment": "REJECTED"
+          }
+        ]
+      },
+      {
+        "study_ref": "STB-5295",
+        "source_sheet": "06_Stability_Index",
+        "source_row": 99,
+        "product_text": "Ostrelia 10 \u2014 vial",
+        "study_type": "In-use",
+        "permitted_text": null,
+        "cited": false,
+        "status": "REJECTED",
+        "rejections": [
+          {
+            "code": "UNCITED_MAPPING_UNKNOWN",
+            "detail": "No verified alternate-study mapping; discovery does not promote an uncited row",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "WRONG_PRODUCT",
+            "detail": "Study product text does not establish the labelled product; synonyms not inferred",
+            "assessment": "REJECTED"
+          },
+          {
+            "code": "STRENGTH_UNKNOWN",
+            "detail": "Explicit comparable product/study strength and unit missing",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "PRESENTATION_MISMATCH",
+            "detail": "Study presentation conflicts with product, including contradictory suffixes",
+            "assessment": "REJECTED"
+          },
+          {
+            "code": "NOT_EXCURSION_STUDY",
+            "detail": "Study type does not establish an excursion allowance",
+            "assessment": "REJECTED"
+          },
+          {
+            "code": "APPROVAL_UNKNOWN",
+            "detail": "Approval metadata absent from supplied index",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "EFFECTIVITY_UNKNOWN",
+            "detail": "Effective interval or event date absent/unparseable; no open interval inferred",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "KNOWLEDGE_TIME_UNKNOWN",
+            "detail": "Study availability at requested knowledge time not established",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "SUPERSESSION_UNKNOWN",
+            "detail": "Supersession status not supplied",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "ALLOWANCE_MISSING",
+            "detail": "Permitted-excursion text absent",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "TEMPERATURE_RANGE_UNKNOWN",
+            "detail": "No established full envelope for this event; an above-label threshold is not a tested maximum",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "CONFLICTING_SOP",
+            "detail": "Governing SOP revisions conflict",
+            "assessment": "REJECTED"
+          }
+        ]
+      },
+      {
+        "study_ref": "STB-8865",
+        "source_sheet": "06_Stability_Index",
+        "source_row": 100,
+        "product_text": "Ostrelia 10mg/mL \u2014 pre-filled syringe",
+        "study_type": "Excursion / thermal cycling",
+        "permitted_text": "No excursion above 25 \u00b0C permitted",
+        "cited": false,
+        "status": "REJECTED",
+        "rejections": [
+          {
+            "code": "UNCITED_MAPPING_UNKNOWN",
+            "detail": "No verified alternate-study mapping; discovery does not promote an uncited row",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "WRONG_PRODUCT",
+            "detail": "Study product text does not establish the labelled product; synonyms not inferred",
+            "assessment": "REJECTED"
+          },
+          {
+            "code": "STRENGTH_MISMATCH",
+            "detail": "Product and study strength/unit signatures differ; no unit conversion inferred",
+            "assessment": "REJECTED"
+          },
+          {
+            "code": "PRESENTATION_MISMATCH",
+            "detail": "Study presentation conflicts with product, including contradictory suffixes",
+            "assessment": "REJECTED"
+          },
+          {
+            "code": "APPROVAL_UNKNOWN",
+            "detail": "Approval metadata absent from supplied index",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "EFFECTIVITY_UNKNOWN",
+            "detail": "Effective interval or event date absent/unparseable; no open interval inferred",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "KNOWLEDGE_TIME_UNKNOWN",
+            "detail": "Study availability at requested knowledge time not established",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "SUPERSESSION_UNKNOWN",
+            "detail": "Supersession status not supplied",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "ALLOWANCE_UNPARSEABLE",
+            "detail": "No complete numeric allowance: no duration/disposition authority established; prohibition alone is not permission",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "CONFLICTING_SOP",
+            "detail": "Governing SOP revisions conflict",
+            "assessment": "REJECTED"
+          }
+        ]
+      },
+      {
+        "study_ref": "STB-6118",
+        "source_sheet": "06_Stability_Index",
+        "source_row": 101,
+        "product_text": "CRYOSTAT-T AUTOLOGOUS",
+        "study_type": "Long-term",
+        "permitted_text": null,
+        "cited": false,
+        "status": "REJECTED",
+        "rejections": [
+          {
+            "code": "UNCITED_MAPPING_UNKNOWN",
+            "detail": "No verified alternate-study mapping; discovery does not promote an uncited row",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "WRONG_PRODUCT",
+            "detail": "Study product text does not establish the labelled product; synonyms not inferred",
+            "assessment": "REJECTED"
+          },
+          {
+            "code": "STRENGTH_UNKNOWN",
+            "detail": "Explicit comparable product/study strength and unit missing",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "PRESENTATION_UNKNOWN",
+            "detail": "Explicit comparable presentation missing",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "NOT_EXCURSION_STUDY",
+            "detail": "Study type does not establish an excursion allowance",
+            "assessment": "REJECTED"
+          },
+          {
+            "code": "APPROVAL_UNKNOWN",
+            "detail": "Approval metadata absent from supplied index",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "EFFECTIVITY_UNKNOWN",
+            "detail": "Effective interval or event date absent/unparseable; no open interval inferred",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "KNOWLEDGE_TIME_UNKNOWN",
+            "detail": "Study availability at requested knowledge time not established",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "SUPERSESSION_UNKNOWN",
+            "detail": "Supersession status not supplied",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "ALLOWANCE_MISSING",
+            "detail": "Permitted-excursion text absent",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "TEMPERATURE_RANGE_UNKNOWN",
+            "detail": "No established full envelope for this event; an above-label threshold is not a tested maximum",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "CONFLICTING_SOP",
+            "detail": "Governing SOP revisions conflict",
+            "assessment": "REJECTED"
+          }
+        ]
+      },
+      {
+        "study_ref": "STB-8772",
+        "source_sheet": "06_Stability_Index",
+        "source_row": 102,
+        "product_text": "Cryostat-T Autologous",
+        "study_type": "Excursion / thermal cycling",
+        "permitted_text": "No excursion above -150 \u00b0C beyond 2 h",
+        "cited": false,
+        "status": "REJECTED",
+        "rejections": [
+          {
+            "code": "UNCITED_MAPPING_UNKNOWN",
+            "detail": "No verified alternate-study mapping; discovery does not promote an uncited row",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "WRONG_PRODUCT",
+            "detail": "Study product text does not establish the labelled product; synonyms not inferred",
+            "assessment": "REJECTED"
+          },
+          {
+            "code": "STRENGTH_UNKNOWN",
+            "detail": "Explicit comparable product/study strength and unit missing",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "PRESENTATION_UNKNOWN",
+            "detail": "Explicit comparable presentation missing",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "UNREADABLE",
+            "detail": "Index does not assert fully readable evidence",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "APPROVAL_UNKNOWN",
+            "detail": "Approval metadata absent from supplied index",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "EFFECTIVITY_UNKNOWN",
+            "detail": "Effective interval or event date absent/unparseable; no open interval inferred",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "KNOWLEDGE_TIME_UNKNOWN",
+            "detail": "Study availability at requested knowledge time not established",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "SUPERSESSION_UNKNOWN",
+            "detail": "Supersession status not supplied",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "ALLOWANCE_UNPARSEABLE",
+            "detail": "No complete numeric allowance: no duration/disposition authority established; prohibition alone is not permission",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "TEMPERATURE_NOT_COVERED",
+            "detail": "Event upper-bound scenario exceeds allowance (strict below preserved)",
+            "assessment": "REJECTED"
+          },
+          {
+            "code": "CONFLICTING_SOP",
+            "detail": "Governing SOP revisions conflict",
+            "assessment": "REJECTED"
+          }
+        ]
+      },
+      {
+        "study_ref": "STB-9500",
+        "source_sheet": "06_Stability_Index",
+        "source_row": 103,
+        "product_text": "Rinvatec 40mg/mL PFS (ravlizumab-arx) \u2014 pre-filled syringe",
+        "study_type": "Excursion / thermal cycling",
+        "permitted_text": "No excursion above 25 \u00b0C permitted",
+        "cited": false,
+        "status": "REJECTED",
+        "rejections": [
+          {
+            "code": "UNCITED_MAPPING_UNKNOWN",
+            "detail": "No verified alternate-study mapping; discovery does not promote an uncited row",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "WRONG_PRODUCT",
+            "detail": "Study product text does not establish the labelled product; synonyms not inferred",
+            "assessment": "REJECTED"
+          },
+          {
+            "code": "STRENGTH_MISMATCH",
+            "detail": "Product and study strength/unit signatures differ; no unit conversion inferred",
+            "assessment": "REJECTED"
+          },
+          {
+            "code": "PRESENTATION_MISMATCH",
+            "detail": "Study presentation conflicts with product, including contradictory suffixes",
+            "assessment": "REJECTED"
+          },
+          {
+            "code": "APPROVAL_UNKNOWN",
+            "detail": "Approval metadata absent from supplied index",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "EFFECTIVITY_UNKNOWN",
+            "detail": "Effective interval or event date absent/unparseable; no open interval inferred",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "KNOWLEDGE_TIME_UNKNOWN",
+            "detail": "Study availability at requested knowledge time not established",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "SUPERSESSION_UNKNOWN",
+            "detail": "Supersession status not supplied",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "ALLOWANCE_UNPARSEABLE",
+            "detail": "No complete numeric allowance: no duration/disposition authority established; prohibition alone is not permission",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "CONFLICTING_SOP",
+            "detail": "Governing SOP revisions conflict",
+            "assessment": "REJECTED"
+          }
+        ]
+      },
+      {
+        "study_ref": "STB-7388",
+        "source_sheet": "06_Stability_Index",
+        "source_row": 104,
+        "product_text": "ravlizumab-arx \u2014 vial",
+        "study_type": "Excursion / thermal cycling",
+        "permitted_text": "No excursion above 25 \u00b0C permitted",
+        "cited": false,
+        "status": "REJECTED",
+        "rejections": [
+          {
+            "code": "UNCITED_MAPPING_UNKNOWN",
+            "detail": "No verified alternate-study mapping; discovery does not promote an uncited row",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "WRONG_PRODUCT",
+            "detail": "Study product text does not establish the labelled product; synonyms not inferred",
+            "assessment": "REJECTED"
+          },
+          {
+            "code": "STRENGTH_UNKNOWN",
+            "detail": "Explicit comparable product/study strength and unit missing",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "PRESENTATION_MISMATCH",
+            "detail": "Study presentation conflicts with product, including contradictory suffixes",
+            "assessment": "REJECTED"
+          },
+          {
+            "code": "APPROVAL_UNKNOWN",
+            "detail": "Approval metadata absent from supplied index",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "EFFECTIVITY_UNKNOWN",
+            "detail": "Effective interval or event date absent/unparseable; no open interval inferred",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "KNOWLEDGE_TIME_UNKNOWN",
+            "detail": "Study availability at requested knowledge time not established",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "SUPERSESSION_UNKNOWN",
+            "detail": "Supersession status not supplied",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "ALLOWANCE_UNPARSEABLE",
+            "detail": "No complete numeric allowance: no duration/disposition authority established; prohibition alone is not permission",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "CONFLICTING_SOP",
+            "detail": "Governing SOP revisions conflict",
+            "assessment": "REJECTED"
+          }
+        ]
+      },
+      {
+        "study_ref": "STB-2738",
+        "source_sheet": "06_Stability_Index",
+        "source_row": 105,
+        "product_text": "Glucodyne SoloJet 100U \u2014 pen",
+        "study_type": "Excursion / thermal cycling",
+        "permitted_text": "One excursion, up to 6 h below 15 \u00b0C",
+        "cited": false,
+        "status": "REJECTED",
+        "rejections": [
+          {
+            "code": "UNCITED_MAPPING_UNKNOWN",
+            "detail": "No verified alternate-study mapping; discovery does not promote an uncited row",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "APPROVAL_UNKNOWN",
+            "detail": "Approval metadata absent from supplied index",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "EFFECTIVITY_UNKNOWN",
+            "detail": "Effective interval or event date absent/unparseable; no open interval inferred",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "KNOWLEDGE_TIME_UNKNOWN",
+            "detail": "Study availability at requested knowledge time not established",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "SUPERSESSION_UNKNOWN",
+            "detail": "Supersession status not supplied",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "ONCE_ONLY_HISTORY_UNKNOWN",
+            "detail": "Verified batch identity and complete applicable prior exposure not supplied",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "CONFLICTING_SOP",
+            "detail": "Governing SOP revisions conflict",
+            "assessment": "REJECTED"
+          }
+        ]
+      },
+      {
+        "study_ref": "STB-4400",
+        "source_sheet": "06_Stability_Index",
+        "source_row": 106,
+        "product_text": "GLUCODYNE SOLOJET 100U (pen) rev B",
+        "study_type": "Excursion / thermal cycling",
+        "permitted_text": null,
+        "cited": false,
+        "status": "REJECTED",
+        "rejections": [
+          {
+            "code": "UNCITED_MAPPING_UNKNOWN",
+            "detail": "No verified alternate-study mapping; discovery does not promote an uncited row",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "UNREADABLE",
+            "detail": "Index does not assert fully readable evidence",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "APPROVAL_UNKNOWN",
+            "detail": "Approval metadata absent from supplied index",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "EFFECTIVITY_UNKNOWN",
+            "detail": "Effective interval or event date absent/unparseable; no open interval inferred",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "KNOWLEDGE_TIME_UNKNOWN",
+            "detail": "Study availability at requested knowledge time not established",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "SUPERSESSION_UNKNOWN",
+            "detail": "Supersession status not supplied",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "ALLOWANCE_MISSING",
+            "detail": "Permitted-excursion text absent",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "TEMPERATURE_RANGE_UNKNOWN",
+            "detail": "No established full envelope for this event; an above-label threshold is not a tested maximum",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "CONFLICTING_SOP",
+            "detail": "Governing SOP revisions conflict",
+            "assessment": "REJECTED"
+          }
+        ]
+      },
+      {
+        "study_ref": "STB-3312",
+        "source_sheet": "06_Stability_Index",
+        "source_row": 107,
+        "product_text": "Glucodyne 100 IU/mL \u2014 vial",
+        "study_type": "Excursion / thermal cycling",
+        "permitted_text": "No excursion above 25 \u00b0C permitted",
+        "cited": false,
+        "status": "REJECTED",
+        "rejections": [
+          {
+            "code": "UNCITED_MAPPING_UNKNOWN",
+            "detail": "No verified alternate-study mapping; discovery does not promote an uncited row",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "WRONG_PRODUCT",
+            "detail": "Study product text does not establish the labelled product; synonyms not inferred",
+            "assessment": "REJECTED"
+          },
+          {
+            "code": "STRENGTH_MISMATCH",
+            "detail": "Product and study strength/unit signatures differ; no unit conversion inferred",
+            "assessment": "REJECTED"
+          },
+          {
+            "code": "PRESENTATION_MISMATCH",
+            "detail": "Study presentation conflicts with product, including contradictory suffixes",
+            "assessment": "REJECTED"
+          },
+          {
+            "code": "APPROVAL_UNKNOWN",
+            "detail": "Approval metadata absent from supplied index",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "EFFECTIVITY_UNKNOWN",
+            "detail": "Effective interval or event date absent/unparseable; no open interval inferred",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "KNOWLEDGE_TIME_UNKNOWN",
+            "detail": "Study availability at requested knowledge time not established",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "SUPERSESSION_UNKNOWN",
+            "detail": "Supersession status not supplied",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "ALLOWANCE_UNPARSEABLE",
+            "detail": "No complete numeric allowance: no duration/disposition authority established; prohibition alone is not permission",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "CONFLICTING_SOP",
+            "detail": "Governing SOP revisions conflict",
+            "assessment": "REJECTED"
+          }
+        ]
+      },
+      {
+        "study_ref": "STB-3584",
+        "source_sheet": "06_Stability_Index",
+        "source_row": 108,
+        "product_text": "Glucodyne SoloJet (insulin glargine-kbx) \u2014 vial",
+        "study_type": "Accelerated",
+        "permitted_text": null,
+        "cited": true,
+        "status": "REJECTED",
+        "rejections": [
+          {
+            "code": "WRONG_PRODUCT",
+            "detail": "Study product text does not establish the labelled product; synonyms not inferred",
+            "assessment": "REJECTED"
+          },
+          {
+            "code": "STRENGTH_UNKNOWN",
+            "detail": "Explicit comparable product/study strength and unit missing",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "PRESENTATION_MISMATCH",
+            "detail": "Study presentation conflicts with product, including contradictory suffixes",
+            "assessment": "REJECTED"
+          },
+          {
+            "code": "NOT_EXCURSION_STUDY",
+            "detail": "Study type does not establish an excursion allowance",
+            "assessment": "REJECTED"
+          },
+          {
+            "code": "UNREADABLE",
+            "detail": "Index does not assert fully readable evidence",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "APPROVAL_UNKNOWN",
+            "detail": "Approval metadata absent from supplied index",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "EFFECTIVITY_UNKNOWN",
+            "detail": "Effective interval or event date absent/unparseable; no open interval inferred",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "KNOWLEDGE_TIME_UNKNOWN",
+            "detail": "Study availability at requested knowledge time not established",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "SUPERSESSION_UNKNOWN",
+            "detail": "Supersession status not supplied",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "ALLOWANCE_MISSING",
+            "detail": "Permitted-excursion text absent",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "TEMPERATURE_RANGE_UNKNOWN",
+            "detail": "No established full envelope for this event; an above-label threshold is not a tested maximum",
+            "assessment": "UNKNOWN"
+          },
+          {
+            "code": "CONFLICTING_SOP",
+            "detail": "Governing SOP revisions conflict",
+            "assessment": "REJECTED"
+          }
+        ]
+      }
+    ],
+    "reasons": [],
+    "scope": "All tenant-owned index rows, in source order; foreign/unowned rows excluded before search",
+    "authority_limit": "Index assertions only, not authenticated full-report or clinical release authority"
+  },
+  "recommendation": "ESCALATED_TO_SENIOR_QA",
+  "confidence": 0.0,
+  "triage_label": "ACTIONABLE \u2014 stability authority unresolved",
+  "case_state": null,
+  "requires_human_signature": true,
+  "requires_human_review": true,
+  "historical_classification": "ACTIONABLE \u2014 excursion confirmed",
+  "closure_eligibility": "not_eligible",
+  "independent_closure_evidence": [],
+  "rationale": [
+    "Stability authority unresolved: study product identity not established; study presentation conflicts with product; study type does not establish excursion allowance; product-master text not used as substitute",
+    "SOP overlap: 2 revisions of SOP-KAV-9392 effective on 2026-07-28; candidate Rev 03 (highest rev, not governing authority). Human must confirm (override EXC-110490 pattern).",
+    "Study discovery unresolved; candidate rejection catalogue retained in evidence",
+    "Study STB-3584: StudyRejectionCode.WRONG_PRODUCT [REJECTED] \u2014 Study product text does not establish the labelled product; synonyms not inferred",
+    "Study STB-3584: StudyRejectionCode.STRENGTH_UNKNOWN [UNKNOWN] \u2014 Explicit comparable product/study strength and unit missing",
+    "Study STB-3584: StudyRejectionCode.PRESENTATION_MISMATCH [REJECTED] \u2014 Study presentation conflicts with product, including contradictory suffixes",
+    "Study STB-3584: StudyRejectionCode.NOT_EXCURSION_STUDY [REJECTED] \u2014 Study type does not establish an excursion allowance",
+    "Study STB-3584: StudyRejectionCode.UNREADABLE [UNKNOWN] \u2014 Index does not assert fully readable evidence",
+    "Study STB-3584: StudyRejectionCode.APPROVAL_UNKNOWN [UNKNOWN] \u2014 Approval metadata absent from supplied index",
+    "Study STB-3584: StudyRejectionCode.EFFECTIVITY_UNKNOWN [UNKNOWN] \u2014 Effective interval or event date absent/unparseable; no open interval inferred",
+    "Study STB-3584: StudyRejectionCode.KNOWLEDGE_TIME_UNKNOWN [UNKNOWN] \u2014 Study availability at requested knowledge time not established",
+    "Study STB-3584: StudyRejectionCode.SUPERSESSION_UNKNOWN [UNKNOWN] \u2014 Supersession status not supplied",
+    "Study STB-3584: StudyRejectionCode.ALLOWANCE_MISSING [UNKNOWN] \u2014 Permitted-excursion text absent",
+    "Study STB-3584: StudyRejectionCode.TEMPERATURE_RANGE_UNKNOWN [UNKNOWN] \u2014 No established full envelope for this event; an above-label threshold is not a tested maximum",
+    "Study STB-3584: StudyRejectionCode.CONFLICTING_SOP [REJECTED] \u2014 Governing SOP revisions conflict",
+    "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+    "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation conflicts with product; study type does not establish excursion allowance",
+    "Decision rule: rule_stability_authority",
+    "Additional storage constraints retained, not independently verified: protect from light"
+  ],
+  "alert": {
+    "alert_ts_utc": "2026-07-28 06:31",
+    "excursion_start_utc": "2026-07-28 06:14",
+    "min_temp_c": 5.4,
+    "max_temp_c": 11.2,
+    "duration_min": 15,
+    "logger_id": "LG-40843",
+    "logger_fw": "TT-2.15.0",
+    "lane_text": "Bhiwandi Cold Hub to Kundli Pharma Store",
+    "carrier_ref_as_received": "Tapti Exp Cargo",
+    "product_ref_as_received": "08901234500035",
+    "prior_excursions_lane_90d": 2
+  },
+  "uncertainty": {
+    "bulletin": "TT-CB-114",
+    "applies_to_fw": "TT-2.14.3",
+    "applied": false,
+    "raw_max_temp_c": 11.2,
+    "reported_max_temp_c": 11.2,
+    "scenarios": null
+  },
+  "basis": {
+    "product_sku": null,
+    "product_brand": "Glucodyne SoloJet 100U",
+    "product_match_method": "gtin_exact",
+    "stability_study_ref": "STB-3584",
+    "sop_doc_id": "SOP-KAV-9392",
+    "sop_revision": "Rev 03",
+    "sop_overlap_conflict": true,
+    "carrier_contract_id": "CNT-2021-0245",
+    "carrier_has_cold_chain_clause": false
+  },
+  "regulatory": {
+    "reportability_status": "UNKNOWN",
+    "deadline_status": "UNKNOWN",
+    "basis": "Unresolved applicability/calendar authority; historical reportability/window are reference only",
+    "reportable": null,
+    "window_hours": null,
+    "deadline_utc": null
+  },
+  "historical": {
+    "final_disposition": "RELEASE_WITH_NOTE",
+    "assistant_recommendation": "RELEASE_WITH_NOTE"
+  }
+}

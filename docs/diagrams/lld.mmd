@@ -3,7 +3,7 @@ flowchart TB
     Pack["ingest.py<br/>DataPack.load / replay_snapshot; load_workbook_into_store"]
     API["api/app.py + cli.py<br/>create_app; create_notification_app; command dispatch"]
     Engine["engine.py<br/>AdjudicationEngine.adjudicate; AdjudicationResult"]
-    Rules["rules/ + decision_rules.py<br/>IdentityResolver, StabilityResolver, StorageLimits, decide"]
+    Rules["rules/ + decision_rules.py<br/>IdentityResolver; StabilityResolver.resolve / discover; typed StudyDiscovery rejections; StorageLimits; decide"]
     Evidence["storage/evidence.py<br/>EvidenceStore.write_bundle, verify_document, verify_chain"]
     Store["storage/bitemporal.py<br/>BitemporalStore: SQLite tables, as-of queries, case queue"]
     Lifecycle["lifecycle.py<br/>CaseLifecycle.create / transition / sign / reopen"]

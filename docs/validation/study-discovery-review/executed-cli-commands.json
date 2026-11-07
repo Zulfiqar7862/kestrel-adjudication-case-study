@@ -1,0 +1,34 @@
+[
+  {
+    "argv": [
+      "/tmp/fixvenv/bin/kestrel",
+      "--log-level",
+      "WARNING",
+      "--db",
+      "/tmp/kestrel-study-review/accepted/run.sqlite",
+      "--evidence-dir",
+      "/tmp/kestrel-study-review/accepted/evidence",
+      "verify",
+      "--tenant",
+      "T-KAVERI"
+    ],
+    "exit_code": 0
+  },
+  {
+    "argv": [
+      "/tmp/fixvenv/bin/kestrel",
+      "--log-level",
+      "WARNING",
+      "--db",
+      "/tmp/kestrel-study-review/accepted/run.sqlite",
+      "--evidence-dir",
+      "/tmp/kestrel-study-review/accepted/evidence",
+      "replay",
+      "--bundle",
+      "EVB-d33713aa7261467e",
+      "--tenant",
+      "T-KAVERI"
+    ],
+    "exit_code": 0
+  }
+]

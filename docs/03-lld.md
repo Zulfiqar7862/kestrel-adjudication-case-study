@@ -11,7 +11,7 @@ Paths below are under `src/kestrel/`; they are code references, not deployed ser
 | `engine.AdjudicationEngine` | `adjudicate`, `_decide`; `AdjudicationResult` | Assemble facts and evaluate reported/uncertainty scenarios |
 | `rules.identity.IdentityResolver` | `resolve_product`, `resolve_carrier`, `resolve_facility`; `IdentityLink`, `IdentityResolution`, `ResolvedProduct` | Typed tenant/contract claims, source positions, negative/conflict blocking; substring carrier matches remain candidates |
 | `rules.as_of` | `TemperatureBound`, `StorageLimits`, `parse_storage_limits`, `sop_in_force` | Explicit bound semantics; effective-date SOP metadata and overlaps |
-| `rules.stability.StabilityResolver` | `resolve`; `StabilityPosition` | Validate the cited study's applicability; no master-prose substitution for mismatch |
+| `rules.stability.StabilityResolver` | `resolve`, `discover`; `StabilityPosition`, `StudyDiscovery` | Parse cited context, then catalogue all tenant index rows with typed rejections; no master/alternate substitution |
 | `decision_rules` | `ExcursionFacts`, `Verdict`, `DECISION_RULES`, `decide` | First verdict wins; then release-authority/historical post-gates |
 | `rules.regulatory` | `RegulatoryClock`, `NotificationRule`, `regulatory_clock` | Explicit UNKNOWN applicability; controlled-input calendar arithmetic, not a legal registry |
 | `storage.bitemporal.BitemporalStore` | `as_of`, `save_case`, `queue`, `index_evidence` | SQLite reference intervals, alerts, cases and evidence index |
@@ -33,7 +33,7 @@ flowchart TB
     Pack["ingest.py<br/>DataPack.load / replay_snapshot; load_workbook_into_store"]
     API["api/app.py + cli.py<br/>create_app; create_notification_app; command dispatch"]
     Engine["engine.py<br/>AdjudicationEngine.adjudicate; AdjudicationResult"]
-    Rules["rules/ + decision_rules.py<br/>IdentityResolver, StabilityResolver, StorageLimits, decide"]
+    Rules["rules/ + decision_rules.py<br/>IdentityResolver; StabilityResolver.resolve / discover; typed StudyDiscovery rejections; StorageLimits; decide"]
     Evidence["storage/evidence.py<br/>EvidenceStore.write_bundle, verify_document, verify_chain"]
     Store["storage/bitemporal.py<br/>BitemporalStore: SQLite tables, as-of queries, case queue"]
     Lifecycle["lifecycle.py<br/>CaseLifecycle.create / transition / sign / reopen"]
@@ -93,6 +93,74 @@ shared registry. It cannot silently choose a site annexure.
 The same assessment is returned by adjudication/event API models, rendered in the
 UI identity panel and sealed at `inputs.resolution.identity`. API OpenAPI models
 include typed link provenance. Candidate rows stay reference data.
+
+## Study discovery contract
+
+`rules.study_discovery` defines `StudyDiscovery`, `StudyCandidate`, `StudyRejection`
+and `StudyRejectionCode`. `StabilityResolver.discover` examines **every tenant-owned
+index row in physical source order**, not only the cited reference. Foreign and
+unowned rows are excluded before evaluation; a missing citation is explicitly
+`CITED_STUDY_OUTSIDE_TENANT_SCOPE` (absent or foreign, without revealing foreign
+content). Direct evaluation also rejects/redacts `WRONG_TENANT` inputs.
+
+Each candidate retains its study reference, sheet/row, indexed text/type,
+citation flag, SELECTED/REJECTED state and all detected typed reasons. An UNKNOWN
+reason means missing evidence, not proof the study failed. Strength/unit signatures
+must match literally; no conversions, product synonyms or alternate mappings are
+inferred. Uncited candidates remain `UNCITED_MAPPING_UNKNOWN`; duplicate citations
+are rejected rather than first-row-wins. Contradictory vial/pen/PFS text is rejected.
+
+Selection requires explicit applicability, readable numeric allowance, event
+coverage, prior exposure where required, study authority at the requested time
+and governing SOP authority. `resolve` remains a contextual cited-text parser, not
+an authority API. The engine uses discovery to mark study authority unresolved
+when no admissible selection exists. It keeps the cited ref separately; it is
+never presented as a selected authority just because it exists.
+
+The source workbook supplies **no approval/effective/known/supersession metadata**
+for stability studies, no verified batch history, and no governing SOP body.
+Consequently no study is selected in this sample. Optional `approval_status`,
+`effective_from/to`, `known_from`, `superseded` inputs exercise a conservative
+source-assertion contract only in synthetic tests; no such data is backfilled.
+Effective intervals are compared inclusively; missing endpoints stay UNKNOWN
+rather than assuming indefinite validity. These are not authenticated approvals.
+The alert date is a knowledge-date *request*, not a claim of historical visibility.
+
+Coverage uses the upper-bound scenario for affected firmware; a cumulative
+"above 8 C" threshold is not treated as a tested maximum. Unknown lower envelopes,
+unreadable/prohibition-only prose, absent duration, prior-history gaps and
+SOP conflicts remain explicit blockers. No clinical outcome or new temperature
+allowance is inferred from tested-duration/outcome prose or a report filename.
+
+`AdjudicationResult.study_discovery` equals sealed
+`inputs.resolution.stability.discovery` and `inputs.expected_result.study_discovery`.
+The typed event/adjudication responses and OpenAPI expose the catalogue and enum;
+the UI renders selected ref, rejected candidates, provenance and escaped reasons.
+
+![Study discovery](images/study-discovery.png)
+
+<details>
+<summary>Study discovery diagram source</summary>
+
+```mermaid
+flowchart TB
+    Scope["Tenant boundary<br/>Search all owned index rows; exclude foreign/unowned material before evaluation"]
+    Identity["Product applicability<br/>Identity gate; conservative name, strength/unit and presentation comparison; no inferred synonyms"]
+    Authority["Authority at time<br/>Approval, effective and known dates, supersession and SOP; absent metadata stays UNKNOWN"]
+    Coverage["Exposure coverage<br/>Explicit time/temperature allowance; upper-bound scenario; cumulative/once-only history never assumed zero"]
+    Catalogue["Typed candidate catalogue<br/>SELECTED or REJECTED; code, detail, UNKNOWN status, source sheet/row; no uncited promotion"]
+    Surfaces["Sealed evidence / API / UI<br/>Identical catalogue retained in snapshot replay; OpenAPI enum; escaped rendered details"]
+    Scope --> Identity
+    Identity --> Authority
+    Authority --> Coverage
+    Coverage --> Catalogue
+    Catalogue --> Surfaces
+```
+
+</details>
+
+Editable [Mermaid](diagrams/study-discovery.mmd),
+[layout](diagrams/diagrams.json), and [executed review](validation/study-discovery-review/report.md).
 
 ## Data model
 

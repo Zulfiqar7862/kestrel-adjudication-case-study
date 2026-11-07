@@ -1,0 +1,306 @@
+FFFFFFFF..                                                               [100%]
+=================================== FAILURES ===================================
+____ test_malformed_authority_dates_are_unknown_not_crashes[effective_from] ____
+
+key = 'effective_from'
+
+    @pytest.mark.parametrize("key", ["effective_from", "effective_to", "known_from"])
+    def test_malformed_authority_dates_are_unknown_not_crashes(key):
+>       audit = discover([study(**{key: "not-a-date"})])
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:238:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests/test_study_discovery.py:68: in discover
+    return resolver.discover(p or product(), **args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/kestrel/rules/stability.py:133: in discover
+    return discover_studies(
+src/kestrel/rules/study_discovery.py:279: in discover_studies
+    candidates = [evaluate_candidate(row, product, cited_count=count, **context) for row in own]
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/kestrel/rules/study_discovery.py:178: in evaluate_candidate
+    start, end = parse_date(row.get("effective_from")), parse_date(row.get("effective_to"))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/kestrel/utils.py:37: in parse_date
+    return datetime.strptime(value[:10], "%Y-%m-%d").date()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/_strptime.py:673: in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+data_string = 'not-a-date', format = '%Y-%m-%d'
+
+    def _strptime(data_string, format="%a %b %d %H:%M:%S %Y"):
+        """Return a 2-tuple consisting of a time struct and an int containing
+        the number of microseconds based on the input string and the
+        format string."""
+
+        for index, arg in enumerate([data_string, format]):
+            if not isinstance(arg, str):
+                msg = "strptime() argument {} must be str, not {}"
+                raise TypeError(msg.format(index, type(arg)))
+
+        global _TimeRE_cache, _regex_cache
+        with _cache_lock:
+            locale_time = _TimeRE_cache.locale_time
+            if (_getlang() != locale_time.lang or
+                time.tzname != locale_time.tzname or
+                time.daylight != locale_time.daylight):
+                _TimeRE_cache = TimeRE()
+                _regex_cache.clear()
+                locale_time = _TimeRE_cache.locale_time
+            if len(_regex_cache) > _CACHE_MAX_SIZE:
+                _regex_cache.clear()
+            format_regex = _regex_cache.get(format)
+            if not format_regex:
+                try:
+                    format_regex = _TimeRE_cache.compile(format)
+                # KeyError raised when a bad format is found; can be specified as
+                # \\, in which case it was a stray % but with a space after it
+                except KeyError as err:
+                    bad_directive = err.args[0]
+                    del err
+                    bad_directive = bad_directive.replace('\\s', '')
+                    if not bad_directive:
+                        raise ValueError("stray %% in format '%s'" % format) from None
+                    bad_directive = bad_directive.replace('\\', '', 1)
+                    raise ValueError("'%s' is a bad directive in format '%s'" %
+                                        (bad_directive, format)) from None
+                _regex_cache[format] = format_regex
+        found = format_regex.match(data_string)
+        if not found:
+>           raise ValueError("time data %r does not match format %r" %
+                             (data_string, format))
+E           ValueError: time data 'not-a-date' does not match format '%Y-%m-%d'
+
+/usr/lib/python3.13/_strptime.py:452: ValueError
+_____ test_malformed_authority_dates_are_unknown_not_crashes[effective_to] _____
+
+key = 'effective_to'
+
+    @pytest.mark.parametrize("key", ["effective_from", "effective_to", "known_from"])
+    def test_malformed_authority_dates_are_unknown_not_crashes(key):
+>       audit = discover([study(**{key: "not-a-date"})])
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:238:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests/test_study_discovery.py:68: in discover
+    return resolver.discover(p or product(), **args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/kestrel/rules/stability.py:133: in discover
+    return discover_studies(
+src/kestrel/rules/study_discovery.py:279: in discover_studies
+    candidates = [evaluate_candidate(row, product, cited_count=count, **context) for row in own]
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/kestrel/rules/study_discovery.py:178: in evaluate_candidate
+    start, end = parse_date(row.get("effective_from")), parse_date(row.get("effective_to"))
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/kestrel/utils.py:37: in parse_date
+    return datetime.strptime(value[:10], "%Y-%m-%d").date()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/_strptime.py:673: in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+data_string = 'not-a-date', format = '%Y-%m-%d'
+
+    def _strptime(data_string, format="%a %b %d %H:%M:%S %Y"):
+        """Return a 2-tuple consisting of a time struct and an int containing
+        the number of microseconds based on the input string and the
+        format string."""
+
+        for index, arg in enumerate([data_string, format]):
+            if not isinstance(arg, str):
+                msg = "strptime() argument {} must be str, not {}"
+                raise TypeError(msg.format(index, type(arg)))
+
+        global _TimeRE_cache, _regex_cache
+        with _cache_lock:
+            locale_time = _TimeRE_cache.locale_time
+            if (_getlang() != locale_time.lang or
+                time.tzname != locale_time.tzname or
+                time.daylight != locale_time.daylight):
+                _TimeRE_cache = TimeRE()
+                _regex_cache.clear()
+                locale_time = _TimeRE_cache.locale_time
+            if len(_regex_cache) > _CACHE_MAX_SIZE:
+                _regex_cache.clear()
+            format_regex = _regex_cache.get(format)
+            if not format_regex:
+                try:
+                    format_regex = _TimeRE_cache.compile(format)
+                # KeyError raised when a bad format is found; can be specified as
+                # \\, in which case it was a stray % but with a space after it
+                except KeyError as err:
+                    bad_directive = err.args[0]
+                    del err
+                    bad_directive = bad_directive.replace('\\s', '')
+                    if not bad_directive:
+                        raise ValueError("stray %% in format '%s'" % format) from None
+                    bad_directive = bad_directive.replace('\\', '', 1)
+                    raise ValueError("'%s' is a bad directive in format '%s'" %
+                                        (bad_directive, format)) from None
+                _regex_cache[format] = format_regex
+        found = format_regex.match(data_string)
+        if not found:
+>           raise ValueError("time data %r does not match format %r" %
+                             (data_string, format))
+E           ValueError: time data 'not-a-date' does not match format '%Y-%m-%d'
+
+/usr/lib/python3.13/_strptime.py:452: ValueError
+______ test_malformed_authority_dates_are_unknown_not_crashes[known_from] ______
+
+key = 'known_from'
+
+    @pytest.mark.parametrize("key", ["effective_from", "effective_to", "known_from"])
+    def test_malformed_authority_dates_are_unknown_not_crashes(key):
+>       audit = discover([study(**{key: "not-a-date"})])
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:238:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests/test_study_discovery.py:68: in discover
+    return resolver.discover(p or product(), **args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/kestrel/rules/stability.py:133: in discover
+    return discover_studies(
+src/kestrel/rules/study_discovery.py:279: in discover_studies
+    candidates = [evaluate_candidate(row, product, cited_count=count, **context) for row in own]
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/kestrel/rules/study_discovery.py:187: in evaluate_candidate
+    known = parse_date(row.get("known_from"))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/kestrel/utils.py:37: in parse_date
+    return datetime.strptime(value[:10], "%Y-%m-%d").date()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/_strptime.py:673: in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+data_string = 'not-a-date', format = '%Y-%m-%d'
+
+    def _strptime(data_string, format="%a %b %d %H:%M:%S %Y"):
+        """Return a 2-tuple consisting of a time struct and an int containing
+        the number of microseconds based on the input string and the
+        format string."""
+
+        for index, arg in enumerate([data_string, format]):
+            if not isinstance(arg, str):
+                msg = "strptime() argument {} must be str, not {}"
+                raise TypeError(msg.format(index, type(arg)))
+
+        global _TimeRE_cache, _regex_cache
+        with _cache_lock:
+            locale_time = _TimeRE_cache.locale_time
+            if (_getlang() != locale_time.lang or
+                time.tzname != locale_time.tzname or
+                time.daylight != locale_time.daylight):
+                _TimeRE_cache = TimeRE()
+                _regex_cache.clear()
+                locale_time = _TimeRE_cache.locale_time
+            if len(_regex_cache) > _CACHE_MAX_SIZE:
+                _regex_cache.clear()
+            format_regex = _regex_cache.get(format)
+            if not format_regex:
+                try:
+                    format_regex = _TimeRE_cache.compile(format)
+                # KeyError raised when a bad format is found; can be specified as
+                # \\, in which case it was a stray % but with a space after it
+                except KeyError as err:
+                    bad_directive = err.args[0]
+                    del err
+                    bad_directive = bad_directive.replace('\\s', '')
+                    if not bad_directive:
+                        raise ValueError("stray %% in format '%s'" % format) from None
+                    bad_directive = bad_directive.replace('\\', '', 1)
+                    raise ValueError("'%s' is a bad directive in format '%s'" %
+                                        (bad_directive, format)) from None
+                _regex_cache[format] = format_regex
+        found = format_regex.match(data_string)
+        if not found:
+>           raise ValueError("time data %r does not match format %r" %
+                             (data_string, format))
+E           ValueError: time data 'not-a-date' does not match format '%Y-%m-%d'
+
+/usr/lib/python3.13/_strptime.py:452: ValueError
+_ test_single_use_language_requires_history_even_without_word_once[One excursion, up to 6 h below 15 C] _
+
+text = 'One excursion, up to 6 h below 15 C'
+
+    @pytest.mark.parametrize("text", ["One excursion, up to 6 h below 15 C", "Single excursion 6 h to 15 C"])
+    def test_single_use_language_requires_history_even_without_word_once(text):
+        audit = discover([study(permitted_excursion_text=text)])
+>       assert "ONCE_ONLY_HISTORY_UNKNOWN" in codes(audit.candidates[0])
+E       AssertionError: assert 'ONCE_ONLY_HISTORY_UNKNOWN' in set()
+E        +  where set() = codes(StudyCandidate(study_ref='NEW-REFERENCE', source_sheet='06_Stability_Index', source_row=2, product_text='Medicine 100U.../ thermal cycling', permitted_text='One excursion, up to 6 h below 15 C', cited=True, status='SELECTED', rejections=[]))
+
+tests/test_study_discovery.py:246: AssertionError
+_ test_single_use_language_requires_history_even_without_word_once[Single excursion 6 h to 15 C] _
+
+text = 'Single excursion 6 h to 15 C'
+
+    @pytest.mark.parametrize("text", ["One excursion, up to 6 h below 15 C", "Single excursion 6 h to 15 C"])
+    def test_single_use_language_requires_history_even_without_word_once(text):
+        audit = discover([study(permitted_excursion_text=text)])
+>       assert "ONCE_ONLY_HISTORY_UNKNOWN" in codes(audit.candidates[0])
+E       AssertionError: assert 'ONCE_ONLY_HISTORY_UNKNOWN' in set()
+E        +  where set() = codes(StudyCandidate(study_ref='NEW-REFERENCE', source_sheet='06_Stability_Index', source_row=2, product_text='Medicine 100U...ursion / thermal cycling', permitted_text='Single excursion 6 h to 15 C', cited=True, status='SELECTED', rejections=[]))
+
+tests/test_study_discovery.py:246: AssertionError
+__________ test_nonfinite_event_measurements_never_select[min_temp_c] __________
+
+field = 'min_temp_c'
+
+    @pytest.mark.parametrize("field", ["min_temp_c", "max_temp_c", "duration_min"])
+    def test_nonfinite_event_measurements_never_select(field):
+        audit = discover(**{field: float("nan")})
+>       assert audit.selected_study_ref is None
+E       AssertionError: assert 'NEW-REFERENCE' is None
+E        +  where 'NEW-REFERENCE' = StudyDiscovery(tenant_code='T', cited_study_ref='NEW-REFERENCE', selected_study_ref='NEW-REFERENCE', status='SELECTED'...d before search', authority_limit='Index assertions only, not authenticated full-report or clinical release authority').selected_study_ref
+
+tests/test_study_discovery.py:253: AssertionError
+__________ test_nonfinite_event_measurements_never_select[max_temp_c] __________
+
+field = 'max_temp_c'
+
+    @pytest.mark.parametrize("field", ["min_temp_c", "max_temp_c", "duration_min"])
+    def test_nonfinite_event_measurements_never_select(field):
+        audit = discover(**{field: float("nan")})
+>       assert audit.selected_study_ref is None
+E       AssertionError: assert 'NEW-REFERENCE' is None
+E        +  where 'NEW-REFERENCE' = StudyDiscovery(tenant_code='T', cited_study_ref='NEW-REFERENCE', selected_study_ref='NEW-REFERENCE', status='SELECTED'...d before search', authority_limit='Index assertions only, not authenticated full-report or clinical release authority').selected_study_ref
+
+tests/test_study_discovery.py:253: AssertionError
+_________ test_nonfinite_event_measurements_never_select[duration_min] _________
+
+field = 'duration_min'
+
+    @pytest.mark.parametrize("field", ["min_temp_c", "max_temp_c", "duration_min"])
+    def test_nonfinite_event_measurements_never_select(field):
+        audit = discover(**{field: float("nan")})
+>       assert audit.selected_study_ref is None
+E       AssertionError: assert 'NEW-REFERENCE' is None
+E        +  where 'NEW-REFERENCE' = StudyDiscovery(tenant_code='T', cited_study_ref='NEW-REFERENCE', selected_study_ref='NEW-REFERENCE', status='SELECTED'...d before search', authority_limit='Index assertions only, not authenticated full-report or clinical release authority').selected_study_ref
+
+tests/test_study_discovery.py:253: AssertionError
+=============================== warnings summary ===============================
+../../tmp/fixvenv/lib/python3.13/site-packages/fastapi/testclient.py:1
+  /tmp/fixvenv/lib/python3.13/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_study_discovery.py::test_malformed_authority_dates_are_unknown_not_crashes[effective_from]
+FAILED tests/test_study_discovery.py::test_malformed_authority_dates_are_unknown_not_crashes[effective_to]
+FAILED tests/test_study_discovery.py::test_malformed_authority_dates_are_unknown_not_crashes[known_from]
+FAILED tests/test_study_discovery.py::test_single_use_language_requires_history_even_without_word_once[One excursion, up to 6 h below 15 C]
+FAILED tests/test_study_discovery.py::test_single_use_language_requires_history_even_without_word_once[Single excursion 6 h to 15 C]
+FAILED tests/test_study_discovery.py::test_nonfinite_event_measurements_never_select[min_temp_c]
+FAILED tests/test_study_discovery.py::test_nonfinite_event_measurements_never_select[max_temp_c]
+FAILED tests/test_study_discovery.py::test_nonfinite_event_measurements_never_select[duration_min]
+8 failed, 2 passed, 38 deselected, 1 warning in 0.41s

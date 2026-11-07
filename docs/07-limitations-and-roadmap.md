@@ -7,7 +7,7 @@ These specific defects were addressed; overall safety and production readiness r
 | Area | Current gap / inspection finding | Status |
 |---|---|---|
 | Identity | Typed scoped claims now retain provenance and reject negative/conflicting/weak product aliases; actual workbook aliases have no tenant ownership, so none are promoted | Source assertions are not authenticated independent verification; full owner curation/ontology remains needed |
-| Study discovery | Only the cited study is resolved; no full candidate/rejection catalogue, strength-controlled discovery or authenticated full-report authority | Unfinished; no study ID hard-coded as a remedy |
+| Study discovery | All tenant index rows now have typed reasons and strength/presentation checks; supplied study approval/effective/knowledge/supersession metadata and full reports are absent | No admissible sample selection; no authenticated full-report authority or inferred alternate mapping |
 | SOP/site annexures | Effective-date metadata and overlaps are visible, but indexed body/site annexure content is absent | Release authority unresolved; explicit resolution-task workflow not implemented |
 | Batch exposure | No verified batch identity or complete prior-exposure/once-only-use history | Cumulative assessment cannot assume zero |
 | Clinical rules | Numeric freeze/ultra-cold/gap/allowance heuristics still exist; other storage restrictions are not verified | No universal safety/production validation |
@@ -58,8 +58,10 @@ person's authority or establish clinical release eligibility.
    a universal no-hindsight archive. Exact tenant GTIN/SKU assertions do not establish
    source truth. Incompatible explicit descriptors require review, not invented unit
    conversion or clinical equivalence. Facility ownership/site linkage remains unestablished.
-2. Discover study candidates with explicit product/strength/presentation/type/
-   readability reasons; keep discovery separate from clinical release authority.
+2. Qualify the implemented [study discovery catalogue](validation/study-discovery-review/report.md)
+   with tenant owners, controlled full reports and verified alternate mappings.
+   Discovery remains separate from clinical release authority; source approvals
+   and effective/knowledge/supersession metadata are not manufactured.
 3. Obtain controlled site/date SOP bodies and annexures; create open resolution
    tasks for missing/overlapping authority. Blank transcription must never clear a blocker.
 4. Establish verified batch/once-only history and source dependencies; create

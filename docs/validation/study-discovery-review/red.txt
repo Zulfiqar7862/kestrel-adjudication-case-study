@@ -1,0 +1,1399 @@
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF                                   [100%]
+=================================== FAILURES ===================================
+___ test_generic_cited_study_can_be_selected_with_complete_explicit_evidence ___
+
+    def test_generic_cited_study_can_be_selected_with_complete_explicit_evidence():
+>       audit = discover()
+                ^^^^^^^^^^
+
+tests/test_study_discovery.py:52:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = None, p = None, patch = {}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+__ test_every_rejected_study_has_typed_explicit_reasons[patch0-WRONG_PRODUCT] __
+
+patch = {'product_text_as_written': 'Other 100U pen'}, reason = 'WRONG_PRODUCT'
+
+    @pytest.mark.parametrize("patch,reason", [
+        ({"product_text_as_written": "Other 100U pen"}, "WRONG_PRODUCT"),
+        ({"product_text_as_written": "Medicine 200U pen"}, "STRENGTH_MISMATCH"),
+        ({"product_text_as_written": "Medicine 100U vial"}, "PRESENTATION_MISMATCH"),
+        ({"product_text_as_written": "Medicine pen"}, "STRENGTH_UNKNOWN"),
+        ({"product_text_as_written": "Medicine 100U"}, "PRESENTATION_UNKNOWN"),
+        ({"study_type": "Long-term"}, "NOT_EXCURSION_STUDY"),
+        ({"readable": "Partial"}, "UNREADABLE"),
+        ({"approval_status": None}, "APPROVAL_UNKNOWN"),
+        ({"approval_status": "DRAFT"}, "NOT_APPROVED"),
+        ({"effective_from": None}, "EFFECTIVITY_UNKNOWN"),
+        ({"effective_from": "2026-02-01"}, "NOT_EFFECTIVE"),
+        ({"effective_to": "2025-02-01"}, "NOT_EFFECTIVE"),
+        ({"known_from": None}, "KNOWLEDGE_TIME_UNKNOWN"),
+        ({"known_from": "2026-02-01"}, "NOT_KNOWN_AT_TIME"),
+        ({"superseded": "Y"}, "SUPERSEDED"),
+        ({"superseded": None}, "SUPERSESSION_UNKNOWN"),
+        ({"permitted_excursion_text": None}, "ALLOWANCE_MISSING"),
+        ({"permitted_excursion_text": "Refer QA"}, "REQUIRES_QA"),
+        ({"permitted_excursion_text": "unrecognized prose"}, "ALLOWANCE_UNPARSEABLE"),
+    ])
+    def test_every_rejected_study_has_typed_explicit_reasons(patch, reason):
+>       audit = discover([study(**patch)])
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:81:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = [{'tenant_code': 'T', 'study_ref': 'NEW-REFERENCE', 'product_text_as_written': 'Other 100U pen', 'study_type': 'Excursion / thermal cycling', ...}]
+p = None, patch = {}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+_ test_every_rejected_study_has_typed_explicit_reasons[patch1-STRENGTH_MISMATCH] _
+
+patch = {'product_text_as_written': 'Medicine 200U pen'}
+reason = 'STRENGTH_MISMATCH'
+
+    @pytest.mark.parametrize("patch,reason", [
+        ({"product_text_as_written": "Other 100U pen"}, "WRONG_PRODUCT"),
+        ({"product_text_as_written": "Medicine 200U pen"}, "STRENGTH_MISMATCH"),
+        ({"product_text_as_written": "Medicine 100U vial"}, "PRESENTATION_MISMATCH"),
+        ({"product_text_as_written": "Medicine pen"}, "STRENGTH_UNKNOWN"),
+        ({"product_text_as_written": "Medicine 100U"}, "PRESENTATION_UNKNOWN"),
+        ({"study_type": "Long-term"}, "NOT_EXCURSION_STUDY"),
+        ({"readable": "Partial"}, "UNREADABLE"),
+        ({"approval_status": None}, "APPROVAL_UNKNOWN"),
+        ({"approval_status": "DRAFT"}, "NOT_APPROVED"),
+        ({"effective_from": None}, "EFFECTIVITY_UNKNOWN"),
+        ({"effective_from": "2026-02-01"}, "NOT_EFFECTIVE"),
+        ({"effective_to": "2025-02-01"}, "NOT_EFFECTIVE"),
+        ({"known_from": None}, "KNOWLEDGE_TIME_UNKNOWN"),
+        ({"known_from": "2026-02-01"}, "NOT_KNOWN_AT_TIME"),
+        ({"superseded": "Y"}, "SUPERSEDED"),
+        ({"superseded": None}, "SUPERSESSION_UNKNOWN"),
+        ({"permitted_excursion_text": None}, "ALLOWANCE_MISSING"),
+        ({"permitted_excursion_text": "Refer QA"}, "REQUIRES_QA"),
+        ({"permitted_excursion_text": "unrecognized prose"}, "ALLOWANCE_UNPARSEABLE"),
+    ])
+    def test_every_rejected_study_has_typed_explicit_reasons(patch, reason):
+>       audit = discover([study(**patch)])
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:81:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = [{'tenant_code': 'T', 'study_ref': 'NEW-REFERENCE', 'product_text_as_written': 'Medicine 200U pen', 'study_type': 'Excursion / thermal cycling', ...}]
+p = None, patch = {}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+_ test_every_rejected_study_has_typed_explicit_reasons[patch2-PRESENTATION_MISMATCH] _
+
+patch = {'product_text_as_written': 'Medicine 100U vial'}
+reason = 'PRESENTATION_MISMATCH'
+
+    @pytest.mark.parametrize("patch,reason", [
+        ({"product_text_as_written": "Other 100U pen"}, "WRONG_PRODUCT"),
+        ({"product_text_as_written": "Medicine 200U pen"}, "STRENGTH_MISMATCH"),
+        ({"product_text_as_written": "Medicine 100U vial"}, "PRESENTATION_MISMATCH"),
+        ({"product_text_as_written": "Medicine pen"}, "STRENGTH_UNKNOWN"),
+        ({"product_text_as_written": "Medicine 100U"}, "PRESENTATION_UNKNOWN"),
+        ({"study_type": "Long-term"}, "NOT_EXCURSION_STUDY"),
+        ({"readable": "Partial"}, "UNREADABLE"),
+        ({"approval_status": None}, "APPROVAL_UNKNOWN"),
+        ({"approval_status": "DRAFT"}, "NOT_APPROVED"),
+        ({"effective_from": None}, "EFFECTIVITY_UNKNOWN"),
+        ({"effective_from": "2026-02-01"}, "NOT_EFFECTIVE"),
+        ({"effective_to": "2025-02-01"}, "NOT_EFFECTIVE"),
+        ({"known_from": None}, "KNOWLEDGE_TIME_UNKNOWN"),
+        ({"known_from": "2026-02-01"}, "NOT_KNOWN_AT_TIME"),
+        ({"superseded": "Y"}, "SUPERSEDED"),
+        ({"superseded": None}, "SUPERSESSION_UNKNOWN"),
+        ({"permitted_excursion_text": None}, "ALLOWANCE_MISSING"),
+        ({"permitted_excursion_text": "Refer QA"}, "REQUIRES_QA"),
+        ({"permitted_excursion_text": "unrecognized prose"}, "ALLOWANCE_UNPARSEABLE"),
+    ])
+    def test_every_rejected_study_has_typed_explicit_reasons(patch, reason):
+>       audit = discover([study(**patch)])
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:81:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = [{'tenant_code': 'T', 'study_ref': 'NEW-REFERENCE', 'product_text_as_written': 'Medicine 100U vial', 'study_type': 'Excursion / thermal cycling', ...}]
+p = None, patch = {}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+_ test_every_rejected_study_has_typed_explicit_reasons[patch3-STRENGTH_UNKNOWN] _
+
+patch = {'product_text_as_written': 'Medicine pen'}, reason = 'STRENGTH_UNKNOWN'
+
+    @pytest.mark.parametrize("patch,reason", [
+        ({"product_text_as_written": "Other 100U pen"}, "WRONG_PRODUCT"),
+        ({"product_text_as_written": "Medicine 200U pen"}, "STRENGTH_MISMATCH"),
+        ({"product_text_as_written": "Medicine 100U vial"}, "PRESENTATION_MISMATCH"),
+        ({"product_text_as_written": "Medicine pen"}, "STRENGTH_UNKNOWN"),
+        ({"product_text_as_written": "Medicine 100U"}, "PRESENTATION_UNKNOWN"),
+        ({"study_type": "Long-term"}, "NOT_EXCURSION_STUDY"),
+        ({"readable": "Partial"}, "UNREADABLE"),
+        ({"approval_status": None}, "APPROVAL_UNKNOWN"),
+        ({"approval_status": "DRAFT"}, "NOT_APPROVED"),
+        ({"effective_from": None}, "EFFECTIVITY_UNKNOWN"),
+        ({"effective_from": "2026-02-01"}, "NOT_EFFECTIVE"),
+        ({"effective_to": "2025-02-01"}, "NOT_EFFECTIVE"),
+        ({"known_from": None}, "KNOWLEDGE_TIME_UNKNOWN"),
+        ({"known_from": "2026-02-01"}, "NOT_KNOWN_AT_TIME"),
+        ({"superseded": "Y"}, "SUPERSEDED"),
+        ({"superseded": None}, "SUPERSESSION_UNKNOWN"),
+        ({"permitted_excursion_text": None}, "ALLOWANCE_MISSING"),
+        ({"permitted_excursion_text": "Refer QA"}, "REQUIRES_QA"),
+        ({"permitted_excursion_text": "unrecognized prose"}, "ALLOWANCE_UNPARSEABLE"),
+    ])
+    def test_every_rejected_study_has_typed_explicit_reasons(patch, reason):
+>       audit = discover([study(**patch)])
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:81:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = [{'tenant_code': 'T', 'study_ref': 'NEW-REFERENCE', 'product_text_as_written': 'Medicine pen', 'study_type': 'Excursion / thermal cycling', ...}]
+p = None, patch = {}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+_ test_every_rejected_study_has_typed_explicit_reasons[patch4-PRESENTATION_UNKNOWN] _
+
+patch = {'product_text_as_written': 'Medicine 100U'}
+reason = 'PRESENTATION_UNKNOWN'
+
+    @pytest.mark.parametrize("patch,reason", [
+        ({"product_text_as_written": "Other 100U pen"}, "WRONG_PRODUCT"),
+        ({"product_text_as_written": "Medicine 200U pen"}, "STRENGTH_MISMATCH"),
+        ({"product_text_as_written": "Medicine 100U vial"}, "PRESENTATION_MISMATCH"),
+        ({"product_text_as_written": "Medicine pen"}, "STRENGTH_UNKNOWN"),
+        ({"product_text_as_written": "Medicine 100U"}, "PRESENTATION_UNKNOWN"),
+        ({"study_type": "Long-term"}, "NOT_EXCURSION_STUDY"),
+        ({"readable": "Partial"}, "UNREADABLE"),
+        ({"approval_status": None}, "APPROVAL_UNKNOWN"),
+        ({"approval_status": "DRAFT"}, "NOT_APPROVED"),
+        ({"effective_from": None}, "EFFECTIVITY_UNKNOWN"),
+        ({"effective_from": "2026-02-01"}, "NOT_EFFECTIVE"),
+        ({"effective_to": "2025-02-01"}, "NOT_EFFECTIVE"),
+        ({"known_from": None}, "KNOWLEDGE_TIME_UNKNOWN"),
+        ({"known_from": "2026-02-01"}, "NOT_KNOWN_AT_TIME"),
+        ({"superseded": "Y"}, "SUPERSEDED"),
+        ({"superseded": None}, "SUPERSESSION_UNKNOWN"),
+        ({"permitted_excursion_text": None}, "ALLOWANCE_MISSING"),
+        ({"permitted_excursion_text": "Refer QA"}, "REQUIRES_QA"),
+        ({"permitted_excursion_text": "unrecognized prose"}, "ALLOWANCE_UNPARSEABLE"),
+    ])
+    def test_every_rejected_study_has_typed_explicit_reasons(patch, reason):
+>       audit = discover([study(**patch)])
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:81:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = [{'tenant_code': 'T', 'study_ref': 'NEW-REFERENCE', 'product_text_as_written': 'Medicine 100U', 'study_type': 'Excursion / thermal cycling', ...}]
+p = None, patch = {}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+_ test_every_rejected_study_has_typed_explicit_reasons[patch5-NOT_EXCURSION_STUDY] _
+
+patch = {'study_type': 'Long-term'}, reason = 'NOT_EXCURSION_STUDY'
+
+    @pytest.mark.parametrize("patch,reason", [
+        ({"product_text_as_written": "Other 100U pen"}, "WRONG_PRODUCT"),
+        ({"product_text_as_written": "Medicine 200U pen"}, "STRENGTH_MISMATCH"),
+        ({"product_text_as_written": "Medicine 100U vial"}, "PRESENTATION_MISMATCH"),
+        ({"product_text_as_written": "Medicine pen"}, "STRENGTH_UNKNOWN"),
+        ({"product_text_as_written": "Medicine 100U"}, "PRESENTATION_UNKNOWN"),
+        ({"study_type": "Long-term"}, "NOT_EXCURSION_STUDY"),
+        ({"readable": "Partial"}, "UNREADABLE"),
+        ({"approval_status": None}, "APPROVAL_UNKNOWN"),
+        ({"approval_status": "DRAFT"}, "NOT_APPROVED"),
+        ({"effective_from": None}, "EFFECTIVITY_UNKNOWN"),
+        ({"effective_from": "2026-02-01"}, "NOT_EFFECTIVE"),
+        ({"effective_to": "2025-02-01"}, "NOT_EFFECTIVE"),
+        ({"known_from": None}, "KNOWLEDGE_TIME_UNKNOWN"),
+        ({"known_from": "2026-02-01"}, "NOT_KNOWN_AT_TIME"),
+        ({"superseded": "Y"}, "SUPERSEDED"),
+        ({"superseded": None}, "SUPERSESSION_UNKNOWN"),
+        ({"permitted_excursion_text": None}, "ALLOWANCE_MISSING"),
+        ({"permitted_excursion_text": "Refer QA"}, "REQUIRES_QA"),
+        ({"permitted_excursion_text": "unrecognized prose"}, "ALLOWANCE_UNPARSEABLE"),
+    ])
+    def test_every_rejected_study_has_typed_explicit_reasons(patch, reason):
+>       audit = discover([study(**patch)])
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:81:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = [{'tenant_code': 'T', 'study_ref': 'NEW-REFERENCE', 'product_text_as_written': 'Medicine 100U pen', 'study_type': 'Long-term', ...}]
+p = None, patch = {}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+___ test_every_rejected_study_has_typed_explicit_reasons[patch6-UNREADABLE] ____
+
+patch = {'readable': 'Partial'}, reason = 'UNREADABLE'
+
+    @pytest.mark.parametrize("patch,reason", [
+        ({"product_text_as_written": "Other 100U pen"}, "WRONG_PRODUCT"),
+        ({"product_text_as_written": "Medicine 200U pen"}, "STRENGTH_MISMATCH"),
+        ({"product_text_as_written": "Medicine 100U vial"}, "PRESENTATION_MISMATCH"),
+        ({"product_text_as_written": "Medicine pen"}, "STRENGTH_UNKNOWN"),
+        ({"product_text_as_written": "Medicine 100U"}, "PRESENTATION_UNKNOWN"),
+        ({"study_type": "Long-term"}, "NOT_EXCURSION_STUDY"),
+        ({"readable": "Partial"}, "UNREADABLE"),
+        ({"approval_status": None}, "APPROVAL_UNKNOWN"),
+        ({"approval_status": "DRAFT"}, "NOT_APPROVED"),
+        ({"effective_from": None}, "EFFECTIVITY_UNKNOWN"),
+        ({"effective_from": "2026-02-01"}, "NOT_EFFECTIVE"),
+        ({"effective_to": "2025-02-01"}, "NOT_EFFECTIVE"),
+        ({"known_from": None}, "KNOWLEDGE_TIME_UNKNOWN"),
+        ({"known_from": "2026-02-01"}, "NOT_KNOWN_AT_TIME"),
+        ({"superseded": "Y"}, "SUPERSEDED"),
+        ({"superseded": None}, "SUPERSESSION_UNKNOWN"),
+        ({"permitted_excursion_text": None}, "ALLOWANCE_MISSING"),
+        ({"permitted_excursion_text": "Refer QA"}, "REQUIRES_QA"),
+        ({"permitted_excursion_text": "unrecognized prose"}, "ALLOWANCE_UNPARSEABLE"),
+    ])
+    def test_every_rejected_study_has_typed_explicit_reasons(patch, reason):
+>       audit = discover([study(**patch)])
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:81:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = [{'tenant_code': 'T', 'study_ref': 'NEW-REFERENCE', 'product_text_as_written': 'Medicine 100U pen', 'study_type': 'Excursion / thermal cycling', ...}]
+p = None, patch = {}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+_ test_every_rejected_study_has_typed_explicit_reasons[patch7-APPROVAL_UNKNOWN] _
+
+patch = {'approval_status': None}, reason = 'APPROVAL_UNKNOWN'
+
+    @pytest.mark.parametrize("patch,reason", [
+        ({"product_text_as_written": "Other 100U pen"}, "WRONG_PRODUCT"),
+        ({"product_text_as_written": "Medicine 200U pen"}, "STRENGTH_MISMATCH"),
+        ({"product_text_as_written": "Medicine 100U vial"}, "PRESENTATION_MISMATCH"),
+        ({"product_text_as_written": "Medicine pen"}, "STRENGTH_UNKNOWN"),
+        ({"product_text_as_written": "Medicine 100U"}, "PRESENTATION_UNKNOWN"),
+        ({"study_type": "Long-term"}, "NOT_EXCURSION_STUDY"),
+        ({"readable": "Partial"}, "UNREADABLE"),
+        ({"approval_status": None}, "APPROVAL_UNKNOWN"),
+        ({"approval_status": "DRAFT"}, "NOT_APPROVED"),
+        ({"effective_from": None}, "EFFECTIVITY_UNKNOWN"),
+        ({"effective_from": "2026-02-01"}, "NOT_EFFECTIVE"),
+        ({"effective_to": "2025-02-01"}, "NOT_EFFECTIVE"),
+        ({"known_from": None}, "KNOWLEDGE_TIME_UNKNOWN"),
+        ({"known_from": "2026-02-01"}, "NOT_KNOWN_AT_TIME"),
+        ({"superseded": "Y"}, "SUPERSEDED"),
+        ({"superseded": None}, "SUPERSESSION_UNKNOWN"),
+        ({"permitted_excursion_text": None}, "ALLOWANCE_MISSING"),
+        ({"permitted_excursion_text": "Refer QA"}, "REQUIRES_QA"),
+        ({"permitted_excursion_text": "unrecognized prose"}, "ALLOWANCE_UNPARSEABLE"),
+    ])
+    def test_every_rejected_study_has_typed_explicit_reasons(patch, reason):
+>       audit = discover([study(**patch)])
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:81:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = [{'tenant_code': 'T', 'study_ref': 'NEW-REFERENCE', 'product_text_as_written': 'Medicine 100U pen', 'study_type': 'Excursion / thermal cycling', ...}]
+p = None, patch = {}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+__ test_every_rejected_study_has_typed_explicit_reasons[patch8-NOT_APPROVED] ___
+
+patch = {'approval_status': 'DRAFT'}, reason = 'NOT_APPROVED'
+
+    @pytest.mark.parametrize("patch,reason", [
+        ({"product_text_as_written": "Other 100U pen"}, "WRONG_PRODUCT"),
+        ({"product_text_as_written": "Medicine 200U pen"}, "STRENGTH_MISMATCH"),
+        ({"product_text_as_written": "Medicine 100U vial"}, "PRESENTATION_MISMATCH"),
+        ({"product_text_as_written": "Medicine pen"}, "STRENGTH_UNKNOWN"),
+        ({"product_text_as_written": "Medicine 100U"}, "PRESENTATION_UNKNOWN"),
+        ({"study_type": "Long-term"}, "NOT_EXCURSION_STUDY"),
+        ({"readable": "Partial"}, "UNREADABLE"),
+        ({"approval_status": None}, "APPROVAL_UNKNOWN"),
+        ({"approval_status": "DRAFT"}, "NOT_APPROVED"),
+        ({"effective_from": None}, "EFFECTIVITY_UNKNOWN"),
+        ({"effective_from": "2026-02-01"}, "NOT_EFFECTIVE"),
+        ({"effective_to": "2025-02-01"}, "NOT_EFFECTIVE"),
+        ({"known_from": None}, "KNOWLEDGE_TIME_UNKNOWN"),
+        ({"known_from": "2026-02-01"}, "NOT_KNOWN_AT_TIME"),
+        ({"superseded": "Y"}, "SUPERSEDED"),
+        ({"superseded": None}, "SUPERSESSION_UNKNOWN"),
+        ({"permitted_excursion_text": None}, "ALLOWANCE_MISSING"),
+        ({"permitted_excursion_text": "Refer QA"}, "REQUIRES_QA"),
+        ({"permitted_excursion_text": "unrecognized prose"}, "ALLOWANCE_UNPARSEABLE"),
+    ])
+    def test_every_rejected_study_has_typed_explicit_reasons(patch, reason):
+>       audit = discover([study(**patch)])
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:81:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = [{'tenant_code': 'T', 'study_ref': 'NEW-REFERENCE', 'product_text_as_written': 'Medicine 100U pen', 'study_type': 'Excursion / thermal cycling', ...}]
+p = None, patch = {}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+_ test_every_rejected_study_has_typed_explicit_reasons[patch9-EFFECTIVITY_UNKNOWN] _
+
+patch = {'effective_from': None}, reason = 'EFFECTIVITY_UNKNOWN'
+
+    @pytest.mark.parametrize("patch,reason", [
+        ({"product_text_as_written": "Other 100U pen"}, "WRONG_PRODUCT"),
+        ({"product_text_as_written": "Medicine 200U pen"}, "STRENGTH_MISMATCH"),
+        ({"product_text_as_written": "Medicine 100U vial"}, "PRESENTATION_MISMATCH"),
+        ({"product_text_as_written": "Medicine pen"}, "STRENGTH_UNKNOWN"),
+        ({"product_text_as_written": "Medicine 100U"}, "PRESENTATION_UNKNOWN"),
+        ({"study_type": "Long-term"}, "NOT_EXCURSION_STUDY"),
+        ({"readable": "Partial"}, "UNREADABLE"),
+        ({"approval_status": None}, "APPROVAL_UNKNOWN"),
+        ({"approval_status": "DRAFT"}, "NOT_APPROVED"),
+        ({"effective_from": None}, "EFFECTIVITY_UNKNOWN"),
+        ({"effective_from": "2026-02-01"}, "NOT_EFFECTIVE"),
+        ({"effective_to": "2025-02-01"}, "NOT_EFFECTIVE"),
+        ({"known_from": None}, "KNOWLEDGE_TIME_UNKNOWN"),
+        ({"known_from": "2026-02-01"}, "NOT_KNOWN_AT_TIME"),
+        ({"superseded": "Y"}, "SUPERSEDED"),
+        ({"superseded": None}, "SUPERSESSION_UNKNOWN"),
+        ({"permitted_excursion_text": None}, "ALLOWANCE_MISSING"),
+        ({"permitted_excursion_text": "Refer QA"}, "REQUIRES_QA"),
+        ({"permitted_excursion_text": "unrecognized prose"}, "ALLOWANCE_UNPARSEABLE"),
+    ])
+    def test_every_rejected_study_has_typed_explicit_reasons(patch, reason):
+>       audit = discover([study(**patch)])
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:81:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = [{'tenant_code': 'T', 'study_ref': 'NEW-REFERENCE', 'product_text_as_written': 'Medicine 100U pen', 'study_type': 'Excursion / thermal cycling', ...}]
+p = None, patch = {}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+_ test_every_rejected_study_has_typed_explicit_reasons[patch10-NOT_EFFECTIVE] __
+
+patch = {'effective_from': '2026-02-01'}, reason = 'NOT_EFFECTIVE'
+
+    @pytest.mark.parametrize("patch,reason", [
+        ({"product_text_as_written": "Other 100U pen"}, "WRONG_PRODUCT"),
+        ({"product_text_as_written": "Medicine 200U pen"}, "STRENGTH_MISMATCH"),
+        ({"product_text_as_written": "Medicine 100U vial"}, "PRESENTATION_MISMATCH"),
+        ({"product_text_as_written": "Medicine pen"}, "STRENGTH_UNKNOWN"),
+        ({"product_text_as_written": "Medicine 100U"}, "PRESENTATION_UNKNOWN"),
+        ({"study_type": "Long-term"}, "NOT_EXCURSION_STUDY"),
+        ({"readable": "Partial"}, "UNREADABLE"),
+        ({"approval_status": None}, "APPROVAL_UNKNOWN"),
+        ({"approval_status": "DRAFT"}, "NOT_APPROVED"),
+        ({"effective_from": None}, "EFFECTIVITY_UNKNOWN"),
+        ({"effective_from": "2026-02-01"}, "NOT_EFFECTIVE"),
+        ({"effective_to": "2025-02-01"}, "NOT_EFFECTIVE"),
+        ({"known_from": None}, "KNOWLEDGE_TIME_UNKNOWN"),
+        ({"known_from": "2026-02-01"}, "NOT_KNOWN_AT_TIME"),
+        ({"superseded": "Y"}, "SUPERSEDED"),
+        ({"superseded": None}, "SUPERSESSION_UNKNOWN"),
+        ({"permitted_excursion_text": None}, "ALLOWANCE_MISSING"),
+        ({"permitted_excursion_text": "Refer QA"}, "REQUIRES_QA"),
+        ({"permitted_excursion_text": "unrecognized prose"}, "ALLOWANCE_UNPARSEABLE"),
+    ])
+    def test_every_rejected_study_has_typed_explicit_reasons(patch, reason):
+>       audit = discover([study(**patch)])
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:81:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = [{'tenant_code': 'T', 'study_ref': 'NEW-REFERENCE', 'product_text_as_written': 'Medicine 100U pen', 'study_type': 'Excursion / thermal cycling', ...}]
+p = None, patch = {}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+_ test_every_rejected_study_has_typed_explicit_reasons[patch11-NOT_EFFECTIVE] __
+
+patch = {'effective_to': '2025-02-01'}, reason = 'NOT_EFFECTIVE'
+
+    @pytest.mark.parametrize("patch,reason", [
+        ({"product_text_as_written": "Other 100U pen"}, "WRONG_PRODUCT"),
+        ({"product_text_as_written": "Medicine 200U pen"}, "STRENGTH_MISMATCH"),
+        ({"product_text_as_written": "Medicine 100U vial"}, "PRESENTATION_MISMATCH"),
+        ({"product_text_as_written": "Medicine pen"}, "STRENGTH_UNKNOWN"),
+        ({"product_text_as_written": "Medicine 100U"}, "PRESENTATION_UNKNOWN"),
+        ({"study_type": "Long-term"}, "NOT_EXCURSION_STUDY"),
+        ({"readable": "Partial"}, "UNREADABLE"),
+        ({"approval_status": None}, "APPROVAL_UNKNOWN"),
+        ({"approval_status": "DRAFT"}, "NOT_APPROVED"),
+        ({"effective_from": None}, "EFFECTIVITY_UNKNOWN"),
+        ({"effective_from": "2026-02-01"}, "NOT_EFFECTIVE"),
+        ({"effective_to": "2025-02-01"}, "NOT_EFFECTIVE"),
+        ({"known_from": None}, "KNOWLEDGE_TIME_UNKNOWN"),
+        ({"known_from": "2026-02-01"}, "NOT_KNOWN_AT_TIME"),
+        ({"superseded": "Y"}, "SUPERSEDED"),
+        ({"superseded": None}, "SUPERSESSION_UNKNOWN"),
+        ({"permitted_excursion_text": None}, "ALLOWANCE_MISSING"),
+        ({"permitted_excursion_text": "Refer QA"}, "REQUIRES_QA"),
+        ({"permitted_excursion_text": "unrecognized prose"}, "ALLOWANCE_UNPARSEABLE"),
+    ])
+    def test_every_rejected_study_has_typed_explicit_reasons(patch, reason):
+>       audit = discover([study(**patch)])
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:81:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = [{'tenant_code': 'T', 'study_ref': 'NEW-REFERENCE', 'product_text_as_written': 'Medicine 100U pen', 'study_type': 'Excursion / thermal cycling', ...}]
+p = None, patch = {}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+_ test_every_rejected_study_has_typed_explicit_reasons[patch12-KNOWLEDGE_TIME_UNKNOWN] _
+
+patch = {'known_from': None}, reason = 'KNOWLEDGE_TIME_UNKNOWN'
+
+    @pytest.mark.parametrize("patch,reason", [
+        ({"product_text_as_written": "Other 100U pen"}, "WRONG_PRODUCT"),
+        ({"product_text_as_written": "Medicine 200U pen"}, "STRENGTH_MISMATCH"),
+        ({"product_text_as_written": "Medicine 100U vial"}, "PRESENTATION_MISMATCH"),
+        ({"product_text_as_written": "Medicine pen"}, "STRENGTH_UNKNOWN"),
+        ({"product_text_as_written": "Medicine 100U"}, "PRESENTATION_UNKNOWN"),
+        ({"study_type": "Long-term"}, "NOT_EXCURSION_STUDY"),
+        ({"readable": "Partial"}, "UNREADABLE"),
+        ({"approval_status": None}, "APPROVAL_UNKNOWN"),
+        ({"approval_status": "DRAFT"}, "NOT_APPROVED"),
+        ({"effective_from": None}, "EFFECTIVITY_UNKNOWN"),
+        ({"effective_from": "2026-02-01"}, "NOT_EFFECTIVE"),
+        ({"effective_to": "2025-02-01"}, "NOT_EFFECTIVE"),
+        ({"known_from": None}, "KNOWLEDGE_TIME_UNKNOWN"),
+        ({"known_from": "2026-02-01"}, "NOT_KNOWN_AT_TIME"),
+        ({"superseded": "Y"}, "SUPERSEDED"),
+        ({"superseded": None}, "SUPERSESSION_UNKNOWN"),
+        ({"permitted_excursion_text": None}, "ALLOWANCE_MISSING"),
+        ({"permitted_excursion_text": "Refer QA"}, "REQUIRES_QA"),
+        ({"permitted_excursion_text": "unrecognized prose"}, "ALLOWANCE_UNPARSEABLE"),
+    ])
+    def test_every_rejected_study_has_typed_explicit_reasons(patch, reason):
+>       audit = discover([study(**patch)])
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:81:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = [{'tenant_code': 'T', 'study_ref': 'NEW-REFERENCE', 'product_text_as_written': 'Medicine 100U pen', 'study_type': 'Excursion / thermal cycling', ...}]
+p = None, patch = {}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+_ test_every_rejected_study_has_typed_explicit_reasons[patch13-NOT_KNOWN_AT_TIME] _
+
+patch = {'known_from': '2026-02-01'}, reason = 'NOT_KNOWN_AT_TIME'
+
+    @pytest.mark.parametrize("patch,reason", [
+        ({"product_text_as_written": "Other 100U pen"}, "WRONG_PRODUCT"),
+        ({"product_text_as_written": "Medicine 200U pen"}, "STRENGTH_MISMATCH"),
+        ({"product_text_as_written": "Medicine 100U vial"}, "PRESENTATION_MISMATCH"),
+        ({"product_text_as_written": "Medicine pen"}, "STRENGTH_UNKNOWN"),
+        ({"product_text_as_written": "Medicine 100U"}, "PRESENTATION_UNKNOWN"),
+        ({"study_type": "Long-term"}, "NOT_EXCURSION_STUDY"),
+        ({"readable": "Partial"}, "UNREADABLE"),
+        ({"approval_status": None}, "APPROVAL_UNKNOWN"),
+        ({"approval_status": "DRAFT"}, "NOT_APPROVED"),
+        ({"effective_from": None}, "EFFECTIVITY_UNKNOWN"),
+        ({"effective_from": "2026-02-01"}, "NOT_EFFECTIVE"),
+        ({"effective_to": "2025-02-01"}, "NOT_EFFECTIVE"),
+        ({"known_from": None}, "KNOWLEDGE_TIME_UNKNOWN"),
+        ({"known_from": "2026-02-01"}, "NOT_KNOWN_AT_TIME"),
+        ({"superseded": "Y"}, "SUPERSEDED"),
+        ({"superseded": None}, "SUPERSESSION_UNKNOWN"),
+        ({"permitted_excursion_text": None}, "ALLOWANCE_MISSING"),
+        ({"permitted_excursion_text": "Refer QA"}, "REQUIRES_QA"),
+        ({"permitted_excursion_text": "unrecognized prose"}, "ALLOWANCE_UNPARSEABLE"),
+    ])
+    def test_every_rejected_study_has_typed_explicit_reasons(patch, reason):
+>       audit = discover([study(**patch)])
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:81:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = [{'tenant_code': 'T', 'study_ref': 'NEW-REFERENCE', 'product_text_as_written': 'Medicine 100U pen', 'study_type': 'Excursion / thermal cycling', ...}]
+p = None, patch = {}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+___ test_every_rejected_study_has_typed_explicit_reasons[patch14-SUPERSEDED] ___
+
+patch = {'superseded': 'Y'}, reason = 'SUPERSEDED'
+
+    @pytest.mark.parametrize("patch,reason", [
+        ({"product_text_as_written": "Other 100U pen"}, "WRONG_PRODUCT"),
+        ({"product_text_as_written": "Medicine 200U pen"}, "STRENGTH_MISMATCH"),
+        ({"product_text_as_written": "Medicine 100U vial"}, "PRESENTATION_MISMATCH"),
+        ({"product_text_as_written": "Medicine pen"}, "STRENGTH_UNKNOWN"),
+        ({"product_text_as_written": "Medicine 100U"}, "PRESENTATION_UNKNOWN"),
+        ({"study_type": "Long-term"}, "NOT_EXCURSION_STUDY"),
+        ({"readable": "Partial"}, "UNREADABLE"),
+        ({"approval_status": None}, "APPROVAL_UNKNOWN"),
+        ({"approval_status": "DRAFT"}, "NOT_APPROVED"),
+        ({"effective_from": None}, "EFFECTIVITY_UNKNOWN"),
+        ({"effective_from": "2026-02-01"}, "NOT_EFFECTIVE"),
+        ({"effective_to": "2025-02-01"}, "NOT_EFFECTIVE"),
+        ({"known_from": None}, "KNOWLEDGE_TIME_UNKNOWN"),
+        ({"known_from": "2026-02-01"}, "NOT_KNOWN_AT_TIME"),
+        ({"superseded": "Y"}, "SUPERSEDED"),
+        ({"superseded": None}, "SUPERSESSION_UNKNOWN"),
+        ({"permitted_excursion_text": None}, "ALLOWANCE_MISSING"),
+        ({"permitted_excursion_text": "Refer QA"}, "REQUIRES_QA"),
+        ({"permitted_excursion_text": "unrecognized prose"}, "ALLOWANCE_UNPARSEABLE"),
+    ])
+    def test_every_rejected_study_has_typed_explicit_reasons(patch, reason):
+>       audit = discover([study(**patch)])
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:81:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = [{'tenant_code': 'T', 'study_ref': 'NEW-REFERENCE', 'product_text_as_written': 'Medicine 100U pen', 'study_type': 'Excursion / thermal cycling', ...}]
+p = None, patch = {}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+_ test_every_rejected_study_has_typed_explicit_reasons[patch15-SUPERSESSION_UNKNOWN] _
+
+patch = {'superseded': None}, reason = 'SUPERSESSION_UNKNOWN'
+
+    @pytest.mark.parametrize("patch,reason", [
+        ({"product_text_as_written": "Other 100U pen"}, "WRONG_PRODUCT"),
+        ({"product_text_as_written": "Medicine 200U pen"}, "STRENGTH_MISMATCH"),
+        ({"product_text_as_written": "Medicine 100U vial"}, "PRESENTATION_MISMATCH"),
+        ({"product_text_as_written": "Medicine pen"}, "STRENGTH_UNKNOWN"),
+        ({"product_text_as_written": "Medicine 100U"}, "PRESENTATION_UNKNOWN"),
+        ({"study_type": "Long-term"}, "NOT_EXCURSION_STUDY"),
+        ({"readable": "Partial"}, "UNREADABLE"),
+        ({"approval_status": None}, "APPROVAL_UNKNOWN"),
+        ({"approval_status": "DRAFT"}, "NOT_APPROVED"),
+        ({"effective_from": None}, "EFFECTIVITY_UNKNOWN"),
+        ({"effective_from": "2026-02-01"}, "NOT_EFFECTIVE"),
+        ({"effective_to": "2025-02-01"}, "NOT_EFFECTIVE"),
+        ({"known_from": None}, "KNOWLEDGE_TIME_UNKNOWN"),
+        ({"known_from": "2026-02-01"}, "NOT_KNOWN_AT_TIME"),
+        ({"superseded": "Y"}, "SUPERSEDED"),
+        ({"superseded": None}, "SUPERSESSION_UNKNOWN"),
+        ({"permitted_excursion_text": None}, "ALLOWANCE_MISSING"),
+        ({"permitted_excursion_text": "Refer QA"}, "REQUIRES_QA"),
+        ({"permitted_excursion_text": "unrecognized prose"}, "ALLOWANCE_UNPARSEABLE"),
+    ])
+    def test_every_rejected_study_has_typed_explicit_reasons(patch, reason):
+>       audit = discover([study(**patch)])
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:81:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = [{'tenant_code': 'T', 'study_ref': 'NEW-REFERENCE', 'product_text_as_written': 'Medicine 100U pen', 'study_type': 'Excursion / thermal cycling', ...}]
+p = None, patch = {}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+_ test_every_rejected_study_has_typed_explicit_reasons[patch16-ALLOWANCE_MISSING] _
+
+patch = {'permitted_excursion_text': None}, reason = 'ALLOWANCE_MISSING'
+
+    @pytest.mark.parametrize("patch,reason", [
+        ({"product_text_as_written": "Other 100U pen"}, "WRONG_PRODUCT"),
+        ({"product_text_as_written": "Medicine 200U pen"}, "STRENGTH_MISMATCH"),
+        ({"product_text_as_written": "Medicine 100U vial"}, "PRESENTATION_MISMATCH"),
+        ({"product_text_as_written": "Medicine pen"}, "STRENGTH_UNKNOWN"),
+        ({"product_text_as_written": "Medicine 100U"}, "PRESENTATION_UNKNOWN"),
+        ({"study_type": "Long-term"}, "NOT_EXCURSION_STUDY"),
+        ({"readable": "Partial"}, "UNREADABLE"),
+        ({"approval_status": None}, "APPROVAL_UNKNOWN"),
+        ({"approval_status": "DRAFT"}, "NOT_APPROVED"),
+        ({"effective_from": None}, "EFFECTIVITY_UNKNOWN"),
+        ({"effective_from": "2026-02-01"}, "NOT_EFFECTIVE"),
+        ({"effective_to": "2025-02-01"}, "NOT_EFFECTIVE"),
+        ({"known_from": None}, "KNOWLEDGE_TIME_UNKNOWN"),
+        ({"known_from": "2026-02-01"}, "NOT_KNOWN_AT_TIME"),
+        ({"superseded": "Y"}, "SUPERSEDED"),
+        ({"superseded": None}, "SUPERSESSION_UNKNOWN"),
+        ({"permitted_excursion_text": None}, "ALLOWANCE_MISSING"),
+        ({"permitted_excursion_text": "Refer QA"}, "REQUIRES_QA"),
+        ({"permitted_excursion_text": "unrecognized prose"}, "ALLOWANCE_UNPARSEABLE"),
+    ])
+    def test_every_rejected_study_has_typed_explicit_reasons(patch, reason):
+>       audit = discover([study(**patch)])
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:81:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = [{'tenant_code': 'T', 'study_ref': 'NEW-REFERENCE', 'product_text_as_written': 'Medicine 100U pen', 'study_type': 'Excursion / thermal cycling', ...}]
+p = None, patch = {}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+__ test_every_rejected_study_has_typed_explicit_reasons[patch17-REQUIRES_QA] ___
+
+patch = {'permitted_excursion_text': 'Refer QA'}, reason = 'REQUIRES_QA'
+
+    @pytest.mark.parametrize("patch,reason", [
+        ({"product_text_as_written": "Other 100U pen"}, "WRONG_PRODUCT"),
+        ({"product_text_as_written": "Medicine 200U pen"}, "STRENGTH_MISMATCH"),
+        ({"product_text_as_written": "Medicine 100U vial"}, "PRESENTATION_MISMATCH"),
+        ({"product_text_as_written": "Medicine pen"}, "STRENGTH_UNKNOWN"),
+        ({"product_text_as_written": "Medicine 100U"}, "PRESENTATION_UNKNOWN"),
+        ({"study_type": "Long-term"}, "NOT_EXCURSION_STUDY"),
+        ({"readable": "Partial"}, "UNREADABLE"),
+        ({"approval_status": None}, "APPROVAL_UNKNOWN"),
+        ({"approval_status": "DRAFT"}, "NOT_APPROVED"),
+        ({"effective_from": None}, "EFFECTIVITY_UNKNOWN"),
+        ({"effective_from": "2026-02-01"}, "NOT_EFFECTIVE"),
+        ({"effective_to": "2025-02-01"}, "NOT_EFFECTIVE"),
+        ({"known_from": None}, "KNOWLEDGE_TIME_UNKNOWN"),
+        ({"known_from": "2026-02-01"}, "NOT_KNOWN_AT_TIME"),
+        ({"superseded": "Y"}, "SUPERSEDED"),
+        ({"superseded": None}, "SUPERSESSION_UNKNOWN"),
+        ({"permitted_excursion_text": None}, "ALLOWANCE_MISSING"),
+        ({"permitted_excursion_text": "Refer QA"}, "REQUIRES_QA"),
+        ({"permitted_excursion_text": "unrecognized prose"}, "ALLOWANCE_UNPARSEABLE"),
+    ])
+    def test_every_rejected_study_has_typed_explicit_reasons(patch, reason):
+>       audit = discover([study(**patch)])
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:81:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = [{'tenant_code': 'T', 'study_ref': 'NEW-REFERENCE', 'product_text_as_written': 'Medicine 100U pen', 'study_type': 'Excursion / thermal cycling', ...}]
+p = None, patch = {}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+_ test_every_rejected_study_has_typed_explicit_reasons[patch18-ALLOWANCE_UNPARSEABLE] _
+
+patch = {'permitted_excursion_text': 'unrecognized prose'}
+reason = 'ALLOWANCE_UNPARSEABLE'
+
+    @pytest.mark.parametrize("patch,reason", [
+        ({"product_text_as_written": "Other 100U pen"}, "WRONG_PRODUCT"),
+        ({"product_text_as_written": "Medicine 200U pen"}, "STRENGTH_MISMATCH"),
+        ({"product_text_as_written": "Medicine 100U vial"}, "PRESENTATION_MISMATCH"),
+        ({"product_text_as_written": "Medicine pen"}, "STRENGTH_UNKNOWN"),
+        ({"product_text_as_written": "Medicine 100U"}, "PRESENTATION_UNKNOWN"),
+        ({"study_type": "Long-term"}, "NOT_EXCURSION_STUDY"),
+        ({"readable": "Partial"}, "UNREADABLE"),
+        ({"approval_status": None}, "APPROVAL_UNKNOWN"),
+        ({"approval_status": "DRAFT"}, "NOT_APPROVED"),
+        ({"effective_from": None}, "EFFECTIVITY_UNKNOWN"),
+        ({"effective_from": "2026-02-01"}, "NOT_EFFECTIVE"),
+        ({"effective_to": "2025-02-01"}, "NOT_EFFECTIVE"),
+        ({"known_from": None}, "KNOWLEDGE_TIME_UNKNOWN"),
+        ({"known_from": "2026-02-01"}, "NOT_KNOWN_AT_TIME"),
+        ({"superseded": "Y"}, "SUPERSEDED"),
+        ({"superseded": None}, "SUPERSESSION_UNKNOWN"),
+        ({"permitted_excursion_text": None}, "ALLOWANCE_MISSING"),
+        ({"permitted_excursion_text": "Refer QA"}, "REQUIRES_QA"),
+        ({"permitted_excursion_text": "unrecognized prose"}, "ALLOWANCE_UNPARSEABLE"),
+    ])
+    def test_every_rejected_study_has_typed_explicit_reasons(patch, reason):
+>       audit = discover([study(**patch)])
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:81:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = [{'tenant_code': 'T', 'study_ref': 'NEW-REFERENCE', 'product_text_as_written': 'Medicine 100U pen', 'study_type': 'Excursion / thermal cycling', ...}]
+p = None, patch = {}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+_ test_event_coverage_and_authority_are_not_inferred[patch0-TEMPERATURE_NOT_COVERED] _
+
+patch = {'max_temp_c': 16}, reason = 'TEMPERATURE_NOT_COVERED'
+
+    @pytest.mark.parametrize("patch,reason", [
+        ({"max_temp_c": 16}, "TEMPERATURE_NOT_COVERED"),
+        ({"min_temp_c": 1}, "TEMPERATURE_RANGE_UNKNOWN"),
+        ({"max_temp_c": None}, "TEMPERATURE_MISSING"),
+        ({"duration_min": 361}, "DURATION_NOT_COVERED"),
+        ({"duration_min": None}, "DURATION_MISSING"),
+        ({"sop_authority": "CONFLICT"}, "CONFLICTING_SOP"),
+        ({"sop_authority": "UNKNOWN"}, "SOP_AUTHORITY_UNKNOWN"),
+        ({"knowledge_date": None}, "KNOWLEDGE_TIME_UNKNOWN"),
+    ])
+    def test_event_coverage_and_authority_are_not_inferred(patch, reason):
+>       audit = discover(**patch)
+                ^^^^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:98:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = None, p = None, patch = {'max_temp_c': 16}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+_ test_event_coverage_and_authority_are_not_inferred[patch1-TEMPERATURE_RANGE_UNKNOWN] _
+
+patch = {'min_temp_c': 1}, reason = 'TEMPERATURE_RANGE_UNKNOWN'
+
+    @pytest.mark.parametrize("patch,reason", [
+        ({"max_temp_c": 16}, "TEMPERATURE_NOT_COVERED"),
+        ({"min_temp_c": 1}, "TEMPERATURE_RANGE_UNKNOWN"),
+        ({"max_temp_c": None}, "TEMPERATURE_MISSING"),
+        ({"duration_min": 361}, "DURATION_NOT_COVERED"),
+        ({"duration_min": None}, "DURATION_MISSING"),
+        ({"sop_authority": "CONFLICT"}, "CONFLICTING_SOP"),
+        ({"sop_authority": "UNKNOWN"}, "SOP_AUTHORITY_UNKNOWN"),
+        ({"knowledge_date": None}, "KNOWLEDGE_TIME_UNKNOWN"),
+    ])
+    def test_event_coverage_and_authority_are_not_inferred(patch, reason):
+>       audit = discover(**patch)
+                ^^^^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:98:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = None, p = None, patch = {'min_temp_c': 1}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+_ test_event_coverage_and_authority_are_not_inferred[patch2-TEMPERATURE_MISSING] _
+
+patch = {'max_temp_c': None}, reason = 'TEMPERATURE_MISSING'
+
+    @pytest.mark.parametrize("patch,reason", [
+        ({"max_temp_c": 16}, "TEMPERATURE_NOT_COVERED"),
+        ({"min_temp_c": 1}, "TEMPERATURE_RANGE_UNKNOWN"),
+        ({"max_temp_c": None}, "TEMPERATURE_MISSING"),
+        ({"duration_min": 361}, "DURATION_NOT_COVERED"),
+        ({"duration_min": None}, "DURATION_MISSING"),
+        ({"sop_authority": "CONFLICT"}, "CONFLICTING_SOP"),
+        ({"sop_authority": "UNKNOWN"}, "SOP_AUTHORITY_UNKNOWN"),
+        ({"knowledge_date": None}, "KNOWLEDGE_TIME_UNKNOWN"),
+    ])
+    def test_event_coverage_and_authority_are_not_inferred(patch, reason):
+>       audit = discover(**patch)
+                ^^^^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:98:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = None, p = None, patch = {'max_temp_c': None}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+_ test_event_coverage_and_authority_are_not_inferred[patch3-DURATION_NOT_COVERED] _
+
+patch = {'duration_min': 361}, reason = 'DURATION_NOT_COVERED'
+
+    @pytest.mark.parametrize("patch,reason", [
+        ({"max_temp_c": 16}, "TEMPERATURE_NOT_COVERED"),
+        ({"min_temp_c": 1}, "TEMPERATURE_RANGE_UNKNOWN"),
+        ({"max_temp_c": None}, "TEMPERATURE_MISSING"),
+        ({"duration_min": 361}, "DURATION_NOT_COVERED"),
+        ({"duration_min": None}, "DURATION_MISSING"),
+        ({"sop_authority": "CONFLICT"}, "CONFLICTING_SOP"),
+        ({"sop_authority": "UNKNOWN"}, "SOP_AUTHORITY_UNKNOWN"),
+        ({"knowledge_date": None}, "KNOWLEDGE_TIME_UNKNOWN"),
+    ])
+    def test_event_coverage_and_authority_are_not_inferred(patch, reason):
+>       audit = discover(**patch)
+                ^^^^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:98:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = None, p = None, patch = {'duration_min': 361}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+_ test_event_coverage_and_authority_are_not_inferred[patch4-DURATION_MISSING] __
+
+patch = {'duration_min': None}, reason = 'DURATION_MISSING'
+
+    @pytest.mark.parametrize("patch,reason", [
+        ({"max_temp_c": 16}, "TEMPERATURE_NOT_COVERED"),
+        ({"min_temp_c": 1}, "TEMPERATURE_RANGE_UNKNOWN"),
+        ({"max_temp_c": None}, "TEMPERATURE_MISSING"),
+        ({"duration_min": 361}, "DURATION_NOT_COVERED"),
+        ({"duration_min": None}, "DURATION_MISSING"),
+        ({"sop_authority": "CONFLICT"}, "CONFLICTING_SOP"),
+        ({"sop_authority": "UNKNOWN"}, "SOP_AUTHORITY_UNKNOWN"),
+        ({"knowledge_date": None}, "KNOWLEDGE_TIME_UNKNOWN"),
+    ])
+    def test_event_coverage_and_authority_are_not_inferred(patch, reason):
+>       audit = discover(**patch)
+                ^^^^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:98:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = None, p = None, patch = {'duration_min': None}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+__ test_event_coverage_and_authority_are_not_inferred[patch5-CONFLICTING_SOP] __
+
+patch = {'sop_authority': 'CONFLICT'}, reason = 'CONFLICTING_SOP'
+
+    @pytest.mark.parametrize("patch,reason", [
+        ({"max_temp_c": 16}, "TEMPERATURE_NOT_COVERED"),
+        ({"min_temp_c": 1}, "TEMPERATURE_RANGE_UNKNOWN"),
+        ({"max_temp_c": None}, "TEMPERATURE_MISSING"),
+        ({"duration_min": 361}, "DURATION_NOT_COVERED"),
+        ({"duration_min": None}, "DURATION_MISSING"),
+        ({"sop_authority": "CONFLICT"}, "CONFLICTING_SOP"),
+        ({"sop_authority": "UNKNOWN"}, "SOP_AUTHORITY_UNKNOWN"),
+        ({"knowledge_date": None}, "KNOWLEDGE_TIME_UNKNOWN"),
+    ])
+    def test_event_coverage_and_authority_are_not_inferred(patch, reason):
+>       audit = discover(**patch)
+                ^^^^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:98:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = None, p = None, patch = {'sop_authority': 'CONFLICT'}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+_ test_event_coverage_and_authority_are_not_inferred[patch6-SOP_AUTHORITY_UNKNOWN] _
+
+patch = {'sop_authority': 'UNKNOWN'}, reason = 'SOP_AUTHORITY_UNKNOWN'
+
+    @pytest.mark.parametrize("patch,reason", [
+        ({"max_temp_c": 16}, "TEMPERATURE_NOT_COVERED"),
+        ({"min_temp_c": 1}, "TEMPERATURE_RANGE_UNKNOWN"),
+        ({"max_temp_c": None}, "TEMPERATURE_MISSING"),
+        ({"duration_min": 361}, "DURATION_NOT_COVERED"),
+        ({"duration_min": None}, "DURATION_MISSING"),
+        ({"sop_authority": "CONFLICT"}, "CONFLICTING_SOP"),
+        ({"sop_authority": "UNKNOWN"}, "SOP_AUTHORITY_UNKNOWN"),
+        ({"knowledge_date": None}, "KNOWLEDGE_TIME_UNKNOWN"),
+    ])
+    def test_event_coverage_and_authority_are_not_inferred(patch, reason):
+>       audit = discover(**patch)
+                ^^^^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:98:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = None, p = None, patch = {'sop_authority': 'UNKNOWN'}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+_ test_event_coverage_and_authority_are_not_inferred[patch7-KNOWLEDGE_TIME_UNKNOWN] _
+
+patch = {'knowledge_date': None}, reason = 'KNOWLEDGE_TIME_UNKNOWN'
+
+    @pytest.mark.parametrize("patch,reason", [
+        ({"max_temp_c": 16}, "TEMPERATURE_NOT_COVERED"),
+        ({"min_temp_c": 1}, "TEMPERATURE_RANGE_UNKNOWN"),
+        ({"max_temp_c": None}, "TEMPERATURE_MISSING"),
+        ({"duration_min": 361}, "DURATION_NOT_COVERED"),
+        ({"duration_min": None}, "DURATION_MISSING"),
+        ({"sop_authority": "CONFLICT"}, "CONFLICTING_SOP"),
+        ({"sop_authority": "UNKNOWN"}, "SOP_AUTHORITY_UNKNOWN"),
+        ({"knowledge_date": None}, "KNOWLEDGE_TIME_UNKNOWN"),
+    ])
+    def test_event_coverage_and_authority_are_not_inferred(patch, reason):
+>       audit = discover(**patch)
+                ^^^^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:98:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = None, p = None, patch = {'knowledge_date': None}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+_______________ test_unresolved_identity_blocks_study_selection ________________
+
+    def test_unresolved_identity_blocks_study_selection():
+>       audit = discover(p=product(release_identity_eligible=False))
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:104:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = None
+p = ResolvedProduct(tenant_code='T', match_method='sku_exact', confidence=1, brand='Medicine 100U pen', generic_inn=None, ...idates=[], unresolved_reason=None, status='UNRESOLVED', reasons=[], identity_links=[], release_identity_eligible=False)
+patch = {}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+___________ test_discovery_records_all_tenant_rows_not_just_citation ___________
+
+    def test_discovery_records_all_tenant_rows_not_just_citation():
+>       audit = discover([study(), study(study_ref="ALTERNATE", _source_row=3),
+                          study(study_ref="BAD", product_text_as_written="Other vial", _source_row=4)])
+
+tests/test_study_discovery.py:109:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = [{'tenant_code': 'T', 'study_ref': 'NEW-REFERENCE', 'product_text_as_written': 'Medicine 100U pen', 'study_type': 'Exc...': 'T', 'study_ref': 'BAD', 'product_text_as_written': 'Other vial', 'study_type': 'Excursion / thermal cycling', ...}]
+p = None, patch = {}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+______ test_wrong_tenant_is_excluded_without_disclosing_foreign_evidence _______
+
+    def test_wrong_tenant_is_excluded_without_disclosing_foreign_evidence():
+        rows = [study(tenant_code="OTHER", product_text_as_written="SECRET")]
+>       audit = discover(rows)
+                ^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:119:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = [{'tenant_code': 'OTHER', 'study_ref': 'NEW-REFERENCE', 'product_text_as_written': 'SECRET', 'study_type': 'Excursion / thermal cycling', ...}]
+p = None, patch = {}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+________________ test_duplicate_citation_is_not_first_row_wins _________________
+
+    def test_duplicate_citation_is_not_first_row_wins():
+>       audit = discover([study(), study(_source_row=3)])
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:127:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = [{'tenant_code': 'T', 'study_ref': 'NEW-REFERENCE', 'product_text_as_written': 'Medicine 100U pen', 'study_type': 'Exc...f': 'NEW-REFERENCE', 'product_text_as_written': 'Medicine 100U pen', 'study_type': 'Excursion / thermal cycling', ...}]
+p = None, patch = {}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+_ test_cumulative_cannot_use_only_current_excursion[None-CUMULATIVE_HISTORY_UNKNOWN] _
+
+prior = None, reason = 'CUMULATIVE_HISTORY_UNKNOWN'
+
+    @pytest.mark.parametrize("prior,reason", [(None, "CUMULATIVE_HISTORY_UNKNOWN"), (6, "CUMULATIVE_EXCEEDED")])
+    def test_cumulative_cannot_use_only_current_excursion(prior, reason):
+>       audit = discover([study(permitted_excursion_text="6 h to 15 C cumulative")], prior_exposure_hours=prior)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:134:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = [{'tenant_code': 'T', 'study_ref': 'NEW-REFERENCE', 'product_text_as_written': 'Medicine 100U pen', 'study_type': 'Excursion / thermal cycling', ...}]
+p = None, patch = {'prior_exposure_hours': None}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+___ test_cumulative_cannot_use_only_current_excursion[6-CUMULATIVE_EXCEEDED] ___
+
+prior = 6, reason = 'CUMULATIVE_EXCEEDED'
+
+    @pytest.mark.parametrize("prior,reason", [(None, "CUMULATIVE_HISTORY_UNKNOWN"), (6, "CUMULATIVE_EXCEEDED")])
+    def test_cumulative_cannot_use_only_current_excursion(prior, reason):
+>       audit = discover([study(permitted_excursion_text="6 h to 15 C cumulative")], prior_exposure_hours=prior)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:134:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = [{'tenant_code': 'T', 'study_ref': 'NEW-REFERENCE', 'product_text_as_written': 'Medicine 100U pen', 'study_type': 'Excursion / thermal cycling', ...}]
+p = None, patch = {'prior_exposure_hours': 6}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+___________ test_above_label_threshold_is_not_a_maximum_temperature ____________
+
+    def test_above_label_threshold_is_not_a_maximum_temperature():
+>       audit = discover([study(permitted_excursion_text="Cumulative 72 h above 8 C permitted across shelf life")],
+                         prior_exposure_hours=0)
+
+tests/test_study_discovery.py:140:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = [{'tenant_code': 'T', 'study_ref': 'NEW-REFERENCE', 'product_text_as_written': 'Medicine 100U pen', 'study_type': 'Excursion / thermal cycling', ...}]
+p = None, patch = {'prior_exposure_hours': 0}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+______________________ test_strict_below_is_not_inclusive ______________________
+
+    def test_strict_below_is_not_inclusive():
+>       audit = discover([study(permitted_excursion_text="One excursion, up to 6 h below 15 C")], max_temp_c=15)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_study_discovery.py:146:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+rows = [{'tenant_code': 'T', 'study_ref': 'NEW-REFERENCE', 'product_text_as_written': 'Medicine 100U pen', 'study_type': 'Excursion / thermal cycling', ...}]
+p = None, patch = {'max_temp_c': 15}
+
+    def discover(rows=None, p=None, **patch):
+        resolver = StabilityResolver(DataPack(path=Path("synthetic"), stability=rows if rows is not None else [study()]))
+        args = dict(knowledge_date=date(2026, 1, 1), event_date=date(2026, 1, 1),
+                    min_temp_c=4, max_temp_c=12, duration_min=15, sop_authority="ESTABLISHED")
+        args.update(patch)
+>       return resolver.discover(p or product(), **args)
+               ^^^^^^^^^^^^^^^^^
+E       AttributeError: 'StabilityResolver' object has no attribute 'discover'
+
+tests/test_study_discovery.py:44: AttributeError
+______ test_real_index_missing_approval_and_dates_is_explicit_not_guessed ______
+
+    def test_real_index_missing_approval_and_dates_is_explicit_not_guessed():
+        pack = DataPack.load(_DEFAULT_PACK)
+        result = AdjudicationEngine(pack).adjudicate(pack.event_by_id("EXC-107133"))
+>       audit = result.study_discovery
+                ^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'AdjudicationResult' object has no attribute 'study_discovery'
+
+tests/test_study_discovery.py:153: AttributeError
+___________ test_sealed_api_openapi_and_rendered_ui_share_discovery ____________
+
+tmp_path = PosixPath('/tmp/pytest-of-box/pytest-159/test_sealed_api_openapi_and_re0')
+
+    def test_sealed_api_openapi_and_rendered_ui_share_discovery(tmp_path):
+        import json
+        import subprocess
+        svc = _make_tmp_svc(tmp_path)
+>       result, bundle, _case = svc.adjudicate_by_id("EXC-107133")
+                                ^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'AdjudicationService' object has no attribute 'adjudicate_by_id'. Did you mean: 'adjudicate_all'?
+
+tests/test_study_discovery.py:166: AttributeError
+=============================== warnings summary ===============================
+../../tmp/fixvenv/lib/python3.13/site-packages/fastapi/testclient.py:1
+  /tmp/fixvenv/lib/python3.13/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_study_discovery.py::test_generic_cited_study_can_be_selected_with_complete_explicit_evidence
+FAILED tests/test_study_discovery.py::test_every_rejected_study_has_typed_explicit_reasons[patch0-WRONG_PRODUCT]
+FAILED tests/test_study_discovery.py::test_every_rejected_study_has_typed_explicit_reasons[patch1-STRENGTH_MISMATCH]
+FAILED tests/test_study_discovery.py::test_every_rejected_study_has_typed_explicit_reasons[patch2-PRESENTATION_MISMATCH]
+FAILED tests/test_study_discovery.py::test_every_rejected_study_has_typed_explicit_reasons[patch3-STRENGTH_UNKNOWN]
+FAILED tests/test_study_discovery.py::test_every_rejected_study_has_typed_explicit_reasons[patch4-PRESENTATION_UNKNOWN]
+FAILED tests/test_study_discovery.py::test_every_rejected_study_has_typed_explicit_reasons[patch5-NOT_EXCURSION_STUDY]
+FAILED tests/test_study_discovery.py::test_every_rejected_study_has_typed_explicit_reasons[patch6-UNREADABLE]
+FAILED tests/test_study_discovery.py::test_every_rejected_study_has_typed_explicit_reasons[patch7-APPROVAL_UNKNOWN]
+FAILED tests/test_study_discovery.py::test_every_rejected_study_has_typed_explicit_reasons[patch8-NOT_APPROVED]
+FAILED tests/test_study_discovery.py::test_every_rejected_study_has_typed_explicit_reasons[patch9-EFFECTIVITY_UNKNOWN]
+FAILED tests/test_study_discovery.py::test_every_rejected_study_has_typed_explicit_reasons[patch10-NOT_EFFECTIVE]
+FAILED tests/test_study_discovery.py::test_every_rejected_study_has_typed_explicit_reasons[patch11-NOT_EFFECTIVE]
+FAILED tests/test_study_discovery.py::test_every_rejected_study_has_typed_explicit_reasons[patch12-KNOWLEDGE_TIME_UNKNOWN]
+FAILED tests/test_study_discovery.py::test_every_rejected_study_has_typed_explicit_reasons[patch13-NOT_KNOWN_AT_TIME]
+FAILED tests/test_study_discovery.py::test_every_rejected_study_has_typed_explicit_reasons[patch14-SUPERSEDED]
+FAILED tests/test_study_discovery.py::test_every_rejected_study_has_typed_explicit_reasons[patch15-SUPERSESSION_UNKNOWN]
+FAILED tests/test_study_discovery.py::test_every_rejected_study_has_typed_explicit_reasons[patch16-ALLOWANCE_MISSING]
+FAILED tests/test_study_discovery.py::test_every_rejected_study_has_typed_explicit_reasons[patch17-REQUIRES_QA]
+FAILED tests/test_study_discovery.py::test_every_rejected_study_has_typed_explicit_reasons[patch18-ALLOWANCE_UNPARSEABLE]
+FAILED tests/test_study_discovery.py::test_event_coverage_and_authority_are_not_inferred[patch0-TEMPERATURE_NOT_COVERED]
+FAILED tests/test_study_discovery.py::test_event_coverage_and_authority_are_not_inferred[patch1-TEMPERATURE_RANGE_UNKNOWN]
+FAILED tests/test_study_discovery.py::test_event_coverage_and_authority_are_not_inferred[patch2-TEMPERATURE_MISSING]
+FAILED tests/test_study_discovery.py::test_event_coverage_and_authority_are_not_inferred[patch3-DURATION_NOT_COVERED]
+FAILED tests/test_study_discovery.py::test_event_coverage_and_authority_are_not_inferred[patch4-DURATION_MISSING]
+FAILED tests/test_study_discovery.py::test_event_coverage_and_authority_are_not_inferred[patch5-CONFLICTING_SOP]
+FAILED tests/test_study_discovery.py::test_event_coverage_and_authority_are_not_inferred[patch6-SOP_AUTHORITY_UNKNOWN]
+FAILED tests/test_study_discovery.py::test_event_coverage_and_authority_are_not_inferred[patch7-KNOWLEDGE_TIME_UNKNOWN]
+FAILED tests/test_study_discovery.py::test_unresolved_identity_blocks_study_selection
+FAILED tests/test_study_discovery.py::test_discovery_records_all_tenant_rows_not_just_citation
+FAILED tests/test_study_discovery.py::test_wrong_tenant_is_excluded_without_disclosing_foreign_evidence
+FAILED tests/test_study_discovery.py::test_duplicate_citation_is_not_first_row_wins
+FAILED tests/test_study_discovery.py::test_cumulative_cannot_use_only_current_excursion[None-CUMULATIVE_HISTORY_UNKNOWN]
+FAILED tests/test_study_discovery.py::test_cumulative_cannot_use_only_current_excursion[6-CUMULATIVE_EXCEEDED]
+FAILED tests/test_study_discovery.py::test_above_label_threshold_is_not_a_maximum_temperature
+FAILED tests/test_study_discovery.py::test_strict_below_is_not_inclusive - At...
+FAILED tests/test_study_discovery.py::test_real_index_missing_approval_and_dates_is_explicit_not_guessed
+FAILED tests/test_study_discovery.py::test_sealed_api_openapi_and_rendered_ui_share_discovery
+38 failed, 1 warning in 1.97s

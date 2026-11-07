@@ -15,6 +15,7 @@ from kestrel.exceptions import (
     TenantIsolationError,
     ValidationAppError,
 )
+from kestrel.rules.study_discovery import StudyDiscovery
 from kestrel.service import AdjudicationService
 from kestrel.storage.evidence import EvidenceIntegrityError
 
@@ -130,6 +131,7 @@ def _load_api_models() -> None:
         event_id: str
         tenant_code: str
         identity_evidence: dict[str, _IdentityAssessment]
+        study_discovery: StudyDiscovery
         recommendation: Disposition
         confidence: float
         triage_label: str
@@ -269,6 +271,7 @@ def create_app(svc: Optional[AdjudicationService] = None, *, notification_access
             "recommendation": result.recommendation,
             **result.closure_fields(),
             "identity_evidence": result.identity_evidence,
+            "study_discovery": result.study_discovery,
             "confidence": result.confidence,
             "triage_label": result.triage_label,
             "rationale": result.rationale,
@@ -451,6 +454,7 @@ def create_app(svc: Optional[AdjudicationService] = None, *, notification_access
                     "recommendation": result.recommendation,
                     **result.closure_fields(),
                     "identity_evidence": result.identity_evidence,
+                    "study_discovery": result.study_discovery,
                     "requires_human_signature": result.requires_human_signature,
                     "confidence": result.confidence,
                     "triage_label": result.triage_label,
@@ -497,6 +501,7 @@ def create_app(svc: Optional[AdjudicationService] = None, *, notification_access
             "recommendation": result.recommendation,
             **result.closure_fields(),
             "identity_evidence": result.identity_evidence,
+            "study_discovery": result.study_discovery,
             "requires_human_signature": result.requires_human_signature,
             "confidence": result.confidence,
             "triage_label": result.triage_label,

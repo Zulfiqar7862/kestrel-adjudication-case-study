@@ -1,0 +1,254 @@
+{
+  "StudyCandidate": {
+    "properties": {
+      "study_ref": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Study Ref"
+      },
+      "source_sheet": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Source Sheet"
+      },
+      "source_row": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Source Row"
+      },
+      "product_text": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Product Text"
+      },
+      "study_type": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Study Type"
+      },
+      "permitted_text": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Permitted Text"
+      },
+      "cited": {
+        "type": "boolean",
+        "title": "Cited"
+      },
+      "status": {
+        "type": "string",
+        "title": "Status"
+      },
+      "rejections": {
+        "items": {
+          "$ref": "#/components/schemas/StudyRejection"
+        },
+        "type": "array",
+        "title": "Rejections"
+      }
+    },
+    "additionalProperties": true,
+    "type": "object",
+    "required": [
+      "study_ref",
+      "source_sheet",
+      "source_row",
+      "product_text",
+      "study_type",
+      "permitted_text",
+      "cited",
+      "status"
+    ],
+    "title": "StudyCandidate"
+  },
+  "StudyDiscovery": {
+    "properties": {
+      "tenant_code": {
+        "type": "string",
+        "title": "Tenant Code"
+      },
+      "cited_study_ref": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Cited Study Ref"
+      },
+      "selected_study_ref": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Selected Study Ref"
+      },
+      "status": {
+        "type": "string",
+        "title": "Status"
+      },
+      "event_date": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Event Date"
+      },
+      "knowledge_date": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "title": "Knowledge Date"
+      },
+      "candidates": {
+        "items": {
+          "$ref": "#/components/schemas/StudyCandidate"
+        },
+        "type": "array",
+        "title": "Candidates"
+      },
+      "reasons": {
+        "items": {
+          "$ref": "#/components/schemas/StudyRejection"
+        },
+        "type": "array",
+        "title": "Reasons"
+      },
+      "scope": {
+        "type": "string",
+        "title": "Scope",
+        "default": "All tenant-owned index rows, in source order; foreign/unowned rows excluded before search"
+      },
+      "authority_limit": {
+        "type": "string",
+        "title": "Authority Limit",
+        "default": "Index assertions only, not authenticated full-report or clinical release authority"
+      }
+    },
+    "additionalProperties": true,
+    "type": "object",
+    "required": [
+      "tenant_code",
+      "cited_study_ref",
+      "selected_study_ref",
+      "status",
+      "event_date",
+      "knowledge_date"
+    ],
+    "title": "StudyDiscovery"
+  },
+  "StudyRejection": {
+    "properties": {
+      "code": {
+        "$ref": "#/components/schemas/StudyRejectionCode"
+      },
+      "detail": {
+        "type": "string",
+        "title": "Detail"
+      },
+      "assessment": {
+        "type": "string",
+        "title": "Assessment",
+        "default": "REJECTED"
+      }
+    },
+    "additionalProperties": true,
+    "type": "object",
+    "required": [
+      "code",
+      "detail"
+    ],
+    "title": "StudyRejection"
+  },
+  "StudyRejectionCode": {
+    "type": "string",
+    "enum": [
+      "IDENTITY_UNRESOLVED",
+      "WRONG_TENANT",
+      "CITED_STUDY_OUTSIDE_TENANT_SCOPE",
+      "CITATION_MISSING",
+      "AMBIGUOUS_CITATION",
+      "UNCITED_MAPPING_UNKNOWN",
+      "WRONG_PRODUCT",
+      "STRENGTH_MISMATCH",
+      "STRENGTH_UNKNOWN",
+      "PRESENTATION_MISMATCH",
+      "PRESENTATION_UNKNOWN",
+      "NOT_EXCURSION_STUDY",
+      "UNREADABLE",
+      "APPROVAL_UNKNOWN",
+      "NOT_APPROVED",
+      "EFFECTIVITY_UNKNOWN",
+      "NOT_EFFECTIVE",
+      "KNOWLEDGE_TIME_UNKNOWN",
+      "NOT_KNOWN_AT_TIME",
+      "SUPERSEDED",
+      "SUPERSESSION_UNKNOWN",
+      "ALLOWANCE_MISSING",
+      "ALLOWANCE_UNPARSEABLE",
+      "REQUIRES_QA",
+      "TEMPERATURE_MISSING",
+      "TEMPERATURE_NOT_COVERED",
+      "TEMPERATURE_RANGE_UNKNOWN",
+      "DURATION_MISSING",
+      "DURATION_NOT_COVERED",
+      "CUMULATIVE_HISTORY_UNKNOWN",
+      "CUMULATIVE_EXCEEDED",
+      "ONCE_ONLY_HISTORY_UNKNOWN",
+      "CONFLICTING_SOP",
+      "SOP_AUTHORITY_UNKNOWN"
+    ],
+    "title": "StudyRejectionCode"
+  }
+}

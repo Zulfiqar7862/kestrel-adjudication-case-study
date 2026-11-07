@@ -1,0 +1,53 @@
+{
+  "bundle_id": "EVB-d33713aa7261467e",
+  "original_disposition": "ESCALATED_TO_SENIOR_QA",
+  "replay_disposition": "ESCALATED_TO_SENIOR_QA",
+  "identical": true,
+  "original_reasoning": [
+    "Stability authority unresolved: study product identity not established; study presentation conflicts with product; study type does not establish excursion allowance; product-master text not used as substitute",
+    "SOP overlap: 2 revisions of SOP-KAV-9392 effective on 2026-07-28; candidate Rev 03 (highest rev, not governing authority). Human must confirm (override EXC-110490 pattern).",
+    "Study discovery unresolved; candidate rejection catalogue retained in evidence",
+    "Study STB-3584: StudyRejectionCode.WRONG_PRODUCT [REJECTED] \u2014 Study product text does not establish the labelled product; synonyms not inferred",
+    "Study STB-3584: StudyRejectionCode.STRENGTH_UNKNOWN [UNKNOWN] \u2014 Explicit comparable product/study strength and unit missing",
+    "Study STB-3584: StudyRejectionCode.PRESENTATION_MISMATCH [REJECTED] \u2014 Study presentation conflicts with product, including contradictory suffixes",
+    "Study STB-3584: StudyRejectionCode.NOT_EXCURSION_STUDY [REJECTED] \u2014 Study type does not establish an excursion allowance",
+    "Study STB-3584: StudyRejectionCode.UNREADABLE [UNKNOWN] \u2014 Index does not assert fully readable evidence",
+    "Study STB-3584: StudyRejectionCode.APPROVAL_UNKNOWN [UNKNOWN] \u2014 Approval metadata absent from supplied index",
+    "Study STB-3584: StudyRejectionCode.EFFECTIVITY_UNKNOWN [UNKNOWN] \u2014 Effective interval or event date absent/unparseable; no open interval inferred",
+    "Study STB-3584: StudyRejectionCode.KNOWLEDGE_TIME_UNKNOWN [UNKNOWN] \u2014 Study availability at requested knowledge time not established",
+    "Study STB-3584: StudyRejectionCode.SUPERSESSION_UNKNOWN [UNKNOWN] \u2014 Supersession status not supplied",
+    "Study STB-3584: StudyRejectionCode.ALLOWANCE_MISSING [UNKNOWN] \u2014 Permitted-excursion text absent",
+    "Study STB-3584: StudyRejectionCode.TEMPERATURE_RANGE_UNKNOWN [UNKNOWN] \u2014 No established full envelope for this event; an above-label threshold is not a tested maximum",
+    "Study STB-3584: StudyRejectionCode.CONFLICTING_SOP [REJECTED] \u2014 Governing SOP revisions conflict",
+    "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+    "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation conflicts with product; study type does not establish excursion allowance",
+    "Decision rule: rule_stability_authority",
+    "Additional storage constraints retained, not independently verified: protect from light"
+  ],
+  "replay_reasoning": [
+    "Stability authority unresolved: study product identity not established; study presentation conflicts with product; study type does not establish excursion allowance; product-master text not used as substitute",
+    "SOP overlap: 2 revisions of SOP-KAV-9392 effective on 2026-07-28; candidate Rev 03 (highest rev, not governing authority). Human must confirm (override EXC-110490 pattern).",
+    "Study discovery unresolved; candidate rejection catalogue retained in evidence",
+    "Study STB-3584: StudyRejectionCode.WRONG_PRODUCT [REJECTED] \u2014 Study product text does not establish the labelled product; synonyms not inferred",
+    "Study STB-3584: StudyRejectionCode.STRENGTH_UNKNOWN [UNKNOWN] \u2014 Explicit comparable product/study strength and unit missing",
+    "Study STB-3584: StudyRejectionCode.PRESENTATION_MISMATCH [REJECTED] \u2014 Study presentation conflicts with product, including contradictory suffixes",
+    "Study STB-3584: StudyRejectionCode.NOT_EXCURSION_STUDY [REJECTED] \u2014 Study type does not establish an excursion allowance",
+    "Study STB-3584: StudyRejectionCode.UNREADABLE [UNKNOWN] \u2014 Index does not assert fully readable evidence",
+    "Study STB-3584: StudyRejectionCode.APPROVAL_UNKNOWN [UNKNOWN] \u2014 Approval metadata absent from supplied index",
+    "Study STB-3584: StudyRejectionCode.EFFECTIVITY_UNKNOWN [UNKNOWN] \u2014 Effective interval or event date absent/unparseable; no open interval inferred",
+    "Study STB-3584: StudyRejectionCode.KNOWLEDGE_TIME_UNKNOWN [UNKNOWN] \u2014 Study availability at requested knowledge time not established",
+    "Study STB-3584: StudyRejectionCode.SUPERSESSION_UNKNOWN [UNKNOWN] \u2014 Supersession status not supplied",
+    "Study STB-3584: StudyRejectionCode.ALLOWANCE_MISSING [UNKNOWN] \u2014 Permitted-excursion text absent",
+    "Study STB-3584: StudyRejectionCode.TEMPERATURE_RANGE_UNKNOWN [UNKNOWN] \u2014 No established full envelope for this event; an above-label threshold is not a tested maximum",
+    "Study STB-3584: StudyRejectionCode.CONFLICTING_SOP [REJECTED] \u2014 Governing SOP revisions conflict",
+    "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+    "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation conflicts with product; study type does not establish excursion allowance",
+    "Decision rule: rule_stability_authority",
+    "Additional storage constraints retained, not independently verified: protect from light"
+  ],
+  "versions": {
+    "rule_pack_version": "0.5.1",
+    "ref_snapshot_id": "snap-d106ce2f1a4a",
+    "code_version": "0.5.1"
+  }
+}

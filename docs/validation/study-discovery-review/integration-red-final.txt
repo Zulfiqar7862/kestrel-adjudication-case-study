@@ -1,0 +1,23 @@
+F..                                                                      [100%]
+=================================== FAILURES ===================================
+________ test_cited_candidate_rejection_details_reach_engine_rationale _________
+
+    def test_cited_candidate_rejection_details_reach_engine_rationale():
+        from tests.test_review_regressions import fixture
+        p, event = fixture(max_c=20, firmware="other")
+        p.stability[0]["permitted_excursion_text"] = "No excursion above 25 C permitted"
+        result = AdjudicationEngine(p).adjudicate(event)
+>       assert any("ALLOWANCE_UNPARSEABLE" in line and "no duration" in line for line in result.rationale)
+E       assert False
+E        +  where False = any(<generator object test_cited_candidate_rejection_details_reach_engine_rationale.<locals>.<genexpr> at 0x7efd197c8fb0>)
+
+tests/test_study_discovery.py:300: AssertionError
+=============================== warnings summary ===============================
+../../tmp/fixvenv/lib/python3.13/site-packages/fastapi/testclient.py:1
+  /tmp/fixvenv/lib/python3.13/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_study_discovery.py::test_cited_candidate_rejection_details_reach_engine_rationale
+1 failed, 2 passed, 48 deselected, 1 warning in 0.30s
