@@ -11,8 +11,8 @@ changes identity routing, not clinical thresholds or source data.
 
 | Check | Observed result |
 |---|---|
-| Test-first regressions | 27 initial failures, then 1 release gate, 4 units/history, 1 owned-conflict failure before each fix; all 33 pass |
-| Full pytest suite | 268 passed; one existing test-client dependency deprecation warning |
+| Test-first regressions | 27 initial failures, then 1 release gate, 4 units/history, 1 owned-conflict failure before each fix; 3 confirmation-status/blank-name failures; all 36 pass |
+| Full pytest suite | 271 passed; one existing test-client dependency deprecation warning |
 | Ruff lint / format | Passing |
 | Fresh temporary run-all | 420 records |
 | Recommendations | 0 AUTO_CLOSE / 383 QA / 37 unverified historical candidates; note/quarantine/destroy zero |

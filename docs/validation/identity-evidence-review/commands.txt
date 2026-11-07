@@ -50,3 +50,23 @@ git ls-files '*__pycache__*' '*.pyc'
 # A protected-ref display helper used bare `python` and exited 127 because no global
 # interpreter exists. Reading protected-before.txt with Read confirmed the same
 # main/production SHAs; all substantive Python commands use /tmp/fixvenv/bin/python.
+
+# Final source-confirmation gap found after the first normal push, item 3 only:
+/tmp/fixvenv/bin/pytest -o addopts='' tests/test_identity_evidence.py -q -k unknown_verification --junitxml=/tmp/kestrel-identity-review/status-red.xml > /tmp/kestrel-identity-review/status-red.txt
+# exit 1: 3 failed, 33 deselected, 1 warning in 0.30s. All assert not True.
+/tmp/fixvenv/bin/ruff format src/kestrel/rules/identity.py tests/test_identity_evidence.py
+/tmp/fixvenv/bin/pytest -o addopts='' tests/test_identity_evidence.py -vv --junitxml=/tmp/kestrel-identity-review/status-green.xml > /tmp/kestrel-identity-review/status-green.txt
+# exit 0: 36 passed, 1 warning in 5.17s.
+/tmp/fixvenv/bin/pytest -o addopts='' -q > /tmp/kestrel-identity-review/pytest-status-final.txt
+# exit 0: 271 passed, 1 warning in 49.58s.
+mkdir -p /tmp/kestrel-identity-review/final-status
+/tmp/fixvenv/bin/kestrel --log-level WARNING --db /tmp/kestrel-identity-review/final-status/run.sqlite --evidence-dir /tmp/kestrel-identity-review/final-status/evidence run-all --out /tmp/kestrel-identity-review/final-status/results.csv > /tmp/kestrel-identity-review/final-status/run-all.json
+/tmp/fixvenv/bin/python docs/diagrams/capture_run.py --run-dir /tmp/kestrel-identity-review/final-status --case-output /tmp/kestrel-identity-review/final-status/EXC-107133.json
+# Both exit 0: 420 results, unchanged383/37, notifications28/392, all420 replays identical, all8 chains OK.
+# JSON comparison: all420 inputs.expected_result objects unchanged from first identity run.
+# An initial comparison helper looked for expected_result at the document root and
+# raised KeyError; using the actual inputs.expected_result path passed all420.
+# Final direct CLI commands and their exit-0 outputs: status-cli-commands.json,
+# status-cli-verify.json, status-cli-replay.json.
+gh run watch 42370165364 --exit-status
+# exit 0: first commit CI success, Python3.10–3.13 and Docker.

@@ -57,6 +57,18 @@ selection is a positive control augmented with the previously missing typed
 provenance, not falsely reported as a new wrong-contract bug. The UI helper was
 executed in Node with escaped adverse notes, not merely searched as text.
 
+A final focused follow-up found three additional synthetic confirmation gaps
+after the first commit: explicit UNKNOWN/PENDING status or a whitespace-only
+confirmer could still be promoted. All three were observed failing before the
+fix (`AssertionError: assert not True`), then the complete identity suite passed
+**36 tests in 5.17s**. The final full suite passed **271 tests in 49.58s**, one
+existing warning. [Red](status-red.txt), [green](status-green.txt),
+[full](pytest-status-final.txt). Unknown explicit statuses now require review;
+only VERIFIED, CONFIRMED or CONFIRMED_SOURCE_ASSERTION status labels may accompany
+the otherwise-required source confirmation (an absent label is derived from the
+source Y/name/date claim, not independent verification). This was committed as a
+small follow-up rather than rewriting the already-pushed first commit.
+
 Each row quotes the first observed failure line; long lines are shortened here
 only. Full traces and named passing output are retained.
 
@@ -96,11 +108,18 @@ only. Full traces and named passing output are retained.
 | `test_historical_text_cannot_hide_unresolved_product_identity` | `AssertionError: assert 'HISTORICAL_C...TE_UNVERIFIED' == 'ESCALATED_TO_SENIOR_QA'` | PASSED |
 | `test_owned_negative_claim_conflicting_with_exact_master_key_blocks_identity` | `AssertionError: assert 'RESOLVED_SOURCE_ASSERTED' == 'UNRESOLVED_CONFLICT'` | PASSED |
 
+| Follow-up test | Failing output | After |
+|---|---|---|
+| `test_unknown_verification_or_blank_confirmer_never_authorizes_alias[patch0]` | `AssertionError: assert not True` | PASSED |
+| `test_unknown_verification_or_blank_confirmer_never_authorizes_alias[patch1]` | `AssertionError: assert not True` | PASSED |
+| `test_unknown_verification_or_blank_confirmer_never_authorizes_alias[patch2]` | `AssertionError: assert not True` | PASSED |
+
 ## Executed full/sample verification
 
 [Exact commands](commands.txt); [expanded direct CLI commands](executed-cli-commands.json).
 
-- **268 passed, 1 warning in 51.00s** ([full](pytest.txt)); a fresh repeat also
+- Final: **271 passed, 1 warning in 49.58s** ([final full](pytest-status-final.txt)).
+  Earlier: **268 passed, 1 warning in 51.00s** ([full](pytest.txt)); a fresh repeat also
   passed **268 tests in 50.67s** ([repeat](pytest-final-recheck.txt)). Existing Starlette/httpx
   dependency deprecation only. Ruff lint and format pass.
 - Fresh temp run-all: **420 records**, **0 AUTO_CLOSE / 383 QA / 37 unverified
@@ -133,6 +152,14 @@ only. Full traces and named passing output are retained.
   identity fields. [Actual Node-rendered panel](ui-identity-panel.html) shows the
   state, reasons, source positions, confirmation claims and unused facility marker.
   No complete browser-driven workflow or production security test is claimed.
+
+The final confirmation-status hardening was followed by another fresh run-all
+and 420 identical replays, with all 8 chains passing and the same 28/392 obligation
+split ([final verification](status-verification.json)). All **420 full expected-result
+objects** equal the first identity run ([comparison](status-comparison.json));
+no additional event, rule or identity outcome changed. Final direct
+[CLI verify](status-cli-verify.json) and [replay](status-cli-replay.json) exited 0;
+[expanded commands](status-cli-commands.json).
 
 ## Existing tests/expectations changed, and why
 
@@ -183,4 +210,6 @@ Docs 03/04/07, current counts, LLD/ER/pipeline PNGs and retained Mermaid sources
 were updated after inspecting the run; the EXC-107133 GIF/sidecar were refreshed
 from that actual run. All PNG/GIF copies are under `/workspace/final-visuals/`
 ([manifest](visual-manifest.json)). No merge, PR or force-push; commit and watched
-CI result are reported separately after the normal branch push. Then stop.
+CI result are reported separately after the normal branch push. The first
+commit passed all Python 3.10–3.13 jobs and Docker ([CI](ci-first.json)); final
+follow-up CI is reported after watching it. Then stop.

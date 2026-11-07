@@ -272,3 +272,9 @@ flowchart TB
 </details>
 
 [Rule order and end-to-end workflow](05-workflow.md) · [Failure boundaries](04-system-design.md).
+
+Explicit UNKNOWN/PENDING/other unrecognised alias verification labels, or blank
+confirmer names, cannot authorize identity. Source-confirmed names/dates and a
+recognised affirmative status are still claims, not authenticated verification.
+Where no status label is supplied, Y plus the other required source confirmation
+fields establishes only a confirmed source assertion.

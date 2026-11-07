@@ -192,9 +192,10 @@ class IdentityResolver:
             issues.append("UNREVIEWED_CAVEAT")
         if a.get("tenant_code") != tenant:
             issues.append("UNSCOPED_ALIAS")
-        if str(a.get("same_real_world_thing") or "").upper() != "Y" or not a.get("confirmed_by"):
+        if str(a.get("same_real_world_thing") or "").upper() != "Y" or not str(a.get("confirmed_by") or "").strip():
             issues.append("UNCONFIRMED_ALIAS")
-        if str(a.get("verification_status") or "").upper() in {"UNVERIFIED", "REJECTED", "CONFLICT"}:
+        status = str(a.get("verification_status") or "").strip().upper()
+        if status and status not in {"VERIFIED", "CONFIRMED", "CONFIRMED_SOURCE_ASSERTION"}:
             issues.append("UNCONFIRMED_ALIAS")
         if not a.get("_source_sheet") or not a.get("_source_row"):
             issues.append("MISSING_SOURCE_POSITION")

@@ -4,8 +4,8 @@ These specific defects were addressed; overall safety and production readiness r
 
 ## Current typed identity evidence
 
-[Identity review](identity-evidence-review/report.md): 33 test-first regressions,
-268 full tests passing; 0 AUTO_CLOSE / 383 QA / 37 historical candidates; unchanged
+[Identity review](identity-evidence-review/report.md): 36 test-first regressions,
+271 full tests passing; 0 AUTO_CLOSE / 383 QA / 37 historical candidates; unchanged
 28/392 notification split. All 81 former alias-chain cases remain unresolved;
 all 93 changed outcomes are listed. [Testing guide](../06-testing-and-validation.md).
 

@@ -351,3 +351,14 @@ def test_owned_negative_claim_conflicting_with_exact_master_key_blocks_identity(
     assert result.status == "UNRESOLVED_CONFLICT"
     assert not result.release_identity_eligible and result.internal_sku is None
     assert "NEGATIVE_RELATIONSHIP" in result.reasons
+
+
+@pytest.mark.parametrize(
+    "patch", [{"verification_status": "UNKNOWN"}, {"verification_status": "PENDING"}, {"confirmed_by": "   "}]
+)
+def test_unknown_verification_or_blank_confirmer_never_authorizes_alias(patch):
+    resolver = IdentityResolver(pack([product()], [alias(**patch)]))
+    result = resolver.resolve_product("T-A", "old", as_of=date(2026, 1, 1))
+    assert not result.release_identity_eligible
+    assert result.internal_sku is None
+    assert "UNCONFIRMED_ALIAS" in result.reasons
