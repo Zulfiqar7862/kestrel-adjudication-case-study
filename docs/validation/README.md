@@ -2,12 +2,10 @@
 
 These specific defects were addressed; overall safety and production readiness remain unvalidated.
 
-## Current typed identity evidence
+## Current state
 
-[Identity review](identity-evidence-review/report.md): 36 test-first regressions,
-271 full tests passing; 0 AUTO_CLOSE / 383 QA / 37 historical candidates; unchanged
-28/392 notification split. All 81 former alias-chain cases remain unresolved;
-all 93 changed outcomes are listed. [Testing guide](../06-testing-and-validation.md).
+Final `production`: 325 tests passing; 0 AUTO_CLOSE / 383 QA / 37 historical
+candidates; 28 PENDING / 392 UNKNOWN notifications. [Testing guide](../06-testing-and-validation.md).
 
 ## Retained historical reports
 
@@ -15,6 +13,8 @@ These reports are versioned experiment records, not a single current specificati
 Read the stated baseline/version before quoting any count or implementation claim.
 Raw failures, outputs and source observations are preserved, not silently rewritten.
 
+- [Study discovery, item 4](study-discovery-review/report.md)
+- [Typed identity evidence, item 3](identity-evidence-review/report.md)
 - [Evidence-chain integrity, baseline 0bb2337](evidence-chain-review/report.md)
 - [Documentation/visuals, baseline 62c498f](documentation-review/report.md)
 - [Notification obligations, 0.5.1](notification-obligations-review/report.md)

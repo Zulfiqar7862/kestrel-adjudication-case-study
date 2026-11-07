@@ -234,7 +234,7 @@
   },
   "data-model": {
     "title": "Data model and storage",
-    "caption": "SQL tables plus embedded typed identity JSON. Arrows are logical associations; only delivery events have a SQL foreign key to obligations.",
+    "caption": "SQL tables plus embedded typed identity and study-discovery JSON. Arrows are logical associations; only delivery events have a SQL foreign key to obligations.",
     "nodes": [
       {
         "id": "Ref",
@@ -294,8 +294,8 @@
       },
       {
         "id": "Identity",
-        "title": "Embedded identity payload",
-        "body": "Not a SQL table: tenant, type, source sheet/row, claim status, confirmation, conflicts",
+        "title": "Embedded identity + study discovery",
+        "body": "Not SQL tables: typed identity claims (tenant, source sheet/row, status, conflicts); every considered study with source and typed rejection reason",
         "col": 0,
         "row": 2
       }

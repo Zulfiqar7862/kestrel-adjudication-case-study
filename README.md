@@ -25,7 +25,7 @@ retrieve complete SOP/study documents, authenticate human signers, enforce all
 production tenant boundaries, or send/file regulator notifications. No live model
 or nine-system production integration runs in the default path.
 
-This branch is unmerged. Do not deploy it as a production decision system.
+This is the final case-study state on `production` and `main`. It is a prototype: do not deploy it as a production decision system.
 
 ## Quickstart
 
@@ -74,11 +74,25 @@ Re-executed on the unchanged 420-alert workbook; not production accuracy or clin
 | Notification PENDING (conservative historical Y) | 28 |
 | Notification UNKNOWN | 392 |
 
-93 formerly historical candidates now require identity QA. Historical classifications
-remain reference data. Historical candidates still need human review. PENDING is not verified legal
+Historical classifications remain reference data. Historical candidates still need human review. PENDING is not verified legal
 reportability; UNKNOWN is not “not reportable”. All sample legal deadlines remain
 null/UNKNOWN without controlled applicability/calendar evidence.
 [Executed checks, unchanged outcomes and historical reports](docs/06-testing-and-validation.md).
+
+## What was fixed
+
+Each fix was made test-first (failing regression, then fix, then full suite). Each report
+lists the failing-then-passing tests, commands run and every changed event.
+
+| Fix | What it does now | Report |
+|---|---|---|
+| Missing temperatures, carrier AFX-DE, cumulative exposure, study/SOP authority | Missing data, carrier ambiguity and unknown cumulative history route to QA; release needs study/SOP authority | [correctness review](docs/validation/correctness-review/report.md) |
+| Storage limits | Explicit lower/upper bounds with inclusive/strict edges; missing, unparseable and one-sided limits are kept separate | [storage limits](docs/validation/storage-limits-review/report.md) |
+| Historical candidates | Historical text alone never authorises AUTO_CLOSE; it becomes `HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED` (PENDING_EVIDENCE) | [historical candidates](docs/validation/historical-candidates-review/report.md) |
+| Notification obligations | Separate persisted lane; unknown reportability stays UNKNOWN; tenant-scoped 401/403 access | [notifications](docs/validation/notification-obligations-review/report.md) |
+| Evidence-chain re-seal | Files are reconciled against the SQLite index; basis, replay and sign return 409 on mismatch | [evidence chain](docs/validation/evidence-chain-review/report.md) |
+| Typed tenant-scoped identity evidence | Negative, conflicting, cross-tenant or unconfirmed claims cannot establish product identity; unresolved identity goes to QA and blocks release signing | [identity evidence](docs/validation/identity-evidence-review/report.md) |
+| Study discovery with rejection reasons | Every considered study is recorded with its source and a typed rejection reason; nothing is guessed | [study discovery](docs/validation/study-discovery-review/report.md) |
 
 ## Read the design
 
@@ -90,20 +104,25 @@ null/UNKNOWN without controlled applicability/calendar evidence.
 6. [Testing and validation](docs/06-testing-and-validation.md)
 7. [Limitations and roadmap](docs/07-limitations-and-roadmap.md)
 
+## Not done yet (roadmap)
+
+5. Site/SOP/annexure resolution tasks for missing or overlapping authority.
+6. Source-dependency index with re-review/reopen tasks when sources change.
+7. Tenant-partitioned precedent import, using only decisions known before the alert.
+8. Curation backlog and evidence-completeness-conditioned metrics.
+
 ## Limitations to read first
 
-Typed identity evidence now blocks negative/conflicting alias merges. The supplied
-alias observations lack tenant ownership, so they remain candidates, not release
-identity. [Identity validation and all changed cases](docs/validation/identity-evidence-review/report.md).
-Study discovery, site-annexure resolution, verified batch history and precedent import
-are unfinished. Numeric rules and signing paths are not clinically validated.
-Most API routes lack production authentication. Evidence files/SQLite are not a
-proven WORM archive or highly available deployment. File/index mismatches now
-block evidence retrieval, signing and replay, but SQLite plus local files is not
-an independent anchor: someone able to rewrite both can still forge evidence.
-[Integrity regression results](docs/validation/evidence-chain-review/report.md).
-Delivery retry/receipt records
-are unverified claims; no worker, legal filing adapter or pager is supplied.
+- Supplied aliases have no tenant ownership, so they stay candidates, not release identity.
+- No study is selected for any sample case: approvals, effective dates and full reports are absent.
+- SOP bodies/site annexures and verified batch history are missing.
+- Numeric rules and signing paths are not clinically validated; signers are not authenticated.
+- Most API routes lack production tenant authentication (only the notification lane is scoped).
+- SQLite plus local files is not an independent integrity anchor: someone able to rewrite
+  both can still forge evidence. It is not a WORM archive or HA deployment.
+- Delivery retry/receipt records are unverified claims; no worker, filing adapter or pager.
 
-[Detailed limitations and inspection concerns](docs/07-limitations-and-roadmap.md) ·
-[Documentation corrections and source SHA-256 check](docs/validation/documentation-review/report.md).
+[Detailed limitations](docs/07-limitations-and-roadmap.md) ·
+[Validation archive](docs/validation/README.md).
+
+Effort spent: TODO (to be supplied by the author).

@@ -7,7 +7,7 @@ flowchart TB
     Files["Evidence files<br/><root>/<tenant>/EVB-*.json; sealed inputs + expected result"]
     Obligation["notification_obligation<br/>PK (tenant_code, event_id); original alert origin; payload JSON"]
     Delivery["notification_delivery_event<br/>PK sequence; tenant/event FK; ATTEMPT or ACK; append-only JSON"]
-    Identity["Embedded identity payload<br/>Not a SQL table: tenant, type, source sheet/row, claim status, confirmation, conflicts"]
+    Identity["Embedded identity + study discovery<br/>Not SQL tables: typed identity claims (tenant, source sheet/row, status, conflicts); every considered study with source and typed rejection reason"]
     Meta --> Ref
     Ref --> Alert
     Alert --> Case

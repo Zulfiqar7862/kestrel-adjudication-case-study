@@ -2,36 +2,39 @@
 
 These specific defects were addressed; overall safety and production readiness remain unvalidated.
 
-## Current typed identity evidence verification
+## Current verification (final state, `production`)
 
-Item 3 starts from `cf9b590`. Typed source/tenant/contract claims now block negative,
-conflicting and unowned product aliases; unresolved products route to QA. This
-changes identity routing, not clinical thresholds or source data.
-[Failing/passing tests, commands and all changed events](validation/identity-evidence-review/report.md).
+Executed on a fresh venv against the unchanged 420-alert workbook.
 
 | Check | Observed result |
 |---|---|
-| Test-first regressions | 27 initial failures, then 1 release gate, 4 units/history, 1 owned-conflict failure before each fix; 3 confirmation-status/blank-name failures; all 36 pass |
-| Full pytest suite | 271 passed; one existing test-client dependency deprecation warning |
+| Full pytest suite | 325 passed |
 | Ruff lint / format | Passing |
-| Fresh temporary run-all | 420 records |
+| Fresh run-all | 420 records |
 | Recommendations | 0 AUTO_CLOSE / 383 QA / 37 unverified historical candidates; note/quarantine/destroy zero |
-| Before / changed | 0 / 290 / 130; 93 historical candidates → identity QA; no closure/release increase |
 | Verified closure counter | 0 |
-| Independent obligations | Unchanged 28 conservative PENDING / 392 UNKNOWN |
+| Independent obligations | 28 conservative PENDING / 392 UNKNOWN; all 420 legal deadlines UNKNOWN |
 | Full-result replay | 420/420 identical |
-| Untouched tenant chains | All 8 OK; direct CLI verify exit 0 |
-| Former alias-chain cases | All 81 unresolved (80 conflict, 1 candidate), all QA |
-| API / UI / sealed evidence | Typed assessments and provenance; actual API and Node render retained |
+| Tenant evidence chains | All 8 verify |
+| Docs link check | Passing |
 
-The [evidence-chain review](validation/evidence-chain-review/report.md) retains its
-235-test baseline and re-seal regressions. The [documentation review](validation/documentation-review/report.md)
-retains the earlier 208-test run, source ZIP checks and original integrity probe.
-These are versioned artifacts, not current outcome targets. Source data is unchanged.
+## Per-fix reports (history, test-first)
+
+Each report states its own baseline; counts there describe that version, not current behaviour.
+
+| Fix | Report |
+|---|---|
+| Missing temps, carrier, cumulative, study/SOP authority | [correctness review](validation/correctness-review/report.md) |
+| Storage limits | [storage limits](validation/storage-limits-review/report.md) |
+| Historical candidates | [historical candidates](validation/historical-candidates-review/report.md) |
+| Notification obligations | [notifications](validation/notification-obligations-review/report.md) |
+| Evidence-chain re-seal | [evidence chain](validation/evidence-chain-review/report.md) |
+| Typed identity evidence (93 candidates → identity QA) | [identity evidence](validation/identity-evidence-review/report.md) |
+| Study discovery with typed rejection reasons | [study discovery](validation/study-discovery-review/report.md) |
+| Documentation/visuals and integrity probe | [documentation review](validation/documentation-review/report.md) |
 
 These are regression/sample observations, not clinical truth, production rates,
 validated legal applicability, throughput benchmarks or long-term durability proof.
-All 420 sample legal deadlines remain null/UNKNOWN without approved policy inputs.
 
 ## Reproduce the main checks
 
@@ -67,9 +70,3 @@ residency compliance or seven-year source reconstruction.
 passing evidence from earlier changes. Old outcome counts and limitations are
 labelled by version there; they are not current acceptance targets. Historical
 finals/assistant drafts are references, not clinical gold labels or count targets.
-
-## Item 4: study discovery
-
-See the [isolated study review](validation/study-discovery-review/report.md) for
-failing-then-passing tests, complete 420-event/replay comparison, eight tenant
-chain checks and candidate API/UI evidence. No source workbook data was edited.

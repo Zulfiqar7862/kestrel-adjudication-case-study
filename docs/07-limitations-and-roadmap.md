@@ -52,27 +52,23 @@ person's authority or establish clinical release eligibility.
 
 ## Roadmap: proposed, not implemented
 
-1. Populate and authenticate the implemented typed identity claims through qualified
-   tenant owners. Supplied aliases remain unowned/unverified candidates. Source QA
-   names/dates are claims, not authenticated signatures; current master rows are not
-   a universal no-hindsight archive. Exact tenant GTIN/SKU assertions do not establish
-   source truth. Incompatible explicit descriptors require review, not invented unit
-   conversion or clinical equivalence. Facility ownership/site linkage remains unestablished.
-2. Qualify the implemented [study discovery catalogue](validation/study-discovery-review/report.md)
-   with tenant owners, controlled full reports and verified alternate mappings.
-   Discovery remains separate from clinical release authority; source approvals
-   and effective/knowledge/supersession metadata are not manufactured.
-3. Obtain controlled site/date SOP bodies and annexures; create open resolution
-   tasks for missing/overlapping authority. Blank transcription must never clear a blocker.
-4. Establish verified batch/once-only history and source dependencies; create
-   human re-review/reopen tasks for changed sources.
-5. Import precedents/reasoning only within the tenant and only when the decision
-   existed before the alert; avoid hindsight and incomplete-evidence accuracy claims.
-6. Build curation/completeness metrics and qualified retrospective review, not a
-   target number of automatic closures.
-7. Deploy authenticated/dual-authority workflows, authorised policy/calendar
-   registry, independent notification workers/verified receipts/paging, retention,
-   concurrency/restore tests and tenant/residency controls before production review.
+Items 1–4 (correctness fixes, storage limits, historical candidates, notifications,
+evidence chain, typed identity, study discovery) are done; see [validation](06-testing-and-validation.md).
+Remaining items:
 
-Prior proposed items are not delivered by documenting them. The branch remains
-unmerged for owner review. No source data, clinical rule or verification was invented.
+5. **Site/SOP/annexure resolution tasks.** Obtain controlled site/date SOP bodies and
+   annexures; open resolution tasks for missing/overlapping authority. Blank
+   transcription must never clear a blocker.
+6. **Dependency index and re-review tasks.** Track which cases depend on which sources;
+   create human re-review/reopen tasks when a source changes. Needs verified batch history.
+7. **Tenant-partitioned precedent import, no hindsight.** Import precedents only within
+   the tenant and only when the decision existed before the alert.
+8. **Curation backlog and conditional metrics.** Metrics conditioned on evidence
+   completeness, not a target number of automatic closures.
+
+Also needed before any production review: owner-authenticated identity claims and
+study catalogue, authenticated/dual-authority signing, an authorised policy/calendar
+registry, independent notification workers/verified receipts/paging, retention,
+concurrency/restore tests and tenant/residency controls.
+
+No source data, clinical rule or verification was invented.
