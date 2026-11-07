@@ -20,16 +20,18 @@ class TestInvariants(_KestrelTestCase):
             if r.recommendation in ACTIONABLE_DISPOSITIONS:
                 self.assertTrue(r.requires_human_signature)
 
-    def test_regulatory_deadline_after_alert_when_reportable(self) -> None:
-        """Reportable events get a reg deadline on/after alert_ts."""
-        for ev in self.svc.pack.events:  # type: ignore[union-attr]
+    def test_uncontrolled_regulatory_deadline_remains_unresolved_and_queued(self) -> None:
+        """Historical reportability never licenses an invented legal deadline."""
+        for ev in self.svc.pack.events:
             if str(ev.get("regulator_reportable") or "").upper() != "Y":
                 continue
-            r = self.svc.engine.adjudicate(ev)  # type: ignore[union-attr]
-            self.assertIsNotNone(r.reg_window_hours)
-            self.assertIsNotNone(r.reg_deadline_utc)
-            self.assertIsNotNone(ev.get("_alert_ts"))
-            self.assertGreaterEqual(r.reg_deadline_utc, ev["_alert_ts"].isoformat(sep=" ")[:19])
+            r = self.svc.engine.adjudicate(ev)
+            self.assertIsNone(r.reg_window_hours)
+            self.assertIsNone(r.reg_deadline_utc)
+            self.assertEqual(r.evidence["regulatory"]["deadline_status"], "UNRESOLVED")
+            pending = {o["event_id"]: o for o in self.svc.notifications.queue(ev["tenant_code"])}
+            self.assertEqual(pending[ev["event_id"]]["reportability_status"], "REPORTABLE")
+            self.assertEqual(pending[ev["event_id"]]["state"], "PENDING")
 
     def test_bulletin_preserves_reported_and_records_bound(self) -> None:
         """All TT-2.14.3 events keep measurements and record both endpoint scenarios."""

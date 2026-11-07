@@ -104,6 +104,9 @@ def build_parser() -> argparse.ArgumentParser:
     p_shadow = sub.add_parser("shadow-bulletin", help="Dr Rao gate: TT-CB-114 shadow diff")
     p_shadow.add_argument("--out", type=Path, default=None)
 
+    p_not = sub.add_parser("notifications", help="Independent filing queue; no evidence assembly")
+    p_not.add_argument("--tenant", required=True)
+
     p_queue = sub.add_parser("queue", help="Storm-safe priority queue")
     p_queue.add_argument("--tenant", default=None)
     p_queue.add_argument("--limit", type=int, default=20)
@@ -253,6 +256,11 @@ def _cmd_shadow_bulletin(svc: AdjudicationService, args: argparse.Namespace) -> 
     return 0
 
 
+def _cmd_notifications(svc: AdjudicationService, args: argparse.Namespace) -> int:
+    _print_json({"items": svc.notifications.queue(args.tenant)})
+    return 0
+
+
 def _cmd_queue(svc: AdjudicationService, args: argparse.Namespace) -> int:
     _print_json(svc.lifecycle.storm_safe_queue(tenant_code=args.tenant, limit=args.limit))
     return 0
@@ -314,7 +322,7 @@ def _cmd_agreement(svc: AdjudicationService, args: argparse.Namespace) -> int:
 
 
 # Commands that run before (or instead of) the default bootstrap.
-_PRE_BOOTSTRAP = {"ingest": _cmd_ingest, "serve": _cmd_serve}
+_PRE_BOOTSTRAP = {"ingest": _cmd_ingest, "serve": _cmd_serve, "notifications": _cmd_notifications}
 
 # Commands that need the workbook loaded first.
 _COMMANDS = {

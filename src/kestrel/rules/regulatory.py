@@ -1,48 +1,107 @@
-"""Regulatory notification clock per jurisdiction."""
+"""Explicit scoped calendar arithmetic; workbook clocks are historical references."""
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
-from datetime import datetime, timedelta
+from datetime import date, datetime, time, timedelta, timezone
+from math import isfinite
 from typing import Any, Optional
-
-"""Regulatory notification windows — measured from alert_ts, not disposition.
-
-Source of truth for windows: tab 13_Volume_And_Cost row on 'Regulatory notification
-windows in the book', plus tab 12 tenant-specific notes (Campos = 5 calendar days).
-The pack is silent on a per-tenant table; we take an explicit position below.
-"""
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 
-DEFAULT_WINDOWS_HOURS = {
-    "T-AURA": 72,
-    "T-NORDIA": 72,
-    "T-CAMPOS": 5 * 24,
-    "T-PINNACLE": 24,
-    "T-MERIDIAN": 24,
-    "T-VIRENT": 15 * 24,
-    "T-SAHYADRI": 15 * 24,
-    "T-KAVERI": 15 * 24,
-}
+@dataclass(frozen=True)
+class NotificationRule:
+    """Controlled-rule input contract, not a built-in legal-policy registry.
 
+    Approval/source references must come from an authorized policy-control process.
+    No such adapter or approved production rules are supplied with this prototype.
+    """
 
-REGION_DEFAULTS = {
-    "EMEA": 72,
-    "AMER": 24,
-    "APAC": 15 * 24,
-    "LATAM": 5 * 24,
-}
+    rule_id: str
+    tenant_code: str
+    product_ref: str
+    market: str
+    kind: str
+    amount: float
+    source_hash: str
+    approval_ref: str
+    timezone: Optional[str] = None
+    cutoff: Optional[str] = None
+    weekends: Optional[tuple[int, ...]] = None
+    holidays: tuple[date, ...] = ()
+    calendar_start: Optional[date] = None
+    calendar_end: Optional[date] = None
+
+    def deadline(self, alert: datetime) -> datetime:
+        """UTC input/output; reject incomplete control scope and calendar coverage."""
+        if not all((self.rule_id.strip(), self.approval_ref.strip(), self.tenant_code, self.product_ref, self.market)):
+            raise ValueError("controlled rule identity/scope missing")
+        if not re.fullmatch(r"[a-fA-F0-9]{64}", self.source_hash):
+            raise ValueError("controlled source hash missing")
+        if isinstance(self.amount, bool) or not isfinite(self.amount) or self.amount <= 0:
+            raise ValueError("positive finite calendar amount required")
+        utc = alert.replace(tzinfo=timezone.utc) if alert.tzinfo is None else alert.astimezone(timezone.utc)
+        if (
+            not self.calendar_start
+            or not self.calendar_end
+            or not self.calendar_start <= utc.date() <= self.calendar_end
+        ):
+            raise ValueError("rule validity/calendar coverage unresolved")
+        if self.kind == "elapsed_hours":
+            due = utc + timedelta(hours=self.amount)
+        else:
+            if not self.timezone or not self.cutoff or int(self.amount) != self.amount:
+                raise ValueError("calendar zone, cutoff and integer days required")
+            zone = ZoneInfo(self.timezone)
+            local_day = utc.astimezone(zone).date()
+            if not self.calendar_start <= local_day <= self.calendar_end:
+                raise ValueError("local holiday calendar coverage unavailable")
+            if not re.fullmatch(r"\d{2}:\d{2}(?::\d{2})?", self.cutoff):
+                raise ValueError("explicit local wall-clock cutoff required")
+            if self.kind == "calendar_days":
+                local_day += timedelta(days=int(self.amount))
+            elif self.kind == "next_business_day":
+                if (
+                    self.weekends is None
+                    or not self.weekends
+                    or any(d not in range(7) for d in self.weekends)
+                    or len(set(self.weekends)) == 7
+                ):
+                    raise ValueError("explicit weekend calendar required")
+                remaining = int(self.amount)
+                while remaining:
+                    local_day += timedelta(days=1)
+                    if local_day > self.calendar_end:
+                        raise ValueError("holiday calendar coverage exhausted")
+                    if local_day.weekday() not in self.weekends and local_day not in self.holidays:
+                        remaining -= 1
+            else:
+                raise ValueError("unsupported controlled calendar kind")
+            due = datetime.combine(local_day, time.fromisoformat(self.cutoff), tzinfo=zone)
+            # Ambiguous/nonexistent local cutoffs need an explicit policy, not a guess.
+            if (
+                due.utcoffset() != due.replace(fold=1).utcoffset()
+                or due.astimezone(timezone.utc).astimezone(zone) != due
+            ):
+                raise ValueError("ambiguous/nonexistent local cutoff")
+        if due.astimezone(timezone.utc).date() > self.calendar_end:
+            raise ValueError("rule/calendar coverage exhausted")
+        return due.astimezone(timezone.utc).replace(tzinfo=None)
 
 
 @dataclass
 class RegulatoryClock:
-    """Regulatory notification window and deadline derived from alert time and tenant rules."""
+    """Unknown authority is explicit; no country, region or 24h fallback."""
 
     reportable: bool
     window_hours: Optional[float]
     deadline_utc: Optional[datetime]
     basis: str
     hours_remaining_at_eval: Optional[float] = None
+    reportability_status: str = "UNRESOLVED"
+    deadline_status: str = "UNRESOLVED"
+    historical_window_reference: Any = None
 
 
 def regulatory_clock(
@@ -52,48 +111,42 @@ def regulatory_clock(
     historically_reportable: Any = None,
     historical_window_hours: Any = None,
     eval_ts: Optional[datetime] = None,
+    *,
+    rule: Optional[NotificationRule] = None,
+    product_ref: Optional[str] = None,
+    market: Optional[str] = None,
 ) -> RegulatoryClock:
-    """Compute the notification deadline.
+    """Track historical Y conservatively; N/blank cannot establish inapplicability.
 
-    Prefer the pack's historical reg_window_hours when present (ground truth for
-    that case). Otherwise apply our tenant/region position.
+    No controlled policy is installed by default. The arithmetic contract accepts
+    explicit fixtures/controlled registry input, never guessed country applicability.
     """
     reportable = str(historically_reportable or "").upper() == "Y"
-    window = None
-    basis = ""
-    if historical_window_hours not in (None, ""):
-        try:
-            window = float(historical_window_hours)
-            basis = "pack.reg_window_hours"
-        except (TypeError, ValueError):
-            window = None
-
-    if window is None:
-        if tenant_code in DEFAULT_WINDOWS_HOURS:
-            window = float(DEFAULT_WINDOWS_HOURS[tenant_code])
-            basis = f"tenant_default[{tenant_code}]"
-        elif tenant_row and tenant_row.get("region") in REGION_DEFAULTS:
-            window = float(REGION_DEFAULTS[tenant_row["region"]])
-            basis = f"region_default[{tenant_row['region']}]"
-        else:
-            window = 72.0
-            basis = "fallback_72h"
-
-    # If not marked reportable historically and no historical window, keep window
-    # for operational awareness but flag reportable=False unless tenant is Campos
-    # (always track) — disposition path still uses it when reportable.
-    deadline = None
-    remaining = None
-    if alert_ts is not None and window is not None:
-        deadline = alert_ts + timedelta(hours=window)
-        if eval_ts is None:
-            eval_ts = alert_ts
-        remaining = (deadline - eval_ts).total_seconds() / 3600.0
-
-    return RegulatoryClock(
-        reportable=reportable,
-        window_hours=window if reportable or historical_window_hours not in (None, "") else window,
-        deadline_utc=deadline if reportable or historical_window_hours not in (None, "") else deadline,
-        basis=basis,
-        hours_remaining_at_eval=remaining,
+    clock = RegulatoryClock(
+        reportable,
+        None,
+        None,
+        "Unresolved applicability/calendar authority; historical reportability/window are reference only",
+        reportability_status="REPORTABLE" if reportable else "UNRESOLVED",
+        historical_window_reference=historical_window_hours,
     )
+    if rule is None or alert_ts is None:
+        return clock
+    if (tenant_code, product_ref, market) != (rule.tenant_code, rule.product_ref, rule.market):
+        clock.basis = "Unresolved: controlled tenant/product/market scope mismatch"
+        return clock
+    try:
+        deadline = rule.deadline(alert_ts)
+    except (ValueError, TypeError, OverflowError, ZoneInfoNotFoundError) as exc:
+        clock.basis = "Unresolved controlled calendar: " + str(exc)
+        return clock
+    clock.deadline_utc = deadline
+    clock.deadline_status = "CONTROLLED_RULE_INPUT"
+    clock.basis = f"{rule.rule_id}; source sha256:{rule.source_hash}; approval {rule.approval_ref}"
+    eval_ts = eval_ts or alert_ts
+    if eval_ts.tzinfo is not None:
+        eval_ts = eval_ts.astimezone(timezone.utc).replace(tzinfo=None)
+    clock.hours_remaining_at_eval = (deadline - eval_ts).total_seconds() / 3600
+    if rule.kind == "elapsed_hours":
+        clock.window_hours = float(rule.amount)
+    return clock

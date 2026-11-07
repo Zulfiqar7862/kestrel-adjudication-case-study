@@ -16,6 +16,7 @@ from kestrel.domain import Disposition
 from kestrel.engine import AdjudicationEngine, AdjudicationResult
 from kestrel.ingest import DataPack, load_workbook_into_store
 from kestrel.lifecycle import CaseLifecycle
+from kestrel.notifications import NotificationObligations
 from kestrel.shadow import shadow_replay_bulletin
 from kestrel.storage.bitemporal import BitemporalStore
 from kestrel.storage.evidence import EvidenceStore
@@ -42,6 +43,7 @@ class AdjudicationService:
             retention_years=self.settings.retention_years,
         )
         self.lifecycle = CaseLifecycle(self.store, self.evidence)
+        self.notifications = NotificationObligations(self.store)
         self.pack: Optional[DataPack] = None
         self.engine: Optional[AdjudicationEngine] = None
         self.snapshot_id: Optional[str] = self.store.get_meta("ref_snapshot_id")
@@ -52,6 +54,8 @@ class AdjudicationService:
         if reload or not self.snapshot_id:
             # fresh DB if reload
             if reload and self.settings.db_path.exists():
+                if self.store.list_alerts():
+                    raise ValueError("destructive reload would erase notification obligations; use a fresh database")
                 self.settings.db_path.unlink()
                 self.store = BitemporalStore(self.settings.db_path)
                 self.evidence = EvidenceStore(
@@ -61,6 +65,7 @@ class AdjudicationService:
                 )
                 self.lifecycle = CaseLifecycle(self.store, self.evidence)
             self.snapshot_id = load_workbook_into_store(pack_path, self.store)
+        self.notifications = NotificationObligations(self.store)
         self.pack = DataPack.load(pack_path)
         self.engine = AdjudicationEngine(self.pack)
         return self.snapshot_id or ""
@@ -501,6 +506,7 @@ class AdjudicationService:
                 if alert["name"] != "regulatory_deadline_breached"
             ),
             "generated_at_utc": now.isoformat(sep=" "),
+            "notification_obligations": self.notifications.counts(),
             "decision_mix": dict(sorted(mix.items())),
             "closure_counts": closure_counts(closure_rows),
             "baseline_mix": baseline_mix,

@@ -264,6 +264,9 @@ class AdjudicationEngine:
         )
         evidence["regulatory"] = {
             "reportable": clock.reportable,
+            "reportability_status": clock.reportability_status,
+            "deadline_status": clock.deadline_status,
+            "historical_window_reference": clock.historical_window_reference,
             "window_hours": clock.window_hours,
             "deadline_utc": clock.deadline_utc.isoformat(sep=" ") if clock.deadline_utc else None,
             "basis": clock.basis,

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "kestrel-sentinel"
-version = "0.4.3"
+version = "0.5.0"
 description = "Kestrel Sentinel: deterministic, as-of excursion adjudication with hash-chained evidence and human sign-off."
 readme = "README.md"
 requires-python = ">=3.10"

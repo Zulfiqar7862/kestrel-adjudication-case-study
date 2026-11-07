@@ -191,7 +191,7 @@ async function openEvent(id) {
         <dt>Stability study</dt><dd>${esc(b.stability_study_ref)}</dd>
         <dt>Customer SOP</dt><dd>${esc(b.sop_doc_id)} Rev ${esc(b.sop_revision)}${b.sop_overlap_conflict ? ' <span class="badge b-WARN">two revisions overlap, please confirm</span>' : ""}</dd>
         <dt>Carrier contract</dt><dd>${esc(b.carrier_contract_id)}${b.carrier_has_cold_chain_clause === false ? " (no cold-chain clause)" : ""}</dd>
-        <dt>Report to regulator</dt><dd>${r.reportable ? "Yes" : "No"}; window ${esc(r.window_hours)} h, deadline ${esc(r.deadline_utc)} UTC</dd>
+        <dt>Report to regulator</dt><dd>${esc(r.reportability_status || "UNRESOLVED")}; deadline ${r.deadline_utc ? esc(r.deadline_utc) + " UTC" : "UNRESOLVED — controlled applicability/calendar required"} <a href="/notifications?tenant_code=${encodeURIComponent(data.tenant_code)}">Independent filing queue</a></dd>
       </dl>
       <h2 style="margin-top:16px">Why this recommendation</h2>
       <ol class="trace">${data.rationale.map((x) => `<li>${esc(x)}</li>`).join("")}</ol>

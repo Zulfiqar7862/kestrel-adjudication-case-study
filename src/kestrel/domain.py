@@ -118,9 +118,9 @@ class Recommendation:
     regulator_reportable: bool = False
     reg_window_hours: Optional[float] = None
     reg_deadline_utc: Optional[datetime] = None
-    rule_pack_version: str = "0.4.3"
+    rule_pack_version: str = "0.5.0"
     ref_snapshot_id: Optional[str] = None
-    code_version: str = "0.4.3"
+    code_version: str = "0.5.0"
 
 
 @dataclass
@@ -157,6 +157,6 @@ class EvidenceBundleMeta:
     case_id: Optional[str] = None
     created_at: Optional[datetime] = None
     retention_until: Optional[datetime] = None
-    rule_pack_version: str = "0.4.3"
+    rule_pack_version: str = "0.5.0"
     ref_snapshot_id: str = ""
-    code_version: str = "0.4.3"
+    code_version: str = "0.5.0"

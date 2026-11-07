@@ -224,7 +224,7 @@ The full reasoning, requirement traceability and board pushback are in
 
 ## Known limits
 
-- Regulatory deadlines are prototype approximations, not verified legal cut-offs: US next-business-day is mapped to 24 hours and Brazil calendar days to 120 hours in UTC. A maintained jurisdiction calendar and programme applicability rules are required. India 15 days is sourced from tab 13 for notifiable products only.
+- Notification obligations now have an independent durable queue (`kestrel notifications --tenant T`, `/notifications`). Signing, closing, storms or assembler failure cannot suppress it. No approved tenant/product/market calendar is supplied: legal deadlines remain UNRESOLVED; historical windows are reference only. Controlled calendar arithmetic is not legal-policy validation. No filing-delivery verification adapter is supplied.
 - SQLite and local JSON files are the prototype store. Production would use Postgres and object storage with
   object lock.
 - Missing/invalid **required measurements** and **unresolved storage text** are separate QA reasons. Explicit one-sided limits require only their corresponding extremum; mean never substitutes. Strictness/inclusivity is preserved, and no lower bound is invented. Additional restrictions are retained separately, not independently verified.

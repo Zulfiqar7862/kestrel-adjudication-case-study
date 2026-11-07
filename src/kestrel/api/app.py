@@ -351,6 +351,11 @@ def create_app(svc: Optional[AdjudicationService] = None) -> Any:
             "rao_gate": report["rao_gate"],
         }
 
+    @app.get("/notifications")
+    def notifications(tenant_code: str = Query(..., min_length=1)) -> dict[str, Any]:
+        """Independent pending filings, including closed or signed dispositions."""
+        return {"items": service.notifications.queue(tenant_code)}
+
     @app.get("/queue")
     def queue(
         tenant_code: Optional[str] = Query(None),
@@ -476,6 +481,9 @@ def create_app(svc: Optional[AdjudicationService] = None) -> Any:
                 "carrier_has_cold_chain_clause": result.carrier_has_cold_chain_clause,
             },
             "regulatory": {
+                "reportability_status": result.evidence["regulatory"]["reportability_status"],
+                "deadline_status": result.evidence["regulatory"]["deadline_status"],
+                "basis": result.evidence["regulatory"]["basis"],
                 "reportable": result.regulator_reportable,
                 "window_hours": result.reg_window_hours,
                 "deadline_utc": result.reg_deadline_utc,
@@ -557,3 +565,16 @@ def _http_request(
         detail = payload["detail"]
         payload = {"error": detail if isinstance(detail, str) else str(detail)}
     return resp.status_code, payload
+
+
+def create_notification_app(obligations: Any) -> Any:
+    """Standalone read service: no workbook, evidence assembler or case queue."""
+    FastAPI, _, extras = _require_fastapi()
+    _, Query, _, _ = extras
+    app = FastAPI(title="Independent notification obligations")
+
+    @app.get("/notifications")
+    def queue(tenant_code: str = Query(..., min_length=1)) -> dict[str, Any]:
+        return {"items": obligations.queue(tenant_code)}
+
+    return app

@@ -1,0 +1,15 @@
+# Priority 2 — independent notification obligations (0.5.0)
+
+These specific defects were addressed; overall safety and production readiness remain unvalidated.
+
+Adapted the separate-clock idea after inspecting Claude's clocks/queue implementation; did not copy its assumed Eastern cutoff, federal holiday table or signed-case suppression.
+
+Test-first: `pytest -o addopts='' -q tests/test_notifications.py` produced **8 failed** before implementation ([red](02-red.txt)); those 8 then passed ([green](02-green-first.txt)). A ninth DST/cutoff/control-source audit test also passes in the full **199 passed** suite ([full](02-full-green.txt)). One dependency deprecation warning remains. Ruff check/format passed.
+
+Implementation: `notifications.NotificationObligations` persists per-tenant/event work from already-ingested raw alerts, before engine initialization. Queue reads never join disposition/evidence state; a separate `create_notification_app` and pre-bootstrap CLI command work without the assembler/workbook/case queue. Historical Y conservatively creates pending REPORTABLE work; N/blank does not prove inapplicability and remains UNRESOLVED. Unverified receipt references never clear work. No authenticated filing adapter exists, so there is deliberately no terminal FILED transition. Destructive reload of an existing alert DB is refused rather than erasing obligations.
+
+`rules.regulatory.NotificationRule` specifies tenant/product/market scope, source hash/control reference, kind, bounded calendar coverage, timezone/local cutoff, weekends and holidays. Pure arithmetic supports elapsed hours, calendar days and next business days; unknown scope/coverage, invalid controls and ambiguous/nonexistent DST cutoffs remain unresolved. This is a controlled-input contract, **not an authenticated policy registry or approved legal rules**. No source market/state/cutoff is invented from country or historical numeric windows. Runtime legal deadlines are all unresolved with raw historical windows retained as reference.
+
+Executed sample: [run-all](p2-run.json) remains **0 AUTO_CLOSE / 290 QA / 130 historical candidates**, others zero. [Independent obligation counts](02-notification-counts.json) are derived from raw source flags, not verified legal reportability or delivery. EXC-107133 remains QA, legal deadline now null/unresolved rather than falsely certain. `test_golden` and the cross-pack regulatory invariant were changed for this explicit uncertainty contract; the latter now requires every historical-reportable alert to remain pending in the independent queue. No disposition expectation was relaxed.
+
+Inspection versus execution: scoped calendar source/approval validation is a software input contract; production approval/authentication, applicability determination, real calendar stewardship and delivery receipts are not established. Executed tests cover signature/reopen, an assembler exception, case-queue failure, tenant-specific HTTP reads, historical US24h refusal, holiday/weekend arithmetic, scope/coverage refusal and DST. No actual filing or external message was sent.
