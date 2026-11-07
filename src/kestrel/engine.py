@@ -10,6 +10,7 @@ from kestrel.decision_rules import (
     AUTO_CLOSE,
     DESTROY,
     ESCALATE,
+    HISTORICAL_CANDIDATE,
     QUARANTINE_PENDING_LAB,
     RELEASE,
     RELEASE_WITH_NOTE,
@@ -53,6 +54,7 @@ ACTIONABLE_DISPOSITIONS = {
     RETURN_TO_ORIGIN,
     REWORK_RELABEL,
     ESCALATE,
+    HISTORICAL_CANDIDATE,
 }
 
 
@@ -66,6 +68,10 @@ class AdjudicationResult:
     requires_human_signature: bool
     confidence: float
     triage_label: str
+    historical_classification: Optional[str] = None
+    closure_eligibility: str = "not_eligible"
+    independent_closure_evidence: list[str] = field(default_factory=list)
+    requires_human_review: bool = True
     rationale: list[str] = field(default_factory=list)
     evidence: dict[str, Any] = field(default_factory=dict)
     product_match_method: Optional[str] = None
@@ -86,6 +92,15 @@ class AdjudicationResult:
     historical_final_disposition: Optional[str] = None
     agrees_with_historical_final: Optional[bool] = None
     agrees_with_historical_engine: Optional[bool] = None
+
+    def closure_fields(self) -> dict[str, Any]:
+        """One assessment shared by API, CLI, batch metrics and sealed evidence."""
+        return {
+            "historical_classification": self.historical_classification,
+            "closure_eligibility": self.closure_eligibility,
+            "independent_closure_evidence": list(self.independent_closure_evidence),
+            "requires_human_review": self.requires_human_review,
+        }
 
     def to_row(self) -> dict[str, Any]:
         """Flatten the result into a CSV/JSON-friendly dict row."""
@@ -272,7 +287,11 @@ class AdjudicationEngine:
         evidence["decision"] = {
             "rule": next(line.removeprefix("Decision rule: ") for line in extra if line.startswith("Decision rule: ")),
             "limitations": [
-                line for line in extra if line.startswith(("AUTO_CLOSE limitation:", "Additional storage constraints"))
+                line
+                for line in extra
+                if line.startswith(
+                    ("AUTO_CLOSE limitation:", "Historical closure limitation:", "Additional storage constraints")
+                )
             ],
         }
         if bulletin:
@@ -339,6 +358,25 @@ class AdjudicationEngine:
         if recommendation in ACTIONABLE_DISPOSITIONS:
             requires_human = True
 
+        historical_classification = event.get("triage_outcome")
+        closure_eligibility = (
+            "historical_candidate_unverified"
+            if recommendation == HISTORICAL_CANDIDATE
+            else "rule_supported_unverified"
+            if recommendation == AUTO_CLOSE
+            else "not_eligible"
+        )
+        # Workbook classifications, reviewer-queue derivatives and incident prose
+        # supply no independently authenticated duplicate/load verification record.
+        # Do not consume invented `*_verified` event flags as verification.
+        evidence["closure_assessment"] = {
+            "historical_classification": historical_classification,
+            "classification_source": "01_Excursion_Events.triage_outcome (historical reference only)",
+            "closure_eligibility": closure_eligibility,
+            "independent_closure_evidence": [],
+            "requires_human_review": requires_human,
+            "limitation": "No independent duplicate/load verification artifact supplied; rule support is not independent verification",
+        }
         hist_eng = event.get("rules_engine_recommendation")
         hist_final = event.get("final_disposition")
         agrees_final = None
@@ -353,6 +391,10 @@ class AdjudicationEngine:
             tenant_code=tenant,
             recommendation=recommendation,
             requires_human_signature=requires_human,
+            historical_classification=historical_classification,
+            closure_eligibility=closure_eligibility,
+            independent_closure_evidence=[],
+            requires_human_review=requires_human,
             confidence=conf,
             triage_label=triage,
             rationale=rationale,

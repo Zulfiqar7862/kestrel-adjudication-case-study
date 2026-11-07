@@ -1,0 +1,42 @@
+[
+  {
+    "classification": "ACTIONABLE \u2014 excursion confirmed",
+    "recommendation": "ESCALATED_TO_SENIOR_QA",
+    "count": 145
+  },
+  {
+    "classification": "NON_ACTIONABLE \u2014 dock door / ambient exposure",
+    "recommendation": "ESCALATED_TO_SENIOR_QA",
+    "count": 30
+  },
+  {
+    "classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "recommendation": "ESCALATED_TO_SENIOR_QA",
+    "count": 14
+  },
+  {
+    "classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "recommendation": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "count": 93
+  },
+  {
+    "classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "recommendation": "ESCALATED_TO_SENIOR_QA",
+    "count": 6
+  },
+  {
+    "classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "recommendation": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "count": 37
+  },
+  {
+    "classification": "NON_ACTIONABLE \u2014 sensor artefact",
+    "recommendation": "ESCALATED_TO_SENIOR_QA",
+    "count": 40
+  },
+  {
+    "classification": "NON_ACTIONABLE \u2014 within permitted excursion allowance",
+    "recommendation": "ESCALATED_TO_SENIOR_QA",
+    "count": 55
+  }
+]

@@ -12,6 +12,7 @@ class Disposition(str, Enum):
     """Allowed disposition / recommendation values for an excursion case."""
 
     AUTO_CLOSE = "AUTO_CLOSE"
+    HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED = "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
     RELEASE = "RELEASE"
     RELEASE_WITH_NOTE = "RELEASE_WITH_NOTE"
     QUARANTINE_PENDING_LAB = "QUARANTINE_PENDING_LAB"
@@ -117,9 +118,9 @@ class Recommendation:
     regulator_reportable: bool = False
     reg_window_hours: Optional[float] = None
     reg_deadline_utc: Optional[datetime] = None
-    rule_pack_version: str = "0.4.2"
+    rule_pack_version: str = "0.4.3"
     ref_snapshot_id: Optional[str] = None
-    code_version: str = "0.4.2"
+    code_version: str = "0.4.3"
 
 
 @dataclass
@@ -156,6 +157,6 @@ class EvidenceBundleMeta:
     case_id: Optional[str] = None
     created_at: Optional[datetime] = None
     retention_until: Optional[datetime] = None
-    rule_pack_version: str = "0.4.2"
+    rule_pack_version: str = "0.4.3"
     ref_snapshot_id: str = ""
-    code_version: str = "0.4.2"
+    code_version: str = "0.4.3"

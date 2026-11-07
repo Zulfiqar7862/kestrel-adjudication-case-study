@@ -1,6 +1,6 @@
 These specific defects were addressed; overall safety and production readiness remain unvalidated.
 
-> Current implementation note (7 Nov 2026 CET): the focused correctness-review fixes are rule/code 0.4.2 on a separate unmerged branch. Current sample results and limitations are in [the current explicit-storage report](validation/storage-limits-review/report.md). Design/phase tables below describe intentions, not additional implemented integrations.
+> Current implementation note (7 Nov 2026 CET): the focused correctness-review fixes are rule/code 0.4.3 on a separate unmerged branch. Current sample results and limitations are in [the current historical-candidate report](validation/historical-candidates-review/report.md). Design/phase tables below describe intentions, not additional implemented integrations.
 
 # Case study: The Adjudication Problem
 
@@ -32,7 +32,7 @@ flowchart LR
 ```bash
 python -m venv .venv && source .venv/bin/activate
 pip install -e ".[api,dev]"
-make test                  # 169 tests; runtime varies
+make test                  # 190 tests; runtime varies
 make lint
 kestrel run-all --out results.csv
 kestrel adjudicate --event EXC-107133
@@ -44,11 +44,12 @@ kestrel serve              # /ui and /docs
 
 ## Current results (not platform KPIs)
 
-Persisted run-all, 7 Nov 2026 (CET), rule/code version 0.4.2:
+Persisted run-all, 7 Nov 2026 (CET), rule/code version 0.4.3:
 
 | Output | Count |
 |---|---:|
-| AUTO_CLOSE | 130 |
+| AUTO_CLOSE (verified 0; other unverified 0) | 0 |
+| HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED | 130 |
 | ESCALATED_TO_SENIOR_QA | 290 |
 | RELEASE_WITH_NOTE | 0 |
 | QUARANTINE_PENDING_LAB | 0 |
@@ -59,13 +60,13 @@ Exclusive strata are 61 bulletin re-adjudications + 24 written overrides + 13 fu
 
 **Shadow:** 91 affected-firmware candidates, 91 scenario/evidence diffs, **0 disposition flips** when adding bound-aware analysis to as-reported-only decisions. This is not the historical 61/214 re-adjudication incident. Shadow does not reopen cases or handle invoices automatically.
 
-**Agreement:** historical finals 4/200 = 2%; assistant drafts 130/420 = 30.95%. There are 196 historical-final disagreements. Dr Rao asked for explained differences, not maximised agreement; low agreement does not itself prove safety or failure. Case-level QA review is mandatory before promotion.
+**Agreement:** historical finals 4/200 = 2%; assistant drafts 0/420 = 0%. There are 196 historical-final disagreements. Dr Rao asked for explained differences, not maximised agreement; low agreement does not itself prove safety or failure. Case-level QA review is mandatory before promotion.
 
 ## EXC examples: outcome is not the same as evidence correctness
 
 - **EXC-107133 → ESCALATED_TO_SENIOR_QA**, confidence 0, human required. Reported 5.4–11.2°C over 15 min remains unchanged. STB-3584 does not establish product/presentation/excursion-type applicability; master cumulative text is not used as a substitute. No uncited pen study is assumed correct. SOP-KAV-9392 Rev03 remains an overlapping index candidate, not resolved governing site authority. No prior batch history is available.
 - **EXC-112289 → ESCALATED_TO_SENIOR_QA**. Reported peak 18.0°C remains unchanged; upper scenario 19.8°C. In 0.4.1 unresolved study product/presentation applicability stops both scenarios earlier than the old qualified-cap parser check. Historical final QUARANTINE_PENDING_LAB remains a disagreement, not ground truth.
-- **EXC-112198 → AUTO_CLOSE** based on historical duplicate triage before identity; no independently implemented live deduplication proof.
+- **EXC-112198 → HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED**, human review in PENDING_EVIDENCE. Historical duplicate text is reference only; no independent duplicate/load verification artifact is supplied. All 130 prior historical closures now return unresolved review, not verified AUTO_CLOSE eligibility.
 
 Detailed execution: [code-walkthrough.md](code-walkthrough.md). Rule ordering/thresholds: [decision-rules.md](decision-rules.md). Architecture: [architecture.md](architecture.md).
 
@@ -80,7 +81,7 @@ Every requirement cites the brief or pack. Where I push the board, I say so.
 | Where-You-Land req | Prototype implementation / boundary | Test |
 |---|---|---|
 | R1 Evidence assembly | Identity / stability / as-of SOP / contract / regulatory resolution + evidence `inputs` | `test_exc_107133_*` |
-| R2 Auto-close non-actionable only | Engine `AUTO_CLOSE` path; lifecycle `TRIAGED_NON_ACTIONABLE` | `test_auto_close_never_requires_human` |
+| R2 Auto-close non-actionable only | Historical closure candidates require review; no verified sample closures | `test_historical_text_cannot_authorize_autoclose` |
 | R3 No auto-sign product fate | `requires_human_signature`; lifecycle `sign()` | `test_lifecycle_sign_and_reopen_months_later` |
 | R4 Full basis ≤1h / 7y | Local captured-basis retrieval + retention metadata only; archival completeness/durability not established | `test_retrieval_latency_under_hour` |
 | R5 Bitemporal as-at | `BitemporalStore.as_of` / `sop_in_force` | `test_aura_sop_as_of_audit_date` |
@@ -176,7 +177,7 @@ Exact wording from board paper BP-26-09 (brief §6):
 
 **Proposed approach and what the prototype cannot guarantee**
 
-- **Commitment 1 (24h median disposition).** The source population median active human review is 96 minutes (tab 13), not a measured saving here. Historical disposition median is 6.2 days in the population; the 200 opened sample cases have median about 6.06 days (mean 6.60). Evidence assembly may help, but lab/dual-sign/Annexure waits and weekend staffing must be measured. Propose a time-to-bundle metric separately from alert-to-signed disposition; do not claim engine runtime proves either SLA. AUTO_CLOSE candidates remain TRIAGED_NON_ACTIONABLE rather than terminal CLOSED_AUTO.
+- **Commitment 1 (24h median disposition).** The source population median active human review is 96 minutes (tab 13), not a measured saving here. Historical disposition median is 6.2 days in the population; the 200 opened sample cases have median about 6.06 days (mean 6.60). Evidence assembly may help, but lab/dual-sign/Annexure waits and weekend staffing must be measured. Propose a time-to-bundle metric separately from alert-to-signed disposition; do not claim engine runtime proves either SLA. Historical candidates remain PENDING_EVIDENCE; legacy numeric AUTO_CLOSE proposals remain TRIAGED_NON_ACTIONABLE, not terminal CLOSED_AUTO.
 
 ### Board items I believe are wrong (with counterarguments)
 
@@ -363,7 +364,7 @@ The bundle currently retains alert summaries and a workbook-row pointer, **not a
 stateDiagram-v2
   [*] --> NEW
   NEW --> TRIAGED_NON_ACTIONABLE: engine AUTO_CLOSE candidate
-  NEW --> PENDING_EVIDENCE: missing series or refs
+  NEW --> PENDING_EVIDENCE: historical candidate or missing evidence
   NEW --> RECOMMENDED: actionable recommendation
   TRIAGED_NON_ACTIONABLE --> CLOSED_AUTO: accepted / sampled
   TRIAGED_NON_ACTIONABLE --> RECOMMENDED: reviewer reopens as actionable
@@ -384,7 +385,7 @@ stateDiagram-v2
 |---|---|
 | `NEW` | Alert accepted |
 | `TRIAGED_NON_ACTIONABLE` | Engine proposes AUTO_CLOSE |
-| `PENDING_EVIDENCE` | Missing series / stability / SOP — clock still runs |
+| `PENDING_EVIDENCE` | Unverified historical closure candidate or missing evidence — clock still runs |
 | `RECOMMENDED` / `AWAITING_REVIEWER` | Actionable recommendation + bundle |
 | `RETURNED_FOR_DATA` / `PENDING_LAB` / `PENDING_SECOND_SIGN` | Human / lab / dual-sign waits |
 | `CLOSED_SIGNED` / `CLOSED_AUTO` | Terminal unless reopen |
@@ -403,7 +404,7 @@ Actual queue order is null deadlines last, earliest deadline, priority_score des
 | Contract Box | Disposition proceeds; claim package delayed | No product-fate clock impact |
 | LLM drafter | Hide draft; reviewer writes from evidence bullets | None |
 | Evidence object store write fail | **Block sign-off** | Escalate to on-call |
-| Identity service | Fail closed for actionable; AUTO_CLOSE only for strong facility/duplicate heuristics | Prefer miss-close over wrong-destroy |
+| Identity service | Human review; historical facility/duplicate labels cannot authorize AUTO_CLOSE | Prefer miss-close over wrong-destroy |
 
 **Invariant:** an outage may increase human load or delay disposition; it must not reset or hide `reg_deadline_utc`.
 
@@ -460,7 +461,7 @@ Deterministic engine on auto-close path: ~0 model tokens. Fits Okoro’s cost ce
 | Case lifecycle | `CaseLifecycle` — states incl. REOPENED; `storm_safe_queue` |
 | Shadow / Rao gate | `shadow_replay_bulletin` + CLI |
 | HTTP API | FastAPI + uvicorn (lazy): `/health`, `/adjudicate`, `/cases/*`, `/evidence/*`, `/replay`, `/shadow/bulletin`, `/queue`, `/as-of/sop`, `/ops/*` |
-| CLI + tests | argparse + 169 discovered tests, including `health`/`monitor`, `agreement`, determinism, FastAPI TestClient |
+| CLI + tests | argparse + 190 discovered tests, including `health`/`monitor`, `agreement`, determinism, FastAPI TestClient |
 
 ---
 
@@ -486,15 +487,15 @@ Brief §8.C asks how failure is detected at three in the morning. The following 
 | Evidence chain verification failure | `verify_chain` → not ok for any tenant with length &gt; 0 | Platform on-call | Freeze tenant sign-off; restore WORM snapshot; re-verify; invalidate suspect bundles |
 | Decision-mix drift | Any disposition share drifts &gt;5pp vs approved baseline (INC-2411 class) | Platform on-call + Dr Rao delegate | Halt `rule_pack` promotion; shadow replay golden set; Rao sign-off before re-enable |
 | Data-feed staleness | Reference feed age &gt;24h (prototype uses workbook mtime) | Data Services on-call | Check ThermaTrace/ERP/Docuvault connectors; `ingest --reload` after repair |
-| Queue age | Open actionable age &gt;12h, or reportable age &gt;50% of its window (INC-2502) | QA shift lead | Storm brake; AUTO_CLOSE only facility/duplicate heuristics; drain by deadline |
+| Queue age | Open actionable age &gt;12h, or reportable age &gt;50% of its window (INC-2502) | QA shift lead | Storm brake; unverified historical candidates require human review; drain by deadline |
 | Firmware bulletin change | Vendor bulletin hash/version ≠ last approved `ref_snapshot` | Platform on-call; **notify Marieke de Vries** on version change | `shadow-bulletin`; Rao gate; re-adjudicate firmware cohort; withdraw carrier invoices if liability flips (INC-2506) |
 
-Rerun 7 Nov 2026 (CET): sample regression mix is 130 AUTO_CLOSE / 290 escalation / 0 release-with-note / 0 quarantine / 0 destroy. This is not a QA-approved production baseline. The health helper still reports 14 historically late rows and workbook-mtime staleness; its firmware-change hook is not live bulletin detection, and its alert dictionaries do not send pages.
+Rerun 7 Nov 2026 (CET): sample regression mix is 0 AUTO_CLOSE / 130 historical candidates / 290 escalation / 0 release-with-note / 0 quarantine / 0 destroy. This is not a QA-approved production baseline. The health helper still reports 14 historically late rows and workbook-mtime staleness; its firmware-change hook is not live bulletin detection, and its alert dictionaries do not send pages.
 
 
 ## Validation and review-driven changes
 
-169 tests pass, including the original 19 regressions in `tests/test_review_regressions.py` and 56 parametrized correctness-review cases, plus 46 explicit-storage/provenance cases; ruff check and format are clean. These tests establish software contracts on fixtures/sample data, not clinical validation.
+190 tests pass, including the original 19 regressions in `tests/test_review_regressions.py` and 56 parametrized correctness-review cases, plus 46 explicit-storage/provenance cases and 21 historical-candidate surface/guard checks; ruff check and format are clean. These tests establish software contracts on fixtures/sample data, not clinical validation.
 
 | Finding | Fix / regression evidence |
 |---|---|
@@ -505,7 +506,7 @@ Rerun 7 Nov 2026 (CET): sample regression mix is 130 AUTO_CLOSE / 290 escalation
 | Replay from current workbook | Typed immutable event/reference snapshot and full expected result; verify and reject mismatched versions; replay with live pack removed, twice without persistence |
 | Reopen lost deadline | Carry deadline/reportability/evidence reference; original signature artifact remains; reopen regression |
 
-The old blanket-bias/parser baseline is superseded; no byte-identical-to-main claim remains. All sample outcome changes require QA explanation/approval before a production rollout. Current labels are rule/code0.4.2, not a retained archive of historical executable builds.
+The old blanket-bias/parser baseline is superseded; no byte-identical-to-main claim remains. All sample outcome changes require QA explanation/approval before a production rollout. Current labels are rule/code0.4.3, not a retained archive of historical executable builds.
 
 ## Evidence retrieval versus the March audit
 
@@ -515,7 +516,7 @@ Replay verifies the bundle, refuses unavailable code/rule versions or legacy bun
 
 ## Deferred items and honest limits
 
-- **Taxonomy:** shortened-expiry disposition/expiry fields are missing; RELEASE_WITH_NOTE is not equivalent. ESCALATED_TO_SENIOR_QA is review routing still in the fate enum. RELEASE/RETURN/REWORK have no current emitting rule. AUTO_CLOSE proposes TRIAGED_NON_ACTIONABLE, not a terminal closed state.
+- **Taxonomy:** shortened-expiry disposition/expiry fields are missing; RELEASE_WITH_NOTE is not equivalent. ESCALATED_TO_SENIOR_QA and HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED are review routing still in the recommendation enum; neither certifies product fate. RELEASE/RETURN/REWORK have no current emitting rule. AUTO_CLOSE proposes TRIAGED_NON_ACTIONABLE, not a terminal closed state.
 - **Evidence gating:** 0.4.1 blocks engine release/allowance closure on missing SOP/site authority, overlap or unresolved study applicability. A human can still manually sign a different disposition; signing does not independently enforce Annexure2 clearance. Aliases lack tenant ownership, negative/conflicting-edge adjudication and validated trust. Tenant-filtered matches are not complete clause22 governance over every model/index/derived artefact.
 - **Temperature scope:** endpoints/common-offset min/max/mean summaries do not prove all possible per-reading histories. Bulletin applicability is firmware-only, without calibrated device/date mapping or automatic historical-signature/invoice follow-up.
 - **Human approval:** typed name is not authentication, role validation, dual-signature or a qualified electronic signature. File+SQLite operations are not cross-resource atomic; parallel writers require transaction/concurrency hardening.

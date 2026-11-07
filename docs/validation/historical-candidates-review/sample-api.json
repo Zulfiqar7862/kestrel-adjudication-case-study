@@ -1,0 +1,23 @@
+{
+  "event_id": "EXC-112198",
+  "tenant_code": "T-AURA",
+  "recommendation": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+  "confidence": 0.0,
+  "triage_label": "HISTORICAL_UNVERIFIED \u2014 duplicate",
+  "case_state": "PENDING_EVIDENCE",
+  "requires_human_signature": true,
+  "requires_human_review": true,
+  "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+  "closure_eligibility": "historical_candidate_unverified",
+  "independent_closure_evidence": [],
+  "rationale": [
+    "Product identity weak (unresolved): blank product_ref_as_received",
+    "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+    "Historical closure limitation: Unverified historical classification: duplicate; not independent duplicate verification",
+    "Unresolved: independent closure evidence unavailable; human review required",
+    "Decision rule: rule_duplicate_alert"
+  ],
+  "bundle_id": "EVB-e4c6bcc91bc729ab",
+  "case_id": "CASE-b174f4d12d60",
+  "reg_deadline_utc": "2026-06-06 06:55:00"
+}

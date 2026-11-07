@@ -10,6 +10,7 @@ from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Any, Optional
 
+from kestrel.closure import closure_counts
 from kestrel.config import Settings, get_settings
 from kestrel.domain import Disposition
 from kestrel.engine import AdjudicationEngine, AdjudicationResult
@@ -109,12 +110,18 @@ class AdjudicationService:
                     "event_id": result.event_id,
                     "tenant_code": result.tenant_code,
                     "recommendation": result.recommendation,
+                    **result.closure_fields(),
                     "bundle_id": (out["bundle"] or {}).get("bundle_id"),
                     "case_id": (out["case"] or {}).get("case_id"),
                     "reg_deadline_utc": result.reg_deadline_utc,
                 }
             )
-        return {"count": len(rows), "rows": rows, "snapshot_id": self.snapshot_id}
+        return {
+            "count": len(rows),
+            "rows": rows,
+            "snapshot_id": self.snapshot_id,
+            "closure_counts": closure_counts(rows),
+        }
 
     def _persist(self, result: AdjudicationResult, event: dict[str, Any]) -> dict[str, Any]:
         """Write an evidence bundle for a result and return bundle metadata."""
@@ -132,6 +139,7 @@ class AdjudicationService:
                     "max": event.get("max_temp_c"),
                     "duration_min": event.get("duration_min"),
                 },
+                "historical_classification": result.historical_classification,
                 "logger_fw": event.get("logger_fw"),
                 "logger_id": event.get("logger_id"),
                 "product_ref_as_received": event.get("product_ref_as_received"),
@@ -147,6 +155,7 @@ class AdjudicationService:
         }
         recommendation = {
             "disposition": result.recommendation,
+            **result.closure_fields(),
             "requires_human_signature": result.requires_human_signature,
             "confidence": result.confidence,
             "triage_label": result.triage_label,
@@ -226,6 +235,7 @@ class AdjudicationService:
         column is the LLM assistant draft since 2024).
         """
         assert self.engine and self.pack
+        closure_rows = []
         n_all = 0
         n_final = 0
         agree_final = 0
@@ -239,6 +249,7 @@ class AdjudicationService:
         started = time.perf_counter()
         for event in self.pack.events:
             result = self.engine.adjudicate(event)
+            closure_rows.append({"recommendation": result.recommendation, **result.closure_fields()})
             n_all += 1
             hist_final = str(event.get("final_disposition") or "").strip()
             assistant = str(event.get("rules_engine_recommendation") or "").strip()
@@ -274,6 +285,7 @@ class AdjudicationService:
         elapsed_ms = (time.perf_counter() - started) * 1000.0
         return {
             "events_total": n_all,
+            "closure_counts": closure_counts(closure_rows),
             "events_with_historical_final": n_final,
             "agree_with_historical_final": agree_final,
             "agree_with_historical_final_pct": round(100.0 * agree_final / n_final, 2) if n_final else 0.0,
@@ -304,15 +316,17 @@ class AdjudicationService:
         """
         assert self.engine and self.pack
         if baseline_mix is None:
-            # Reproduced 0.4.2 sample regression baseline, NOT QA-approved clinical policy.
+            # Reproduced 0.4.3 sample regression baseline, NOT QA-approved clinical policy.
             baseline_mix = {
-                "AUTO_CLOSE": 130,
+                "AUTO_CLOSE": 0,
+                "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED": 130,
                 "ESCALATED_TO_SENIOR_QA": 290,
                 "RELEASE_WITH_NOTE": 0,
                 "DESTROY": 0,
                 "QUARANTINE_PENDING_LAB": 0,
             }
         now = datetime.now(timezone.utc).replace(tzinfo=None)
+        closure_rows = []
         mix: Counter[str] = Counter()
         deadline_breached = 0
         deadline_at_risk = 0
@@ -321,6 +335,7 @@ class AdjudicationService:
         firmware_counts: Counter[str] = Counter()
         for event in self.pack.events:
             result = self.engine.adjudicate(event)
+            closure_rows.append({"recommendation": result.recommendation, **result.closure_fields()})
             mix[result.recommendation] += 1
             firmware_counts[str(event.get("logger_fw") or "unknown")] += 1
             if result.regulator_reportable:
@@ -461,7 +476,7 @@ class AdjudicationService:
             },
             "open actionable age >12h OR any reportable age >50% of its window (INC-2502)",
             "QA shift lead",
-            "Enable storm brake; auto-close only facility/duplicate heuristics; drain by reg_deadline_utc ASC.",
+            "Enable storm brake; route unverified historical facility/duplicate candidates to human review; drain by reg_deadline_utc ASC.",
             max_queue_age > 12,
         )
         bulletin_fw = "TT-2.14.3"
@@ -487,6 +502,7 @@ class AdjudicationService:
             ),
             "generated_at_utc": now.isoformat(sep=" "),
             "decision_mix": dict(sorted(mix.items())),
+            "closure_counts": closure_counts(closure_rows),
             "baseline_mix": baseline_mix,
             "reportable_in_pack": reportable,
             "deadline_breached_in_pack": deadline_breached,

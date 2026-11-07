@@ -1,5 +1,7 @@
 # HTTP API
 
+These specific defects were addressed; overall safety and production readiness remain unvalidated.
+
 Start it with `kestrel serve` (or `make serve`, or Docker). Interactive OpenAPI docs are at
 `http://127.0.0.1:8080/docs`, and the reviewer dashboard is at `/ui`.
 
@@ -14,6 +16,35 @@ signature against stale evidence `409`.
 | `POST` | `/adjudicate` | `{"event_id": "EXC-107133", "persist": true}` | recommendation, confidence, rationale, `bundle_id`, `case_id`, `reg_deadline_utc` |
 | `GET` | `/events` | `tenant_code` (optional) | every alert with its recommendation |
 | `GET` | `/events/{event_id}` | – | full detail used by the dashboard |
+
+## Historical candidates (0.4.3)
+
+`POST /adjudicate`, `GET /events` items and `GET /events/{id}` expose typed recommendation enums and explicit review/eligibility fields in OpenAPI. Example excerpt from the executed EXC-112198 response:
+
+```json
+{
+  "event_id": "EXC-112198",
+  "recommendation": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+  "historical_classification": "NON_ACTIONABLE — duplicate of earlier alert",
+  "closure_eligibility": "historical_candidate_unverified",
+  "independent_closure_evidence": [],
+  "requires_human_review": true,
+  "requires_human_signature": true,
+  "case_state": "PENDING_EVIDENCE"
+}
+```
+
+This is unresolved human-review routing, not product fate or verified AUTO_CLOSE eligibility. The original historical text is preserved, not certified. No independent duplicate/load verification artifact is supplied. Candidate signing as a final disposition or automatic closure is refused. Human-authority/authentication and evidence-attachment workflows remain incomplete.
+
+`/ops/health-report`, `/ops/agreement`, `/events`, service run-all summaries and CLI batch/single outputs preserve the distinction. Their shared `closure_counts` is:
+
+```json
+{"verified_auto_close": 0, "historical_candidates_unverified": 130, "other_auto_close_unverified": 0}
+```
+
+AUTO_CLOSE labels from legacy numeric rules, if ever emitted, are not silently counted as independent verification. Current pack has no verified-closure adapter. `/ui` renders these counts on the server and uses candidate badges/reference warnings in case details; the unresolved review category is excluded from final-sign options.
+
+Bundles record the same fields in `recommendation`, original classification in `inputs.alert.historical_classification`, and source/limitations in `inputs.resolution.closure_assessment` plus the rule trace. [Executed JSON/schema/UI excerpt](validation/historical-candidates-review/report.md).
 
 ## Evidence
 
@@ -47,7 +78,7 @@ signature against stale evidence `409`.
 ```bash
 curl -s -X POST localhost:8080/adjudicate -H 'content-type: application/json' \
   -d '{"event_id":"EXC-107133"}'
-# → "recommendation":"RELEASE_WITH_NOTE", "bundle_id":"EVB-…", "case_id":"CASE-…"
+# → "recommendation":"ESCALATED_TO_SENIOR_QA", "bundle_id":"EVB-…", "case_id":"CASE-…"
 
 curl -s -X POST localhost:8080/evidence/verify -H 'content-type: application/json' \
   -d '{"tenant_code":"T-KAVERI"}'

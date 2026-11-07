@@ -68,7 +68,9 @@ class CaseLifecycle:
         now = utc_now()
         # Priority: reportable with nearer deadline sorts first via store queue
         priority = 100.0 if regulator_reportable else 10.0
-        if recommendation == Disposition.AUTO_CLOSE:
+        if recommendation == Disposition.HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED:
+            state = CaseState.PENDING_EVIDENCE
+        elif recommendation == Disposition.AUTO_CLOSE:
             state = CaseState.TRIAGED_NON_ACTIONABLE
         elif recommendation in ACTIONABLE:
             state = CaseState.AWAITING_REVIEWER
@@ -104,6 +106,11 @@ class CaseLifecycle:
         case = self.store.get_case(case_id)
         if not case:
             raise KeyError(case_id)
+        if (
+            new_state == CaseState.CLOSED_AUTO
+            and case.get("recommendation") == Disposition.HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED
+        ):
+            raise TransitionError("unverified historical candidate cannot close automatically")
         cur = CaseState(case["state"])
         if new_state not in ALLOWED.get(cur, set()):
             raise TransitionError(f"{cur.value} -> {new_state.value} not allowed")
@@ -129,6 +136,8 @@ class CaseLifecycle:
         case's sealed bundle hash, so a signature can never attach to evidence
         the reviewer did not see.
         """
+        if disposition == Disposition.HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED:
+            raise TransitionError("historical candidate is an unresolved review state, not a final disposition")
         signer = (signed_by or "").strip()
         if not signer:
             raise ValueError("a named human signer is required")

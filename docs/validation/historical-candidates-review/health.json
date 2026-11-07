@@ -1,0 +1,219 @@
+{
+  "ok": true,
+  "generated_at_utc": "2026-11-07 09:59:17.953029",
+  "decision_mix": {
+    "ESCALATED_TO_SENIOR_QA": 290,
+    "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED": 130
+  },
+  "closure_counts": {
+    "verified_auto_close": 0,
+    "historical_candidates_unverified": 130,
+    "other_auto_close_unverified": 0
+  },
+  "baseline_mix": {
+    "AUTO_CLOSE": 0,
+    "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED": 130,
+    "ESCALATED_TO_SENIOR_QA": 290,
+    "RELEASE_WITH_NOTE": 0,
+    "DESTROY": 0,
+    "QUARANTINE_PENDING_LAB": 0
+  },
+  "reportable_in_pack": 28,
+  "deadline_breached_in_pack": 14,
+  "deadline_at_risk_pattern_rows": 2,
+  "chain_verification": {
+    "T-AURA": {
+      "tenant_code": "T-AURA",
+      "length": 33,
+      "ok": true,
+      "errors": []
+    },
+    "T-CAMPOS": {
+      "tenant_code": "T-CAMPOS",
+      "length": 26,
+      "ok": true,
+      "errors": []
+    },
+    "T-KAVERI": {
+      "tenant_code": "T-KAVERI",
+      "length": 44,
+      "ok": true,
+      "errors": []
+    },
+    "T-MERIDIAN": {
+      "tenant_code": "T-MERIDIAN",
+      "length": 16,
+      "ok": true,
+      "errors": []
+    },
+    "T-NORDIA": {
+      "tenant_code": "T-NORDIA",
+      "length": 28,
+      "ok": true,
+      "errors": []
+    },
+    "T-PINNACLE": {
+      "tenant_code": "T-PINNACLE",
+      "length": 26,
+      "ok": true,
+      "errors": []
+    },
+    "T-SAHYADRI": {
+      "tenant_code": "T-SAHYADRI",
+      "length": 83,
+      "ok": true,
+      "errors": []
+    },
+    "T-VIRENT": {
+      "tenant_code": "T-VIRENT",
+      "length": 164,
+      "ok": true,
+      "errors": []
+    }
+  },
+  "alerts": [
+    {
+      "name": "regulatory_deadline_breached",
+      "severity": "P1",
+      "metric": {
+        "breached_in_pack": 14,
+        "reportable": 28
+      },
+      "threshold": "breached > 0 on live traffic (board commitment 5: zero late filings)",
+      "page": "Regulatory Affairs on-call + QA Lead (Kavitha Reddy role)",
+      "runbook_step": "Pull storm-safe queue ordered by reg_deadline_utc; file notification from evidence bundle; open INC; do not wait for disposition.",
+      "firing": true
+    },
+    {
+      "name": "regulatory_deadline_at_risk",
+      "severity": "P2",
+      "metric": {
+        "at_risk_pattern_rows": 2
+      },
+      "threshold": "any reportable case with <25% of window remaining and no notification artefact",
+      "page": "QA reviewer shift lead",
+      "runbook_step": "Promote case to front of queue; attach partial evidence; draft notification; page Regulatory if <6h remain.",
+      "firing": true
+    },
+    {
+      "name": "evidence_chain_verification_failure",
+      "severity": "P1",
+      "metric": {
+        "tenants_failed": 0,
+        "per_tenant": {
+          "T-AURA": true,
+          "T-CAMPOS": true,
+          "T-KAVERI": true,
+          "T-MERIDIAN": true,
+          "T-NORDIA": true,
+          "T-PINNACLE": true,
+          "T-SAHYADRI": true,
+          "T-VIRENT": true
+        }
+      },
+      "threshold": "verify_chain ok == false for any tenant with length > 0",
+      "page": "Platform on-call",
+      "runbook_step": "Freeze sign-off for that tenant; restore evidence dir from WORM snapshot; re-verify; invalidate suspect bundle ids.",
+      "firing": false
+    },
+    {
+      "name": "decision_mix_drift",
+      "severity": "P1",
+      "metric": {
+        "max_abs_drift_pct": 0.0,
+        "mix": {
+          "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED": 130,
+          "ESCALATED_TO_SENIOR_QA": 290
+        },
+        "drift": {
+          "AUTO_CLOSE": {
+            "baseline": 0,
+            "observed": 0,
+            "delta": 0,
+            "abs_pct_of_pack": 0.0
+          },
+          "DESTROY": {
+            "baseline": 0,
+            "observed": 0,
+            "delta": 0,
+            "abs_pct_of_pack": 0.0
+          },
+          "ESCALATED_TO_SENIOR_QA": {
+            "baseline": 290,
+            "observed": 290,
+            "delta": 0,
+            "abs_pct_of_pack": 0.0
+          },
+          "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED": {
+            "baseline": 130,
+            "observed": 130,
+            "delta": 0,
+            "abs_pct_of_pack": 0.0
+          },
+          "QUARANTINE_PENDING_LAB": {
+            "baseline": 0,
+            "observed": 0,
+            "delta": 0,
+            "abs_pct_of_pack": 0.0
+          },
+          "RELEASE_WITH_NOTE": {
+            "baseline": 0,
+            "observed": 0,
+            "delta": 0,
+            "abs_pct_of_pack": 0.0
+          }
+        }
+      },
+      "threshold": "any disposition share drifts >5pp vs approved baseline (INC-2411 class)",
+      "page": "Platform on-call + Dr Rao delegate",
+      "runbook_step": "Halt rule_pack promotion; run shadow replay on golden set; publish diff; require Rao sign-off before re-enable.",
+      "firing": false
+    },
+    {
+      "name": "data_feed_staleness",
+      "severity": "P2",
+      "metric": {
+        "pack_path": "/workspace/kprod/data/KCCS_Sentinel_Reference_Data_Pack.xlsx",
+        "pack_age_hours": 14.88
+      },
+      "threshold": "reference feed age >24h in production (prototype: workbook mtime)",
+      "page": "Data Services on-call",
+      "runbook_step": "Check ThermaTrace/ERP/Docuvault connectors; if pack-only lab mode, re-run ingest --reload after feed repair.",
+      "firing": false
+    },
+    {
+      "name": "queue_age",
+      "severity": "P2",
+      "metric": {
+        "max_hours_to_notification_in_pack": 217.2,
+        "n_measured": 28
+      },
+      "threshold": "open actionable age >12h OR any reportable age >50% of its window (INC-2502)",
+      "page": "QA shift lead",
+      "runbook_step": "Enable storm brake; route unverified historical facility/duplicate candidates to human review; drain by reg_deadline_utc ASC.",
+      "firing": true
+    },
+    {
+      "name": "firmware_bulletin_change",
+      "severity": "P2",
+      "metric": {
+        "watched_firmware": "TT-2.14.3",
+        "events_on_fw": 91,
+        "firmware_histogram": {
+          "TT-2.13.8": 33,
+          "TT-2.14.3": 91,
+          "BMS-n/a": 96,
+          "CS-4.3": 38,
+          "TT-2.15.0": 104,
+          "CS-4.2": 30,
+          "CS-4.1": 28
+        }
+      },
+      "threshold": "vendor bulletin hash/version changes vs last approved ref_snapshot",
+      "page": "Platform on-call + Marieke de Vries notified on version change (Aurastat ask)",
+      "runbook_step": "Run shadow-bulletin; open Dr Rao gate; re-adjudicate affected firmware cohort; withdraw carrier invoices if liability flips (INC-2506).",
+      "firing": false
+    }
+  ],
+  "note": "Pack is stratified historical data; breached/at-risk counts here demonstrate the monitor against known INC/late rows, not live pages."
+}

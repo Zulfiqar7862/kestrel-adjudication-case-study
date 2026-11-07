@@ -49,7 +49,18 @@ def _svc_from_args(args: argparse.Namespace) -> AdjudicationService:
     return AdjudicationService(settings)
 
 
-RESULT_CSV_FIELDS = ["event_id", "tenant_code", "recommendation", "bundle_id", "case_id", "reg_deadline_utc"]
+RESULT_CSV_FIELDS = [
+    "event_id",
+    "tenant_code",
+    "recommendation",
+    "bundle_id",
+    "case_id",
+    "reg_deadline_utc",
+    "historical_classification",
+    "closure_eligibility",
+    "independent_closure_evidence",
+    "requires_human_review",
+]
 SHOWCASE_EVENT_ID = "EXC-107133"
 
 
@@ -149,6 +160,8 @@ def _cmd_adjudicate_one(svc: AdjudicationService, args: argparse.Namespace) -> i
         {
             "event_id": result.event_id,
             "recommendation": result.recommendation,
+            **result.closure_fields(),
+            "requires_human_signature": result.requires_human_signature,
             "confidence": result.confidence,
             "bundle_id": (out["bundle"] or {}).get("bundle_id"),
             "case_id": (out["case"] or {}).get("case_id"),
@@ -166,7 +179,13 @@ def _cmd_adjudicate(svc: AdjudicationService, args: argparse.Namespace) -> int:
     _write_results_csv(summary["rows"], out_path)
     counts = Counter(row["recommendation"] for row in summary["rows"])
     _print_json(
-        {"count": summary["count"], "out": str(out_path), "snapshot_id": summary["snapshot_id"], "counts": dict(counts)}
+        {
+            "count": summary["count"],
+            "out": str(out_path),
+            "snapshot_id": summary["snapshot_id"],
+            "counts": dict(counts),
+            "closure_counts": summary["closure_counts"],
+        }
     )
     return 0
 
@@ -181,6 +200,7 @@ def _cmd_run_all(svc: AdjudicationService, args: argparse.Namespace) -> int:
         {
             "count": summary["count"],
             "counts": dict(sorted(counts.items())),
+            "closure_counts": summary["closure_counts"],
             SHOWCASE_EVENT_ID: showcase,
             "out": str(out_path),
             "snapshot_id": summary["snapshot_id"],
@@ -268,6 +288,7 @@ def _cmd_health(svc: AdjudicationService, args: argparse.Namespace) -> int:
 
 AGREEMENT_HEADLINE_KEYS = (
     "events_total",
+    "closure_counts",
     "events_with_historical_final",
     "agree_with_historical_final",
     "agree_with_historical_final_pct",

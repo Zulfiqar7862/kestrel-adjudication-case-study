@@ -1,0 +1,1048 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Kestrel Sentinel Adjudication API",
+    "description": "As-of adjudication, evidence basis, shadow replay, queue.",
+    "version": "0.4.3"
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Health",
+        "description": "Liveness + rule-pack identity.",
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/_HealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/adjudicate": {
+      "post": {
+        "summary": "Adjudicate",
+        "description": "Adjudicate one event and optionally persist evidence + case.",
+        "operationId": "adjudicate_adjudicate_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/_AdjudicateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/_AdjudicateResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cases/{case_id}/sign": {
+      "post": {
+        "summary": "Sign Case",
+        "description": "Lifecycle: named human sign-off, bound to the mandatory viewed evidence hash.",
+        "operationId": "sign_case_cases__case_id__sign_post",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          },
+          {
+            "name": "signed_by",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "title": "Signed By"
+            }
+          },
+          {
+            "name": "disposition",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "title": "Disposition"
+            }
+          },
+          {
+            "name": "reason",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Reason"
+            }
+          },
+          {
+            "name": "bundle_hash",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "description": "content_hash the reviewer viewed",
+              "title": "Bundle Hash"
+            },
+            "description": "content_hash the reviewer viewed"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Sign Case Cases  Case Id  Sign Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cases/{case_id}/reopen": {
+      "post": {
+        "summary": "Reopen Case",
+        "description": "Lifecycle: reopen a closed case (bulletin / customer / audit).",
+        "operationId": "reopen_case_cases__case_id__reopen_post",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          },
+          {
+            "name": "reason",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "default": "reopened",
+              "title": "Reason"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Reopen Case Cases  Case Id  Reopen Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cases/{case_id}": {
+      "get": {
+        "summary": "Get Case",
+        "description": "Fetch one case record.",
+        "operationId": "get_case_cases__case_id__get",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Get Case Cases  Case Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/evidence/{bundle_id}": {
+      "get": {
+        "summary": "Get Evidence",
+        "description": "Fetch one evidence bundle with tenant isolation.",
+        "operationId": "get_evidence_evidence__bundle_id__get",
+        "parameters": [
+          {
+            "name": "bundle_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Bundle Id"
+            }
+          },
+          {
+            "name": "tenant_code",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Tenant Code"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Get Evidence Evidence  Bundle Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/evidence/basis": {
+      "post": {
+        "summary": "Evidence Basis",
+        "description": "Board commitment 3 \u2014 full reconstructable basis.",
+        "operationId": "evidence_basis_evidence_basis_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/_BasisRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Evidence Basis Evidence Basis Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/evidence/verify": {
+      "post": {
+        "summary": "Evidence Verify",
+        "description": "Verify per-tenant evidence hash chain.",
+        "operationId": "evidence_verify_evidence_verify_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/_VerifyRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Evidence Verify Evidence Verify Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/replay": {
+      "post": {
+        "summary": "Replay",
+        "description": "Replay adjudication from a stored bundle.",
+        "operationId": "replay_replay_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/_ReplayRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Replay Replay Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/shadow/bulletin": {
+      "get": {
+        "summary": "Shadow Bulletin",
+        "description": "Dr Rao gate \u2014 TT-CB-114 shadow diff summary.",
+        "operationId": "shadow_bulletin_shadow_bulletin_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Shadow Bulletin Shadow Bulletin Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/queue": {
+      "get": {
+        "summary": "Queue",
+        "description": "Storm-safe priority queue ordered by regulatory deadline.",
+        "operationId": "queue_queue_get",
+        "parameters": [
+          {
+            "name": "tenant_code",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Tenant Code"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 500,
+              "minimum": 1,
+              "default": 20,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Queue Queue Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/as-of/sop": {
+      "get": {
+        "summary": "As Of Sop",
+        "description": "SOP in force as-at a date (AUD-2603 shape).",
+        "operationId": "as_of_sop_as_of_sop_get",
+        "parameters": [
+          {
+            "name": "tenant_code",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Tenant Code"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "YYYY-MM-DD",
+              "title": "Date"
+            },
+            "description": "YYYY-MM-DD"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response As Of Sop As Of Sop Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ops/health-report": {
+      "get": {
+        "summary": "Ops Health Report",
+        "description": "Full 3am monitoring catalog (same payload as CLI `health`).",
+        "operationId": "ops_health_report_ops_health_report_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/_MetricsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ops/agreement": {
+      "get": {
+        "summary": "Ops Agreement",
+        "description": "Agreement stratification (same payload as CLI `agreement`).",
+        "operationId": "ops_agreement_ops_agreement_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/_MetricsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/events": {
+      "get": {
+        "summary": "List Events",
+        "description": "All pack events with the deterministic recommendation, ordered by regulatory deadline.",
+        "operationId": "list_events_events_get",
+        "parameters": [
+          {
+            "name": "tenant_code",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Tenant Code"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/_EventsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/events/{event_id}": {
+      "get": {
+        "summary": "Event Detail",
+        "description": "Read-only adjudication of one event: facts, uncertainty scenarios, as-of basis and rule trace.",
+        "operationId": "event_detail_events__event_id__get",
+        "parameters": [
+          {
+            "name": "event_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Event Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/_AdjudicateResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CaseState": {
+        "type": "string",
+        "enum": [
+          "NEW",
+          "TRIAGED_NON_ACTIONABLE",
+          "PENDING_EVIDENCE",
+          "RECOMMENDED",
+          "AWAITING_REVIEWER",
+          "RETURNED_FOR_DATA",
+          "PENDING_LAB",
+          "PENDING_SECOND_SIGN",
+          "CLOSED_AUTO",
+          "CLOSED_SIGNED",
+          "REOPENED"
+        ],
+        "title": "CaseState",
+        "description": "Case lifecycle states from NEW through CLOSED_* and REOPENED."
+      },
+      "Disposition": {
+        "type": "string",
+        "enum": [
+          "AUTO_CLOSE",
+          "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+          "RELEASE",
+          "RELEASE_WITH_NOTE",
+          "QUARANTINE_PENDING_LAB",
+          "DESTROY",
+          "RETURN_TO_ORIGIN",
+          "REWORK_RELABEL",
+          "ESCALATED_TO_SENIOR_QA"
+        ],
+        "title": "Disposition",
+        "description": "Allowed disposition / recommendation values for an excursion case."
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "_AdjudicateRequest": {
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Event Id"
+          },
+          "persist": {
+            "type": "boolean",
+            "title": "Persist",
+            "default": true
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_id"
+        ],
+        "title": "_AdjudicateRequest",
+        "description": "POST /adjudicate body."
+      },
+      "_AdjudicateResponse": {
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "title": "Event Id"
+          },
+          "tenant_code": {
+            "type": "string",
+            "title": "Tenant Code"
+          },
+          "recommendation": {
+            "$ref": "#/components/schemas/Disposition"
+          },
+          "confidence": {
+            "type": "number",
+            "title": "Confidence"
+          },
+          "triage_label": {
+            "type": "string",
+            "title": "Triage Label"
+          },
+          "case_state": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CaseState"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "requires_human_signature": {
+            "type": "boolean",
+            "title": "Requires Human Signature"
+          },
+          "requires_human_review": {
+            "type": "boolean",
+            "title": "Requires Human Review"
+          },
+          "historical_classification": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Historical Classification",
+            "description": "Unverified historical reference, not independent evidence"
+          },
+          "closure_eligibility": {
+            "type": "string",
+            "enum": [
+              "not_eligible",
+              "historical_candidate_unverified",
+              "rule_supported_unverified"
+            ],
+            "title": "Closure Eligibility"
+          },
+          "independent_closure_evidence": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Independent Closure Evidence",
+            "description": "Independent verification artifacts; empty in supplied pack"
+          },
+          "rationale": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Rationale"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "required": [
+          "event_id",
+          "tenant_code",
+          "recommendation",
+          "confidence",
+          "triage_label",
+          "requires_human_signature",
+          "requires_human_review",
+          "historical_classification",
+          "closure_eligibility",
+          "independent_closure_evidence"
+        ],
+        "title": "_AdjudicateResponse",
+        "description": "Recommendation is not a verification claim; historical candidates need review."
+      },
+      "_BasisRequest": {
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Event Id"
+          },
+          "tenant_code": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Tenant Code"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_id",
+          "tenant_code"
+        ],
+        "title": "_BasisRequest",
+        "description": "POST /evidence/basis body."
+      },
+      "_ClosureCounts": {
+        "properties": {
+          "verified_auto_close": {
+            "type": "integer",
+            "title": "Verified Auto Close"
+          },
+          "historical_candidates_unverified": {
+            "type": "integer",
+            "title": "Historical Candidates Unverified"
+          },
+          "other_auto_close_unverified": {
+            "type": "integer",
+            "title": "Other Auto Close Unverified"
+          }
+        },
+        "type": "object",
+        "required": [
+          "verified_auto_close",
+          "historical_candidates_unverified",
+          "other_auto_close_unverified"
+        ],
+        "title": "_ClosureCounts"
+      },
+      "_EventsResponse": {
+        "properties": {
+          "closure_counts": {
+            "$ref": "#/components/schemas/_ClosureCounts"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          },
+          "counts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Counts"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/_AdjudicateResponse"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "required": [
+          "closure_counts",
+          "count",
+          "counts",
+          "items"
+        ],
+        "title": "_EventsResponse"
+      },
+      "_HealthResponse": {
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "title": "Ok"
+          },
+          "snapshot_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Snapshot Id"
+          },
+          "rule_pack_version": {
+            "type": "string",
+            "title": "Rule Pack Version"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ok",
+          "rule_pack_version"
+        ],
+        "title": "_HealthResponse",
+        "description": "GET /health payload."
+      },
+      "_MetricsResponse": {
+        "properties": {
+          "closure_counts": {
+            "$ref": "#/components/schemas/_ClosureCounts"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "required": [
+          "closure_counts"
+        ],
+        "title": "_MetricsResponse"
+      },
+      "_ReplayRequest": {
+        "properties": {
+          "bundle_id": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Bundle Id"
+          },
+          "tenant_code": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Tenant Code"
+          }
+        },
+        "type": "object",
+        "required": [
+          "bundle_id",
+          "tenant_code"
+        ],
+        "title": "_ReplayRequest",
+        "description": "POST /replay body."
+      },
+      "_VerifyRequest": {
+        "properties": {
+          "tenant_code": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Tenant Code"
+          }
+        },
+        "type": "object",
+        "required": [
+          "tenant_code"
+        ],
+        "title": "_VerifyRequest",
+        "description": "POST /evidence/verify body."
+      }
+    }
+  }
+}

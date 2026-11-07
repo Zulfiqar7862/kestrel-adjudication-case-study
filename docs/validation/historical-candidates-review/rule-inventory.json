@@ -1,0 +1,47 @@
+[
+  {
+    "recommendation": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_cumulative_history_unresolved",
+    "count": 20
+  },
+  {
+    "recommendation": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_presentation_mismatch",
+    "count": 3
+  },
+  {
+    "recommendation": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_release_authority_gate",
+    "count": 36
+  },
+  {
+    "recommendation": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority",
+    "count": 183
+  },
+  {
+    "recommendation": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_unresolved_identity",
+    "count": 21
+  },
+  {
+    "recommendation": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_unresolved_storage",
+    "count": 26
+  },
+  {
+    "recommendation": "ESCALATED_TO_SENIOR_QA",
+    "rule": "temperature_uncertainty_gate",
+    "count": 1
+  },
+  {
+    "recommendation": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "rule": "rule_duplicate_alert",
+    "count": 93
+  },
+  {
+    "recommendation": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "rule": "rule_facility_equipment_event",
+    "count": 37
+  }
+]

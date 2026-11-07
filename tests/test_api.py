@@ -70,7 +70,8 @@ class TestReviewerDashboard(_KestrelTestCase):
             self.assertIn(marker, page.text)
         ev = c.get("/events").json()
         self.assertEqual(ev["count"], 420)
-        self.assertEqual(ev["counts"]["AUTO_CLOSE"], 130)
+        self.assertEqual(ev["counts"].get("AUTO_CLOSE", 0), 0)
+        self.assertEqual(ev["counts"]["HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"], 130)
         self.assertEqual(c.get("/events/EXC-107133").json()["recommendation"], ESCALATE)
 
     def test_sign_requires_named_signer_and_current_evidence(self) -> None:

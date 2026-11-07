@@ -1,0 +1,230 @@
+duplicate rows 107 nonempty notes 11
+[
+  {
+    "event_id": "EXC-110770",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-110735",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-110756",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-110819",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-111078",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-110966",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2; Extended gateway gap \u2014 window partly reconstructed"
+  },
+  {
+    "event_id": "EXC-111029",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-110763",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-110987",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-110952",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-110826",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  }
+]
+facility equipment event rows 43 nonempty notes 25
+[
+  {
+    "event_id": "EXC-111008",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-111064",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-110854",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-111071",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-110847",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-111043",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-111015",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-111036",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-110945",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-110980",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-111057",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-110742",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-110812",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-110903",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-110784",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-111568",
+    "notes": "Extended gateway gap \u2014 window partly reconstructed"
+  },
+  {
+    "event_id": "EXC-110924",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-110840",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-110889",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-111001",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-110791",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-110721",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-110728",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-110525",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-110833",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  }
+]
+sensor artefact rows 40 nonempty notes 13
+[
+  {
+    "event_id": "EXC-111617",
+    "notes": "Extended gateway gap \u2014 window partly reconstructed"
+  },
+  {
+    "event_id": "EXC-111197",
+    "notes": "Extended gateway gap \u2014 window partly reconstructed"
+  },
+  {
+    "event_id": "EXC-110896",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-110882",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-110910",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-111659",
+    "notes": "Extended gateway gap \u2014 window partly reconstructed"
+  },
+  {
+    "event_id": "EXC-111211",
+    "notes": "Extended gateway gap \u2014 window partly reconstructed"
+  },
+  {
+    "event_id": "EXC-110917",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-112401",
+    "notes": "Extended gateway gap \u2014 window partly reconstructed"
+  },
+  {
+    "event_id": "EXC-111232",
+    "notes": "Extended gateway gap \u2014 window partly reconstructed"
+  },
+  {
+    "event_id": "EXC-112184",
+    "notes": "Extended gateway gap \u2014 window partly reconstructed"
+  },
+  {
+    "event_id": "EXC-110959",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-110931",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  }
+]
+dock door rows 30 nonempty notes 5
+[
+  {
+    "event_id": "EXC-110798",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-110861",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-110777",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-110973",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  },
+  {
+    "event_id": "EXC-110700",
+    "notes": "Coincident with chiller controller failure, Whitefield Cold Store 2"
+  }
+]
+Event cross references in all event text fields:
+Event keys: ['event_id', 'alert_ts_utc', 'tenant_code', 'shipment_ref', 'leg_no', 'source_system', 'logger_id', 'logger_vendor', 'logger_fw', 'product_ref_as_received', 'origin_ref_as_received', 'dest_ref_as_received', 'lane_text', 'carrier_ref_as_received', 'mode', 'excursion_start_utc', 'excursion_end_utc', 'duration_min', 'min_temp_c', 'max_temp_c', 'mean_temp_c', 'spec_text_as_received', 'readings_in_window', 'gateway_gap_min', 'interpolated', 'dock_door_open_flag', 'prior_excursions_lane_90d', 'consignment_value_usd', 'case_opened', 'triage_outcome', 'rules_engine_recommendation', 'final_disposition', 'reviewer_id', 'review_minutes', 'systems_opened', 'reviewer_overrode', 'days_to_disposition', 'regulator_reportable', 'reg_window_hours', 'hours_to_notification', 'reported_within_window', 'reopened_later', 'notes', '_alert_ts', '_excursion_start', '_excursion_end']

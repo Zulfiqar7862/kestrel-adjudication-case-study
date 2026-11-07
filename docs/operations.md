@@ -1,5 +1,7 @@
 # Operations runbook
 
+These specific defects were addressed; overall safety and production readiness remain unvalidated.
+
 ## Configuration
 
 Every setting has a default and can be overridden with an environment variable (see `.env.example`).
@@ -57,3 +59,9 @@ which is ordered by deadline (`kestrel queue`).
 
 * lint and tests on Python 3.10, 3.11, 3.12 and 3.13, plus a CLI smoke test;
 * a Docker build that starts the container and calls `/health`, `/ui` and `/adjudicate`.
+
+## Historical review is not verified closure (0.4.3)
+
+The inspected 420-row rerun is **0 AUTO_CLOSE / 130 unverified historical candidates / 290 QA**, with note/quarantine/destroy all zero. The former 130 closures were 93 historical duplicate and 37 historical facility/no-product labels; no independent duplicate or load evidence was found. They now remain PENDING_EVIDENCE in the open human queue. Do not auto-close historical labels during a storm.
+
+Health, agreement, run-all/CLI and dashboard expose separate `closure_counts`: verified AUTO_CLOSE 0, historical candidates 130, other unverified AUTO_CLOSE 0. The health mix baseline was updated only after inspecting the run; it is a sample regression baseline, not approved production policy. Historical-final agreement is 4/200; assistant agreement is 0/420, not a target to optimize. [Validation and exact commands](validation/historical-candidates-review/report.md).

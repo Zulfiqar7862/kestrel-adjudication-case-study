@@ -1,8 +1,18 @@
-# Current explicit-storage review: rule/code 0.4.2
+# Current historical-candidate review: rule/code 0.4.3
 
 These specific defects were addressed; overall safety and production readiness remain unvalidated.
 
-[Executed report, full 86-case table, outcome diff and AUTO_CLOSE path inventory](storage-limits-review/report.md). Current sample counts are **130/290/0/0/0** in AUTO_CLOSE/QA/note/quarantine/destroy order, versus **111/309/0/0/0** at 541202b. There are 35 changes: 27 QA→historical AUTO_CLOSE and 8 AUTO_CLOSE→QA for unresolved nominal cryogenic instructions. No production extrapolation or count optimisation.
+[Executed report, test-first failures/passes, all 130 changed IDs, API/schema/UI/evidence and replay/chain results](historical-candidates-review/report.md).
+
+Before: **130/290/0/0/0** in AUTO_CLOSE/QA/note/quarantine/destroy order. After: **0/290/0/0/0**, plus **130 HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED** (93 duplicate, 37 facility/no-product). Verified AUTO_CLOSE **0**, historical candidates **130**, other unverified AUTO_CLOSE **0** are always counted separately. Historical text remains reference, never independent duplicate/load verification. No production accuracy or count optimization is claimed.
+
+---
+
+## Historical 0.4.2 explicit-storage review
+
+These specific defects were addressed; overall safety and production readiness remain unvalidated.
+
+[Executed report, full 86-case table, outcome diff and AUTO_CLOSE path inventory](storage-limits-review/report.md). At 0.4.2 sample counts were **130/290/0/0/0** in AUTO_CLOSE/QA/note/quarantine/destroy order, versus **111/309/0/0/0** at 541202b. There are 35 changes: 27 QA→historical AUTO_CLOSE and 8 AUTO_CLOSE→QA for unresolved nominal cryogenic instructions. No production extrapolation or count optimisation.
 
 The records below are retained historical validation, not current results.
 

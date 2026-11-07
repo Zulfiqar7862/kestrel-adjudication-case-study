@@ -10,8 +10,8 @@ How it works
 
 Any rule may add a plain-English line to ``trace``; that list becomes the
 "why this recommendation" rationale a reviewer sees. Order matters and is part of
-the rule pack version: cheap non-actionable triages first, then hard escalations,
-then temperature and stability arithmetic, then a conservative fallback.
+the rule pack version: insufficient-evidence gates first, historical classifications
+to unresolved review, then authority checks/arithmetic and a conservative fallback.
 """
 
 from __future__ import annotations
@@ -26,6 +26,7 @@ from kestrel.rules.stability import StabilityPosition
 from kestrel.utils import to_float
 
 AUTO_CLOSE = "AUTO_CLOSE"
+HISTORICAL_CANDIDATE = "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
 RELEASE = "RELEASE"
 RELEASE_WITH_NOTE = "RELEASE_WITH_NOTE"
 QUARANTINE_PENDING_LAB = "QUARANTINE_PENDING_LAB"
@@ -169,19 +170,17 @@ def rule_cumulative_history_unresolved(f: ExcursionFacts, trace: list[str]) -> O
 
 
 def rule_facility_equipment_event(f: ExcursionFacts, trace: list[str]) -> Optional[Verdict]:
-    """INC-2502 BMS storms: facility alarms with no product loaded close automatically."""
-    if "facility equipment event" not in f.triage:
+    """Historical facility/no-load classification is not an independent load record."""
+    if historical_closure_kind(f.triage) != "facility":
         return None
-    trace.append("Triage indicates facility equipment event with no product loaded")
-    return Verdict(AUTO_CLOSE, "NON_ACTIONABLE — facility equipment event, no product loaded", 0.85)
+    return historical_candidate("facility", trace)
 
 
 def rule_duplicate_alert(f: ExcursionFacts, trace: list[str]) -> Optional[Verdict]:
-    """A duplicate of an earlier alert adds no new evidence."""
+    """A historical duplicate label is not a verified link to a canonical alert."""
     if "duplicate" not in f.triage:
         return None
-    trace.append("Triage indicates duplicate of earlier alert")
-    return Verdict(AUTO_CLOSE, "NON_ACTIONABLE — duplicate of earlier alert", 0.8)
+    return historical_candidate("duplicate", trace)
 
 
 def rule_gateway_gap(f: ExcursionFacts, trace: list[str]) -> Optional[Verdict]:
@@ -248,24 +247,23 @@ def rule_unreadable_stability(f: ExcursionFacts, trace: list[str]) -> Optional[V
 
 
 def rule_sensor_artefact(f: ExcursionFacts, trace: list[str]) -> Optional[Verdict]:
-    """Close a sensor artefact only when there is no gap and the peak is near the label."""
+    """Near-limit summaries do not independently verify a historical sensor label."""
     if "sensor artefact" not in f.triage or f.gateway_gap_min != 0:
         return None
     if not f.max_within(f.label_high_c, SENSOR_ARTEFACT_TOLERANCE_C):
         return None
-    trace.append("Sensor artefact triage; corrected temp near labelled range")
-    return Verdict(AUTO_CLOSE, "NON_ACTIONABLE — sensor artefact", 0.75)
+    return historical_candidate("sensor", trace)
 
 
 def rule_dock_door(f: ExcursionFacts, trace: list[str]) -> Optional[Verdict]:
-    """Short dock-door ambient exposure; closes only if triage also says dock door."""
+    """Flag/duration heuristics do not verify a historical dock-door classification."""
     if not (f.dock_door_open and f.duration_min <= DOCK_DOOR_MAX_MINUTES):
         return None
     if not f.max_within(f.label_high_c, DOCK_DOOR_TOLERANCE_C):
         return None
     trace.append("Short dock-door ambient exposure pattern")
     if "dock door" in f.triage:
-        return Verdict(AUTO_CLOSE, "NON_ACTIONABLE — dock door / ambient exposure", 0.7)
+        return historical_candidate("dock", trace)
     return None
 
 
@@ -436,6 +434,13 @@ def decide(facts: ExcursionFacts) -> tuple[Verdict, list[str]]:
             trace.append("Escalate: release authority unresolved — " + "; ".join(issues))
             verdict = Verdict(ESCALATE, "ACTIONABLE — release authority unresolved", 0.0)
             deciding_rule = "rule_release_authority_gate"
+    # No later numeric/noise rule may convert a historical closure label into
+    # automatic closure. Stronger QA/evidence gates above retain precedence.
+    historical_kind = historical_closure_kind(facts.triage)
+    if verdict.disposition == AUTO_CLOSE and historical_kind:
+        trace.append("Historical classification intercepted AUTO_CLOSE from " + deciding_rule)
+        verdict = historical_candidate(historical_kind, trace)
+        deciding_rule = "rule_historical_closure_guard"
     trace.append("Decision rule: " + deciding_rule)
     if facts.limits.constraints:
         trace.append(
@@ -447,12 +452,37 @@ def decide(facts: ExcursionFacts) -> tuple[Verdict, list[str]]:
     return verdict, trace
 
 
+HISTORICAL_CLOSURE_LIMITATIONS = {
+    "facility": "Unverified historical classification: facility/no product loaded; not independent load verification",
+    "duplicate": "Unverified historical classification: duplicate; not independent duplicate verification",
+    "sensor": "Unverified historical classification: sensor artefact; not independent sensor verification",
+    "dock": "Unverified historical classification: dock door; not independent load/exposure verification",
+}
+
+
+def historical_closure_kind(triage: str) -> Optional[str]:
+    """Recognize reference labels only; recognition never establishes truth."""
+    triage = triage.lower()
+    if "facility equipment event" in triage or "no product loaded" in triage or triage.strip() == "facility":
+        return "facility"
+    if "duplicate" in triage:
+        return "duplicate"
+    if "sensor artefact" in triage or "sensor artifact" in triage:
+        return "sensor"
+    if "dock door" in triage or "dock-door" in triage:
+        return "dock"
+    return None
+
+
+def historical_candidate(kind: str, trace: list[str]) -> Verdict:
+    """No independent duplicate/load verification artifact exists in this pack."""
+    trace.append("Historical closure limitation: " + HISTORICAL_CLOSURE_LIMITATIONS[kind])
+    trace.append("Unresolved: independent closure evidence unavailable; human review required")
+    return Verdict(HISTORICAL_CANDIDATE, "HISTORICAL_UNVERIFIED — " + kind, 0.0)
+
+
 AUTO_CLOSE_PATH_LIMITATIONS = {
-    "rule_facility_equipment_event": "Unverified historical classification: facility/no product loaded; not independent load verification",
-    "rule_duplicate_alert": "Unverified historical classification: duplicate; not independent duplicate verification",
     "rule_gateway_gap": "Provided gap/interpolation flags and summaries; heuristic, not independent raw-series verification",
-    "rule_sensor_artefact": "Unverified historical classification: sensor artefact; not independent sensor verification; near-limit heuristic",
-    "rule_dock_door": "Unverified historical classification: dock door; not independent load/exposure verification; flag/duration heuristic",
     "rule_within_label_range": "Parsed temperature limits checked against supplied summaries only; other storage constraints and raw-series completeness not independently verified",
     "rule_stability_allowance": "Indexed single-event allowance candidate, not universal safety; governing authority gate still required",
 }

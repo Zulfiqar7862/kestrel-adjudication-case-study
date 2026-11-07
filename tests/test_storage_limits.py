@@ -2,7 +2,7 @@
 
 import pytest
 
-from kestrel.decision_rules import AUTO_CLOSE, ESCALATE, decide
+from kestrel.decision_rules import AUTO_CLOSE, ESCALATE, HISTORICAL_CANDIDATE, decide
 from kestrel.engine import AdjudicationEngine
 from kestrel.rules import as_of
 from tests.test_decision_rules import make_facts
@@ -123,10 +123,10 @@ def test_extra_constraints_are_preserved_without_becoming_numeric_bounds():
 
 
 @pytest.mark.parametrize("triage", ["Duplicate", "Facility equipment event", "Sensor artefact", "dock door"])
-def test_historical_autoclose_has_explicit_unverified_provenance(triage):
+def test_historical_candidate_has_explicit_unverified_provenance(triage):
     facts = make_facts(corrected_max_c=8, event={"triage_outcome": triage, "dock_door_open_flag": "Y"}, duration_min=10)
     verdict, trace = decide(facts)
-    assert verdict.disposition == AUTO_CLOSE
+    assert verdict.disposition == HISTORICAL_CANDIDATE
     assert any(
         "unverified historical classification" in line.lower() and "not independent" in line.lower() for line in trace
     )

@@ -1,0 +1,25 @@
+{
+  "bundle_id": "EVB-b9394dd189b89986",
+  "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+  "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+  "identical": true,
+  "original_reasoning": [
+    "Product identity weak (unresolved): blank product_ref_as_received",
+    "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+    "Historical closure limitation: Unverified historical classification: duplicate; not independent duplicate verification",
+    "Unresolved: independent closure evidence unavailable; human review required",
+    "Decision rule: rule_duplicate_alert"
+  ],
+  "replay_reasoning": [
+    "Product identity weak (unresolved): blank product_ref_as_received",
+    "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+    "Historical closure limitation: Unverified historical classification: duplicate; not independent duplicate verification",
+    "Unresolved: independent closure evidence unavailable; human review required",
+    "Decision rule: rule_duplicate_alert"
+  ],
+  "versions": {
+    "rule_pack_version": "0.4.3",
+    "ref_snapshot_id": "snap-b5329178f806",
+    "code_version": "0.4.3"
+  }
+}

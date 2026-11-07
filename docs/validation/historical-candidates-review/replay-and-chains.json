@@ -1,0 +1,2576 @@
+{
+  "replayed": 420,
+  "identical": 420,
+  "replay_rows": [
+    {
+      "bundle_id": "EVB-b9394dd189b89986",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-e9e9b1e955e79a12",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-c6203b10e66c188a",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-98703ebc6602b286",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-a9dac9bc8e8c613c",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-cdd2049241b1858d",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-e3b97a460c7afd1f",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-c700bb92e963033a",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-257d8e6fb2acc827",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-3c8ba30185c75177",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-4a5c0624b595e4d2",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-0aaf70a56bb932f2",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-9fd3ffff38642b8d",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-90b5ac132832560c",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-bd6015278ae28229",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-690a0113f19a29b2",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-04d3c7302f81a169",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-12bf24c3c9711546",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-19b7445049ca1589",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-fb5cf7c3277773ae",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-4e257c8e754cb7fb",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-529a2fbb547bfceb",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-b70090199a711e6e",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-0fa899ab30b4089a",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-5189586766171f69",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-41dd5b4b566f1e5f",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-408523f6f915a085",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-125f02bb1a800d4b",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-2cd907298928fbdb",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-4f071b2a8257de3d",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-b30e010c0b596555",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-c12f3e5a57f66754",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-28207c7a27ceb934",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-6fc77d335fc51641",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-b7437f17d28f9399",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-2becc489a517987b",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-6f1f7ecd52abee9f",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-78fb050d6e5c045b",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-ad6f60b0d990efc3",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-c79d70a82f2b7439",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-ffce7e2956ccdec1",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-07cb6782319771b3",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-52bd98dac98de14f",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-fcd7629db07037af",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-1a0771bea9518f8e",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-42968a8381865250",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-8892c2122d85c8cc",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-66be0c3775fd136d",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-9aecb469b0069b9d",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-aac32553f3c84419",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-620228a25b49e338",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-b4202e2d9a7514cb",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-8749ab642c6c8940",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-e9cdeeec0f040b03",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-e7d3b42c3537f0df",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-f9147e299c8b6092",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-5a5965ce81ae4938",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-f645b3dfe958ab1c",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-cbe7e01335dbfad9",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-057ccfe7b7cf0440",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-9e2295be28ccef0a",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-3128609ae9e57e94",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-fdd50f1af4475662",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-9c85c75258b995c4",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-e5393e17dee48c61",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-4b89415d7fbd0e83",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-28435aa296aee301",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-f1e1b68c0819d2bc",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-488dbf66c3930c38",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-7952a4bf0a8e51ca",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-5e60af8f579bded1",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-07ce79c7da9df1eb",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-f0a70602e862bef3",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-a2f22e9fd8538013",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-e926cf9cb309d3b3",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-cc7401b68ef0139b",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-e270314322baee74",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-53dace6ffd20cc9f",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-4f03d19969e8f438",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-c9fdf6ea92f71232",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-6c7d141d05915dfa",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-df663d542415fea3",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-9a7ead9d8ca52e08",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-9ce8d13d76bd5b76",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-5b0ba3aad98dde8c",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-fd4e689be43d33eb",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-08b4c90fd7fbf9a3",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-48c32e2d87a1657f",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-25cff0b3e9b5a7ab",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-ffd1df6775b4642d",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-8579801a530c4a49",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-765944934cbcc432",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-20a614a18b45d501",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-781e801761802ee9",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-e1b9a7661b2802d9",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-3e15c48ee7371590",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-1ee23974cb2ade94",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-56e09cf7c74c6527",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-53b96d4f918af7a2",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-d8ae339ba0c21678",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-29f0f39779362f16",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-ec7bdc8df86dadb4",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-705b1bf92088cce1",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-396de141f596f9fa",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-ca6e51831d33774e",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-8161c8e26d1f2059",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-2d6899f0fb6a92d4",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-f573e6637328f885",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-32a0af6a627faf18",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-f9baf7e46351af6c",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-e503837fb0511cb7",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-a8f88fa9e43345c2",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-fd5bf59e55d55b7d",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-44c4bcd8656e60ca",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-dc6e8db7a21aeaf3",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-34d1622d16b2c2c2",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-294a213d2cb3d7e4",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-8a8f967da9dede4a",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-87ade4c880cd26cc",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-cd5bbd0a4f3d5e5e",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-69827662a8ea6421",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-2d318f37d222a517",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-ae42ae4c8d1ef716",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-eeb937a2acc04e8f",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-4da9d0d8be029881",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-49f6824784332990",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-319a947e4f0f21c0",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-4e4d620ed4b54baa",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-7084b73fa7ed2abc",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-7e505748097631a2",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-67f165df3fc5cbb7",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-587d20644f69c36f",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-01342974e1c2edd8",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-63f714041f57cc6f",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-ba4c5e2e92dc72f8",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-74bcfcc544b0b5ab",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-1819cab8b3ec2b77",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-e91b4f44929013ff",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-c50ed207dbc07a9a",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-9157eea8382ac455",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-67a500b62585dfa3",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-d91c183b02ca329c",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-1e3b252ab9cb9382",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-2ec018cd79f8dc69",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-e561a3486cb72bb6",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-33f3e2892f8ec1d0",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-5133d0ae87e87c21",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-3dfd73a35391e961",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-29df45c2be76d94d",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-538af0d31f4a3733",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-d0fe1de9023d5ec3",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-21f2d6bac0e7a0bf",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-181d4f4d30a3c673",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-19fa666999b2ce0b",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-a685062cd4c629f4",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-53bb5900595c1708",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-ec65bdf7df350c80",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-4a1b1e08f799d741",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-d1b2b25556c1bea8",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-01e79c3df07873c2",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-55864eedc4177264",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-8e56137523a8f97e",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-25c6f729d95ee53d",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-7ed98bb3d271238c",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-248c189e66792825",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-6ca9e7927cfc17e2",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-db86cad80c81ee5c",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-b524b4b530c11517",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-ed0731ba8faf806a",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-23cc059d55fe0f75",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-daab07d81d4f62fe",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-04326abd0e4ac5b5",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-ee5244e09779e037",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-f28d2c1b94e13e93",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-011620966e13c1d2",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-ad2b9a2df8dbb3ea",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-7bd0aa396508ace3",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-a38040995e8deaca",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-7a1f2e691b602f8a",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-6ef9eab2d0858445",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-083a0b8f4dc29b73",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-1c7def9bc125cd10",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-3c7d96f2330be461",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-b4d8151193ce9e68",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-44d2795712a1aed1",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-c5974e903a976e4d",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-ef2e396bf812a8cf",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-07b9e234dc43e9bd",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-d92176d61d5e9a91",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-0b7560a069b2c712",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-619e2bcd6a5e2892",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-bec0662ddf5b5170",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-e6b71429aa2feb84",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-3270a6f17c0d9544",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-b6cf3a0e457bdebd",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-efa5f8f956696447",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-417d1738e7f1c143",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-684a11daeef34a56",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-3f0ab8eb1f6f572b",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-15b68fa554ed1062",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-1b14f4387dd448a9",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-ae73ae063fefebf9",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-13994a1829181ae9",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-d02e9a88c9e368a8",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-afbd576cb1adb0d9",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-25255359b4733a77",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-e9ef62de335573e7",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-5fe3ecb809fa47a2",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-06ab52cba461b767",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-fe38599962deffb6",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-ff86ac12c3ac5566",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-b9dab4b7750cc0fc",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-7af12f10959185c2",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-eea878e0263e76d5",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-3dac94a8c87d6d33",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-d617670537511be7",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-45813a649960e437",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-f1ca509c251b4075",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-ee8224e0451a98b1",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-45d1456fc0c50929",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-b1e600278deb7690",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-edcd180e783d37c6",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-b369b944712960be",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-95ef03c450059701",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-6fa1d527b86d1d0d",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-2f15a4e21cf07cbe",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-62d1b3ff966ea892",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-4f0428fd3547000e",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-d7952c73bf34141c",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-5c3c2891de40259a",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-b48842475d71ccfe",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-f880e1b0f10248e8",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-0805fe0a3be2e293",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-c42f351734917d19",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-ebca8ad5072d6deb",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-9f4945f0db5a7dcb",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-e9c1e9ee7e6b2362",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-d76f0202742d9586",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-b251b1ec318ff492",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-cc7ae238fccd57e2",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-1fc88942670186ba",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-dfc001399d0a88f7",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-7b538f8b547ad54d",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-2737bd85ed36de46",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-737d10552339de0a",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-dd1a187409d4411f",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-9fdb6ebf0647c58a",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-e942ac7c039c95c7",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-0170c0f3f0febc43",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-0b6a4ba571d6a2cd",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-23125b2503d0db90",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-9457dd31768d09af",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-1fb01ca9969aba38",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-02c7acebb7f101f4",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-16525240ad1c080c",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-404b0af2771efbce",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-22f0660e614edc0d",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-14e1c33a99bd0152",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-8f9522b0f33e755d",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-b75dbff14735d96f",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-69246d802e2f62b1",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-c1cf614120244d7c",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-a893539ad3cdd53b",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-2b4c272c0446f769",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-e0196afd698974b4",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-f609c5e794dd6070",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-9b357c2fe4c0365e",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-6dc7d1570b4cfe69",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-56c7f203cd8fa3de",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-caa6da532046809d",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-846642a3e03695d3",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-4c4d5487d177d554",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-7c2c1d1788d9b9ab",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-12277a51ce58b940",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-18517c00ebbfa186",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-d0ada35e47b516dd",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-68e9b89546e5b46a",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-690652d40da404dd",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-28ad98acecb7ed02",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-495d79b2a5314856",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-69acf91c7526514d",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-20d07895ff467c70",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-c929777c7352c025",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-a7f43d52f314395a",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-e21cf918a03ef097",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-89f5c9f23ecafbe0",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-f8ed18decad2ab6f",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-59a5fbaa449dc086",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-04fa606eeba77c3a",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-fde1ad8b7f3dccfa",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-dc9114bb05c52e13",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-c6f8c423d771b9b7",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-9fec1028fcba3529",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-c1d5bdd08f7cc2e6",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-c26e686595e81a97",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-558fe0dcc793a0c8",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-856a4b268ed7a92c",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-a3dd1a4ca5264070",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-3da79468a744f9ad",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-e0d818dc5432613b",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-9efafaa5e8ac60f9",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-2d9571db4673baab",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-fa8801b0f5a6fac5",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-adb1a6238027bd7f",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-158413a4cd55fe78",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-b6aff3b10c4d0954",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-54025c9dedf6888d",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-2425924bcd1b64b3",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-07b3002a1ac52d5f",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-0668e1b73deec910",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-5f0eadc7d0c10fd1",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-a34874a54d7bf182",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-f6cb1807fa90d434",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-e23161f269b8d318",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-e778477ba8f3f050",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-c3208adb47485db4",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-9748e923bb6c6d5d",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-832b3d30aaba5719",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-fd5efa6969b070cf",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-9e9161b9a3d0d700",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-76aec6607276c2ac",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-8ae64d01aeacb419",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-4d9894a5cd970d2c",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-89876ca34bddab44",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-dba70b15394ea279",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-8a78be69c1aee865",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-ff497b611e605bec",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-4c1c2f71ade978c5",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-f942d3e90befe607",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-83abd8fb2c350579",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-1711328d4bd70515",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-c5b9c1419520b646",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-031fbe45275aa0cc",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-c2dfce1e4da32aa7",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-8c068e10b60b3783",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-7c8820dcb00fe5d1",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-3a5e225b934f75f7",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-1cca656ea3f763be",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-50cfd6e4f5616d22",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-da2e8ba99653033e",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-23bdf49c3f03bd1a",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-4724f6fe5577636e",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-8b45375976de8068",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-24e9d96161e4bed8",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-5b744496ab6b1356",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-1191304c9e349d01",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-b750798d9a0b2104",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-c6bbe09b3897da17",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-d4ba702893d1edba",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-8d12f58fe9555bc7",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-507c3847aa1e35dd",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-e4a6f93090ef5109",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-9778c27a9a60480f",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-4df4f9c50c4b112d",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-5e9e731c790abc13",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-6ad35f1b536161f0",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-3d77889ae2183399",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-b5025ce384050a16",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-4b35cf8241dcc1a3",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-e5fcf1ecdd98703b",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-536b9a4314b6980b",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-1c76e36961cade1b",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-76cf9925bac8373a",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-a64bf40bf22c41ad",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-7eb256bcdfa984f2",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-b0e7d1ad7293962c",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-0352893fdcd26a26",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-099be3eb70354df4",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-ddb46c98be20d405",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-885a1171dde80773",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-79e460904e0148fc",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-101d9afa5736fec4",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-8609a74af054c5fb",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-3b9ed68f4316f22c",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-e7a60407e5223900",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-a222e091a21014b8",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-4026008f4c6cbdc1",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-ed4277fc47457cc3",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-b46fc2d0c4b1ce44",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-91732c272d102935",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-0c89bd44becd0079",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-fa32294fd023fa9f",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-635cf55e326a4fdb",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-8d6e839e6068eb2a",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-436bd18151cd61d9",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-2e8b34f53a778d91",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-356f489d329cda65",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-2d470b7036253d43",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-a8deb41aa99494fe",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-15e69447ef75f92b",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-abf75de7e39293fb",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-80de63693c6d4fb1",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-95fa712b62fe8f03",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-669a8683e3c158b5",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-95abdf7fe911d32c",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-e8f6700e103d8076",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-95bb83fd747b28ea",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-5cc48e6310533736",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-41225e85059942b8",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-2fd1261c321f7dbf",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-d3cf27327fa866aa",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-546d013dda2e1ed6",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-59900df49d61a906",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-c02ab2c08622a479",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-d8dc122c41428483",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-7c52b0b2a07ffaa5",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-1b954a3bac050de1",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-e9bb7cb860eb2bb5",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-6a3db5b11131f847",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-1c3cb43eadd6314e",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-1405ffedbeedc039",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-0963b787b26dd5d9",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-b2e4a31d200503e9",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-0b393a6dcb98d48c",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-7d5b8f59f1d03426",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-d6e537e47c73a528",
+      "identical": true,
+      "original_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "replay_disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED"
+    },
+    {
+      "bundle_id": "EVB-c68e19aa7148f720",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-6a7a089ddf44c529",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-84ba2313abf7283e",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    },
+    {
+      "bundle_id": "EVB-63acfc11d8c63c55",
+      "identical": true,
+      "original_disposition": "ESCALATED_TO_SENIOR_QA",
+      "replay_disposition": "ESCALATED_TO_SENIOR_QA"
+    }
+  ],
+  "chains": {
+    "T-AURA": {
+      "tenant_code": "T-AURA",
+      "length": 33,
+      "ok": true,
+      "errors": []
+    },
+    "T-CAMPOS": {
+      "tenant_code": "T-CAMPOS",
+      "length": 26,
+      "ok": true,
+      "errors": []
+    },
+    "T-KAVERI": {
+      "tenant_code": "T-KAVERI",
+      "length": 44,
+      "ok": true,
+      "errors": []
+    },
+    "T-MERIDIAN": {
+      "tenant_code": "T-MERIDIAN",
+      "length": 16,
+      "ok": true,
+      "errors": []
+    },
+    "T-NORDIA": {
+      "tenant_code": "T-NORDIA",
+      "length": 28,
+      "ok": true,
+      "errors": []
+    },
+    "T-PINNACLE": {
+      "tenant_code": "T-PINNACLE",
+      "length": 26,
+      "ok": true,
+      "errors": []
+    },
+    "T-SAHYADRI": {
+      "tenant_code": "T-SAHYADRI",
+      "length": 83,
+      "ok": true,
+      "errors": []
+    },
+    "T-VIRENT": {
+      "tenant_code": "T-VIRENT",
+      "length": 164,
+      "ok": true,
+      "errors": []
+    }
+  }
+}

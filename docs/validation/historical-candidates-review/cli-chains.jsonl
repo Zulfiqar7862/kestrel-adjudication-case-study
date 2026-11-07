@@ -1,0 +1,48 @@
+{
+  "tenant_code": "T-AURA",
+  "length": 33,
+  "ok": true,
+  "errors": []
+}
+{
+  "tenant_code": "T-CAMPOS",
+  "length": 26,
+  "ok": true,
+  "errors": []
+}
+{
+  "tenant_code": "T-KAVERI",
+  "length": 44,
+  "ok": true,
+  "errors": []
+}
+{
+  "tenant_code": "T-MERIDIAN",
+  "length": 16,
+  "ok": true,
+  "errors": []
+}
+{
+  "tenant_code": "T-NORDIA",
+  "length": 28,
+  "ok": true,
+  "errors": []
+}
+{
+  "tenant_code": "T-PINNACLE",
+  "length": 26,
+  "ok": true,
+  "errors": []
+}
+{
+  "tenant_code": "T-SAHYADRI",
+  "length": 83,
+  "ok": true,
+  "errors": []
+}
+{
+  "tenant_code": "T-VIRENT",
+  "length": 164,
+  "ok": true,
+  "errors": []
+}

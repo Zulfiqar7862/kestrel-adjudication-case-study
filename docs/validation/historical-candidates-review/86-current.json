@@ -1,0 +1,2172 @@
+[
+  {
+    "event_id": "EXC-111008",
+    "raw_storage_text": "Controlled room temperature",
+    "parsed_limit": {
+      "text": "Controlled room temperature",
+      "low_c": null,
+      "high_c": null,
+      "lower": null,
+      "upper": null,
+      "constraints": [],
+      "unresolved_reason": "explicit governing temperature bounds not established from storage text",
+      "bound_type": "unresolved",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_unresolved_storage"
+  },
+  {
+    "event_id": "EXC-112352",
+    "raw_storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "parsed_limit": {
+      "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+      "low_c": 15.0,
+      "high_c": 25.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 15.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "excursions to 30\u00b0c permitted, see stability"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "rule": "rule_facility_equipment_event"
+  },
+  {
+    "event_id": "EXC-111274",
+    "raw_storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "parsed_limit": {
+      "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+      "low_c": 15.0,
+      "high_c": 25.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 15.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "excursions to 30\u00b0c permitted, see stability"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-111995",
+    "raw_storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "parsed_limit": {
+      "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+      "low_c": 15.0,
+      "high_c": 25.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 15.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "excursions to 30\u00b0c permitted, see stability"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "rule": "rule_facility_equipment_event"
+  },
+  {
+    "event_id": "EXC-110854",
+    "raw_storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "parsed_limit": {
+      "text": "2\u00b0C \u2013 8\u00b0C",
+      "low_c": 2.0,
+      "high_c": 8.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 2.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 8.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "rule": "rule_facility_equipment_event"
+  },
+  {
+    "event_id": "EXC-112765",
+    "raw_storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "parsed_limit": {
+      "text": "2\u00b0C \u2013 8\u00b0C",
+      "low_c": 2.0,
+      "high_c": 8.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 2.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 8.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-112828",
+    "raw_storage_text": "-80 to -60 \u00b0C",
+    "parsed_limit": {
+      "text": "-80 to -60 \u00b0C",
+      "low_c": -80.0,
+      "high_c": -60.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": -80.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": -60.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-111631",
+    "raw_storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "parsed_limit": {
+      "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+      "low_c": 15.0,
+      "high_c": 25.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 15.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "excursions to 30\u00b0c permitted, see stability"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-112359",
+    "raw_storage_text": "-80C to -60C (dry ice permitted)",
+    "parsed_limit": {
+      "text": "-80C to -60C (dry ice permitted)",
+      "low_c": -80.0,
+      "high_c": -60.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": -80.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": -60.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "dry ice permitted"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-110861",
+    "raw_storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "parsed_limit": {
+      "text": "2\u00b0C \u2013 8\u00b0C",
+      "low_c": 2.0,
+      "high_c": 8.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 2.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 8.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_release_authority_gate"
+  },
+  {
+    "event_id": "EXC-112506",
+    "raw_storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "parsed_limit": {
+      "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+      "low_c": 15.0,
+      "high_c": 25.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 15.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "excursions to 30\u00b0c permitted, see stability"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "rule": "rule_duplicate_alert"
+  },
+  {
+    "event_id": "EXC-112772",
+    "raw_storage_text": "-80C to -60C (dry ice permitted)",
+    "parsed_limit": {
+      "text": "-80C to -60C (dry ice permitted)",
+      "low_c": -80.0,
+      "high_c": -60.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": -80.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": -60.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "dry ice permitted"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "rule": "rule_duplicate_alert"
+  },
+  {
+    "event_id": "EXC-110735",
+    "raw_storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "parsed_limit": {
+      "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+      "low_c": 15.0,
+      "high_c": 25.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 15.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "excursions to 30\u00b0c permitted, see stability"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "rule": "rule_duplicate_alert"
+  },
+  {
+    "event_id": "EXC-112835",
+    "raw_storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "parsed_limit": {
+      "text": "2\u00b0C \u2013 8\u00b0C",
+      "low_c": 2.0,
+      "high_c": 8.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 2.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 8.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "rule": "rule_duplicate_alert"
+  },
+  {
+    "event_id": "EXC-110434",
+    "raw_storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "parsed_limit": {
+      "text": "2\u00b0C \u2013 8\u00b0C",
+      "low_c": 2.0,
+      "high_c": 8.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 2.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 8.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "temperature_uncertainty_gate"
+  },
+  {
+    "event_id": "EXC-112436",
+    "raw_storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "parsed_limit": {
+      "text": "2\u00b0C \u2013 8\u00b0C",
+      "low_c": 2.0,
+      "high_c": 8.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 2.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 8.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-110280",
+    "raw_storage_text": "Store below 25 C",
+    "parsed_limit": {
+      "text": "Store below 25 C",
+      "low_c": null,
+      "high_c": 25.0,
+      "lower": null,
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": false
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "upper_only",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-110672",
+    "raw_storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "parsed_limit": {
+      "text": "2\u00b0C \u2013 8\u00b0C",
+      "low_c": 2.0,
+      "high_c": 8.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 2.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 8.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-112226",
+    "raw_storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "parsed_limit": {
+      "text": "2\u00b0C \u2013 8\u00b0C",
+      "low_c": 2.0,
+      "high_c": 8.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 2.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 8.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "rule": "rule_duplicate_alert"
+  },
+  {
+    "event_id": "EXC-112681",
+    "raw_storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "parsed_limit": {
+      "text": "2\u00b0C \u2013 8\u00b0C",
+      "low_c": 2.0,
+      "high_c": 8.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 2.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 8.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "rule": "rule_duplicate_alert"
+  },
+  {
+    "event_id": "EXC-112499",
+    "raw_storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "parsed_limit": {
+      "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+      "low_c": 15.0,
+      "high_c": 25.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 15.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "excursions to 30\u00b0c permitted, see stability"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "rule": "rule_duplicate_alert"
+  },
+  {
+    "event_id": "EXC-111771",
+    "raw_storage_text": "Store below 25 C",
+    "parsed_limit": {
+      "text": "Store below 25 C",
+      "low_c": null,
+      "high_c": 25.0,
+      "lower": null,
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": false
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "upper_only",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_presentation_mismatch"
+  },
+  {
+    "event_id": "EXC-110112",
+    "raw_storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "parsed_limit": {
+      "text": "2\u00b0C \u2013 8\u00b0C",
+      "low_c": 2.0,
+      "high_c": 8.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 2.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 8.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-110616",
+    "raw_storage_text": "-80 to -60 \u00b0C",
+    "parsed_limit": {
+      "text": "-80 to -60 \u00b0C",
+      "low_c": -80.0,
+      "high_c": -60.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": -80.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": -60.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-112296",
+    "raw_storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "parsed_limit": {
+      "text": "2\u00b0C \u2013 8\u00b0C",
+      "low_c": 2.0,
+      "high_c": 8.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 2.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 8.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_release_authority_gate"
+  },
+  {
+    "event_id": "EXC-110350",
+    "raw_storage_text": "-80C to -60C (dry ice permitted)",
+    "parsed_limit": {
+      "text": "-80C to -60C (dry ice permitted)",
+      "low_c": -80.0,
+      "high_c": -60.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": -80.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": -60.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "dry ice permitted"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_release_authority_gate"
+  },
+  {
+    "event_id": "EXC-110910",
+    "raw_storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "parsed_limit": {
+      "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+      "low_c": 15.0,
+      "high_c": 25.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 15.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "excursions to 30\u00b0c permitted, see stability"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_release_authority_gate"
+  },
+  {
+    "event_id": "EXC-111407",
+    "raw_storage_text": "-80C to -60C (dry ice permitted)",
+    "parsed_limit": {
+      "text": "-80C to -60C (dry ice permitted)",
+      "low_c": -80.0,
+      "high_c": -60.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": -80.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": -60.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "dry ice permitted"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-110819",
+    "raw_storage_text": "Store below 25 C",
+    "parsed_limit": {
+      "text": "Store below 25 C",
+      "low_c": null,
+      "high_c": 25.0,
+      "lower": null,
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": false
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "upper_only",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "rule": "rule_duplicate_alert"
+  },
+  {
+    "event_id": "EXC-110623",
+    "raw_storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "parsed_limit": {
+      "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+      "low_c": 15.0,
+      "high_c": 25.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 15.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "excursions to 30\u00b0c permitted, see stability"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_release_authority_gate"
+  },
+  {
+    "event_id": "EXC-112058",
+    "raw_storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "parsed_limit": {
+      "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+      "low_c": 15.0,
+      "high_c": 25.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 15.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "excursions to 30\u00b0c permitted, see stability"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-110749",
+    "raw_storage_text": "-80C to -60C (dry ice permitted)",
+    "parsed_limit": {
+      "text": "-80C to -60C (dry ice permitted)",
+      "low_c": -80.0,
+      "high_c": -60.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": -80.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": -60.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "dry ice permitted"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-110980",
+    "raw_storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "parsed_limit": {
+      "text": "2\u00b0C \u2013 8\u00b0C",
+      "low_c": 2.0,
+      "high_c": 8.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 2.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 8.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "rule": "rule_facility_equipment_event"
+  },
+  {
+    "event_id": "EXC-111939",
+    "raw_storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "parsed_limit": {
+      "text": "2\u00b0C \u2013 8\u00b0C",
+      "low_c": 2.0,
+      "high_c": 8.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 2.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 8.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-110035",
+    "raw_storage_text": "Controlled room temperature",
+    "parsed_limit": {
+      "text": "Controlled room temperature",
+      "low_c": null,
+      "high_c": null,
+      "lower": null,
+      "upper": null,
+      "constraints": [],
+      "unresolved_reason": "explicit governing temperature bounds not established from storage text",
+      "bound_type": "unresolved",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_unresolved_storage"
+  },
+  {
+    "event_id": "EXC-110539",
+    "raw_storage_text": "-80 to -60 \u00b0C",
+    "parsed_limit": {
+      "text": "-80 to -60 \u00b0C",
+      "low_c": -80.0,
+      "high_c": -60.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": -80.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": -60.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-110133",
+    "raw_storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "parsed_limit": {
+      "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+      "low_c": 15.0,
+      "high_c": 25.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 15.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "excursions to 30\u00b0c permitted, see stability"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-111561",
+    "raw_storage_text": "Store below 25 C",
+    "parsed_limit": {
+      "text": "Store below 25 C",
+      "low_c": null,
+      "high_c": 25.0,
+      "lower": null,
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": false
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "upper_only",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-110077",
+    "raw_storage_text": "-80C to -60C (dry ice permitted)",
+    "parsed_limit": {
+      "text": "-80C to -60C (dry ice permitted)",
+      "low_c": -80.0,
+      "high_c": -60.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": -80.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": -60.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "dry ice permitted"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-112457",
+    "raw_storage_text": "FROZEN (-25,-15)",
+    "parsed_limit": {
+      "text": "FROZEN (-25,-15)",
+      "low_c": -25.0,
+      "high_c": -15.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": -25.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": -15.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_release_authority_gate"
+  },
+  {
+    "event_id": "EXC-111806",
+    "raw_storage_text": "-80C to -60C (dry ice permitted)",
+    "parsed_limit": {
+      "text": "-80C to -60C (dry ice permitted)",
+      "low_c": -80.0,
+      "high_c": -60.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": -80.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": -60.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "dry ice permitted"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-111708",
+    "raw_storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "parsed_limit": {
+      "text": "2\u00b0C \u2013 8\u00b0C",
+      "low_c": 2.0,
+      "high_c": 8.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 2.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 8.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "rule": "rule_duplicate_alert"
+  },
+  {
+    "event_id": "EXC-111757",
+    "raw_storage_text": "-80C to -60C (dry ice permitted)",
+    "parsed_limit": {
+      "text": "-80C to -60C (dry ice permitted)",
+      "low_c": -80.0,
+      "high_c": -60.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": -80.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": -60.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "dry ice permitted"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-111659",
+    "raw_storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "parsed_limit": {
+      "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+      "low_c": 15.0,
+      "high_c": 25.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 15.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "excursions to 30\u00b0c permitted, see stability"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_release_authority_gate"
+  },
+  {
+    "event_id": "EXC-111491",
+    "raw_storage_text": "Store below 25 C",
+    "parsed_limit": {
+      "text": "Store below 25 C",
+      "low_c": null,
+      "high_c": 25.0,
+      "lower": null,
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": false
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "upper_only",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "rule": "rule_duplicate_alert"
+  },
+  {
+    "event_id": "EXC-111351",
+    "raw_storage_text": "-80C to -60C (dry ice permitted)",
+    "parsed_limit": {
+      "text": "-80C to -60C (dry ice permitted)",
+      "low_c": -80.0,
+      "high_c": -60.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": -80.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": -60.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "dry ice permitted"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "rule": "rule_duplicate_alert"
+  },
+  {
+    "event_id": "EXC-112149",
+    "raw_storage_text": "Controlled room temperature",
+    "parsed_limit": {
+      "text": "Controlled room temperature",
+      "low_c": null,
+      "high_c": null,
+      "lower": null,
+      "upper": null,
+      "constraints": [],
+      "unresolved_reason": "explicit governing temperature bounds not established from storage text",
+      "bound_type": "unresolved",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_unresolved_storage"
+  },
+  {
+    "event_id": "EXC-111050",
+    "raw_storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "parsed_limit": {
+      "text": "2\u00b0C \u2013 8\u00b0C",
+      "low_c": 2.0,
+      "high_c": 8.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 2.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 8.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-111022",
+    "raw_storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "parsed_limit": {
+      "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+      "low_c": 15.0,
+      "high_c": 25.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 15.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "excursions to 30\u00b0c permitted, see stability"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_release_authority_gate"
+  },
+  {
+    "event_id": "EXC-111820",
+    "raw_storage_text": "Store below 25 C",
+    "parsed_limit": {
+      "text": "Store below 25 C",
+      "low_c": null,
+      "high_c": 25.0,
+      "lower": null,
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": false
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "upper_only",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "rule": "rule_facility_equipment_event"
+  },
+  {
+    "event_id": "EXC-111085",
+    "raw_storage_text": "-80C to -60C (dry ice permitted)",
+    "parsed_limit": {
+      "text": "-80C to -60C (dry ice permitted)",
+      "low_c": -80.0,
+      "high_c": -60.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": -80.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": -60.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "dry ice permitted"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-112639",
+    "raw_storage_text": "-80 to -60 \u00b0C",
+    "parsed_limit": {
+      "text": "-80 to -60 \u00b0C",
+      "low_c": -80.0,
+      "high_c": -60.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": -80.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": -60.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "rule": "rule_duplicate_alert"
+  },
+  {
+    "event_id": "EXC-110938",
+    "raw_storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "parsed_limit": {
+      "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+      "low_c": 15.0,
+      "high_c": 25.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 15.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "excursions to 30\u00b0c permitted, see stability"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-110231",
+    "raw_storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "parsed_limit": {
+      "text": "2\u00b0C \u2013 8\u00b0C",
+      "low_c": 2.0,
+      "high_c": 8.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 2.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 8.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-111743",
+    "raw_storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "parsed_limit": {
+      "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+      "low_c": 15.0,
+      "high_c": 25.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 15.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "excursions to 30\u00b0c permitted, see stability"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "rule": "rule_facility_equipment_event"
+  },
+  {
+    "event_id": "EXC-110777",
+    "raw_storage_text": "-80C to -60C (dry ice permitted)",
+    "parsed_limit": {
+      "text": "-80C to -60C (dry ice permitted)",
+      "low_c": -80.0,
+      "high_c": -60.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": -80.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": -60.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "dry ice permitted"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-112464",
+    "raw_storage_text": "Store below 25 C",
+    "parsed_limit": {
+      "text": "Store below 25 C",
+      "low_c": null,
+      "high_c": 25.0,
+      "lower": null,
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": false
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "upper_only",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "rule": "rule_duplicate_alert"
+  },
+  {
+    "event_id": "EXC-110161",
+    "raw_storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "parsed_limit": {
+      "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+      "low_c": 15.0,
+      "high_c": 25.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 15.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "excursions to 30\u00b0c permitted, see stability"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-110441",
+    "raw_storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "parsed_limit": {
+      "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+      "low_c": 15.0,
+      "high_c": 25.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 15.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "excursions to 30\u00b0c permitted, see stability"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-111967",
+    "raw_storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "parsed_limit": {
+      "text": "2\u00b0C \u2013 8\u00b0C",
+      "low_c": 2.0,
+      "high_c": 8.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 2.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 8.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-112625",
+    "raw_storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "parsed_limit": {
+      "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+      "low_c": 15.0,
+      "high_c": 25.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 15.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "excursions to 30\u00b0c permitted, see stability"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_release_authority_gate"
+  },
+  {
+    "event_id": "EXC-110028",
+    "raw_storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "parsed_limit": {
+      "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+      "low_c": 15.0,
+      "high_c": 25.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 15.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "excursions to 30\u00b0c permitted, see stability"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-111442",
+    "raw_storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "parsed_limit": {
+      "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+      "low_c": 15.0,
+      "high_c": 25.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 15.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "excursions to 30\u00b0c permitted, see stability"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_release_authority_gate"
+  },
+  {
+    "event_id": "EXC-111155",
+    "raw_storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "parsed_limit": {
+      "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+      "low_c": 15.0,
+      "high_c": 25.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 15.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "excursions to 30\u00b0c permitted, see stability"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "rule": "rule_duplicate_alert"
+  },
+  {
+    "event_id": "EXC-111134",
+    "raw_storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "parsed_limit": {
+      "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+      "low_c": 15.0,
+      "high_c": 25.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 15.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "excursions to 30\u00b0c permitted, see stability"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "rule": "rule_duplicate_alert"
+  },
+  {
+    "event_id": "EXC-110987",
+    "raw_storage_text": "Store below 25 C",
+    "parsed_limit": {
+      "text": "Store below 25 C",
+      "low_c": null,
+      "high_c": 25.0,
+      "lower": null,
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": false
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "upper_only",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "rule": "rule_duplicate_alert"
+  },
+  {
+    "event_id": "EXC-111904",
+    "raw_storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "parsed_limit": {
+      "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+      "low_c": 15.0,
+      "high_c": 25.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 15.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "excursions to 30\u00b0c permitted, see stability"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "rule": "rule_duplicate_alert"
+  },
+  {
+    "event_id": "EXC-112310",
+    "raw_storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "parsed_limit": {
+      "text": "2\u00b0C \u2013 8\u00b0C",
+      "low_c": 2.0,
+      "high_c": 8.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 2.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 8.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "rule": "rule_duplicate_alert"
+  },
+  {
+    "event_id": "EXC-112478",
+    "raw_storage_text": "-80 to -60 \u00b0C",
+    "parsed_limit": {
+      "text": "-80 to -60 \u00b0C",
+      "low_c": -80.0,
+      "high_c": -60.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": -80.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": -60.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-112926",
+    "raw_storage_text": "Store below 25 C",
+    "parsed_limit": {
+      "text": "Store below 25 C",
+      "low_c": null,
+      "high_c": 25.0,
+      "lower": null,
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": false
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "upper_only",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-110322",
+    "raw_storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "parsed_limit": {
+      "text": "2\u00b0C \u2013 8\u00b0C",
+      "low_c": 2.0,
+      "high_c": 8.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 2.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 8.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-112184",
+    "raw_storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "parsed_limit": {
+      "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+      "low_c": 15.0,
+      "high_c": 25.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 15.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "excursions to 30\u00b0c permitted, see stability"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_release_authority_gate"
+  },
+  {
+    "event_id": "EXC-110504",
+    "raw_storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "parsed_limit": {
+      "text": "2\u00b0C \u2013 8\u00b0C",
+      "low_c": 2.0,
+      "high_c": 8.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 2.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 8.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_release_authority_gate"
+  },
+  {
+    "event_id": "EXC-112107",
+    "raw_storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "parsed_limit": {
+      "text": "2\u00b0C \u2013 8\u00b0C",
+      "low_c": 2.0,
+      "high_c": 8.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 2.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 8.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-110259",
+    "raw_storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "parsed_limit": {
+      "text": "2\u00b0C \u2013 8\u00b0C",
+      "low_c": 2.0,
+      "high_c": 8.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 2.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 8.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-110462",
+    "raw_storage_text": "-80C to -60C (dry ice permitted)",
+    "parsed_limit": {
+      "text": "-80C to -60C (dry ice permitted)",
+      "low_c": -80.0,
+      "high_c": -60.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": -80.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": -60.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "dry ice permitted"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-112072",
+    "raw_storage_text": "-80C to -60C (dry ice permitted)",
+    "parsed_limit": {
+      "text": "-80C to -60C (dry ice permitted)",
+      "low_c": -80.0,
+      "high_c": -60.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": -80.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": -60.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "dry ice permitted"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-111981",
+    "raw_storage_text": "2\u00b0C \u2013 8\u00b0C",
+    "parsed_limit": {
+      "text": "2\u00b0C \u2013 8\u00b0C",
+      "low_c": 2.0,
+      "high_c": 8.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 2.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 8.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-110714",
+    "raw_storage_text": "-80C to -60C (dry ice permitted)",
+    "parsed_limit": {
+      "text": "-80C to -60C (dry ice permitted)",
+      "low_c": -80.0,
+      "high_c": -60.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": -80.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": -60.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "dry ice permitted"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-112023",
+    "raw_storage_text": "Store below 25 C",
+    "parsed_limit": {
+      "text": "Store below 25 C",
+      "low_c": null,
+      "high_c": 25.0,
+      "lower": null,
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": false
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "upper_only",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_release_authority_gate"
+  },
+  {
+    "event_id": "EXC-111484",
+    "raw_storage_text": "-80C to -60C (dry ice permitted)",
+    "parsed_limit": {
+      "text": "-80C to -60C (dry ice permitted)",
+      "low_c": -80.0,
+      "high_c": -60.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": -80.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": -60.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "dry ice permitted"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_release_authority_gate"
+  },
+  {
+    "event_id": "EXC-110826",
+    "raw_storage_text": "-80C to -60C (dry ice permitted)",
+    "parsed_limit": {
+      "text": "-80C to -60C (dry ice permitted)",
+      "low_c": -80.0,
+      "high_c": -60.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": -80.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": -60.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "dry ice permitted"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "rule": "rule_duplicate_alert"
+  },
+  {
+    "event_id": "EXC-112562",
+    "raw_storage_text": "-80 to -60 \u00b0C",
+    "parsed_limit": {
+      "text": "-80 to -60 \u00b0C",
+      "low_c": -80.0,
+      "high_c": -60.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": -80.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": -60.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "rule": "rule_duplicate_alert"
+  },
+  {
+    "event_id": "EXC-112541",
+    "raw_storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "parsed_limit": {
+      "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+      "low_c": 15.0,
+      "high_c": 25.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 15.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "excursions to 30\u00b0c permitted, see stability"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  },
+  {
+    "event_id": "EXC-110833",
+    "raw_storage_text": "-80 to -60 \u00b0C",
+    "parsed_limit": {
+      "text": "-80 to -60 \u00b0C",
+      "low_c": -80.0,
+      "high_c": -60.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": -80.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": -60.0,
+        "inclusive": true
+      },
+      "constraints": [],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "rule": "rule_facility_equipment_event"
+  },
+  {
+    "event_id": "EXC-110805",
+    "raw_storage_text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+    "parsed_limit": {
+      "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+      "low_c": 15.0,
+      "high_c": 25.0,
+      "lower": {
+        "kind": "lower",
+        "value_c": 15.0,
+        "inclusive": true
+      },
+      "upper": {
+        "kind": "upper",
+        "value_c": 25.0,
+        "inclusive": true
+      },
+      "constraints": [
+        "excursions to 30\u00b0c permitted, see stability"
+      ],
+      "unresolved_reason": null,
+      "bound_type": "two_sided",
+      "constraints_status": "retained, not independently verified"
+    },
+    "outcome": "ESCALATED_TO_SENIOR_QA",
+    "rule": "rule_stability_authority"
+  }
+]

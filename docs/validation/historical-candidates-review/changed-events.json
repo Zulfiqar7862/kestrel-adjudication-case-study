@@ -1,0 +1,1042 @@
+[
+  {
+    "event_id": "EXC-112198",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112352",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112583",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111064",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112394",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111337",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111995",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111813",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112744",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-110854",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111071",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111519",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111365",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111554",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112163",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112205",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112758",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112506",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112772",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-110735",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111239",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111043",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112835",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112177",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111015",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112226",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111246",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112212",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112933",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112681",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112499",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112800",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112380",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112821",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111036",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111141",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-110945",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111400",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111148",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111533",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-110756",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111890",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111330",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112863",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111876",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111869",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-110819",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111169",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112121",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112793",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112716",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111736",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-110980",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112555",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112569",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111295",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111057",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-110742",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111883",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112604",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111078",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111834",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112093",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111778",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112891",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111435",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111708",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112814",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111491",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111547",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-110966",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112856",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-110903",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111351",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112660",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111372",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-110784",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111820",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112219",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111855",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112639",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111029",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111218",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111568",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111260",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-110924",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-110840",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111344",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111743",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111610",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-110889",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111792",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112373",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111785",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112464",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111449",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111001",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112282",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111897",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112268",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-110791",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112611",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112471",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-110763",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111155",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112849",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111134",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-110721",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-110987",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111904",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111358",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112030",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112310",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112646",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-110728",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112233",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112443",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111288",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111645",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111715",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112688",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111505",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-111470",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112429",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-110952",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-110525",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112009",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-110826",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-112562",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "rule": "rule_duplicate_alert",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  },
+  {
+    "event_id": "EXC-110833",
+    "before": "AUTO_CLOSE",
+    "after": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+    "rule": "rule_facility_equipment_event",
+    "reason": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  }
+]

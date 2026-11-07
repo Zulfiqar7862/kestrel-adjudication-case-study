@@ -4,9 +4,10 @@ from __future__ import annotations
 
 import logging
 from importlib import resources
-from typing import Any, Optional
+from typing import Any, Literal, Optional
 
-from kestrel.domain import Disposition, TransitionError
+from kestrel.closure import closure_counts
+from kestrel.domain import CaseState, Disposition, TransitionError
 from kestrel.exceptions import (
     DependencyMissingError,
     NotFoundError,
@@ -29,15 +30,19 @@ ReplayRequest: Any = None
 
 
 HealthResponse: Any = None
+AdjudicateResponse: Any = None
+EventsResponse: Any = None
+MetricsResponse: Any = None
 
 
 def _load_api_models() -> None:
     """Lazily define Pydantic v2 request/response models in module globals."""
     global AdjudicateRequest, BasisRequest, VerifyRequest, ReplayRequest, HealthResponse
+    global AdjudicateResponse, EventsResponse, MetricsResponse
     if AdjudicateRequest is not None:
         return
     try:
-        from pydantic import BaseModel, Field
+        from pydantic import BaseModel, ConfigDict, Field
     except ImportError as exc:  # pragma: no cover
         raise DependencyMissingError(
             "API layer requires: pip install fastapi pydantic uvicorn  (engine/CLI/tests still run with only openpyxl)"
@@ -72,6 +77,47 @@ def _load_api_models() -> None:
         ok: bool
         snapshot_id: Optional[str] = None
         rule_pack_version: str
+
+    class _AdjudicateResponse(BaseModel):
+        """Recommendation is not a verification claim; historical candidates need review."""
+
+        model_config = ConfigDict(extra="allow")
+        event_id: str
+        tenant_code: str
+        recommendation: Disposition
+        confidence: float
+        triage_label: str
+        case_state: Optional[CaseState] = None
+        requires_human_signature: bool
+        requires_human_review: bool
+        historical_classification: Optional[str] = Field(
+            description="Unverified historical reference, not independent evidence"
+        )
+        closure_eligibility: Literal["not_eligible", "historical_candidate_unverified", "rule_supported_unverified"]
+        independent_closure_evidence: list[str] = Field(
+            description="Independent verification artifacts; empty in supplied pack"
+        )
+        rationale: list[str] = Field(default_factory=list)
+
+    class _ClosureCounts(BaseModel):
+        verified_auto_close: int
+        historical_candidates_unverified: int
+        other_auto_close_unverified: int
+
+    class _MetricsResponse(BaseModel):
+        model_config = ConfigDict(extra="allow")
+        closure_counts: _ClosureCounts
+
+    class _EventsResponse(_MetricsResponse):
+        count: int
+        counts: dict[str, int]
+        items: list[_AdjudicateResponse]
+
+    _MetricsResponse.model_rebuild(_types_namespace=locals())
+    _EventsResponse.model_rebuild(_types_namespace=locals())
+    AdjudicateResponse = _AdjudicateResponse
+    MetricsResponse = _MetricsResponse
+    EventsResponse = _EventsResponse
 
     AdjudicateRequest = _AdjudicateRequest
     BasisRequest = _BasisRequest
@@ -154,7 +200,7 @@ def create_app(svc: Optional[AdjudicationService] = None) -> Any:
             "rule_pack_version": svc_dep.settings.rule_pack_version,
         }
 
-    @app.post("/adjudicate")
+    @app.post("/adjudicate", response_model=AdjudicateResponse)
     def adjudicate(
         payload: AdjudicateRequest,  # type: ignore[valid-type]
         svc_dep: AdjudicationService = Depends(get_svc),
@@ -170,7 +216,9 @@ def create_app(svc: Optional[AdjudicationService] = None) -> Any:
             "event_id": result.event_id,
             "tenant_code": result.tenant_code,
             "recommendation": result.recommendation,
+            **result.closure_fields(),
             "confidence": result.confidence,
+            "triage_label": result.triage_label,
             "rationale": result.rationale,
             "requires_human_signature": result.requires_human_signature,
             "bundle_id": (out["bundle"] or {}).get("bundle_id"),
@@ -321,12 +369,12 @@ def create_app(svc: Optional[AdjudicationService] = None) -> Any:
         """SOP in force as-at a date (AUD-2603 shape)."""
         return svc_dep.as_of_sop(tenant_code, date)
 
-    @app.get("/ops/health-report")
+    @app.get("/ops/health-report", response_model=MetricsResponse)
     def ops_health_report(svc_dep: AdjudicationService = Depends(get_svc)) -> dict[str, Any]:
         """Full 3am monitoring catalog (same payload as CLI `health`)."""
         return svc_dep.health_report()
 
-    @app.get("/ops/agreement")
+    @app.get("/ops/agreement", response_model=MetricsResponse)
     def ops_agreement(svc_dep: AdjudicationService = Depends(get_svc)) -> dict[str, Any]:
         """Agreement stratification (same payload as CLI `agreement`)."""
         return svc_dep.agreement_report()
@@ -345,6 +393,7 @@ def create_app(svc: Optional[AdjudicationService] = None) -> Any:
                     "event_id": result.event_id,
                     "tenant_code": result.tenant_code,
                     "recommendation": result.recommendation,
+                    **result.closure_fields(),
                     "requires_human_signature": result.requires_human_signature,
                     "confidence": result.confidence,
                     "triage_label": result.triage_label,
@@ -363,7 +412,7 @@ def create_app(svc: Optional[AdjudicationService] = None) -> Any:
         app.state.events_cache = (svc_dep.snapshot_id, rows)
         return rows
 
-    @app.get("/events")
+    @app.get("/events", response_model=EventsResponse)
     def list_events(
         tenant_code: Optional[str] = Query(None),
         svc_dep: AdjudicationService = Depends(get_svc),
@@ -375,9 +424,9 @@ def create_app(svc: Optional[AdjudicationService] = None) -> Any:
         counts: dict[str, int] = {}
         for row in rows:
             counts[row["recommendation"]] = counts.get(row["recommendation"], 0) + 1
-        return {"count": len(rows), "counts": counts, "items": rows}
+        return {"count": len(rows), "counts": counts, "items": rows, "closure_counts": closure_counts(rows)}
 
-    @app.get("/events/{event_id}")
+    @app.get("/events/{event_id}", response_model=AdjudicateResponse)
     def event_detail(event_id: str, svc_dep: AdjudicationService = Depends(get_svc)) -> dict[str, Any]:
         """Read-only adjudication of one event: facts, uncertainty scenarios, as-of basis and rule trace."""
         assert svc_dep.engine and svc_dep.pack
@@ -389,6 +438,7 @@ def create_app(svc: Optional[AdjudicationService] = None) -> Any:
             "event_id": result.event_id,
             "tenant_code": result.tenant_code,
             "recommendation": result.recommendation,
+            **result.closure_fields(),
             "requires_human_signature": result.requires_human_signature,
             "confidence": result.confidence,
             "triage_label": result.triage_label,
@@ -444,9 +494,22 @@ def create_app(svc: Optional[AdjudicationService] = None) -> Any:
         return RedirectResponse(url="/ui")
 
     @app.get("/ui", response_class=HTMLResponse, include_in_schema=False)
-    def reviewer_ui() -> Any:
+    def reviewer_ui(svc_dep: AdjudicationService = Depends(get_svc)) -> Any:
         """Reviewer dashboard: queue, case, evidence, sign (inline, no external assets)."""
-        return HTMLResponse(_reviewer_ui_html())
+        counts = closure_counts(_events_cache(svc_dep))
+        # Render the essential distinction even without JavaScript. The case
+        # list/detail also carries the same assessment in its JSON payload.
+        summary = (
+            '<section class="card" aria-label="Closure verification counts">'
+            'Verified AUTO_CLOSE: <strong data-metric="verified-auto-close">'
+            f"{counts['verified_auto_close']}</strong>; "
+            "Unverified historical candidates requiring human review: "
+            '<strong data-metric="historical-candidates">'
+            f"{counts['historical_candidates_unverified']}</strong>; "
+            "Other AUTO_CLOSE (not independently verified): "
+            f"<strong>{counts['other_auto_close_unverified']}</strong></section>"
+        )
+        return HTMLResponse(_reviewer_ui_html().replace("<!-- closure-review-summary -->", summary))
 
     return app
 

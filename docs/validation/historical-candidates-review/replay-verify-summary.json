@@ -1,0 +1,10 @@
+{
+  "replayed": 420,
+  "identical": 420,
+  "chains_ok": 8,
+  "chain_bundles": 420,
+  "changed_events": 130,
+  "candidate_api_status": 200,
+  "candidate_case_state": "PENDING_EVIDENCE",
+  "ui_summary": "<section class=\"card\" aria-label=\"Closure verification counts\">Verified AUTO_CLOSE: <strong data-metric=\"verified-auto-close\">0</strong>; Unverified historical candidates requiring human review: <strong data-metric=\"historical-candidates\">130</strong>; Other AUTO_CLOSE (not independently verified): <strong>0</strong></section>"
+}

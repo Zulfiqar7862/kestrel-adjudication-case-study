@@ -1,0 +1,51 @@
+{
+  "excerpt_only": true,
+  "bundle_id": "EVB-e4c6bcc91bc729ab",
+  "content_hash": "e4c6bcc91bc729abbc08b823eb5290d6b0bf77eac1366bb4df72a58d7838c5c8",
+  "recommendation": {
+    "disposition": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "closure_eligibility": "historical_candidate_unverified",
+    "independent_closure_evidence": [],
+    "requires_human_review": true,
+    "requires_human_signature": true,
+    "confidence": 0.0,
+    "triage_label": "HISTORICAL_UNVERIFIED \u2014 duplicate",
+    "reported_max_temp_c": 4.9,
+    "bulletin_applied": false,
+    "regulator_reportable": false,
+    "reg_window_hours": 72.0,
+    "reg_deadline_utc": "2026-06-06 06:55:00"
+  },
+  "alert": {
+    "event_id": "EXC-112198",
+    "alert_ts_utc": "2026-06-03 06:55",
+    "excursion_start_utc": "2026-06-03 06:36",
+    "temps": {
+      "min": -3.4,
+      "max": 4.9,
+      "duration_min": 50
+    },
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "logger_fw": "TT-2.13.8",
+    "logger_id": "LG-72718",
+    "product_ref_as_received": null,
+    "carrier_ref_as_received": "BPL",
+    "lane_text": "AMS-CS-02 > BOM-NX-04",
+    "temperature_series_ref": "pack:01_Excursion_Events:EXC-112198"
+  },
+  "decision": {
+    "rule": "rule_duplicate_alert",
+    "limitations": [
+      "Historical closure limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+    ]
+  },
+  "closure_assessment": {
+    "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+    "classification_source": "01_Excursion_Events.triage_outcome (historical reference only)",
+    "closure_eligibility": "historical_candidate_unverified",
+    "independent_closure_evidence": [],
+    "requires_human_review": true,
+    "limitation": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+  }
+}

@@ -46,7 +46,8 @@
   .row[aria-current="true"] { background: var(--primary-soft); }
   .row small { color: var(--muted); display: block; }
   .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; white-space: nowrap; }
-  .b-AUTO_CLOSE { background: #E2E8F0; color: #334155; }
+  .b-HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED { background:#fff3cd;color:#664d03; }
+.b-AUTO_CLOSE { background: #E2E8F0; color: #334155; }
   .b-RELEASE_WITH_NOTE { background: var(--ok-soft); color: var(--ok); }
   .b-ESCALATED_TO_SENIOR_QA, .b-QUARANTINE_PENDING_LAB, .b-WARN { background: var(--warn-soft); color: var(--warn); }
   .b-DESTROY { background: var(--bad-soft); color: var(--bad); }
@@ -75,6 +76,7 @@
 </style>
 </head>
 <body>
+<!-- closure-review-summary -->
 <header>
   <h1>Kestrel Reviewer Dashboard</h1>
   <p>Review a temperature excursion in four steps. The engine recommends; a named person decides and signs.</p>
@@ -111,9 +113,11 @@ const esc = (v) => String(v ?? "—").replace(/[&<>"']/g, (c) => ({"&":"&amp;","
 const ICON_OK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
 const ICON_LOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>';
 const ICON_PEN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>';
-const DISPOSITIONS = ["AUTO_CLOSE", "RELEASE_WITH_NOTE", "QUARANTINE_PENDING_LAB", "DESTROY", "ESCALATED_TO_SENIOR_QA"];
+const HISTORICAL_CANDIDATE = "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED";
+const DISPOSITIONS = [HISTORICAL_CANDIDATE, "AUTO_CLOSE", "RELEASE_WITH_NOTE", "QUARANTINE_PENDING_LAB", "DESTROY", "ESCALATED_TO_SENIOR_QA"];
 const PLAIN = {
-  AUTO_CLOSE: "No action needed", RELEASE_WITH_NOTE: "Release, add a note", QUARANTINE_PENDING_LAB: "Hold for lab test",
+  AUTO_CLOSE: "Rule-supported closure (not independently verified)",
+  HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED: "Unverified historical candidate — human review", RELEASE_WITH_NOTE: "Release, add a note", QUARANTINE_PENDING_LAB: "Hold for lab test",
   DESTROY: "Destroy the product", ESCALATED_TO_SENIOR_QA: "Needs a senior reviewer",
 };
 
@@ -166,6 +170,10 @@ async function openEvent(id) {
       <p class="hint">What happened, which rules applied on that date, and why the engine recommends this.</p>
       <p>Recommendation: <span class="badge b-${esc(data.recommendation)}">${esc(PLAIN[data.recommendation])}</span>
          <small style="color:var(--muted)">(${esc(data.recommendation)}, confidence ${esc(data.confidence)})</small></p>
+      ${current.closure_eligibility === "historical_candidate_unverified" ? `
+        <div class="callout warn" id="historical-candidate-warning"><b>Unverified historical candidate; human review required.</b>
+        Historical classification (reference only): ${esc(current.historical_classification)}.
+        This is not independently verified duplicate/load evidence. No automatic closure is authorized.</div>` : ""}
       <dl>
         <dt>Customer</dt><dd>${esc(data.tenant_code)}</dd>
         <dt>Excursion started</dt><dd>${esc(a.excursion_start_utc)} UTC</dd>
@@ -232,13 +240,17 @@ async function verify() {
 }
 
 function renderSign() {
+  if (current.closure_eligibility === "historical_candidate_unverified") {
+    $("sign-out").innerHTML = '<div class="callout warn">PENDING_EVIDENCE: historical classification is not independently verified. Human review and independent evidence are required; this review category is not a final disposition.</div>';
+    return;
+  }
   setStep(4);
   $("sign-out").innerHTML = `
     <form id="signform" novalidate>
       <label for="who">Your full name (required)</label>
       <input id="who" autocomplete="name" required placeholder="e.g. Priya Menon">
       <label for="dec">Your decision</label>
-      <select id="dec">${DISPOSITIONS.map((d) => `<option value="${d}" ${d === current.recommendation ? "selected" : ""}>${PLAIN[d]}</option>`).join("")}</select>
+      <select id="dec">${DISPOSITIONS.filter((d) => d !== HISTORICAL_CANDIDATE).map((d) => `<option value="${d}" ${d === current.recommendation ? "selected" : ""}>${PLAIN[d]}</option>`).join("")}</select>
       <label for="why">Reason (optional)</label>
       <textarea id="why" rows="2" placeholder="Why you agree or disagree with the recommendation"></textarea>
       <p id="who-err" class="callout bad" hidden>Please type your name. A decision cannot be signed anonymously.</p>

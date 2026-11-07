@@ -13,6 +13,7 @@ from kestrel.decision_rules import (
     DECISION_RULES,
     DESTROY,
     ESCALATE,
+    HISTORICAL_CANDIDATE,
     QUARANTINE_PENDING_LAB,
     RELEASE_WITH_NOTE,
     ExcursionFacts,
@@ -55,14 +56,14 @@ class TestRuleOrder(unittest.TestCase):
         unresolved = ResolvedProduct(tenant_code="T", match_method="none", confidence=0.0)
         facts = make_facts(event={"triage_outcome": "Duplicate"}, product=unresolved)
         verdict, _ = decide(facts)
-        self.assertEqual(verdict.disposition, AUTO_CLOSE)
+        self.assertEqual(verdict.disposition, HISTORICAL_CANDIDATE)
 
 
 class TestNonActionable(unittest.TestCase):
-    def test_facility_equipment_event_auto_closes(self) -> None:
+    def test_facility_equipment_event_requires_review(self) -> None:
         verdict, trace = decide(make_facts(event={"triage_outcome": "Facility equipment event"}))
-        self.assertEqual(verdict.disposition, AUTO_CLOSE)
-        self.assertIn("facility equipment", trace[0])
+        self.assertEqual(verdict.disposition, HISTORICAL_CANDIDATE)
+        self.assertIn("not independent load verification", trace[0])
 
     def test_gateway_gap_boundary_at_30_minutes(self) -> None:
         at_limit = make_facts(event={"gateway_gap_min": 30, "interpolated": "Y"}, duration_min=10)

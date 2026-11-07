@@ -144,7 +144,7 @@ stateDiagram-v2
 ```
 
 This shows the main paths; the full allowed-transition table is `ALLOWED` in `lifecycle.py`, and any other
-move raises an error. Auto-closes land in `TRIAGED_NON_ACTIONABLE`; product-fate verdicts land in
+move raises an error. Historical candidates land in `PENDING_EVIDENCE`, never CLOSED_AUTO; the candidate category cannot itself be signed as a final disposition. Legacy numeric AUTO_CLOSE proposals land in `TRIAGED_NON_ACTIONABLE`; product-fate verdicts land in
 `AWAITING_REVIEWER` and close only when a named reviewer signs against the matching bundle hash.
 
 Reopen marks the prior case REOPENED and creates a linked revision, carrying its deadline and reportability. Prior signature fields and append-only evidence remain. It does not assume a notification was filed.
@@ -182,7 +182,7 @@ Shared carrier/facility source registries are captured for replay; products, SOP
 The 420 rows are a stratified evidence sample, not ~11,400/month production traffic. Hash chains/retention dates do not prove raw-series/source-document capture or seven-year durability. Queue sorting is not storm admission, collapse, fairness or independent notification. Batch exposure and shortened-expiry workflow are missing; escalation is review routing, not product fate.
 
 
-## Correctness-review gates (0.4.2)
+## Correctness-review gates (0.4.3)
 
 These specific defects were addressed; overall safety and production readiness remain unvalidated.
 
@@ -190,8 +190,8 @@ These specific defects were addressed; overall safety and production readiness r
 
 `decision_rules.decide` separates invalid/missing required measurements from unresolved storage instructions. An upper-only limit requires max; a lower-only limit requires min; both limits require both extrema. Mean is not a replacement. Supplied nonfinite/reversed extrema remain invalid. Historical triage cannot bypass these gates. Additional restrictions (do not freeze, protect from light, dry ice permitted, excursion-study reference) are preserved independently; this numeric check does not verify compliance or invent freeze limits.
 
-Carrier resolution and cumulative-history gates from 0.4.1 remain. SOP bodies/site annexures are unavailable, so release/allowance closure remains blocked on unresolved authority. Rule/code 0.4.2 distinguishes the new parsing/provenance semantics. `evidence.decision` records the deciding rule and limitations; all sample AUTO_CLOSEs are unverified historical duplicate/facility classification, not independent duplicate/load verification. `CaseLifecycle.create` puts such proposals in TRIAGED_NON_ACTIONABLE, not a final product-release state.
+Carrier resolution and cumulative-history gates from 0.4.1 remain. SOP bodies/site annexures are unavailable, so release/allowance closure remains blocked on unresolved authority. Rule/code 0.4.3 distinguishes unresolved historical candidates from AUTO_CLOSE. `evidence.decision` records the deciding rule and limitations; all 130 historical duplicate/facility references are unresolved candidates, not independent duplicate/load verification. `CaseLifecycle.create` puts those candidates in PENDING_EVIDENCE. The run emits zero AUTO_CLOSEs. Shared closure-assessment fields and separate verified/historical/other-unverified counters flow through typed API schemas, dashboard, evidence and CLI/ops metrics. No verification source was invented; other numeric closure paths remain prototype heuristics.
 
-See [executed validation and the full inventory](validation/storage-limits-review/report.md).
+See [executed validation and the full inventory](validation/historical-candidates-review/report.md).
 
 New one-sided instructions require an explicit Celsius unit; “Below 25” without a unit stays unresolved. Existing explicit unitless two-sided workbook shorthands retain their field-specific Celsius convention, not a general cross-document unit inference. A comma pair is recognised only in the explicit FROZEN tuple form, not ambiguous decimal-comma text.

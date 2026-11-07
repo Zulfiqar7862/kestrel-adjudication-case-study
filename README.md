@@ -51,11 +51,11 @@ and leaves product-fate decisions to a named human.
 Requires Python 3.10+.
 
 ```bash
-git clone -b production https://github.com/Zulfiqar7862/kestrel-adjudication-case-study.git
+git clone -b fix/correctness-review https://github.com/Zulfiqar7862/kestrel-adjudication-case-study.git
 cd kestrel-adjudication-case-study
 python -m venv .venv && source .venv/bin/activate
 make install            # pip install -e ".[api,dev]"
-make test               # 169 tests
+make test               # 190 tests
 kestrel run-all         # adjudicate all 420 alerts
 make serve              # open http://127.0.0.1:8080/ui
 ```
@@ -76,7 +76,7 @@ flowchart LR
 
 1. **As-of lookups.** SQLite supports valid/transaction-time queries. The live engine uses dated in-memory
    workbook rows, not a transaction-time store slice; replay uses the references sealed in its bundle.
-2. **Rules, not a model.** `decision_rules.py` is an ordered list of 16 named rules plus a fallback. The first one that
+2. **Rules, not a model.** `decision_rules.py` is an ordered list of 20 named rules plus a fallback. The first one that
    gives a verdict wins, and each adds a plain-English line to the rationale. Same input, same output.
 3. **Evidence.** Every input is written into one JSON bundle with a content hash linked to the previous bundle
    for that tenant. Stored content/link edits can be detected. Evidence reads require the matching tenant; this alone does not enforce clause 22 over every derived artefact.
@@ -90,7 +90,8 @@ Details: [docs/code-walkthrough.md](docs/code-walkthrough.md), [docs/architectur
 
 | Outcome | Meaning | Count |
 |---|---|---|
-| `AUTO_CLOSE` | Non-actionable candidate; case remains TRIAGED_NON_ACTIONABLE | 130 |
+| `AUTO_CLOSE` | No closures emitted; independently verified closure count is also zero | 0 |
+| `HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED` | Unresolved historical reference; human review in PENDING_EVIDENCE | 130 |
 | `ESCALATED_TO_SENIOR_QA` | Identity, data or uncertainty needs senior review | 290 |
 | `RELEASE_WITH_NOTE` | Prototype recommendation; human review required | 0 |
 | `QUARANTINE_PENDING_LAB` | Hold for a lab test | 0 |
@@ -98,7 +99,11 @@ Details: [docs/code-walkthrough.md](docs/code-walkthrough.md), [docs/architectur
 
 EXC-107133 now returns ESCALATED_TO_SENIOR_QA: the cited study does not establish product/presentation/type applicability, and the governing SOP/site annexure is unresolved. Product-master prose is not a substitute. No batch ledger was invented; cumulative exposure assessment is unresolved without verified history.
 
-Shadow: 91 firmware candidates and 91 scenario/evidence diffs, **0 disposition flips** under the current rules. Historical-final agreement: 4/200 (2%); assistant-draft agreement: 130/420 (30.95%). These are sample comparisons, not safety/production-accuracy claims. [Storage-limit report, full 86-case table and AUTO_CLOSE inventory](docs/validation/storage-limits-review/report.md). Previous 0.4.1 counts were 111/309/0/0/0; current rule/code version is 0.4.2. The [earlier correctness-review record](docs/validation/correctness-review/report.md) is retained as historical validation.
+Shadow: 91 firmware candidates and 91 scenario/evidence diffs, **0 disposition flips**. Historical-final agreement: 4/200 (2%); assistant-draft agreement: 0/420 (0%). These are sample comparisons, not safety/production-accuracy claims.
+
+Before (0.4.2): **130/290/0/0/0** in AUTO_CLOSE/QA/note/quarantine/destroy order. After (0.4.3): **0/290/0/0/0**, plus **130 unverified historical candidates** (93 duplicate, 37 facility/no-product). All 130 changed to unresolved review; no closure-count target was used. `closure_counts` separately reports verified AUTO_CLOSE **0**, historical candidates **130**, and other unverified AUTO_CLOSE **0**. No independent duplicate/load verification artifact was found or invented. [Executed report, failing/passing tests and every changed event](docs/validation/historical-candidates-review/report.md).
+
+The [0.4.2 storage-limit report and 86-case table](docs/validation/storage-limits-review/report.md) and [0.4.1 correctness report](docs/validation/correctness-review/report.md) are retained as historical snapshots, not current counts.
 
 ## Project structure
 
@@ -119,7 +124,7 @@ Shadow: 91 firmware candidates and 91 scenario/evidence diffs, **0 disposition f
 │   ├── service.py           facade used by CLI and API
 │   ├── api/                 FastAPI app + reviewer dashboard (static/index.html)
 │   └── cli.py               `kestrel` command
-├── tests/                   169 tests (unit, golden cases, API, invariants)
+├── tests/                   190 tests (unit, golden cases, API, invariants)
 ├── docs/                    architecture, rules, API, operations, case-study write-up
 ├── data/                    case-study inputs (unchanged)
 ├── Dockerfile · Makefile · pyproject.toml · .github/workflows/ci.yml
@@ -148,7 +153,7 @@ kestrel serve                                         # HTTP API + dashboard
 
 `kestrel serve` starts FastAPI on port 8080:
 
-- `/ui` is the reviewer dashboard: search a case, check the facts, seal evidence, verify, sign.
+- `/ui` distinguishes verified closures from unverified historical candidates, shows their historical reference, and suppresses final signing for the unresolved candidate category. Search a case, inspect facts, seal evidence and request review.
 - `/docs` is the interactive OpenAPI page.
 
 ```bash
@@ -161,7 +166,7 @@ Full endpoint list and error codes: [docs/api.md](docs/api.md).
 ## Testing and quality
 
 ```bash
-make test     # pytest, 169 tests
+make test     # pytest, 190 tests
 make lint     # ruff check + ruff format --check
 make cov      # coverage report
 ```
@@ -176,6 +181,7 @@ make cov      # coverage report
 | `test_invariants.py` | auto-close never needs a signature; fate outcomes always do |
 | `test_determinism.py` | replaying a bundle reproduces the decision |
 | `test_api.py` | endpoints and their 4xx codes |
+| `test_historical_candidates.py` | historical labels cannot authorize closure; API/schema, rendered UI counts, evidence, lifecycle, CLI and metrics distinguish review candidates |
 | `test_shadow.py`, `test_ops.py`, `test_identity.py` | bulletin replay, health report, identity resolution |
 
 CI runs lint and tests on Python 3.10 to 3.13, then builds the Docker image and calls the running container.
@@ -208,7 +214,7 @@ All optional. Copy `.env.example` or export:
 | No LLM on the decision path | Virent bans external model APIs; the January pilot cited studies that don't exist; decisions must be versioned and replayable; cost ceiling of USD 0.06 per screened alert |
 | Bitemporal store | The inspector asks what was true *then*, and what we knew when we decided |
 | Hash-chained evidence per tenant | Detect edits to stored bundles; seven-year archival completeness and clause 22 controls over all derived data remain production requirements |
-| Auto-close closures only | Dr Rao: "automate closures, not decisions" |
+| Historical classification is not closure authority | Unverified candidates stay in human review; no verified closure adapter is invented |
 | Separate regulatory clock | 14 late filings sat behind alert storms; the deadline drives queue order |
 | Ordered named rules | Each rule is testable on its own, and a reviewer can read why |
 | Propose Aurastat first | Candidate risk-based choice; board asks for "one and certain", not a named tenant |
@@ -223,7 +229,7 @@ The full reasoning, requirement traceability and board pushback are in
   object lock.
 - Missing/invalid **required measurements** and **unresolved storage text** are separate QA reasons. Explicit one-sided limits require only their corresponding extremum; mean never substitutes. Strictness/inclusivity is preserved, and no lower bound is invented. Additional restrictions are retained separately, not independently verified.
 - Carrier resolution prefers unique exact legal entity, then exact alias, then unique substring; ambiguity is recorded, never resolved by name length.
-- Every remaining AUTO_CLOSE in this sample (93 duplicate + 37 facility) relies on **unverified historical classification, not independent verification**. Other coded paths are also limited summary/index heuristics; see the full inventory.
+- All 130 prior historical AUTO_CLOSEs now require human review as `HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED`; raw triage is reference data only. Other coded numeric AUTO_CLOSE paths remain unverified prototype heuristics (zero sample emissions), never silently counted as independently verified closures.
 - SOP bodies/site annexures are absent: no release or allowance-based closure is authorised from index pointers. Cumulative lifetime allowances require verified batch history, unavailable here.
 - The dashboard has no login; sign-off takes a typed name. Production needs SSO and e-signature (21 CFR Part 11).
 

@@ -1,8 +1,8 @@
-# Current code walkthrough (rule/code 0.4.2)
+# Current code walkthrough (rule/code 0.4.3)
 
 These specific defects were addressed; overall safety and production readiness remain unvalidated.
 
-This is the corrected flow, checked on 7 Nov 2026 (CET). The earlier 0.4.0 walkthrough described an unsafe product-master fallback; it is no longer the implementation. Source workbook and PDF are unchanged. Executed outputs and test-first logs are linked in [validation](validation/correctness-review/report.md).
+This is the corrected flow, checked on 7 Nov 2026 (CET). The earlier 0.4.0 walkthrough described an unsafe product-master fallback; it is no longer the implementation. Source workbook and PDF are unchanged. Executed outputs and test-first logs are linked in [validation](validation/historical-candidates-review/report.md).
 
 ## 1. Read the real shipment record
 
@@ -33,7 +33,7 @@ For EXC-107133, complete temperatures pass the first gate. The study is unresolv
 
 ## 4. Preserve and replay
 
-`AdjudicationService._persist`, `storage/evidence.py` and `storage/bitemporal.py` preserve the event/reference snapshot, full result and tenant hash-chain links. `replay_from_bundle` restores sealed inputs and compares the full result without consulting the current workbook. Rule/code version is 0.4.2; old executable runtimes are not archived by this helper. Index records are preserved, **not** missing raw temperature series, study PDFs or SOP annexures.
+`AdjudicationService._persist`, `storage/evidence.py` and `storage/bitemporal.py` preserve the event/reference snapshot, full result and tenant hash-chain links. `replay_from_bundle` restores sealed inputs and compares the full result without consulting the current workbook. Rule/code version is 0.4.3; old executable runtimes are not archived by this helper. Index records are preserved, **not** missing raw temperature series, study PDFs or SOP annexures.
 
 `requires_human_signature=True` means a recommendation needs human review. Signers are typed names, not authenticated people, and manual sign-off still does not independently enforce site-authority clearance. This is not production release control.
 
@@ -41,7 +41,7 @@ For EXC-107133, complete temperatures pass the first gate. The study is unresolv
 
 TT-CB-114 means under-reporting **up to** 1.8°C, not an exact correction. The engine retains observations and evaluates reported and upper-bound summary scenarios. EXC-107133 is unaffected firmware. The sample shadow run has 91 candidates, 91 scenario/evidence diffs and zero disposition flips after the conservative gates; this does not establish firmware safety or reproduce the historical 61-flip incident.
 
-EXC-112289 remains QA, now stopped earlier by unresolved study identity/presentation; its historical quarantine outcome is not assumed correct. EXC-112198 still AUTO_CLOSEs on historical duplicate text with sufficient extrema/label bounds; no live deduplication proof was built. That remaining historical-triage dependence is explicitly labelled **unverified historical classification, not independent duplicate verification** in the trace and evidence. All current sample closures are duplicate/facility historical classification; see the [full inventory](validation/storage-limits-review/report.md).
+EXC-112289 remains QA, stopped by unresolved study applicability. EXC-112198 now returns `HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED`, not AUTO_CLOSE: the duplicate label is historical reference, not independent duplicate verification. EXC-112352 similarly remains an unverified facility/no-product candidate. No canonical duplicate link or verified load manifest is supplied. All 130 prior historical closures now require human review in PENDING_EVIDENCE. API/schema, dashboard, sealed evidence and metrics carry the distinction; [executed evidence](validation/historical-candidates-review/report.md).
 
 ## Reproduce
 
@@ -57,4 +57,4 @@ kestrel --db /tmp/reviewer/state.sqlite --evidence-dir /tmp/reviewer/evidence ru
 kestrel --db /tmp/reviewer/state.sqlite --evidence-dir /tmp/reviewer/evidence adjudicate --event EXC-107133
 ```
 
-Sample counts: 130 AUTO_CLOSE, 290 QA, 0 release-with-note/quarantine/destroy. These are not production-accuracy estimates or QA-approved clinical outcomes.
+Sample counts: 0 AUTO_CLOSE, 130 unverified historical candidates, 290 QA, 0 release-with-note/quarantine/destroy. Verified closures: 0; other unverified numeric AUTO_CLOSE: 0. These are not production-accuracy estimates or QA-approved clinical outcomes.

@@ -1,0 +1,26 @@
+{
+  "count": 420,
+  "counts": {
+    "ESCALATED_TO_SENIOR_QA": 290,
+    "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED": 130
+  },
+  "closure_counts": {
+    "verified_auto_close": 0,
+    "historical_candidates_unverified": 130,
+    "other_auto_close_unverified": 0
+  },
+  "EXC-107133": {
+    "event_id": "EXC-107133",
+    "tenant_code": "T-KAVERI",
+    "recommendation": "ESCALATED_TO_SENIOR_QA",
+    "historical_classification": "ACTIONABLE \u2014 excursion confirmed",
+    "closure_eligibility": "not_eligible",
+    "independent_closure_evidence": [],
+    "requires_human_review": true,
+    "bundle_id": "EVB-45d1456fc0c50929",
+    "case_id": "CASE-29799e47be13",
+    "reg_deadline_utc": "2026-08-12 06:31:00"
+  },
+  "out": "/tmp/kestrel-historical/verified.csv",
+  "snapshot_id": "snap-b5329178f806"
+}

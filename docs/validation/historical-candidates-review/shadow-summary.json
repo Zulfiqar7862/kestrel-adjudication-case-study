@@ -1,0 +1,8 @@
+{
+  "change": "TT-CB-114 TT-2.14.3 uncertainty bound [0, 1.8]\u00b0C",
+  "candidates": 91,
+  "diffs": 91,
+  "disposition_flips": 0,
+  "wrote": "/tmp/kestrel-historical/shadow.json",
+  "rao_gate": "Review diffs before promoting rule/reference change"
+}

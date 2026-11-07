@@ -1,0 +1,769 @@
+[
+  {
+    "event_id": "EXC-112198",
+    "before": {
+      "event_id": "EXC-112198",
+      "tenant_code": "T-AURA",
+      "recommendation": "AUTO_CLOSE",
+      "requires_human_signature": false,
+      "confidence": 0.8,
+      "triage_label": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+      "rationale": [
+        "Product identity weak (unresolved): blank product_ref_as_received",
+        "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+        "Triage indicates duplicate of earlier alert",
+        "Decision rule: rule_duplicate_alert",
+        "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+      ],
+      "evidence": {
+        "event_id": "EXC-112198",
+        "tenant_code": "T-AURA",
+        "temps": {
+          "min_reported": -3.4,
+          "max_reported": 4.9,
+          "mean_reported": 0.6,
+          "duration_min": 50.0,
+          "bulletin_tt_cb_114": false
+        },
+        "product": {
+          "ref_as_received": null,
+          "match_method": "unresolved",
+          "confidence": 0.0,
+          "sku": null,
+          "brand": null,
+          "gtin": null,
+          "stability_study_ref": null,
+          "unresolved_reason": "blank product_ref_as_received"
+        },
+        "labelled_range": {
+          "text": "2-8 \u00b0C",
+          "low_c": 2.0,
+          "high_c": 8.0,
+          "lower": {
+            "kind": "lower",
+            "value_c": 2.0,
+            "inclusive": true
+          },
+          "upper": {
+            "kind": "upper",
+            "value_c": 8.0,
+            "inclusive": true
+          },
+          "constraints": [],
+          "unresolved_reason": null,
+          "bound_type": "two_sided",
+          "constraints_status": "retained, not independently verified"
+        },
+        "stability": {
+          "study_ref": null,
+          "permitted_text": null,
+          "source": "unresolved",
+          "authority_issue": "cited study missing or ambiguous in tenant index",
+          "readable": false,
+          "notes": [
+            "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute"
+          ],
+          "presentation_mismatch_risk": false,
+          "cumulative_assessment": "unresolved: study applicability not established; cumulative requirement unknown"
+        },
+        "sop": {
+          "doc_id": "SOP-AUR-9238",
+          "revision": "Rev 04",
+          "effective_from": "2024-06-08",
+          "effective_to": "None",
+          "acceptance_limits_location": "Body text, section 6",
+          "overlap_conflict": false,
+          "competing_revisions": [
+            "Rev 04"
+          ]
+        },
+        "sop_authority": {
+          "status": "unresolved",
+          "reason": "SOP/site acceptance authority unresolved: indexed body/annexure content not supplied"
+        },
+        "carrier": {
+          "contract_id": "CNT-2025-0104",
+          "legal_entity": "Boreal Pharma Logistics AB",
+          "cold_chain_clause": "Schedule 4",
+          "claim_window_days": 30
+        },
+        "regulatory": {
+          "reportable": false,
+          "window_hours": 72.0,
+          "deadline_utc": "2026-06-06 06:55:00",
+          "basis": "tenant_default[T-AURA]"
+        },
+        "decision": {
+          "rule": "rule_duplicate_alert",
+          "limitations": [
+            "AUTO_CLOSE limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+          ]
+        }
+      },
+      "product_match_method": "unresolved",
+      "product_sku": null,
+      "product_brand": null,
+      "stability_study_ref": null,
+      "sop_doc_id": "SOP-AUR-9238",
+      "sop_revision": "Rev 04",
+      "sop_overlap_conflict": false,
+      "carrier_contract_id": "CNT-2025-0104",
+      "carrier_has_cold_chain_clause": true,
+      "reported_max_temp_c": 4.9,
+      "bulletin_applied": false,
+      "regulator_reportable": false,
+      "reg_window_hours": 72.0,
+      "reg_deadline_utc": "2026-06-06 06:55:00",
+      "historical_recommendation": "AUTO_CLOSE",
+      "historical_final_disposition": "RELEASE",
+      "agrees_with_historical_final": false,
+      "agrees_with_historical_engine": true
+    },
+    "after": {
+      "event_id": "EXC-112198",
+      "tenant_code": "T-AURA",
+      "recommendation": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "requires_human_signature": true,
+      "confidence": 0.0,
+      "triage_label": "HISTORICAL_UNVERIFIED \u2014 duplicate",
+      "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+      "closure_eligibility": "historical_candidate_unverified",
+      "independent_closure_evidence": [],
+      "requires_human_review": true,
+      "rationale": [
+        "Product identity weak (unresolved): blank product_ref_as_received",
+        "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute",
+        "Historical closure limitation: Unverified historical classification: duplicate; not independent duplicate verification",
+        "Unresolved: independent closure evidence unavailable; human review required",
+        "Decision rule: rule_duplicate_alert"
+      ],
+      "evidence": {
+        "event_id": "EXC-112198",
+        "tenant_code": "T-AURA",
+        "temps": {
+          "min_reported": -3.4,
+          "max_reported": 4.9,
+          "mean_reported": 0.6,
+          "duration_min": 50.0,
+          "bulletin_tt_cb_114": false
+        },
+        "product": {
+          "ref_as_received": null,
+          "match_method": "unresolved",
+          "confidence": 0.0,
+          "sku": null,
+          "brand": null,
+          "gtin": null,
+          "stability_study_ref": null,
+          "unresolved_reason": "blank product_ref_as_received"
+        },
+        "labelled_range": {
+          "text": "2-8 \u00b0C",
+          "low_c": 2.0,
+          "high_c": 8.0,
+          "lower": {
+            "kind": "lower",
+            "value_c": 2.0,
+            "inclusive": true
+          },
+          "upper": {
+            "kind": "upper",
+            "value_c": 8.0,
+            "inclusive": true
+          },
+          "constraints": [],
+          "unresolved_reason": null,
+          "bound_type": "two_sided",
+          "constraints_status": "retained, not independently verified"
+        },
+        "stability": {
+          "study_ref": null,
+          "permitted_text": null,
+          "source": "unresolved",
+          "authority_issue": "cited study missing or ambiguous in tenant index",
+          "readable": false,
+          "notes": [
+            "Stability authority unresolved: cited study missing or ambiguous in tenant index; product-master text not used as substitute"
+          ],
+          "presentation_mismatch_risk": false,
+          "cumulative_assessment": "unresolved: study applicability not established; cumulative requirement unknown"
+        },
+        "sop": {
+          "doc_id": "SOP-AUR-9238",
+          "revision": "Rev 04",
+          "effective_from": "2024-06-08",
+          "effective_to": "None",
+          "acceptance_limits_location": "Body text, section 6",
+          "overlap_conflict": false,
+          "competing_revisions": [
+            "Rev 04"
+          ]
+        },
+        "sop_authority": {
+          "status": "unresolved",
+          "reason": "SOP/site acceptance authority unresolved: indexed body/annexure content not supplied"
+        },
+        "carrier": {
+          "contract_id": "CNT-2025-0104",
+          "legal_entity": "Boreal Pharma Logistics AB",
+          "cold_chain_clause": "Schedule 4",
+          "claim_window_days": 30
+        },
+        "regulatory": {
+          "reportable": false,
+          "window_hours": 72.0,
+          "deadline_utc": "2026-06-06 06:55:00",
+          "basis": "tenant_default[T-AURA]"
+        },
+        "decision": {
+          "rule": "rule_duplicate_alert",
+          "limitations": [
+            "Historical closure limitation: Unverified historical classification: duplicate; not independent duplicate verification"
+          ]
+        },
+        "closure_assessment": {
+          "historical_classification": "NON_ACTIONABLE \u2014 duplicate of earlier alert",
+          "classification_source": "01_Excursion_Events.triage_outcome (historical reference only)",
+          "closure_eligibility": "historical_candidate_unverified",
+          "independent_closure_evidence": [],
+          "requires_human_review": true,
+          "limitation": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+        }
+      },
+      "product_match_method": "unresolved",
+      "product_sku": null,
+      "product_brand": null,
+      "stability_study_ref": null,
+      "sop_doc_id": "SOP-AUR-9238",
+      "sop_revision": "Rev 04",
+      "sop_overlap_conflict": false,
+      "carrier_contract_id": "CNT-2025-0104",
+      "carrier_has_cold_chain_clause": true,
+      "reported_max_temp_c": 4.9,
+      "bulletin_applied": false,
+      "regulator_reportable": false,
+      "reg_window_hours": 72.0,
+      "reg_deadline_utc": "2026-06-06 06:55:00",
+      "historical_recommendation": "AUTO_CLOSE",
+      "historical_final_disposition": "RELEASE",
+      "agrees_with_historical_final": false,
+      "agrees_with_historical_engine": false
+    }
+  },
+  {
+    "event_id": "EXC-112352",
+    "before": {
+      "event_id": "EXC-112352",
+      "tenant_code": "T-PINNACLE",
+      "recommendation": "AUTO_CLOSE",
+      "requires_human_signature": false,
+      "confidence": 0.85,
+      "triage_label": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+      "rationale": [
+        "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+        "Triage indicates facility equipment event with no product loaded",
+        "Decision rule: rule_facility_equipment_event",
+        "Additional storage constraints retained, not independently verified: excursions to 30\u00b0c permitted, see stability",
+        "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+      ],
+      "evidence": {
+        "event_id": "EXC-112352",
+        "tenant_code": "T-PINNACLE",
+        "temps": {
+          "min_reported": 24.1,
+          "max_reported": 27.9,
+          "mean_reported": 25.9,
+          "duration_min": 27.0,
+          "bulletin_tt_cb_114": false
+        },
+        "product": {
+          "ref_as_received": "SKU-INJ-3390",
+          "match_method": "sku_exact",
+          "confidence": 0.95,
+          "sku": "SKU-INJ-3390",
+          "brand": null,
+          "gtin": null,
+          "stability_study_ref": "STB-9543",
+          "unresolved_reason": null
+        },
+        "labelled_range": {
+          "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+          "low_c": 15.0,
+          "high_c": 25.0,
+          "lower": {
+            "kind": "lower",
+            "value_c": 15.0,
+            "inclusive": true
+          },
+          "upper": {
+            "kind": "upper",
+            "value_c": 25.0,
+            "inclusive": true
+          },
+          "constraints": [
+            "excursions to 30\u00b0c permitted, see stability"
+          ],
+          "unresolved_reason": null,
+          "bound_type": "two_sided",
+          "constraints_status": "retained, not independently verified"
+        },
+        "stability": {
+          "study_ref": "STB-9543",
+          "permitted_text": null,
+          "source": "unresolved",
+          "authority_issue": "study product identity not established; study presentation applicability not established; study type does not establish excursion allowance",
+          "readable": false,
+          "notes": [
+            "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute"
+          ],
+          "presentation_mismatch_risk": true,
+          "cumulative_assessment": "unresolved: study applicability not established; cumulative requirement unknown"
+        },
+        "sop": {
+          "doc_id": "SOP-PIN-5591",
+          "revision": "Rev 03",
+          "effective_from": "2024-10-20",
+          "effective_to": "None",
+          "acceptance_limits_location": "Body text, section 6",
+          "overlap_conflict": false,
+          "competing_revisions": [
+            "Rev 03"
+          ]
+        },
+        "sop_authority": {
+          "status": "unresolved",
+          "reason": "SOP/site acceptance authority unresolved: indexed body/annexure content not supplied"
+        },
+        "carrier": {
+          "contract_id": "CNT-2024-0612",
+          "legal_entity": "TransPolar Freight Inc",
+          "cold_chain_clause": "Schedule 4",
+          "claim_window_days": 30
+        },
+        "regulatory": {
+          "reportable": false,
+          "window_hours": 24.0,
+          "deadline_utc": "2026-02-20 03:09:00",
+          "basis": "tenant_default[T-PINNACLE]"
+        },
+        "decision": {
+          "rule": "rule_facility_equipment_event",
+          "limitations": [
+            "Additional storage constraints retained, not independently verified: excursions to 30\u00b0c permitted, see stability",
+            "AUTO_CLOSE limitation: Unverified historical classification: facility/no product loaded; not independent load verification"
+          ]
+        }
+      },
+      "product_match_method": "sku_exact",
+      "product_sku": "SKU-INJ-3390",
+      "product_brand": null,
+      "stability_study_ref": "STB-9543",
+      "sop_doc_id": "SOP-PIN-5591",
+      "sop_revision": "Rev 03",
+      "sop_overlap_conflict": false,
+      "carrier_contract_id": "CNT-2024-0612",
+      "carrier_has_cold_chain_clause": true,
+      "reported_max_temp_c": 27.9,
+      "bulletin_applied": false,
+      "regulator_reportable": false,
+      "reg_window_hours": 24.0,
+      "reg_deadline_utc": "2026-02-20 03:09:00",
+      "historical_recommendation": "AUTO_CLOSE",
+      "historical_final_disposition": "RELEASE",
+      "agrees_with_historical_final": false,
+      "agrees_with_historical_engine": true
+    },
+    "after": {
+      "event_id": "EXC-112352",
+      "tenant_code": "T-PINNACLE",
+      "recommendation": "HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED",
+      "requires_human_signature": true,
+      "confidence": 0.0,
+      "triage_label": "HISTORICAL_UNVERIFIED \u2014 facility",
+      "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+      "closure_eligibility": "historical_candidate_unverified",
+      "independent_closure_evidence": [],
+      "requires_human_review": true,
+      "rationale": [
+        "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute",
+        "Historical closure limitation: Unverified historical classification: facility/no product loaded; not independent load verification",
+        "Unresolved: independent closure evidence unavailable; human review required",
+        "Decision rule: rule_facility_equipment_event",
+        "Additional storage constraints retained, not independently verified: excursions to 30\u00b0c permitted, see stability"
+      ],
+      "evidence": {
+        "event_id": "EXC-112352",
+        "tenant_code": "T-PINNACLE",
+        "temps": {
+          "min_reported": 24.1,
+          "max_reported": 27.9,
+          "mean_reported": 25.9,
+          "duration_min": 27.0,
+          "bulletin_tt_cb_114": false
+        },
+        "product": {
+          "ref_as_received": "SKU-INJ-3390",
+          "match_method": "sku_exact",
+          "confidence": 0.95,
+          "sku": "SKU-INJ-3390",
+          "brand": null,
+          "gtin": null,
+          "stability_study_ref": "STB-9543",
+          "unresolved_reason": null
+        },
+        "labelled_range": {
+          "text": "15\u00b0C to 25\u00b0C (excursions to 30\u00b0C permitted, see stability)",
+          "low_c": 15.0,
+          "high_c": 25.0,
+          "lower": {
+            "kind": "lower",
+            "value_c": 15.0,
+            "inclusive": true
+          },
+          "upper": {
+            "kind": "upper",
+            "value_c": 25.0,
+            "inclusive": true
+          },
+          "constraints": [
+            "excursions to 30\u00b0c permitted, see stability"
+          ],
+          "unresolved_reason": null,
+          "bound_type": "two_sided",
+          "constraints_status": "retained, not independently verified"
+        },
+        "stability": {
+          "study_ref": "STB-9543",
+          "permitted_text": null,
+          "source": "unresolved",
+          "authority_issue": "study product identity not established; study presentation applicability not established; study type does not establish excursion allowance",
+          "readable": false,
+          "notes": [
+            "Stability authority unresolved: study product identity not established; study presentation applicability not established; study type does not establish excursion allowance; product-master text not used as substitute"
+          ],
+          "presentation_mismatch_risk": true,
+          "cumulative_assessment": "unresolved: study applicability not established; cumulative requirement unknown"
+        },
+        "sop": {
+          "doc_id": "SOP-PIN-5591",
+          "revision": "Rev 03",
+          "effective_from": "2024-10-20",
+          "effective_to": "None",
+          "acceptance_limits_location": "Body text, section 6",
+          "overlap_conflict": false,
+          "competing_revisions": [
+            "Rev 03"
+          ]
+        },
+        "sop_authority": {
+          "status": "unresolved",
+          "reason": "SOP/site acceptance authority unresolved: indexed body/annexure content not supplied"
+        },
+        "carrier": {
+          "contract_id": "CNT-2024-0612",
+          "legal_entity": "TransPolar Freight Inc",
+          "cold_chain_clause": "Schedule 4",
+          "claim_window_days": 30
+        },
+        "regulatory": {
+          "reportable": false,
+          "window_hours": 24.0,
+          "deadline_utc": "2026-02-20 03:09:00",
+          "basis": "tenant_default[T-PINNACLE]"
+        },
+        "decision": {
+          "rule": "rule_facility_equipment_event",
+          "limitations": [
+            "Historical closure limitation: Unverified historical classification: facility/no product loaded; not independent load verification",
+            "Additional storage constraints retained, not independently verified: excursions to 30\u00b0c permitted, see stability"
+          ]
+        },
+        "closure_assessment": {
+          "historical_classification": "NON_ACTIONABLE \u2014 facility equipment event, no product loaded",
+          "classification_source": "01_Excursion_Events.triage_outcome (historical reference only)",
+          "closure_eligibility": "historical_candidate_unverified",
+          "independent_closure_evidence": [],
+          "requires_human_review": true,
+          "limitation": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+        }
+      },
+      "product_match_method": "sku_exact",
+      "product_sku": "SKU-INJ-3390",
+      "product_brand": null,
+      "stability_study_ref": "STB-9543",
+      "sop_doc_id": "SOP-PIN-5591",
+      "sop_revision": "Rev 03",
+      "sop_overlap_conflict": false,
+      "carrier_contract_id": "CNT-2024-0612",
+      "carrier_has_cold_chain_clause": true,
+      "reported_max_temp_c": 27.9,
+      "bulletin_applied": false,
+      "regulator_reportable": false,
+      "reg_window_hours": 24.0,
+      "reg_deadline_utc": "2026-02-20 03:09:00",
+      "historical_recommendation": "AUTO_CLOSE",
+      "historical_final_disposition": "RELEASE",
+      "agrees_with_historical_final": false,
+      "agrees_with_historical_engine": false
+    }
+  },
+  {
+    "event_id": "EXC-107133",
+    "before": {
+      "event_id": "EXC-107133",
+      "tenant_code": "T-KAVERI",
+      "recommendation": "ESCALATED_TO_SENIOR_QA",
+      "requires_human_signature": true,
+      "confidence": 0.0,
+      "triage_label": "ACTIONABLE \u2014 stability authority unresolved",
+      "rationale": [
+        "Stability authority unresolved: study product identity not established; study presentation conflicts with product; study type does not establish excursion allowance; product-master text not used as substitute",
+        "SOP overlap: 2 revisions of SOP-KAV-9392 effective on 2026-07-28; candidate Rev 03 (highest rev, not governing authority). Human must confirm (override EXC-110490 pattern).",
+        "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+        "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation conflicts with product; study type does not establish excursion allowance",
+        "Decision rule: rule_stability_authority",
+        "Additional storage constraints retained, not independently verified: protect from light"
+      ],
+      "evidence": {
+        "event_id": "EXC-107133",
+        "tenant_code": "T-KAVERI",
+        "temps": {
+          "min_reported": 5.4,
+          "max_reported": 11.2,
+          "mean_reported": 7.9,
+          "duration_min": 15.0,
+          "bulletin_tt_cb_114": false
+        },
+        "product": {
+          "ref_as_received": "08901234500035",
+          "match_method": "gtin_exact",
+          "confidence": 0.98,
+          "sku": null,
+          "brand": "Glucodyne SoloJet 100U",
+          "gtin": "08901234500035",
+          "stability_study_ref": "STB-3584",
+          "unresolved_reason": null
+        },
+        "labelled_range": {
+          "text": "2-8C (protect from light)",
+          "low_c": 2.0,
+          "high_c": 8.0,
+          "lower": {
+            "kind": "lower",
+            "value_c": 2.0,
+            "inclusive": true
+          },
+          "upper": {
+            "kind": "upper",
+            "value_c": 8.0,
+            "inclusive": true
+          },
+          "constraints": [
+            "protect from light"
+          ],
+          "unresolved_reason": null,
+          "bound_type": "two_sided",
+          "constraints_status": "retained, not independently verified"
+        },
+        "stability": {
+          "study_ref": "STB-3584",
+          "permitted_text": null,
+          "source": "unresolved",
+          "authority_issue": "study product identity not established; study presentation conflicts with product; study type does not establish excursion allowance",
+          "readable": false,
+          "notes": [
+            "Stability authority unresolved: study product identity not established; study presentation conflicts with product; study type does not establish excursion allowance; product-master text not used as substitute"
+          ],
+          "presentation_mismatch_risk": true,
+          "cumulative_assessment": "unresolved: study applicability not established; cumulative requirement unknown"
+        },
+        "sop": {
+          "doc_id": "SOP-KAV-9392",
+          "revision": "Rev 03",
+          "effective_from": "2026-05-16",
+          "effective_to": "None",
+          "acceptance_limits_location": "Annexure 2 (see margin note)",
+          "overlap_conflict": true,
+          "competing_revisions": [
+            "Rev 03",
+            "Rev 02"
+          ]
+        },
+        "sop_authority": {
+          "status": "unresolved",
+          "reason": "SOP/site acceptance authority unresolved: indexed body/annexure content not supplied"
+        },
+        "carrier": {
+          "contract_id": "CNT-2021-0245",
+          "legal_entity": "Tapti Express Cargo",
+          "cold_chain_clause": "\u2014 none \u2014",
+          "claim_window_days": 7
+        },
+        "regulatory": {
+          "reportable": false,
+          "window_hours": 360.0,
+          "deadline_utc": "2026-08-12 06:31:00",
+          "basis": "tenant_default[T-KAVERI]"
+        },
+        "decision": {
+          "rule": "rule_stability_authority",
+          "limitations": [
+            "Additional storage constraints retained, not independently verified: protect from light"
+          ]
+        }
+      },
+      "product_match_method": "gtin_exact",
+      "product_sku": null,
+      "product_brand": "Glucodyne SoloJet 100U",
+      "stability_study_ref": "STB-3584",
+      "sop_doc_id": "SOP-KAV-9392",
+      "sop_revision": "Rev 03",
+      "sop_overlap_conflict": true,
+      "carrier_contract_id": "CNT-2021-0245",
+      "carrier_has_cold_chain_clause": false,
+      "reported_max_temp_c": 11.2,
+      "bulletin_applied": false,
+      "regulator_reportable": false,
+      "reg_window_hours": 360.0,
+      "reg_deadline_utc": "2026-08-12 06:31:00",
+      "historical_recommendation": "RELEASE_WITH_NOTE",
+      "historical_final_disposition": "RELEASE_WITH_NOTE",
+      "agrees_with_historical_final": false,
+      "agrees_with_historical_engine": false
+    },
+    "after": {
+      "event_id": "EXC-107133",
+      "tenant_code": "T-KAVERI",
+      "recommendation": "ESCALATED_TO_SENIOR_QA",
+      "requires_human_signature": true,
+      "confidence": 0.0,
+      "triage_label": "ACTIONABLE \u2014 stability authority unresolved",
+      "historical_classification": "ACTIONABLE \u2014 excursion confirmed",
+      "closure_eligibility": "not_eligible",
+      "independent_closure_evidence": [],
+      "requires_human_review": true,
+      "rationale": [
+        "Stability authority unresolved: study product identity not established; study presentation conflicts with product; study type does not establish excursion allowance; product-master text not used as substitute",
+        "SOP overlap: 2 revisions of SOP-KAV-9392 effective on 2026-07-28; candidate Rev 03 (highest rev, not governing authority). Human must confirm (override EXC-110490 pattern).",
+        "Carrier contract CNT-2021-0245 has no cold-chain schedule (Tapti/Ganga pattern) \u2014 liability/custody weak; does not alone change product disposition",
+        "Escalate: stability authority unresolved \u2014 study product identity not established; study presentation conflicts with product; study type does not establish excursion allowance",
+        "Decision rule: rule_stability_authority",
+        "Additional storage constraints retained, not independently verified: protect from light"
+      ],
+      "evidence": {
+        "event_id": "EXC-107133",
+        "tenant_code": "T-KAVERI",
+        "temps": {
+          "min_reported": 5.4,
+          "max_reported": 11.2,
+          "mean_reported": 7.9,
+          "duration_min": 15.0,
+          "bulletin_tt_cb_114": false
+        },
+        "product": {
+          "ref_as_received": "08901234500035",
+          "match_method": "gtin_exact",
+          "confidence": 0.98,
+          "sku": null,
+          "brand": "Glucodyne SoloJet 100U",
+          "gtin": "08901234500035",
+          "stability_study_ref": "STB-3584",
+          "unresolved_reason": null
+        },
+        "labelled_range": {
+          "text": "2-8C (protect from light)",
+          "low_c": 2.0,
+          "high_c": 8.0,
+          "lower": {
+            "kind": "lower",
+            "value_c": 2.0,
+            "inclusive": true
+          },
+          "upper": {
+            "kind": "upper",
+            "value_c": 8.0,
+            "inclusive": true
+          },
+          "constraints": [
+            "protect from light"
+          ],
+          "unresolved_reason": null,
+          "bound_type": "two_sided",
+          "constraints_status": "retained, not independently verified"
+        },
+        "stability": {
+          "study_ref": "STB-3584",
+          "permitted_text": null,
+          "source": "unresolved",
+          "authority_issue": "study product identity not established; study presentation conflicts with product; study type does not establish excursion allowance",
+          "readable": false,
+          "notes": [
+            "Stability authority unresolved: study product identity not established; study presentation conflicts with product; study type does not establish excursion allowance; product-master text not used as substitute"
+          ],
+          "presentation_mismatch_risk": true,
+          "cumulative_assessment": "unresolved: study applicability not established; cumulative requirement unknown"
+        },
+        "sop": {
+          "doc_id": "SOP-KAV-9392",
+          "revision": "Rev 03",
+          "effective_from": "2026-05-16",
+          "effective_to": "None",
+          "acceptance_limits_location": "Annexure 2 (see margin note)",
+          "overlap_conflict": true,
+          "competing_revisions": [
+            "Rev 03",
+            "Rev 02"
+          ]
+        },
+        "sop_authority": {
+          "status": "unresolved",
+          "reason": "SOP/site acceptance authority unresolved: indexed body/annexure content not supplied"
+        },
+        "carrier": {
+          "contract_id": "CNT-2021-0245",
+          "legal_entity": "Tapti Express Cargo",
+          "cold_chain_clause": "\u2014 none \u2014",
+          "claim_window_days": 7
+        },
+        "regulatory": {
+          "reportable": false,
+          "window_hours": 360.0,
+          "deadline_utc": "2026-08-12 06:31:00",
+          "basis": "tenant_default[T-KAVERI]"
+        },
+        "decision": {
+          "rule": "rule_stability_authority",
+          "limitations": [
+            "Additional storage constraints retained, not independently verified: protect from light"
+          ]
+        },
+        "closure_assessment": {
+          "historical_classification": "ACTIONABLE \u2014 excursion confirmed",
+          "classification_source": "01_Excursion_Events.triage_outcome (historical reference only)",
+          "closure_eligibility": "not_eligible",
+          "independent_closure_evidence": [],
+          "requires_human_review": true,
+          "limitation": "No independent duplicate/load verification artifact supplied; rule support is not independent verification"
+        }
+      },
+      "product_match_method": "gtin_exact",
+      "product_sku": null,
+      "product_brand": "Glucodyne SoloJet 100U",
+      "stability_study_ref": "STB-3584",
+      "sop_doc_id": "SOP-KAV-9392",
+      "sop_revision": "Rev 03",
+      "sop_overlap_conflict": true,
+      "carrier_contract_id": "CNT-2021-0245",
+      "carrier_has_cold_chain_clause": false,
+      "reported_max_temp_c": 11.2,
+      "bulletin_applied": false,
+      "regulator_reportable": false,
+      "reg_window_hours": 360.0,
+      "reg_deadline_utc": "2026-08-12 06:31:00",
+      "historical_recommendation": "RELEASE_WITH_NOTE",
+      "historical_final_disposition": "RELEASE_WITH_NOTE",
+      "agrees_with_historical_final": false,
+      "agrees_with_historical_engine": false
+    }
+  }
+]
