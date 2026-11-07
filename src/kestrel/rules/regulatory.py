@@ -29,7 +29,7 @@ class NotificationRule:
     timezone: Optional[str] = None
     cutoff: Optional[str] = None
     weekends: Optional[tuple[int, ...]] = None
-    holidays: tuple[date, ...] = ()
+    holidays: Optional[tuple[date, ...]] = None
     calendar_start: Optional[date] = None
     calendar_end: Optional[date] = None
 
@@ -63,7 +63,8 @@ class NotificationRule:
                 local_day += timedelta(days=int(self.amount))
             elif self.kind == "next_business_day":
                 if (
-                    self.weekends is None
+                    self.holidays is None
+                    or self.weekends is None
                     or not self.weekends
                     or any(d not in range(7) for d in self.weekends)
                     or len(set(self.weekends)) == 7
@@ -78,6 +79,8 @@ class NotificationRule:
                         remaining -= 1
             else:
                 raise ValueError("unsupported controlled calendar kind")
+            if not self.calendar_start <= local_day <= self.calendar_end:
+                raise ValueError("local due date exceeds controlled calendar coverage")
             due = datetime.combine(local_day, time.fromisoformat(self.cutoff), tzinfo=zone)
             # Ambiguous/nonexistent local cutoffs need an explicit policy, not a guess.
             if (
@@ -94,13 +97,13 @@ class NotificationRule:
 class RegulatoryClock:
     """Unknown authority is explicit; no country, region or 24h fallback."""
 
-    reportable: bool
+    reportable: Optional[bool]
     window_hours: Optional[float]
     deadline_utc: Optional[datetime]
     basis: str
     hours_remaining_at_eval: Optional[float] = None
-    reportability_status: str = "UNRESOLVED"
-    deadline_status: str = "UNRESOLVED"
+    reportability_status: str = "UNKNOWN"
+    deadline_status: str = "UNKNOWN"
     historical_window_reference: Any = None
 
 
@@ -121,13 +124,13 @@ def regulatory_clock(
     No controlled policy is installed by default. The arithmetic contract accepts
     explicit fixtures/controlled registry input, never guessed country applicability.
     """
-    reportable = str(historically_reportable or "").upper() == "Y"
+    reportable = True if str(historically_reportable or "").upper() == "Y" else None
     clock = RegulatoryClock(
         reportable,
         None,
         None,
         "Unresolved applicability/calendar authority; historical reportability/window are reference only",
-        reportability_status="REPORTABLE" if reportable else "UNRESOLVED",
+        reportability_status="REPORTABLE" if reportable else "UNKNOWN",
         historical_window_reference=historical_window_hours,
     )
     if rule is None or alert_ts is None:

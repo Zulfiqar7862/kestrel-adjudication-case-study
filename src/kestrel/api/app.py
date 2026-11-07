@@ -33,12 +33,14 @@ HealthResponse: Any = None
 AdjudicateResponse: Any = None
 EventsResponse: Any = None
 MetricsResponse: Any = None
+NotificationAttemptRequest: Any = None
+NotificationAckRequest: Any = None
 
 
 def _load_api_models() -> None:
     """Lazily define Pydantic v2 request/response models in module globals."""
     global AdjudicateRequest, BasisRequest, VerifyRequest, ReplayRequest, HealthResponse
-    global AdjudicateResponse, EventsResponse, MetricsResponse
+    global AdjudicateResponse, EventsResponse, MetricsResponse, NotificationAttemptRequest, NotificationAckRequest
     if AdjudicateRequest is not None:
         return
     try:
@@ -70,6 +72,20 @@ def _load_api_models() -> None:
 
         bundle_id: str = Field(..., min_length=1)
         tenant_code: str = Field(..., min_length=1)
+
+    class _NotificationAttemptRequest(BaseModel):
+        model_config = ConfigDict(extra="forbid")
+        outcome: Literal["FAILED", "SENT"]
+        reference: str = Field(min_length=1, max_length=2000)
+        retry_at: Optional[str] = None
+
+    class _NotificationAckRequest(BaseModel):
+        model_config = ConfigDict(extra="forbid")
+        attempt_id: str = Field(min_length=1, max_length=100)
+        reference: str = Field(min_length=1, max_length=2000)
+
+    NotificationAttemptRequest = _NotificationAttemptRequest
+    NotificationAckRequest = _NotificationAckRequest
 
     class _HealthResponse(BaseModel):
         """GET /health payload."""
@@ -144,7 +160,7 @@ def _reviewer_ui_html() -> str:
     return (resources.files("kestrel.api") / "static" / "index.html").read_text(encoding="utf-8")
 
 
-def create_app(svc: Optional[AdjudicationService] = None) -> Any:
+def create_app(svc: Optional[AdjudicationService] = None, *, notification_access: Any = None) -> Any:
     """Build a FastAPI application with DI-held AdjudicationService and typed routes.
 
     Lazy-imports FastAPI/Pydantic. Returns the app instance (not a server).
@@ -351,10 +367,7 @@ def create_app(svc: Optional[AdjudicationService] = None) -> Any:
             "rao_gate": report["rao_gate"],
         }
 
-    @app.get("/notifications")
-    def notifications(tenant_code: str = Query(..., min_length=1)) -> dict[str, Any]:
-        """Independent pending filings, including closed or signed dispositions."""
-        return {"items": service.notifications.queue(tenant_code)}
+    _install_notification_routes(app, service.notifications, notification_access)
 
     @app.get("/queue")
     def queue(
@@ -376,8 +389,10 @@ def create_app(svc: Optional[AdjudicationService] = None) -> Any:
 
     @app.get("/ops/health-report", response_model=MetricsResponse)
     def ops_health_report(svc_dep: AdjudicationService = Depends(get_svc)) -> dict[str, Any]:
-        """Full 3am monitoring catalog (same payload as CLI `health`)."""
-        return svc_dep.health_report()
+        """Case monitoring; independent notification details require scoped access."""
+        report = svc_dep.health_report()
+        report.pop("notification_obligations", None)
+        return report
 
     @app.get("/ops/agreement", response_model=MetricsResponse)
     def ops_agreement(svc_dep: AdjudicationService = Depends(get_svc)) -> dict[str, Any]:
@@ -567,14 +582,60 @@ def _http_request(
     return resp.status_code, payload
 
 
-def create_notification_app(obligations: Any) -> Any:
-    """Standalone read service: no workbook, evidence assembler or case queue."""
-    FastAPI, _, extras = _require_fastapi()
-    _, Query, _, _ = extras
-    app = FastAPI(title="Independent notification obligations")
+def _install_notification_routes(app: Any, obligations: Any, access: Any = None) -> None:
+    """All network notification reads/updates share the same fail-closed policy."""
+    from fastapi import Depends, Header, HTTPException, Query
+
+    from kestrel.notifications import NotificationAccess
+
+    access = access or NotificationAccess()
+
+    def authenticated(authorization: Optional[str] = Header(None)) -> Any:
+        try:
+            return access.authenticate(authorization)
+        except PermissionError as exc:
+            raise HTTPException(401, str(exc), headers={"WWW-Authenticate": "Bearer"}) from exc
+
+    def invoke(method, *args, **kwargs):
+        try:
+            return method(*args, **kwargs)
+        except TenantIsolationError as exc:
+            raise HTTPException(403, str(exc)) from exc
+        except KeyError as exc:
+            raise HTTPException(404, "notification obligation not found") from exc
+        except ValueError as exc:
+            raise HTTPException(422, str(exc)) from exc
 
     @app.get("/notifications")
-    def queue(tenant_code: str = Query(..., min_length=1)) -> dict[str, Any]:
-        return {"items": obligations.queue(tenant_code)}
+    def queue(tenant_code: str = Query(..., min_length=1), actor: Any = Depends(authenticated)) -> dict[str, Any]:
+        return {"items": invoke(obligations.read_queue, actor, tenant_code)}
 
+    @app.post("/notifications/{tenant_code}/{event_id}/attempts")
+    def attempt(
+        tenant_code: str, event_id: str, payload: NotificationAttemptRequest, actor: Any = Depends(authenticated)
+    ) -> dict[str, Any]:
+        return invoke(obligations.record_delivery_attempt, actor, tenant_code, event_id, **payload.model_dump())
+
+    @app.post("/notifications/{tenant_code}/{event_id}/acknowledgements")
+    def acknowledge(
+        tenant_code: str, event_id: str, payload: NotificationAckRequest, actor: Any = Depends(authenticated)
+    ) -> dict[str, Any]:
+        return invoke(
+            obligations.record_delivery_acknowledgement,
+            actor,
+            tenant_code,
+            event_id,
+            payload.attempt_id,
+            payload.reference,
+        )
+
+
+def create_notification_app(obligations: Any, *, notification_access: Any = None) -> Any:
+    """Independent persisted lane: no workbook, assembler or case-queue bootstrap.
+
+    Without an explicitly configured credential/grant adapter, all requests deny.
+    """
+    FastAPI, _, _ = _require_fastapi()
+    app = FastAPI(title="Independent notification obligations")
+    _install_notification_routes(app, obligations, notification_access)
     return app

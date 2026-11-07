@@ -1,0 +1,81 @@
+FFFFFF                                                                   [100%]
+=================================== FAILURES ===================================
+_ TestNotificationAcceptance.test_criterion_1_signing_does_not_remove_outstanding_obligation _
+
+self = <tests.test_notification_acceptance.TestNotificationAcceptance testMethod=test_criterion_1_signing_does_not_remove_outstanding_obligation>
+
+    def test_criterion_1_signing_does_not_remove_outstanding_obligation(self):
+        from kestrel.domain import Disposition
+        tenant, event_id = self.pending()
+>       before = next(o for o in self.svc.notifications.queue(tenant) if o["event_id"] == event_id)
+                                 ^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'AdjudicationService' object has no attribute 'notifications'
+
+tests/test_notification_acceptance.py:17: AttributeError
+_ TestNotificationAcceptance.test_criterion_2_assembly_failure_does_not_stop_deadline_tracking _
+
+self = <tests.test_notification_acceptance.TestNotificationAcceptance testMethod=test_criterion_2_assembly_failure_does_not_stop_deadline_tracking>
+
+    def test_criterion_2_assembly_failure_does_not_stop_deadline_tracking(self):
+        tenant, _ = self.pending()
+>       before = self.svc.notifications.queue(tenant)
+                 ^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'AdjudicationService' object has no attribute 'notifications'
+
+tests/test_notification_acceptance.py:27: AttributeError
+_ TestNotificationAcceptance.test_criterion_3_restart_keeps_sqlite_obligations _
+
+self = <tests.test_notification_acceptance.TestNotificationAcceptance testMethod=test_criterion_3_restart_keeps_sqlite_obligations>
+
+    def test_criterion_3_restart_keeps_sqlite_obligations(self):
+>       from kestrel.notifications import NotificationObligations
+E       ModuleNotFoundError: No module named 'kestrel.notifications'
+
+tests/test_notification_acceptance.py:40: ModuleNotFoundError
+_ TestNotificationAcceptance.test_criterion_4_unknown_never_means_not_reportable _
+
+self = <tests.test_notification_acceptance.TestNotificationAcceptance testMethod=test_criterion_4_unknown_never_means_not_reportable>
+
+    def test_criterion_4_unknown_never_means_not_reportable(self):
+        from datetime import datetime
+        from kestrel.rules.regulatory import regulatory_clock
+        for flag in (None, "", "N", "unknown"):
+            clock = regulatory_clock("T", datetime(2026, 2, 13), historically_reportable=flag)
+>           assert clock.reportable is None
+E           AssertionError: assert False is None
+E            +  where False = RegulatoryClock(reportable=False, window_hours=72.0, deadline_utc=datetime.datetime(2026, 2, 16, 0, 0), basis='fallback_72h', hours_remaining_at_eval=72.0).reportable
+
+tests/test_notification_acceptance.py:53: AssertionError
+_ TestNotificationAcceptance.test_criterion_5_delivery_retries_acknowledgement_are_not_dispositions _
+
+self = <tests.test_notification_acceptance.TestNotificationAcceptance testMethod=test_criterion_5_delivery_retries_acknowledgement_are_not_dispositions>
+
+    def test_criterion_5_delivery_retries_acknowledgement_are_not_dispositions(self):
+>       from kestrel.notifications import NotificationPrincipal, NotificationObligations
+E       ModuleNotFoundError: No module named 'kestrel.notifications'
+
+tests/test_notification_acceptance.py:61: ModuleNotFoundError
+_ TestNotificationAcceptance.test_criterion_6_tenant_authorisation_for_read_and_update _
+
+self = <tests.test_notification_acceptance.TestNotificationAcceptance testMethod=test_criterion_6_tenant_authorisation_for_read_and_update>
+
+    def test_criterion_6_tenant_authorisation_for_read_and_update(self):
+        from fastapi.testclient import TestClient
+>       from kestrel.api.app import create_notification_app
+E       ImportError: cannot import name 'create_notification_app' from 'kestrel.api.app' (/tmp/kestrel-notification-baseline/src/kestrel/api/app.py)
+
+tests/test_notification_acceptance.py:83: ImportError
+=============================== warnings summary ===============================
+tests/test_notification_acceptance.py::TestNotificationAcceptance::test_criterion_6_tenant_authorisation_for_read_and_update
+  /tmp/fixvenv/lib/python3.13/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_notification_acceptance.py::TestNotificationAcceptance::test_criterion_1_signing_does_not_remove_outstanding_obligation
+FAILED tests/test_notification_acceptance.py::TestNotificationAcceptance::test_criterion_2_assembly_failure_does_not_stop_deadline_tracking
+FAILED tests/test_notification_acceptance.py::TestNotificationAcceptance::test_criterion_3_restart_keeps_sqlite_obligations
+FAILED tests/test_notification_acceptance.py::TestNotificationAcceptance::test_criterion_4_unknown_never_means_not_reportable
+FAILED tests/test_notification_acceptance.py::TestNotificationAcceptance::test_criterion_5_delivery_retries_acknowledgement_are_not_dispositions
+FAILED tests/test_notification_acceptance.py::TestNotificationAcceptance::test_criterion_6_tenant_authorisation_for_read_and_update
+6 failed, 1 warning in 1.29s

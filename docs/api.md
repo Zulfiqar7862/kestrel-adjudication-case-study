@@ -46,6 +46,36 @@ AUTO_CLOSE labels from legacy numeric rules, if ever emitted, are not silently c
 
 Bundles record the same fields in `recommendation`, original classification in `inputs.alert.historical_classification`, and source/limitations in `inputs.resolution.closure_assessment` plus the rule trace. [Executed JSON/schema/UI excerpt](validation/historical-candidates-review/report.md).
 
+## Independent notification obligations (0.5.1)
+
+Both `create_app(..., notification_access=access)` and the assembler-independent
+`create_notification_app(obligations, notification_access=access)` install:
+
+| Method | Path | Scope / body |
+|---|---|---|
+| GET | `/notifications?tenant_code=T` | authenticated tenant read grant |
+| POST | `/notifications/{tenant}/{event}/attempts` | tenant write grant; `outcome` FAILED/SENT, `reference`, optional timezone-explicit `retry_at` |
+| POST | `/notifications/{tenant}/{event}/acknowledgements` | tenant write grant; matching SENT `attempt_id`, `reference` |
+
+`NotificationAccess` receives explicitly provisioned SHA-256 digests of high-entropy
+bearer credentials and immutable `NotificationPrincipal` tenant read/write grants.
+An absent adapter/credential denies with 401; another tenant or read-only updates
+are 403. Body-supplied actor/tenant overrides are rejected. Credentials are never
+accepted in URLs. Default `kestrel serve` therefore denies this lane until an
+embedding deployment configures grants; SSO/provisioning/rotation are not supplied.
+The `/ui` link alone cannot authenticate a user.
+
+The queue does not join case/disposition/evidence state. SQLite retains source
+alert origin, UNKNOWN applicability/calendar status, attempts, explicit retry
+intents and unverified acknowledgement references across restarts. These POSTs
+**record claims only**; they do not send, schedule or certify delivery/filing.
+ACK_RECORDED_UNVERIFIED never clears a PENDING obligation. There is no FILED
+transition without a validated filing adapter. Unknown reportability is JSON null
+and the explicit status UNKNOWN, never a false/not-reportable default.
+`/ops/health-report` does not expose all-tenant notification counters; retrieve the
+authorised queue instead. Local CLI/DB methods are privileged operator tools,
+not HTTP authentication boundaries. [Executed acceptance report](validation/notification-obligations-review/report.md).
+
 ## Evidence
 
 | Method | Path | Body / query | Returns |
@@ -87,4 +117,4 @@ curl -s -X POST localhost:8080/evidence/verify -H 'content-type: application/jso
 curl -s -X POST "localhost:8080/cases/CASE-…/sign?signed_by=A.%20Rao&disposition=RELEASE_WITH_NOTE&bundle_hash=<content_hash>"
 ```
 
-Version0.4.0 replaces `corrected_max_temp_c` with `reported_max_temp_c`; `/events/{id}` exposes `uncertainty.scenarios`, never a calibrated +1.8 truth. The API has no authentication/role or mandated dual-sign enforcement. Evidence reads require a tenant parameter, not proof of caller ownership. Production must authenticate and authorise every route.
+Version0.4.0 replaces `corrected_max_temp_c` with `reported_max_temp_c`; `/events/{id}` exposes `uncertainty.scenarios`, never a calibrated +1.8 truth. Outside the newly scoped notification lane, the API still has no authentication/role or mandated dual-sign enforcement. Evidence reads require a tenant parameter, not proof of caller ownership. Production must authenticate and authorise every route.

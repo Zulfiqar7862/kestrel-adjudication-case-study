@@ -1,0 +1,37 @@
+# Working directory throughout: /workspace/kprod
+# Original baseline export (read-only; no branch switch / checkout / clone):
+mkdir -p /tmp/kestrel-notification-baseline && git archive cd1bd24 | tar -x -C /tmp/kestrel-notification-baseline
+PYTHONPATH=/tmp/kestrel-notification-baseline/src /tmp/fixvenv/bin/pytest -o addopts='' -q tests/test_notification_acceptance.py
+# Observed: 6 failed (original baseline lacks the independent notification lane).
+/tmp/fixvenv/bin/pytest -o addopts='' -q tests/test_notification_acceptance.py
+# Before follow-up implementation on 2c75115: 4 failed, 2 passed.
+/tmp/fixvenv/bin/pytest -o addopts='' -q tests/test_notifications.py -k 'local_due_date or assume_no_holidays'
+# Before the two calendar fixes: 2 failed; after: 2 passed, 9 deselected.
+/tmp/fixvenv/bin/pytest -o addopts='' -vv tests/test_notification_acceptance.py
+# Final: 7 passed, 1 dependency warning.
+/tmp/fixvenv/bin/pytest -o addopts='' -q
+# Final: 208 passed, 1 dependency warning in 28.23s.
+/tmp/fixvenv/bin/ruff format .
+/tmp/fixvenv/bin/ruff check
+# All checks passed!
+/tmp/fixvenv/bin/ruff format --check
+# 62 files already formatted.
+/tmp/fixvenv/bin/kestrel --log-level WARNING --db /tmp/kestrel-priorities/notifications-final.sqlite --evidence-dir /tmp/kestrel-priorities/notifications-final-evidence run-all --out /tmp/kestrel-priorities/notifications-final.csv
+# 420 persisted records; QA 290, unverified historical candidates 130; verified AUTO_CLOSE 0.
+/tmp/fixvenv/bin/python docs/validation/notification-obligations-review/verify_run.py --db /tmp/kestrel-priorities/notifications-final.sqlite --evidence-dir /tmp/kestrel-priorities/notifications-final-evidence --csv /tmp/kestrel-priorities/notifications-final.csv --baseline docs/validation/historical-candidates-review/verified.csv --out /tmp/kestrel-priorities/02-final-replay-and-chains.json
+# 420/420 full-result replays identical; 8 chains OK; 0 outcome changes; 420 guessed deadlines withdrawn.
+/tmp/fixvenv/bin/kestrel --log-level WARNING --db /tmp/kestrel-priorities/notifications-final.sqlite --evidence-dir /tmp/kestrel-priorities/notifications-final-evidence replay --bundle EVB-2cfd78ab75f02712 --tenant T-KAVERI
+# identical: true
+/tmp/fixvenv/bin/kestrel --log-level WARNING --db /tmp/kestrel-priorities/notifications-final.sqlite --evidence-dir /tmp/kestrel-priorities/notifications-final-evidence verify --tenant T-AURA
+/tmp/fixvenv/bin/kestrel --log-level WARNING --db /tmp/kestrel-priorities/notifications-final.sqlite --evidence-dir /tmp/kestrel-priorities/notifications-final-evidence verify --tenant T-CAMPOS
+/tmp/fixvenv/bin/kestrel --log-level WARNING --db /tmp/kestrel-priorities/notifications-final.sqlite --evidence-dir /tmp/kestrel-priorities/notifications-final-evidence verify --tenant T-KAVERI
+/tmp/fixvenv/bin/kestrel --log-level WARNING --db /tmp/kestrel-priorities/notifications-final.sqlite --evidence-dir /tmp/kestrel-priorities/notifications-final-evidence verify --tenant T-MERIDIAN
+/tmp/fixvenv/bin/kestrel --log-level WARNING --db /tmp/kestrel-priorities/notifications-final.sqlite --evidence-dir /tmp/kestrel-priorities/notifications-final-evidence verify --tenant T-NORDIA
+/tmp/fixvenv/bin/kestrel --log-level WARNING --db /tmp/kestrel-priorities/notifications-final.sqlite --evidence-dir /tmp/kestrel-priorities/notifications-final-evidence verify --tenant T-PINNACLE
+/tmp/fixvenv/bin/kestrel --log-level WARNING --db /tmp/kestrel-priorities/notifications-final.sqlite --evidence-dir /tmp/kestrel-priorities/notifications-final-evidence verify --tenant T-SAHYADRI
+/tmp/fixvenv/bin/kestrel --log-level WARNING --db /tmp/kestrel-priorities/notifications-final.sqlite --evidence-dir /tmp/kestrel-priorities/notifications-final-evidence verify --tenant T-VIRENT
+# All eight CLI verify commands returned ok: true.
+git diff --check
+git ls-files '*__pycache__*' '*.pyc'
+# Clean diff whitespace and no tracked bytecode.
+# Normal push / gh run watch take place after the fixing commit; final SHA and CI URL/result reported separately.

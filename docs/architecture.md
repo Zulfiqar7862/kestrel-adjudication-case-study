@@ -23,7 +23,7 @@ flowchart LR
 3. **Stability.** Require a unique tenant-scoped cited excursion study, product/presentation alignment and readable allowance. No master-text substitution. Missing applicability is unresolved.
 4. **Decide.** Evaluate reported and upper-bound TT-CB-114 scenarios on min/max/mean summaries; preserve observations and escalate if dispositions differ. Each scenario runs the ordered rule
    chain. The first rule that returns a verdict wins. See [decision-rules.md](decision-rules.md).
-5. **Regulatory clock.** Compute the notification deadline separately from the disposition.
+5. **Regulatory clock.** Preserve explicit UNKNOWN reportability/calendar applicability; arithmetic accepts only explicit controlled rule inputs. No market/tenant/default-hour fallbacks.
 6. **Seal.** Store every input in a SHA-256 hash-chained bundle, one chain per tenant.
 7. **Sign.** Product-fate outcomes wait for a named reviewer, who signs against the exact bundle hash they saw.
 
@@ -195,3 +195,24 @@ Carrier resolution and cumulative-history gates from 0.4.1 remain. SOP bodies/si
 See [executed validation and the full inventory](validation/historical-candidates-review/report.md).
 
 New one-sided instructions require an explicit Celsius unit; “Below 25” without a unit stays unresolved. Existing explicit unitless two-sided workbook shorthands retain their field-specific Celsius convention, not a general cross-document unit inference. A comma pair is recognised only in the explicit FROZEN tuple form, not ambiguous decimal-comma text.
+
+
+## Independent notification lane (0.5.1)
+
+`NotificationObligations` is initialised from ingested alerts before the engine.
+Its own composite tenant/event SQLite table and append-only delivery-event log do
+not join case state or evidence assembly. Signing, closing, reopening, storms or
+assembler failure cannot filter its reads. A separate FastAPI factory and the
+pre-bootstrap local `notifications` CLI command operate without workbook assembly.
+Source alert time remains; no legal deadline is invented when applicability or
+calendar authority is UNKNOWN. Historical Y creates conservative pending work;
+N/blank remains UNKNOWN rather than proof of inapplicability.
+
+Both HTTP factories use the same fail-closed credential-digest and tenant
+read/write-grant adapter. Trusted actor attribution is not request-body text.
+Read-only and foreign-tenant writes deny before record lookup. Privileged local
+SQLite/CLI access is a separate filesystem trust boundary, not a tenant wall.
+Retries/receipt references are persisted claims, not a sending worker or legal
+filing proof. Acknowledgements never remove obligations. General API/signing
+authentication, production identity lifecycle, filing adapters and pagers remain
+unvalidated/unbuilt. [Executed report](validation/notification-obligations-review/report.md).

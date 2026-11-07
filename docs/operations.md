@@ -34,7 +34,7 @@ Run `kestrel health` (or `GET /ops/health-report`). Each signal has a severity a
 
 | Signal | What it means | First action |
 |---|---|---|
-| `regulatory_deadline_breached` | A reportable case passed its notification deadline | File the notification from the evidence bundle now; the disposition can follow |
+| `regulatory_deadline_breached` | A reportable case passed its notification deadline | Use the independent filing lane; validate applicability/calendar authority and do not wait for the evidence bundle or disposition |
 | `regulatory_deadline_at_risk` | Deadline is close and the case is unsigned | Page the on-call reviewer for that market |
 | `evidence_chain_verification_failure` | A tenant's hash chain does not verify | Freeze signing for that tenant, run `kestrel verify --tenant T`, find the first bad bundle |
 | `decision_mix_drift` | Outcome mix moved away from baseline | Check for a new firmware bulletin or reference-data load before trusting closures |
@@ -65,3 +65,22 @@ which is ordered by deadline (`kestrel queue`).
 The inspected 420-row rerun is **0 AUTO_CLOSE / 130 unverified historical candidates / 290 QA**, with note/quarantine/destroy all zero. The former 130 closures were 93 historical duplicate and 37 historical facility/no-product labels; no independent duplicate or load evidence was found. They now remain PENDING_EVIDENCE in the open human queue. Do not auto-close historical labels during a storm.
 
 Health, agreement, run-all/CLI and dashboard expose separate `closure_counts`: verified AUTO_CLOSE 0, historical candidates 130, other unverified AUTO_CLOSE 0. The health mix baseline was updated only after inspecting the run; it is a sample regression baseline, not approved production policy. Historical-final agreement is 4/200; assistant agreement is 0/420, not a target to optimize. [Validation and exact commands](validation/historical-candidates-review/report.md).
+
+
+## Notification-only follow-up (0.5.1)
+
+The inspected rerun still has 0 AUTO_CLOSE / 290 QA / 130 historical candidates.
+SQLite separately retains 28 conservative PENDING records from historical Y and
+392 UNKNOWN; these are not verified legal-reportability counts. All 420 old
+deadline guesses were withdrawn: without controlled tenant/product/market and
+calendar authority, the deadline remains null/UNKNOWN and requires regulatory
+review. No false precision or country defaults replace that uncertainty.
+
+Use the authenticated, tenant-scoped `/notifications` service independently of
+evidence assembly. It denies all access without configured grants. The local
+`kestrel notifications --tenant T` command is a privileged DB/operator read and
+works without workbook bootstrap. Retain/back up the SQLite database; do not
+replace it on ingestion. Record retry intents and acknowledgement references
+separately from case state; none proves filing or closes the obligation. There
+is no worker, live transport, verified receipt integration, due-time paging or
+production identity deployment in this prototype. [Tests and commands](validation/notification-obligations-review/report.md).

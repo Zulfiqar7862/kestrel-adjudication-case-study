@@ -27,9 +27,9 @@ class Settings:
     log_level: str = "INFO"
     api_host: str = "127.0.0.1"
     api_port: int = 8080
-    rule_pack_version: str = "0.5.0"
+    rule_pack_version: str = "0.5.1"
     retention_years: int = 7
-    code_version: str = "0.5.0"
+    code_version: str = "0.5.1"
 
     def __post_init__(self) -> None:
         """Normalize Path fields and apply optional KESTREL_* environment overrides."""

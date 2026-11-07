@@ -1,0 +1,421 @@
+event_id,tenant_code,recommendation,bundle_id,case_id,reg_deadline_utc,historical_classification,closure_eligibility,independent_closure_evidence,requires_human_review
+EXC-112198,T-AURA,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-be1c8588509ef9d2,CASE-5a046e712f64,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110336,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-46f245d64e51b80a,CASE-8c8f7c594a65,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111008,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-f6c0f7be16773d43,CASE-03ffbf8a1f7b,,"NON_ACTIONABLE — facility equipment event, no product loaded",not_eligible,[],True
+EXC-112352,T-PINNACLE,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-b247269ea0f5a453,CASE-12f656b6b41d,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-112583,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-11ad9a449373d075,CASE-ea743351cf12,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-111064,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-fab0b46f2253a2ec,CASE-7a0be265a94c,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-111274,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-0ffa7725dc54efc2,CASE-ed8e10095bf0,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-112394,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-13d4ca103bd37c73,CASE-a8a2eb10795d,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-112289,T-CAMPOS,ESCALATED_TO_SENIOR_QA,EVB-1268f08cd4c3bbc9,CASE-9a6ed71f3a75,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112807,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-0d4b9a0e9c336a58,CASE-60ede5d0bcca,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-111337,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-1513519a5411b82e,CASE-4f7c3d5c828b,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-111841,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-93bc0022111a6ea0,CASE-81ddd6221f7d,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111995,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-8a9f4cd9d15702d3,CASE-f704f4b6c29d,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-111813,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-d6e3c6b787a1db5a,CASE-a693e6143d01,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-110287,T-KAVERI,ESCALATED_TO_SENIOR_QA,EVB-145789913dfb3339,CASE-4ba0093b6fbc,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111463,T-NORDIA,ESCALATED_TO_SENIOR_QA,EVB-439faa03468a04fe,CASE-ce07bdcdc93f,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-110637,T-AURA,ESCALATED_TO_SENIOR_QA,EVB-beb61e21bc1e7d9e,CASE-2b675464f173,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110203,T-KAVERI,ESCALATED_TO_SENIOR_QA,EVB-7e63a257e749a1d4,CASE-e088478f6489,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112744,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-e946e69fdf2737c0,CASE-bfd6ef1236fe,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110798,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-362099363272fd39,CASE-c92ee420e4f0,,NON_ACTIONABLE — dock door / ambient exposure,not_eligible,[],True
+EXC-112877,T-CAMPOS,ESCALATED_TO_SENIOR_QA,EVB-cd65b99cb26b9588,CASE-a42b65973e0e,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110651,T-PINNACLE,ESCALATED_TO_SENIOR_QA,EVB-4f109b479dd1bcb8,CASE-2382076b64fd,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110854,T-SAHYADRI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-5f55385bcf2f8bc0,CASE-b6aa7e3a6237,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-111071,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-f3c305b83757c301,CASE-c9869e70fa2a,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-112422,T-CAMPOS,ESCALATED_TO_SENIOR_QA,EVB-8444b13c50dc9c86,CASE-39567c5a631c,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-112765,T-AURA,ESCALATED_TO_SENIOR_QA,EVB-11da4b0288bf9a0d,CASE-4a9df1e096fe,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111519,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-f861a102de46043d,CASE-984c11bacc03,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110770,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-b9e075f52b75bb71,CASE-e3f7862489c2,,NON_ACTIONABLE — duplicate of earlier alert,not_eligible,[],True
+EXC-112261,T-MERIDIAN,ESCALATED_TO_SENIOR_QA,EVB-e84ff8f70cf41c64,CASE-df59dab23007,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110224,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-0fbee8ddde9c137b,CASE-acac31a3b678,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111113,T-KAVERI,ESCALATED_TO_SENIOR_QA,EVB-fe5890bcad648b2b,CASE-214b5d4e0abe,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-112842,T-NORDIA,ESCALATED_TO_SENIOR_QA,EVB-d9cdc336134622e7,CASE-622f99d926a3,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-111722,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-d50cbde2c354ded8,CASE-eb675f24252b,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112653,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-2c6cb783f621e1e8,CASE-0beac7ead430,,NON_ACTIONABLE — dock door / ambient exposure,not_eligible,[],True
+EXC-112828,T-NORDIA,ESCALATED_TO_SENIOR_QA,EVB-b776567d314b99b3,CASE-23cc6636862d,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-111617,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-94400e75c5ef2ccf,CASE-c95b62c26f26,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-111365,T-SAHYADRI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-03dd5a0db8795358,CASE-78c323ef51b7,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110098,T-AURA,ESCALATED_TO_SENIOR_QA,EVB-7a8c6af4e054aa9c,CASE-76266df6ff4f,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111631,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-dd2d1d3b49098845,CASE-91ecd822f353,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-110595,T-CAMPOS,ESCALATED_TO_SENIOR_QA,EVB-4b04bb752cf5adb5,CASE-bed6ac94bb2a,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112359,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-a7586a703c8e8ceb,CASE-3b89d339a2e1,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-110847,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-70e2759d77865109,CASE-8a4f69ede0e8,,"NON_ACTIONABLE — facility equipment event, no product loaded",not_eligible,[],True
+EXC-110357,T-MERIDIAN,ESCALATED_TO_SENIOR_QA,EVB-fe4f302de7cf401f,CASE-e919a4d053fe,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110021,T-KAVERI,ESCALATED_TO_SENIOR_QA,EVB-689e662a77cb364c,CASE-82b625e04d46,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111988,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-03eb1b3b25df82bc,CASE-8f151aec87e8,,NON_ACTIONABLE — duplicate of earlier alert,not_eligible,[],True
+EXC-111554,T-SAHYADRI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-1f76ba8e333cc8af,CASE-8b24eb3c19e4,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110042,T-KAVERI,ESCALATED_TO_SENIOR_QA,EVB-b25215f97dfe23f8,CASE-dbd14ebf51ed,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112576,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-80593ca959706d57,CASE-03392379d6fe,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110182,T-CAMPOS,ESCALATED_TO_SENIOR_QA,EVB-8ec54e6955f77531,CASE-a60d0a138e42,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111589,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-c821747a0f9c02ab,CASE-cf9cb68b40d6,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-110119,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-f0c4036013997adc,CASE-ae8a6c0ba3e9,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110448,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-561d00747ac50299,CASE-580175c23d48,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112737,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-e787789f8adfd4e2,CASE-827cffa721fc,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112163,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-5a24dde93d73cfc8,CASE-fae7f5d7b602,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-111687,T-NORDIA,ESCALATED_TO_SENIOR_QA,EVB-841b56c46bd097b9,CASE-7794281baa0f,,NON_ACTIONABLE — dock door / ambient exposure,not_eligible,[],True
+EXC-110140,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-af3bc0f93d9d7ea0,CASE-3bcb58481c64,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110686,T-MERIDIAN,ESCALATED_TO_SENIOR_QA,EVB-a07a6d769f1db144,CASE-4683e9a6a2d6,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111652,T-CAMPOS,ESCALATED_TO_SENIOR_QA,EVB-a56c23c58a588370,CASE-6824e009a6e9,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-112135,T-KAVERI,ESCALATED_TO_SENIOR_QA,EVB-907ad616bd8b2266,CASE-0f149205bdda,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112492,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-a7a9203910196a77,CASE-59848451dc64,,NON_ACTIONABLE — duplicate of earlier alert,not_eligible,[],True
+EXC-110861,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-d8bac7a9698ca07e,CASE-94df407c4d27,,NON_ACTIONABLE — dock door / ambient exposure,not_eligible,[],True
+EXC-112317,T-PINNACLE,ESCALATED_TO_SENIOR_QA,EVB-d4f96a91e53689d0,CASE-4c650c5e1c91,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-110154,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-18f40fd0e2e2f859,CASE-fd6caff94cb5,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111526,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-7205bb38fdf324e7,CASE-7542de3cdbe2,,"NON_ACTIONABLE — facility equipment event, no product loaded",not_eligible,[],True
+EXC-112513,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-357e8656444bade0,CASE-abc604fde837,,NON_ACTIONABLE — dock door / ambient exposure,not_eligible,[],True
+EXC-112191,T-MERIDIAN,ESCALATED_TO_SENIOR_QA,EVB-9f8d2188ec624db3,CASE-ce6d8cb65570,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-112205,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-cdd2890303596e55,CASE-1c04e2b82616,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-112758,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-f7872894139baac0,CASE-f9e7ac7a70f7,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-112870,T-MERIDIAN,ESCALATED_TO_SENIOR_QA,EVB-f3fa78d3f4adaa1b,CASE-da2000f478f2,,NON_ACTIONABLE — dock door / ambient exposure,not_eligible,[],True
+EXC-112506,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-705479c206ee3218,CASE-2abedc24a8c9,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110693,T-AURA,ESCALATED_TO_SENIOR_QA,EVB-f2007a4791c4bd74,CASE-536a07bdcbb6,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112590,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-318b1101b529e4fb,CASE-88a329c60b2b,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-112772,T-SAHYADRI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-1d7423deb2bc8230,CASE-c0f7719993ad,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-112051,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-b0b7534a8b5480dd,CASE-7e488fa363bd,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110735,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-433a13c0132db0c4,CASE-a537b41f9c5c,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-112548,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-06625ea2f6c16625,CASE-414631d869e6,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-111239,T-SAHYADRI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-1ed6c1f8ad34243e,CASE-7ac99f9c9c87,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110392,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-db28cac1240aae95,CASE-20653c89d6bc,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110497,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-db40e587adb4fd46,CASE-28eae882dabb,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110252,T-KAVERI,ESCALATED_TO_SENIOR_QA,EVB-2361dde119aa1a54,CASE-a0d243ac28c9,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110518,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-c55f3aea79da1adc,CASE-a17218c64176,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111267,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-86811b3338c7a88d,CASE-c07d5e1468f3,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-111043,T-KAVERI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-9e3ade968c1f2f47,CASE-c996ad3bbc94,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-112835,T-NORDIA,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-59cf2a655e21cbf1,CASE-5e70e829f2d2,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110238,T-PINNACLE,ESCALATED_TO_SENIOR_QA,EVB-450a47dfa087bd2c,CASE-2bf60f540d5f,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110434,T-NORDIA,ESCALATED_TO_SENIOR_QA,EVB-7646b5119ab8fd95,CASE-0930e923b944,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112044,T-AURA,ESCALATED_TO_SENIOR_QA,EVB-ec303d513e5609d9,CASE-ede6f54d7da9,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-112436,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-4a4a1ca9002560e9,CASE-34890b53990d,,NON_ACTIONABLE — dock door / ambient exposure,not_eligible,[],True
+EXC-112247,T-CAMPOS,ESCALATED_TO_SENIOR_QA,EVB-06418f1dbda66486,CASE-a9071db739f4,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110280,T-PINNACLE,ESCALATED_TO_SENIOR_QA,EVB-cb86a1cc8ee54596,CASE-7f8ee384e6ba,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110476,T-CAMPOS,ESCALATED_TO_SENIOR_QA,EVB-a1859226becb930e,CASE-2400bf19cdea,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110875,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-bcf5d5d7e19f9587,CASE-ac9862a721e6,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-111624,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-bb8e43eed3b20d5b,CASE-0a3b1d999ca3,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-112177,T-MERIDIAN,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-c098944b94e85583,CASE-cbbbbf0b5711,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110364,T-PINNACLE,ESCALATED_TO_SENIOR_QA,EVB-ae1661b92fef0457,CASE-80ce772dc365,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112016,T-KAVERI,ESCALATED_TO_SENIOR_QA,EVB-e9d828fdcbf531d1,CASE-56e0400abc7d,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111015,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-ba7644918545ee66,CASE-767e848a9188,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-111323,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-d5e52509a0e303ad,CASE-f800e1238886,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-110672,T-NORDIA,ESCALATED_TO_SENIOR_QA,EVB-5d841ced666e02c3,CASE-a9c095e45778,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110273,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-e704856e61cc3546,CASE-62a6dda3cc27,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112226,T-AURA,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-c6b71ed71ae1c1cf,CASE-c02ceaba81c6,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-111477,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-8b76721947e9d2b5,CASE-965b30be9c5f,,NON_ACTIONABLE — dock door / ambient exposure,not_eligible,[],True
+EXC-111204,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-9e908ee9e7bfa7d2,CASE-20203e6a5803,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110147,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-1bdaee38e6bfbdb7,CASE-e0097750a758,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112079,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-476ff4994c421e08,CASE-f23724f618ef,,NON_ACTIONABLE — dock door / ambient exposure,not_eligible,[],True
+EXC-111246,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-67f3bd8bffa88439,CASE-cf50fc372110,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-111960,T-NORDIA,ESCALATED_TO_SENIOR_QA,EVB-ae4c9c17e429200b,CASE-3e88b682b663,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-112212,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-bf135de009dc7954,CASE-c6125a72bdd1,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-112933,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-f05b538bc666c9ef,CASE-973a1c10d65e,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-112681,T-PINNACLE,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-7c9a1863ce7dadbe,CASE-cd7951ec3856,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-112499,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-22d1ea0bfa4012f7,CASE-e21c4d24aeb6,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-112800,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-ac199db06e7bed09,CASE-01d3355fee8e,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-112380,T-AURA,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-853b6f5ef443f690,CASE-0e1dde6e3618,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-112667,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-36486564e3b67653,CASE-019a220ecb9d,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112345,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-21a4aa2f632c189b,CASE-654841a62312,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111771,T-NORDIA,ESCALATED_TO_SENIOR_QA,EVB-4e8aaa4a73fefc78,CASE-3bbc600a1d2d,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-110308,T-KAVERI,ESCALATED_TO_SENIOR_QA,EVB-04dee28f09f6d6d3,CASE-718aa79b8938,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112821,T-KAVERI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-dd4169d9b9c9a340,CASE-34b3289a5131,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110112,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-f3b9fbfbdd50310e,CASE-30d6c5fe144b,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111582,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-d2924811f4113293,CASE-f591dd370150,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-111036,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-eef537f624ae2960,CASE-278a6ff54d29,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-110189,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-62fd2c121cdfc582,CASE-72cba6f9a284,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111141,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-d2ee0e19005b75b8,CASE-e5cd77cda132,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-111428,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-61ad0a9e1c8e9814,CASE-d21d8e15040e,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110553,T-AURA,ESCALATED_TO_SENIOR_QA,EVB-d7f413f04ffad381,CASE-cb551b71c46f,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111197,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-05c4f763786e6f45,CASE-13bebc2e373d,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-110945,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-92fb1d779c9118fe,CASE-3cd207a22fdb,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-111932,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-8c6f92f75a2b7272,CASE-12ed7de4c01e,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111862,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-2afe6c1e500731eb,CASE-ad6323d45a19,,NON_ACTIONABLE — duplicate of earlier alert,not_eligible,[],True
+EXC-110896,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-1f58e7bf67298d21,CASE-3b9cfbdb283d,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-111400,T-AURA,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-7141942a1d6be055,CASE-1fa5f800d975,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-111316,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-1750524d7ae779f3,CASE-c1bf49095f1c,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-111575,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-6cc27af8d7363344,CASE-cd9cad36f51a,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-111638,T-PINNACLE,ESCALATED_TO_SENIOR_QA,EVB-447558178b2726bf,CASE-56187e90a7a4,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-111148,T-SAHYADRI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-3e9e7bfb949f442e,CASE-89aa41d67dd9,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-111533,T-PINNACLE,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-62ffcbfceb61da3f,CASE-e8786ef7bd14,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-111120,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-d0521ce81385a408,CASE-da1e5c076a5b,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-112387,T-CAMPOS,ESCALATED_TO_SENIOR_QA,EVB-0f31a66ff7c32e3f,CASE-fe96d88b04d6,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111106,T-NORDIA,ESCALATED_TO_SENIOR_QA,EVB-9267cdcf592579da,CASE-8125cffec460,,"NON_ACTIONABLE — facility equipment event, no product loaded",not_eligible,[],True
+EXC-110168,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-322297450a28a541,CASE-3c7e757967ce,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110756,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-e996ebef83c6c22e,CASE-39cfaf78b463,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110063,T-KAVERI,ESCALATED_TO_SENIOR_QA,EVB-f3e4f003902bf45f,CASE-6f59a72b3413,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112240,T-AURA,ESCALATED_TO_SENIOR_QA,EVB-cb8ce8f538deef25,CASE-3cb33a65fc73,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-111890,T-MERIDIAN,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-8d916d132264886f,CASE-6d8321b47e28,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-111330,T-CAMPOS,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-d218bf949d3b5528,CASE-2e9107133f6c,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110070,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-f334c1cfeb9df828,CASE-5d6329716837,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110616,T-NORDIA,ESCALATED_TO_SENIOR_QA,EVB-fd6539dff1b3ed54,CASE-d70217117863,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112296,T-PINNACLE,ESCALATED_TO_SENIOR_QA,EVB-052f2d21e383c2dd,CASE-9f5a65f7264f,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111848,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-93c00c67a3f8ac87,CASE-414d8cc78801,,NON_ACTIONABLE — dock door / ambient exposure,not_eligible,[],True
+EXC-110084,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-1f688084d0280827,CASE-661a5b697807,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110882,T-KAVERI,ESCALATED_TO_SENIOR_QA,EVB-0d76235da2787942,CASE-0b7ba37a103b,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-110350,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-13c4f99cd7b22b9e,CASE-2261f7fbd063,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110413,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-484eb8c1d574be0b,CASE-cdb0dd0d9d32,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110574,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-e37cee7c50dabe2a,CASE-4ecc59f6a592,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-111253,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-91d6fe79cc7b095f,CASE-754f18c6e917,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-112786,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-733dff752c8268e1,CASE-ac5fe6e2eff6,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112485,T-MERIDIAN,ESCALATED_TO_SENIOR_QA,EVB-f6427e751279ff2b,CASE-3fcc10fbdb5b,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111183,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-6d340692509ea929,CASE-e93cc9d26138,,NON_ACTIONABLE — duplicate of earlier alert,not_eligible,[],True
+EXC-110910,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-f3e11aab1dcd82bd,CASE-9ac5b55e3722,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-111386,T-CAMPOS,ESCALATED_TO_SENIOR_QA,EVB-4406769facd44ce8,CASE-6388bc814742,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112303,T-AURA,ESCALATED_TO_SENIOR_QA,EVB-a38b73202d30b5c0,CASE-2197f0d4e3ae,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111918,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-7e41ad73bf868167,CASE-84ab720a870c,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-111407,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-fcd7e517d508b47d,CASE-781fd3b0cb8c,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112863,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-bde3e682c2aeaa98,CASE-3ee4b3ca8b41,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-111827,T-AURA,ESCALATED_TO_SENIOR_QA,EVB-04af0b3148e756fb,CASE-c72ede7e5306,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-111701,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-99cdd8c1494b939b,CASE-eecc98db7f6b,,NON_ACTIONABLE — duplicate of earlier alert,not_eligible,[],True
+EXC-111876,T-SAHYADRI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-20d588b9de316f73,CASE-72c595500c3d,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110658,T-MERIDIAN,ESCALATED_TO_SENIOR_QA,EVB-692deb21c5e0837b,CASE-4c37da7da2e9,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110196,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-08bf8b25a0b7127a,CASE-96045362e957,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110868,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-a240b6c422df0559,CASE-8332a014a0a7,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-111673,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-e680945178e4d078,CASE-7f428f3b846d,,NON_ACTIONABLE — duplicate of earlier alert,not_eligible,[],True
+EXC-111540,T-KAVERI,ESCALATED_TO_SENIOR_QA,EVB-d00a2422176dde11,CASE-bc6f97a427f6,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-111764,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-fcd5b5fa0fca00aa,CASE-238713ebd92a,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-111869,T-AURA,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-349f51d7c5b671cd,CASE-a8feabec9e60,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110819,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-7848a0c3d6fb7796,CASE-0b0e36eec08b,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-111099,T-AURA,ESCALATED_TO_SENIOR_QA,EVB-f3cfc349bdcf41e2,CASE-64103db37e2c,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112156,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-86f0dc4990433058,CASE-11bc67847173,,NON_ACTIONABLE — dock door / ambient exposure,not_eligible,[],True
+EXC-110623,T-PINNACLE,ESCALATED_TO_SENIOR_QA,EVB-06b5b5eb3e360d58,CASE-6e0a20475311,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112058,T-MERIDIAN,ESCALATED_TO_SENIOR_QA,EVB-f03ed4a88cad0894,CASE-daa0d1701b87,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-111169,T-KAVERI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-666029e0377c5172,CASE-ac6d3be2f54c,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110749,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-1af8c089b1c4b485,CASE-04eeb9396f7e,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-110588,T-PINNACLE,ESCALATED_TO_SENIOR_QA,EVB-4a50adcad1138e37,CASE-fe2807894c38,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112408,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-b875d360c4fe4793,CASE-b22356a73062,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112121,T-SAHYADRI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-ae277402e16fafc6,CASE-43320ae812c4,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-112695,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-47d020f890027466,CASE-6f0090ce2321,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-112793,T-NORDIA,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-aca07a4372b59930,CASE-064341720fd4,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-112716,T-SAHYADRI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-9f410ddb868ec668,CASE-8495234144a6,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110581,T-AURA,ESCALATED_TO_SENIOR_QA,EVB-e5f12c006f8cc22e,CASE-6106db0be56b,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111680,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-d2b9694a8b043ab8,CASE-58106b52a825,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110707,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-2af3a8b62d7f48b4,CASE-83c1474b118d,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-111736,T-SAHYADRI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-d26a785242bf73c0,CASE-07db03397eb2,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110980,T-SAHYADRI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-692376ee0bd4af0a,CASE-10391305f045,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-112555,T-KAVERI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-8c9877a3a046586a,CASE-abcd72495444,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-111939,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-9dcbe202aebc3b02,CASE-fde5df2f39ce,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110035,T-CAMPOS,ESCALATED_TO_SENIOR_QA,EVB-3e75e75efd17a544,CASE-06cf355b0e88,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110420,T-KAVERI,ESCALATED_TO_SENIOR_QA,EVB-3a0ef828a77b2bd0,CASE-e99bc11ca3f8,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112569,T-KAVERI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-dd8ff70ac5f3a0d8,CASE-2ba190dc830a,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-111295,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-18a607360c3e60d5,CASE-b8d7e94460ad,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110294,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-3ac1ad0b9176a7fa,CASE-6b2de112dc66,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111302,T-PINNACLE,ESCALATED_TO_SENIOR_QA,EVB-8580a4fbab520bb5,CASE-0434110c4875,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110532,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-819a5e22a483ba80,CASE-29615ee905ac,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110371,T-AURA,ESCALATED_TO_SENIOR_QA,EVB-586b139118cb10a4,CASE-babcb7640e31,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110644,T-NORDIA,ESCALATED_TO_SENIOR_QA,EVB-1c9646e6590c0a58,CASE-d4f5ed8bcecd,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111925,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-5351c2d62ad9b96b,CASE-049ea243d648,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-111911,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-ae2c7638d584e997,CASE-95fb6eea6822,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-111057,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-e8fae501ce8e6bea,CASE-55a08240eac4,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-112275,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-2e1829db72ccb4bb,CASE-a20b7dcd5ab3,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-110742,T-KAVERI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-b07b30a94d0ed7ba,CASE-a9c6513d79a9,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-111883,T-KAVERI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-6bf01f868a1bdd81,CASE-e96a89cafb8b,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-111456,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-e384f7906cc8e5fa,CASE-70ee654356f1,,NON_ACTIONABLE — duplicate of earlier alert,not_eligible,[],True
+EXC-111603,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-5e470f84b980383f,CASE-a8fabf4ab243,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-112604,T-KAVERI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-ac02909a1b34efe9,CASE-838710a7bc08,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110315,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-788d9b0019db5825,CASE-feac0bff3c04,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111078,T-SAHYADRI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-1e681777eda0bc1a,CASE-b57334d5401c,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110539,T-NORDIA,ESCALATED_TO_SENIOR_QA,EVB-073736ad094fe727,CASE-65db931dc0a1,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110133,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-2f1f21262df68757,CASE-02ed725fb904,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111162,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-c6e82efc5c8e8e9e,CASE-9b886f02fde5,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-111309,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-0771bcff1d1a1981,CASE-00ad1cde4b7c,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-111561,T-NORDIA,ESCALATED_TO_SENIOR_QA,EVB-0263019d115df9b7,CASE-b33918235fdd,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-107133,T-KAVERI,ESCALATED_TO_SENIOR_QA,EVB-2cfd78ab75f02712,CASE-d3ae8adbfae6,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110245,T-CAMPOS,ESCALATED_TO_SENIOR_QA,EVB-a7abafe19cdf0791,CASE-3da2186c82e8,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111834,T-SAHYADRI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-9418d1196590f95b,CASE-e3902c23a519,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-112723,T-NORDIA,ESCALATED_TO_SENIOR_QA,EVB-8a4cceaced88074b,CASE-49db465652da,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110077,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-580ca43c7996e3e0,CASE-0f0f6462142f,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110049,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-51c5b41160203097,CASE-90e29efbcf9f,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112093,T-KAVERI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-d11f9bf7e69774d2,CASE-391906bdcaee,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-110665,T-AURA,ESCALATED_TO_SENIOR_QA,EVB-7d270b57bfe1595c,CASE-29fbe52cb213,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111778,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-1b243122fc1addd8,CASE-bf55f49b5669,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-112366,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-98351145ddf3f4a7,CASE-6998a3dab6c1,,NON_ACTIONABLE — dock door / ambient exposure,not_eligible,[],True
+EXC-110105,T-PINNACLE,ESCALATED_TO_SENIOR_QA,EVB-76c1a2f0d8c8a13f,CASE-8b092a948106,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110679,T-PINNACLE,ESCALATED_TO_SENIOR_QA,EVB-634a48392705d516,CASE-e6404f6f7a67,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112891,T-KAVERI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-b48286f53bfac3a3,CASE-cc49ec248935,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-112457,T-CAMPOS,ESCALATED_TO_SENIOR_QA,EVB-3cd90aade167cdd3,CASE-e431c54b2b0d,,NON_ACTIONABLE — dock door / ambient exposure,not_eligible,[],True
+EXC-111806,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-4dff34f5b607368d,CASE-f0acb289d11d,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111435,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-845f48c122949370,CASE-f99056ebbb9b,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110301,T-AURA,ESCALATED_TO_SENIOR_QA,EVB-e615d1d684ae6663,CASE-0ce72511ce01,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112898,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-a51855ad692279c0,CASE-22de9d51f204,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111708,T-PINNACLE,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-7bd275fef53dbdc2,CASE-e8155f6faa16,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110378,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-e76170c2b67f9103,CASE-0be973f12844,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111421,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-0573340ee606bbda,CASE-11eea65f13ee,,NON_ACTIONABLE — dock door / ambient exposure,not_eligible,[],True
+EXC-112905,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-c1e88dc7235987bb,CASE-415eed20cd6d,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110126,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-f858a2024187a707,CASE-a67d4db28667,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112814,T-KAVERI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-5958e28f8794d1ec,CASE-7256d5ac1756,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-112037,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-ee7d2c05a12322df,CASE-ee302ecc45f9,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-111757,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-fbdd169c1f4365e2,CASE-f81647485cde,,NON_ACTIONABLE — dock door / ambient exposure,not_eligible,[],True
+EXC-111659,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-55da458d030c6e27,CASE-e13cc40e06a8,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-111127,T-AURA,ESCALATED_TO_SENIOR_QA,EVB-d2b0a933e1be5c3e,CASE-feaf9744c28e,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-111491,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-2a44081724a0a060,CASE-794b1721ee63,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-111953,T-KAVERI,ESCALATED_TO_SENIOR_QA,EVB-d7a5d9ba4ef30e30,CASE-b5a09936908e,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112142,T-AURA,ESCALATED_TO_SENIOR_QA,EVB-6452058e38fccd44,CASE-004fd077be93,,NON_ACTIONABLE — dock door / ambient exposure,not_eligible,[],True
+EXC-111547,T-PINNACLE,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-c1fe5a6d3d9d66f5,CASE-897cfe84e2af,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110609,T-AURA,ESCALATED_TO_SENIOR_QA,EVB-22edb2eb579fa16b,CASE-4fcd15b64877,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110966,T-SAHYADRI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-480e8187a6dd4892,CASE-15c9bf2475a7,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110546,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-02ed36a937d627fd,CASE-8359331bfc93,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112674,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-3c8598da7c355208,CASE-f8e9914188ad,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-111596,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-ff5f1c63b9be6150,CASE-b3dff743d3e6,,NON_ACTIONABLE — duplicate of earlier alert,not_eligible,[],True
+EXC-110812,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-e4c4f8a3978a53c4,CASE-08398e36841c,,"NON_ACTIONABLE — facility equipment event, no product loaded",not_eligible,[],True
+EXC-112856,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-8019bf9644569a4d,CASE-237b73fe5d5e,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-111211,T-KAVERI,ESCALATED_TO_SENIOR_QA,EVB-d06f8706af9ae4bd,CASE-53ba346f834d,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-110903,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-220aa6501d200fbb,CASE-6eda127162d8,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-111351,T-SAHYADRI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-93e8fefe33ac47ff,CASE-6a46ee9941a9,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110056,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-e941683f684a2572,CASE-dcd9aea5ee6f,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112149,T-CAMPOS,ESCALATED_TO_SENIOR_QA,EVB-762a4ed253b680ac,CASE-f71b89e94c49,,NON_ACTIONABLE — duplicate of earlier alert,not_eligible,[],True
+EXC-112730,T-CAMPOS,ESCALATED_TO_SENIOR_QA,EVB-9b746c2bfd2926c9,CASE-a6ae1251dc12,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-111050,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-0cac8ef4e0944ccb,CASE-6ddb3e33c5b4,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111974,T-MERIDIAN,ESCALATED_TO_SENIOR_QA,EVB-ed609df4e44bd988,CASE-7f98a5c8bc12,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-111022,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-0c6baec6ee83e214,CASE-aa0985dbb4d7,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-112660,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-ed03adc7700eb514,CASE-1fc5472d79c4,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-111393,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-62f14c1113b07a92,CASE-e05e417ec6b9,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112338,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-636af4e0253be8cc,CASE-cc2c4d57b450,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111372,T-MERIDIAN,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-84f0620ef98ce275,CASE-92621384ab0c,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-111190,T-KAVERI,ESCALATED_TO_SENIOR_QA,EVB-6bd6d0b2bbf59c50,CASE-7499a01f49c9,,NON_ACTIONABLE — dock door / ambient exposure,not_eligible,[],True
+EXC-110483,T-NORDIA,ESCALATED_TO_SENIOR_QA,EVB-6f83315b61d49a0b,CASE-866dbf57b77b,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110455,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-bc794777685fffd5,CASE-49630c79458b,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110917,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-d3246acbbe00e87e,CASE-12f207563c77,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-110784,T-KAVERI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-0ff12ca961296d82,CASE-ef2860136847,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-112401,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-838d18307928ea6c,CASE-a40955e061c3,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-111820,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-98e4598e12e08e63,CASE-15f14fe9a7a1,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-112219,T-PINNACLE,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-9697251c2215efa4,CASE-27da1c830400,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110329,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-8133bbbba9c981f4,CASE-c4ccde7f3d29,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111085,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-a4b15850f8e6fcd4,CASE-cb6dc436d2d5,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-112702,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-ab334f4a50b95eab,CASE-5ef0f1777727,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-112324,T-AURA,ESCALATED_TO_SENIOR_QA,EVB-ab4ca18f773007d5,CASE-a21370382d0d,,NON_ACTIONABLE — dock door / ambient exposure,not_eligible,[],True
+EXC-110399,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-4aa703c3d78bc197,CASE-c392262d04cb,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112618,T-CAMPOS,ESCALATED_TO_SENIOR_QA,EVB-f4cdb15f0369daf0,CASE-e72c6c022c79,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-110385,T-AURA,ESCALATED_TO_SENIOR_QA,EVB-61e42acde16ac421,CASE-ba94d425db8b,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111855,T-AURA,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-c9d070178adb910c,CASE-a7ac388cbe51,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-112709,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-3c178eac8135211c,CASE-2982e51f1ce1,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112639,T-NORDIA,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-a02c8c4fe561b5a1,CASE-cbeccc48710c,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-111029,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-6326832d73135bd9,CASE-6869d4ba4e5d,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-112170,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-db5e96cf061250ba,CASE-0aba7b7fadf4,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-112114,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-cc56f3da60af9609,CASE-fdcfd29268e4,,NON_ACTIONABLE — duplicate of earlier alert,not_eligible,[],True
+EXC-112632,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-9c567b6a98ab7f51,CASE-b386d265e7ec,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112597,T-KAVERI,ESCALATED_TO_SENIOR_QA,EVB-d6f1d9b46a6d11c3,CASE-304e59d59101,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-111512,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-c7439e92d491a974,CASE-81b384db96a9,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-110560,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-a2bca36947d6cbc5,CASE-34819c4957c6,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111218,T-AURA,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-6331c2eaf15fb65c,CASE-5a79febf1599,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110014,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-cc2ecca24e4af569,CASE-431a71765189,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111568,T-KAVERI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-3504334f2954d446,CASE-262033f5b8c5,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-111379,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-fe1c420d0c10b6cb,CASE-081cbc615ae5,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-112128,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-a0e6813709277102,CASE-e3faf856230c,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-111260,T-AURA,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-db65687a489049e5,CASE-b82cc6ba84ea,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-112527,T-PINNACLE,ESCALATED_TO_SENIOR_QA,EVB-e83235f2266d9bdb,CASE-06d9c329f69f,,NON_ACTIONABLE — dock door / ambient exposure,not_eligible,[],True
+EXC-110924,T-SAHYADRI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-74887ed686dd8847,CASE-974375c68996,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-110840,T-SAHYADRI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-5e5937e07c298b31,CASE-4d2b73dd8bee,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-110630,T-MERIDIAN,ESCALATED_TO_SENIOR_QA,EVB-9d214f74990d6d99,CASE-944552370b88,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112331,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-7fbbe04bf5d903ac,CASE-68760e156406,,NON_ACTIONABLE — duplicate of earlier alert,not_eligible,[],True
+EXC-111344,T-KAVERI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-beaefe22b63bc2b8,CASE-528bf3db5ef7,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-112940,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-a663842d031b5ae8,CASE-1fd4cedae13b,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-111281,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-823cb6a83e3bf348,CASE-f8c38db47392,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-112002,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-fb321382665989f3,CASE-f9eaf1b73024,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-111232,T-CAMPOS,ESCALATED_TO_SENIOR_QA,EVB-048ee34a47ef49f2,CASE-3b00d130f450,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-110343,T-AURA,ESCALATED_TO_SENIOR_QA,EVB-8cc52e76a4f2e626,CASE-d11891715ce7,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110938,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-55a10ef57a935fe6,CASE-a8f2f30abcc4,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-110231,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-7d421c9de1ea04c7,CASE-d0c110d9876c,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111743,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-128fe131853b2324,CASE-0dc563efbd16,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-110266,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-036d714d899a6783,CASE-eb054aec144f,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111610,T-KAVERI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-8b2e612a6d21c807,CASE-b4e39c725bf4,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-112065,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-83b5060d245ed5f8,CASE-8aa4e5fbbfd6,,NON_ACTIONABLE — dock door / ambient exposure,not_eligible,[],True
+EXC-112520,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-1d8bfe2d8d2b21e8,CASE-f8e7527e8e48,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-110889,T-SAHYADRI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-af3d017ca74bf51e,CASE-b65bd5a711b0,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-110567,T-KAVERI,ESCALATED_TO_SENIOR_QA,EVB-fd48b84da078eae9,CASE-0d9019115cfa,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111792,T-NORDIA,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-fd87ad61c4d1b0e6,CASE-304f1ad100b8,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-112373,T-SAHYADRI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-388411560eb433ee,CASE-147f28aae63f,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-110511,T-PINNACLE,ESCALATED_TO_SENIOR_QA,EVB-48dc9e3ea6479ecb,CASE-6fc7de53ee59,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110777,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-ba5b22d37344d8fd,CASE-427477b10c95,,NON_ACTIONABLE — dock door / ambient exposure,not_eligible,[],True
+EXC-111785,T-SAHYADRI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-60eb4c4855f62f64,CASE-8aec3c8348d6,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-112534,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-72b7dfa449c33988,CASE-d453171f93c2,,NON_ACTIONABLE — duplicate of earlier alert,not_eligible,[],True
+EXC-110175,T-CAMPOS,ESCALATED_TO_SENIOR_QA,EVB-fb2c6541163090c9,CASE-4defd3bc802e,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112464,T-NORDIA,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-f36b1854bae0f379,CASE-925e90fb5180,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110161,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-e06c2c6e18a84a30,CASE-c99224601470,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110441,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-a39c1fec03abd118,CASE-6759aa8f4f73,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111449,T-AURA,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-0f39598ba20f8118,CASE-642ca4156dc7,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-111001,T-SAHYADRI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-e93444eff4df37c6,CASE-9d0a244a22a2,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-112282,T-PINNACLE,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-f3912d045fabcffb,CASE-8135926ef744,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-112415,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-757eddac27a85f69,CASE-34233d48f322,,NON_ACTIONABLE — dock door / ambient exposure,not_eligible,[],True
+EXC-111897,T-KAVERI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-e2e172bc09239903,CASE-27260dd10dca,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-111967,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-3a672353f7ff22f0,CASE-6c3f3de61402,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-112268,T-KAVERI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-5e573ce95068b0ba,CASE-723de47aff25,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-112254,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-3acc17fe7fab6397,CASE-c72125f35921,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-110490,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-fc58d44f4c58e8d1,CASE-e24eb2866fb3,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110791,T-SAHYADRI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-6724087535f0642b,CASE-60486b0f4462,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-112625,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-017d83e9ca704c49,CASE-b84b8704005f,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-110406,T-PINNACLE,ESCALATED_TO_SENIOR_QA,EVB-03e2588b12a098e6,CASE-c55a9f8dd4bf,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112611,T-CAMPOS,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-e19f7f6122a94728,CASE-3761c4f65593,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-112471,T-AURA,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-7c420eae272d4e58,CASE-39ad1b9734b4,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110028,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-21084ae384c7773e,CASE-818048f88f24,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110763,T-SAHYADRI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-cd02a006874048bb,CASE-0d7a60927ea4,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110217,T-CAMPOS,ESCALATED_TO_SENIOR_QA,EVB-95b37e7f69d12d58,CASE-911c8e2c3e8e,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111442,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-cc1c586106412e87,CASE-ee12c75cff3e,,NON_ACTIONABLE — dock door / ambient exposure,not_eligible,[],True
+EXC-111414,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-7e4347c0fbdf3d9f,CASE-721b520e5152,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-111155,T-MERIDIAN,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-660368a79ae3ec41,CASE-bda54a176138,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-112849,T-NORDIA,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-c1068a45d1576c11,CASE-7aa97e493d58,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-111092,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-408f060e1867cc3f,CASE-879596869482,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-111134,T-MERIDIAN,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-ffc75295d8a11663,CASE-820328c023fb,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110721,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-44abd8cfb4e6004f,CASE-c003c7a95e0d,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-112884,T-KAVERI,ESCALATED_TO_SENIOR_QA,EVB-e5886f7fa0d4768f,CASE-456c5e3bf2b1,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110987,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-7c8870501f8b5efb,CASE-1d9586ab7b1f,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-111694,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-b693150233d6ab6c,CASE-33876705bf53,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-111666,T-NORDIA,ESCALATED_TO_SENIOR_QA,EVB-79fe7b43fecb1cba,CASE-92f822ef314f,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111904,T-PINNACLE,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-1ffbd13bf0f36438,CASE-b17bfaf6b982,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-112779,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-0e3819e5d8a1c9fa,CASE-68d595eeb747,,NON_ACTIONABLE — duplicate of earlier alert,not_eligible,[],True
+EXC-111358,T-AURA,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-d2f86caf6962093b,CASE-f3cf2317137a,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-112030,T-CAMPOS,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-32d0d34bf0cee89b,CASE-28b017f0ed6d,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-112100,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-f8032febbf2d189a,CASE-3da7915ce9fc,,"NON_ACTIONABLE — facility equipment event, no product loaded",not_eligible,[],True
+EXC-112310,T-SAHYADRI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-f7236215650dc056,CASE-a432f4da33a7,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-112478,T-NORDIA,ESCALATED_TO_SENIOR_QA,EVB-537a0e6016a08277,CASE-9e4d8141639b,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112646,T-NORDIA,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-613464b0888350ff,CASE-f88362da97e4,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-112926,T-NORDIA,ESCALATED_TO_SENIOR_QA,EVB-20c32506b43bb65c,CASE-2fe63c9d9492,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-110210,T-AURA,ESCALATED_TO_SENIOR_QA,EVB-eb68577f65d132c5,CASE-4dca9b795ad2,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110322,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-ff68a36ccdb7af90,CASE-9271a19779ec,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110728,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-47337fa9837684e5,CASE-74f368107f95,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-112184,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-af4cedde4d088a33,CASE-c23d2dcb83e5,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-112751,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-dccd0b4a84191abf,CASE-6bf693b60bd8,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110994,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-c29c5022d8c5effd,CASE-784df38105f3,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-110504,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-917eeca1f6fc9b6d,CASE-10750a8dae12,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110973,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-c7445b07e2d3da02,CASE-2caf24a2c1dd,,NON_ACTIONABLE — dock door / ambient exposure,not_eligible,[],True
+EXC-112233,T-KAVERI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-50428cc7848d52a6,CASE-c804608168f0,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-111946,T-CAMPOS,ESCALATED_TO_SENIOR_QA,EVB-3763383d7ca7348d,CASE-152bb8d3d03d,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111225,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-aaca26f60689a447,CASE-02defbae9c60,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111750,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-8273d87210c25913,CASE-40379bda37cb,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-111799,T-KAVERI,ESCALATED_TO_SENIOR_QA,EVB-e177c0ae1048eda9,CASE-df0f60d1c34a,,NON_ACTIONABLE — dock door / ambient exposure,not_eligible,[],True
+EXC-110602,T-KAVERI,ESCALATED_TO_SENIOR_QA,EVB-4a5e7802518fde73,CASE-606f043f68f2,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112443,T-KAVERI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-585220088358ee08,CASE-f6a9deb3eda8,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-111288,T-NORDIA,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-e77ec0963bd5b20b,CASE-f98fa5c5073b,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-112107,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-f483d00e7c1ae3e6,CASE-d195b78bc1e5,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110259,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-b4bf3ac7ea6b9b55,CASE-1f9096d153f9,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112912,T-KAVERI,ESCALATED_TO_SENIOR_QA,EVB-83be389059640d2f,CASE-2f6dfd124d82,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-110959,T-KAVERI,ESCALATED_TO_SENIOR_QA,EVB-c0bc084151a0f71f,CASE-1e1fc7416db5,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-110462,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-079df45114428b1a,CASE-daa62af83d71,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111176,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-ff2139e41b6d045e,CASE-9024d4726700,,NON_ACTIONABLE — dock door / ambient exposure,not_eligible,[],True
+EXC-111645,T-SAHYADRI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-bf1bddfa849392e5,CASE-20eff7c6604f,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-111715,T-SAHYADRI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-b196f4842351630f,CASE-0011524626d1,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110427,T-AURA,ESCALATED_TO_SENIOR_QA,EVB-9a9947abeb8d9d63,CASE-2f46c6ce9466,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112072,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-b6b98cc43a76615e,CASE-b4b357d2e1da,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-112688,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-8a1654c177c21ed6,CASE-c8e7e71e145b,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-112450,T-CAMPOS,ESCALATED_TO_SENIOR_QA,EVB-f2910266d6d8355e,CASE-5b680a22998f,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-111729,T-PINNACLE,ESCALATED_TO_SENIOR_QA,EVB-7369e59cfb20c858,CASE-d6dcd3aabf91,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-111505,T-VIRENT,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-695309f2917e017a,CASE-d52dd8d88539,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-111981,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-d9b1c7f4cd94308f,CASE-f7489086ea07,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-111470,T-CAMPOS,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-523606ad5e95d20c,CASE-50dc4c925cde,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-112429,T-PINNACLE,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-b1e704cb6e2d9cf0,CASE-9a5508e3171e,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110952,T-KAVERI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-d2a9fccce9b6852d,CASE-24a468a49ea3,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110525,T-SAHYADRI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-b1f9956c9c7942fd,CASE-b42675635775,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-112086,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-dc5684154c85cc2b,CASE-184072538c6a,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-110931,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-ee0bc3eb0a008399,CASE-011e67e82c16,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-112009,T-SAHYADRI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-2a82db5d82088796,CASE-90648abac035,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110714,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-87d7870eb66db6ce,CASE-d85b0d2edd88,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-112023,T-PINNACLE,ESCALATED_TO_SENIOR_QA,EVB-5a98a12a5e86ca6f,CASE-91c5fcea7aae,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110700,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-09cba5343150e3f2,CASE-f621b89f002b,,NON_ACTIONABLE — dock door / ambient exposure,not_eligible,[],True
+EXC-111484,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-4f4b83888c11b859,CASE-ea205610755d,,NON_ACTIONABLE — sensor artefact,not_eligible,[],True
+EXC-110826,T-SAHYADRI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-27c8cccfb131ff7e,CASE-63268929c1f4,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-110091,T-CAMPOS,ESCALATED_TO_SENIOR_QA,EVB-44bfc32be085ebe4,CASE-71eec8c63e49,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-112562,T-NORDIA,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-31143e7b3795732a,CASE-5660eb61713a,,NON_ACTIONABLE — duplicate of earlier alert,historical_candidate_unverified,[],True
+EXC-112541,T-MERIDIAN,ESCALATED_TO_SENIOR_QA,EVB-31d0824fd92dc89b,CASE-6b7aeac89bb0,,ACTIONABLE — excursion confirmed,not_eligible,[],True
+EXC-110833,T-SAHYADRI,HISTORICAL_CLOSURE_CANDIDATE_UNVERIFIED,EVB-b3631997440c9027,CASE-ef49faebbee4,,"NON_ACTIONABLE — facility equipment event, no product loaded",historical_candidate_unverified,[],True
+EXC-110805,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-72437817e2ec539c,CASE-0fa2ab9ac9a5,,NON_ACTIONABLE — within permitted excursion allowance,not_eligible,[],True
+EXC-110469,T-VIRENT,ESCALATED_TO_SENIOR_QA,EVB-194270e2bc884ce1,CASE-fee119cb1663,,NON_ACTIONABLE — dock door / ambient exposure,not_eligible,[],True
+EXC-112919,T-SAHYADRI,ESCALATED_TO_SENIOR_QA,EVB-b8cc7e4f853354f9,CASE-bbd065c6e857,,NON_ACTIONABLE — dock door / ambient exposure,not_eligible,[],True
+EXC-111498,T-NORDIA,ESCALATED_TO_SENIOR_QA,EVB-ca142102580f5f4f,CASE-37eea2506fe0,,NON_ACTIONABLE — dock door / ambient exposure,not_eligible,[],True

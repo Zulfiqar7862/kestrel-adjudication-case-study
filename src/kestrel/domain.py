@@ -115,12 +115,12 @@ class Recommendation:
     carrier_has_cold_chain_clause: Optional[bool] = None
     corrected_max_temp_c: Optional[float] = None
     bulletin_applied: bool = False
-    regulator_reportable: bool = False
+    regulator_reportable: Optional[bool] = None
     reg_window_hours: Optional[float] = None
     reg_deadline_utc: Optional[datetime] = None
-    rule_pack_version: str = "0.5.0"
+    rule_pack_version: str = "0.5.1"
     ref_snapshot_id: Optional[str] = None
-    code_version: str = "0.5.0"
+    code_version: str = "0.5.1"
 
 
 @dataclass
@@ -135,7 +135,7 @@ class Case:
     final_disposition: Optional[Disposition] = None
     evidence_bundle_id: Optional[str] = None
     reg_deadline_utc: Optional[datetime] = None
-    regulator_reportable: bool = False
+    regulator_reportable: Optional[bool] = None
     priority_score: float = 0.0
     reopened_from_case_id: Optional[str] = None
     reopen_reason: Optional[str] = None
@@ -157,6 +157,6 @@ class EvidenceBundleMeta:
     case_id: Optional[str] = None
     created_at: Optional[datetime] = None
     retention_until: Optional[datetime] = None
-    rule_pack_version: str = "0.5.0"
+    rule_pack_version: str = "0.5.1"
     ref_snapshot_id: str = ""
-    code_version: str = "0.5.0"
+    code_version: str = "0.5.1"

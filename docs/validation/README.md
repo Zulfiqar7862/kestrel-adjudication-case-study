@@ -1,3 +1,13 @@
+# Notification-only follow-up (0.5.1)
+
+These specific defects were addressed; overall safety and production readiness remain unvalidated.
+
+[Six acceptance criteria, red/green logs, exact commands, sample rerun and replay/chain verification](notification-obligations-review/report.md).
+
+Sample counts unchanged: **0 AUTO_CLOSE / 290 QA / 130 historical candidates**; note/quarantine/destroy zero. Independently verified closures **0**. The separate notification lane has **28 conservative PENDING / 392 UNKNOWN**, not verified legal-reportability counts. All **420** former inferred deadlines are null/UNKNOWN without controlled applicability/calendar authority. Items 3–8 were not delivered; all uncommitted item-3 work was reverted after the scope change.
+
+---
+
 # Current historical-candidate review: rule/code 0.4.3
 
 These specific defects were addressed; overall safety and production readiness remain unvalidated.

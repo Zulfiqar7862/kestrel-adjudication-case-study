@@ -85,7 +85,7 @@ Every requirement cites the brief or pack. Where I push the board, I say so.
 | R3 No auto-sign product fate | `requires_human_signature`; lifecycle `sign()` | `test_lifecycle_sign_and_reopen_months_later` |
 | R4 Full basis ≤1h / 7y | Local captured-basis retrieval + retention metadata only; archival completeness/durability not established | `test_retrieval_latency_under_hour` |
 | R5 Bitemporal as-at | `BitemporalStore.as_of` / `sop_in_force` | `test_aura_sop_as_of_audit_date` |
-| R6 Regulatory clock ≠ disposition | `regulatory_clock`; case `reg_deadline_utc` | `test_queue_orders_by_reg_deadline` |
+| R6 Regulatory clock ≠ disposition | Independent SQLite `NotificationObligations`, scoped API, explicit UNKNOWN calendars | `tests/test_notification_acceptance.py` |
 | R7 Tenant isolation (Cl.22) | Evidence get and product/study lookup tenant-filtered; full derived-data controls remain unfinished | `test_tenant_isolation_meridian_clause` |
 | R8 Deterministic versioned logic | `rule_pack_version` + `ref_snapshot_id` on every bundle | `test_replay_determinism` |
 | R9 Cost ceiling | Deterministic path; no LLM on hot path | Design note |
@@ -157,7 +157,7 @@ Go-live scope: as-of engine drives **auto-close candidates** (human can still op
 
 | Gap / contradiction | Position |
 |---|---|
-| No per-tenant regulatory window table; tab 13 lists market windows; tab 12 notes Campos = 5 calendar days | Explicit defaults in `regulatory_clock`: Aura/Nordia 72h; Campos 5d; US tenants 24h operational SLA for the “next business day” programme; India 15d for notifiable products. Historical `reg_window_hours` on a row wins when present. |
+| No per-tenant regulatory window table; tab 13 lists market windows; tab 12 notes Campos = 5 calendar days | No legal defaults: applicability/calendar remain UNKNOWN without controlled tenant/product/market evidence. Historical windows are retained as reference, not authority. Explicit calendar arithmetic is tested; no approved production registry is supplied. |
 | `rules_engine_recommendation` name vs README (it’s the LLM assistant since 2024) | Treat column as “historical assistant draft.” Do not optimise agreement with it. |
 | T-KAVERI Glucodyne SoloJet cites STB-3584 indexed as **vial**; brand is SoloJet (**pen**); master text says cumulative 72h above 8°C; brief narrative says ≤6h to 15°C once | Prefer master permitted text when study presentation conflicts; flag mismatch; require human. Brief’s 6h/15°C figure is not on the Kaveri master row — I do not invent it. |
 | SOP overlapping effective dates (Kaveri Rev 01/02/03; README admits minority overlap) | Select highest revision, set `overlap_conflict`, require human confirm; do not hard-stop if stability is decisive (outcome match only, not proof the governing Annexure 2 limit is resolved). |
@@ -303,7 +303,7 @@ flowchart LR
 | **Identity / alias service** | Map GTIN/SKU/brand/facility/carrier strings → canonical IDs; aliases versioned / disputable | Brief §7: no shared data model |
 | **Reference data store** | Products, SOPs, stability, contracts with valid-time + transaction-time | AUD-2603; board commitment 3 |
 | **As-of adjudication engine** | Pure function: `(alert, as_of_slice, clock) → recommendation + evidence outline` | Hardest correctness surface; deterministic and replayable |
-| **Regulatory clock** | Deadline from `alert_ts`; market/tenant window; paging when storm threatens SLA | Separate from disposition clock |
+| **Regulatory clock** | Independent persisted obligations; explicit UNKNOWN applicability/calendar; controlled-rule arithmetic only | Separate from disposition; live paging unimplemented |
 | **Case lifecycle** | States, waits, reopen, dual signature | Tab 08; dual sign for Virent |
 | **Evidence bundle store** | WORM object per decision: inputs hash, rule version, refs, temp series pointer, approver | March failure was “we had the outcome” |
 | **Precedent store** | Tenant-scoped only; Meridian Cl.22 at query planner | INC-2512 |
@@ -521,7 +521,7 @@ Replay verifies the bundle, refuses unavailable code/rule versions or legacy bun
 - **Temperature scope:** endpoints/common-offset min/max/mean summaries do not prove all possible per-reading histories. Bulletin applicability is firmware-only, without calibrated device/date mapping or automatic historical-signature/invoice follow-up.
 - **Human approval:** typed name is not authentication, role validation, dual-signature or a qualified electronic signature. File+SQLite operations are not cross-resource atomic; parallel writers require transaction/concurrency hardening.
 - **Batch/lane:** no tenant+presentation+batch exposure ledger, atomic accumulation/idempotency or full lane history panel; unknown prior exposure is not proven zero.
-- **Clocks:** US next-business-day approximated24h; Brazil five calendar days approximated120h UTC. These are not verified legal cut-offs; Friday+24h can be early, not necessarily late. India15 days is sourced from tab13 for notifiable products only. Maintain jurisdiction calendars, applicability and notification state explicitly.
+- **Clocks (0.5.1):** The former 24h/120h/15d guesses are retired. Unknown applicability/calendar remains UNKNOWN, with no deadline. Independent SQLite obligations and retry/receipt claims survive disposition and process restart; actual filing, approved policy/calendar registry and paging remain unimplemented. See the notification acceptance report.
 - **Storm/outage:** no live incident collapse, bounded durable admission, tenant fairness or independent regulatory pager. The1,912-alert/38min incident is source history, not a reproduced load test. Queue sorting alone cannot guarantee no starvation.
 - **Archive/cost:** SQLite/local files are writable and often temporary. Need tenant/region object-lock, legal holds, independent anchoring and restore qualification. No model API calls is not a zero total platform bill; bytes/replicas/retrieval/residency/on-call costs remain to be measured.
 

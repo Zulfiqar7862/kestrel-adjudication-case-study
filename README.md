@@ -103,6 +103,8 @@ Shadow: 91 firmware candidates and 91 scenario/evidence diffs, **0 disposition f
 
 Before (0.4.2): **130/290/0/0/0** in AUTO_CLOSE/QA/note/quarantine/destroy order. After (0.4.3): **0/290/0/0/0**, plus **130 unverified historical candidates** (93 duplicate, 37 facility/no-product). All 130 changed to unresolved review; no closure-count target was used. `closure_counts` separately reports verified AUTO_CLOSE **0**, historical candidates **130**, and other unverified AUTO_CLOSE **0**. No independent duplicate/load verification artifact was found or invented. [Executed report, failing/passing tests and every changed event](docs/validation/historical-candidates-review/report.md).
 
+Notification-only follow-up (0.5.1): sample dispositions remain **0 AUTO_CLOSE / 290 QA / 130 historical candidates**. The independent SQLite lane retains **28 conservative pending obligations / 392 UNKNOWN**, not verified legal reportability. All 420 former deadline guesses are now null/UNKNOWN without controlled applicability. [Six acceptance criteria, exact commands and executed verification](docs/validation/notification-obligations-review/report.md).
+
 The [0.4.2 storage-limit report and 86-case table](docs/validation/storage-limits-review/report.md) and [0.4.1 correctness report](docs/validation/correctness-review/report.md) are retained as historical snapshots, not current counts.
 
 ## Project structure
@@ -224,7 +226,7 @@ The full reasoning, requirement traceability and board pushback are in
 
 ## Known limits
 
-- Notification obligations now have an independent durable queue (`kestrel notifications --tenant T`, `/notifications`). Signing, closing, storms or assembler failure cannot suppress it. No approved tenant/product/market calendar is supplied: legal deadlines remain UNRESOLVED; historical windows are reference only. Controlled calendar arithmetic is not legal-policy validation. No filing-delivery verification adapter is supplied.
+- Notification obligations now have an independent durable queue (`kestrel notifications --tenant T`, `/notifications`). Signing, closing, storms or assembler failure cannot suppress it. No approved tenant/product/market calendar is supplied: legal deadlines remain UNKNOWN; historical windows are reference only. The standalone and main notification API fail closed without explicit credential-digest/tenant read-write grants; local CLI access requires database/filesystem privileges. Retry intents and unverified receipt acknowledgements persist separately from cases. Controlled calendar arithmetic is not legal-policy validation. No filing-delivery verification adapter is supplied.
 - SQLite and local JSON files are the prototype store. Production would use Postgres and object storage with
   object lock.
 - Missing/invalid **required measurements** and **unresolved storage text** are separate QA reasons. Explicit one-sided limits require only their corresponding extremum; mean never substitutes. Strictness/inclusivity is preserved, and no lower bound is invented. Additional restrictions are retained separately, not independently verified.

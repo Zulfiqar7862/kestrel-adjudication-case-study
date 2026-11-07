@@ -27,7 +27,7 @@ class TestGoldenExc107133(_KestrelTestCase):
         self.assertEqual(r.reported_max_temp_c, 11.2)
         self.assertIsNotNone(r.evidence.get("product"))
         self.assertIsNone(r.reg_deadline_utc)
-        self.assertEqual(r.evidence["regulatory"]["deadline_status"], "UNRESOLVED")
+        self.assertEqual(r.evidence["regulatory"]["deadline_status"], "UNKNOWN")
 
 
 class TestEngineGolden(_KestrelTestCase):

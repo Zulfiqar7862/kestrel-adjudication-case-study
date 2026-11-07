@@ -28,7 +28,7 @@ class TestInvariants(_KestrelTestCase):
             r = self.svc.engine.adjudicate(ev)
             self.assertIsNone(r.reg_window_hours)
             self.assertIsNone(r.reg_deadline_utc)
-            self.assertEqual(r.evidence["regulatory"]["deadline_status"], "UNRESOLVED")
+            self.assertEqual(r.evidence["regulatory"]["deadline_status"], "UNKNOWN")
             pending = {o["event_id"]: o for o in self.svc.notifications.queue(ev["tenant_code"])}
             self.assertEqual(pending[ev["event_id"]]["reportability_status"], "REPORTABLE")
             self.assertEqual(pending[ev["event_id"]]["state"], "PENDING")

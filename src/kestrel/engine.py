@@ -85,7 +85,7 @@ class AdjudicationResult:
     carrier_has_cold_chain_clause: Optional[bool] = None
     reported_max_temp_c: Optional[float] = None
     bulletin_applied: bool = False
-    regulator_reportable: bool = False
+    regulator_reportable: Optional[bool] = None
     reg_window_hours: Optional[float] = None
     reg_deadline_utc: Optional[str] = None
     historical_recommendation: Optional[str] = None

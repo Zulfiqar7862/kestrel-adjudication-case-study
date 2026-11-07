@@ -14,7 +14,7 @@ def test_historical_us_window_is_not_a_controlled_business_calendar():
         "T-PINNACLE", datetime(2026, 2, 13, 18), historically_reportable="Y", historical_window_hours=24
     )
     assert clock.deadline_utc is None
-    assert clock.deadline_status == "UNRESOLVED"
+    assert clock.deadline_status == "UNKNOWN"
     assert clock.reportability_status == "REPORTABLE"
 
 
@@ -22,7 +22,7 @@ def test_historical_us_window_is_not_a_controlled_business_calendar():
 def test_absence_of_verified_applicability_does_not_prove_no_obligation(flag):
     clock = regulatory_clock("unknown", datetime(2026, 2, 13), historically_reportable=flag)
     assert clock.deadline_utc is None
-    assert clock.reportability_status == "UNRESOLVED"
+    assert clock.reportability_status == "UNKNOWN"
 
 
 def test_controlled_business_calendar_is_explicit_scoped_and_bounded():
@@ -91,7 +91,21 @@ class TestIndependentNotifications(_KestrelTestCase):
 
         with patch.object(self.svc, "bootstrap", side_effect=RuntimeError("source down")):
             with patch.object(self.svc.lifecycle, "storm_safe_queue", side_effect=RuntimeError("case queue down")):
-                client = TestClient(create_notification_app(self.svc.notifications))
+                from hashlib import sha256
+
+                from kestrel.notifications import NotificationAccess, NotificationPrincipal
+
+                access = NotificationAccess(
+                    {
+                        sha256(b"fixture").hexdigest(): NotificationPrincipal(
+                            "fixture", frozenset({"T-KAVERI"}), frozenset()
+                        )
+                    }
+                )
+                client = TestClient(
+                    create_notification_app(self.svc.notifications, notification_access=access),
+                    headers={"Authorization": "Bearer fixture"},
+                )
                 response = client.get("/notifications", params={"tenant_code": "T-KAVERI"})
                 assert response.status_code == 200
                 assert response.json()["items"]
@@ -123,3 +137,48 @@ def test_calendar_days_use_declared_local_cutoff_across_dst():
         replace(rule, cutoff="02:30").deadline(datetime(2026, 3, 28, 12))
     with pytest.raises(ValueError):
         replace(rule, source_hash="").deadline(datetime(2026, 3, 28, 12))
+
+
+def test_calendar_local_due_date_must_stay_inside_controlled_coverage():
+    from kestrel.rules.regulatory import NotificationRule
+
+    rule = NotificationRule(
+        "fixture",
+        "T",
+        "P",
+        "M",
+        "calendar_days",
+        1,
+        "a" * 64,
+        "fixture approval",
+        timezone="Pacific/Kiritimati",
+        cutoff="00:30",
+        calendar_start=date(2026, 1, 1),
+        calendar_end=date(2026, 12, 31),
+    )
+    clock = regulatory_clock("T", datetime(2026, 12, 31), rule=rule, product_ref="P", market="M")
+    assert clock.deadline_utc is None
+    assert clock.deadline_status == "UNKNOWN"
+
+
+def test_business_day_calendar_cannot_silently_assume_no_holidays():
+    from kestrel.rules.regulatory import NotificationRule
+
+    rule = NotificationRule(
+        "fixture",
+        "T",
+        "P",
+        "M",
+        "next_business_day",
+        1,
+        "a" * 64,
+        "fixture approval",
+        timezone="Europe/Berlin",
+        cutoff="17:00",
+        weekends=(5, 6),
+        calendar_start=date(2026, 1, 1),
+        calendar_end=date(2026, 12, 31),
+    )
+    clock = regulatory_clock("T", datetime(2026, 2, 13), rule=rule, product_ref="P", market="M")
+    assert clock.deadline_utc is None
+    assert clock.deadline_status == "UNKNOWN"

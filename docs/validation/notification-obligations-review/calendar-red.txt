@@ -1,0 +1,30 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+______ test_calendar_local_due_date_must_stay_inside_controlled_coverage _______
+
+    def test_calendar_local_due_date_must_stay_inside_controlled_coverage():
+        from kestrel.rules.regulatory import NotificationRule
+
+        rule = NotificationRule("fixture", "T", "P", "M", "calendar_days", 1, "a" * 64, "fixture approval", timezone="Pacific/Kiritimati", cutoff="00:30", calendar_start=date(2026, 1, 1), calendar_end=date(2026, 12, 31))
+        clock = regulatory_clock("T", datetime(2026, 12, 31), rule=rule, product_ref="P", market="M")
+>       assert clock.deadline_utc is None
+E       AssertionError: assert datetime.datetime(2026, 12, 31, 10, 30) is None
+E        +  where datetime.datetime(2026, 12, 31, 10, 30) = RegulatoryClock(reportable=None, window_hours=None, deadline_utc=datetime.datetime(2026, 12, 31, 10, 30), basis='fixtu...t_eval=10.5, reportability_status='UNKNOWN', deadline_status='CONTROLLED_RULE_INPUT', historical_window_reference=None).deadline_utc
+
+tests/test_notifications.py:147: AssertionError
+________ test_business_day_calendar_cannot_silently_assume_no_holidays _________
+
+    def test_business_day_calendar_cannot_silently_assume_no_holidays():
+        from kestrel.rules.regulatory import NotificationRule
+
+        rule = NotificationRule("fixture", "T", "P", "M", "next_business_day", 1, "a" * 64, "fixture approval", timezone="Europe/Berlin", cutoff="17:00", weekends=(5, 6), calendar_start=date(2026, 1, 1), calendar_end=date(2026, 12, 31))
+        clock = regulatory_clock("T", datetime(2026, 2, 13), rule=rule, product_ref="P", market="M")
+>       assert clock.deadline_utc is None
+E       AssertionError: assert datetime.datetime(2026, 2, 16, 16, 0) is None
+E        +  where datetime.datetime(2026, 2, 16, 16, 0) = RegulatoryClock(reportable=None, window_hours=None, deadline_utc=datetime.datetime(2026, 2, 16, 16, 0), basis='fixture...t_eval=88.0, reportability_status='UNKNOWN', deadline_status='CONTROLLED_RULE_INPUT', historical_window_reference=None).deadline_utc
+
+tests/test_notifications.py:156: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_notifications.py::test_calendar_local_due_date_must_stay_inside_controlled_coverage
+FAILED tests/test_notifications.py::test_business_day_calendar_cannot_silently_assume_no_holidays
+2 failed, 9 deselected in 0.10s

@@ -1,0 +1,18 @@
+{
+  "tenant_code": "T-KAVERI",
+  "event_id": "EXC-107133",
+  "state": "UNKNOWN",
+  "reportability_status": "UNKNOWN",
+  "reportability_basis": "historical reference; requires applicability confirmation",
+  "alert_ts_utc": "2026-07-28 06:31",
+  "deadline_utc": null,
+  "deadline_status": "UNKNOWN",
+  "calendar_issue": "Unresolved applicability/calendar authority; historical reportability/window are reference only",
+  "historical_window_reference": null,
+  "source_hash": "dadca605b96aaf8859b343fa4aba6fdbad11dd27ab07256181aab80243dc16e8",
+  "filing_references": [],
+  "delivery_attempts": [],
+  "acknowledgements": [],
+  "delivery_status": "NOT_ATTEMPTED",
+  "retry_at": null
+}
